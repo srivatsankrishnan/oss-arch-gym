@@ -1,2 +1,2 @@
-# oss-arch-gym
+# ArchGym Project
 Open source version of ArchGym project.
