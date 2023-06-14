@@ -1,0 +1,1 @@
+rm -rf agent_.* arch_gym_x86_agent_* *.err *.out 

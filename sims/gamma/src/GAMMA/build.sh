@@ -1,0 +1,1 @@
+docker build -t gamma_archgym -f Dockerfile .

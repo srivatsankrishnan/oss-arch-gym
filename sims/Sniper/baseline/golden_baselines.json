@@ -1,0 +1,70 @@
+{
+  "Branch Prediction": {
+    "MPKI": 10.911454,
+    "misprediction rate": 0.06880174800000001
+  },
+  "Cache": {
+    "Cache L1-D": {
+      "MPKI": 10.567091700000002,
+      "miss rate": 0.023551770000000003
+    },
+    "Cache L1-I": {
+      "MPKI": 15.1396359,
+      "miss rate": 0.10314538799999999
+    },
+    "Cache L2": {
+      "MPKI": 4.6125304,
+      "miss rate": 0.187783444
+    },
+    "Cache L3": {
+      "MPKI": 0.4013997,
+      "miss rate": 0.101983353
+    }
+  },
+  "IPC": 1.1348401894064328,
+  "Power": {
+    "Processor": {
+      "Area": 95.00759981,
+      "Gate Leakage": 0.4266864661,
+      "Peak Dynamic": 25.92188155200001,
+      "Peak Power": 39.423111522000006,
+      "Runtime Dynamic": 7.6685866252,
+      "Subthreshold Leakage": 13.074438505999998,
+      "Subthreshold Leakage with power gating": 6.096068076200001,
+      "Total Cores/Area": 32.607547836,
+      "Total Cores/Gate Leakage": 0.37298954006000007,
+      "Total Cores/Peak Dynamic": 25.87398251,
+      "Total Cores/Runtime Dynamic": 7.6397572018,
+      "Total Cores/Subthreshold Leakage": 6.218645624599999,
+      "Total Cores/Subthreshold Leakage with power gating": 2.5830583377999994,
+      "Total L3s/Area": 61.90626184999999,
+      "Total L3s/Gate Leakage": 0.04841273172599999,
+      "Total L3s/Peak Dynamic": 0.047963240716000013,
+      "Total L3s/Runtime Dynamic": 0.028837723234,
+      "Total L3s/Subthreshold Leakage": 6.800713983000001,
+      "Total L3s/Subthreshold Leakage with power gating": 3.3235735272,
+      "Total Leakage": 13.501129972000001,
+      "Total NoCs/Area": 0.49373812504,
+      "Total NoCs/Gate Leakage": 0.005284214313600001,
+      "Total NoCs/Peak Dynamic": 0.0,
+      "Total NoCs/Runtime Dynamic": 0.0,
+      "Total NoCs/Subthreshold Leakage": 0.05510329791200001,
+      "Total NoCs/Subthreshold Leakage with power gating": 0.020663786716000002
+    }
+  },
+  "TLB": {
+    "D-TLB": {
+      "MPKI": 6.758474499999998,
+      "miss rate": 0.015036585000000002
+    },
+    "I-TLB": {
+      "MPKI": 0.2603312,
+      "miss rate": 0.001768432
+    },
+    "L2 TLB": {
+      "MPKI": 1.351992,
+      "miss rate": 0.191698638
+    }
+  },
+  "Time": 33086733.046999995
+}

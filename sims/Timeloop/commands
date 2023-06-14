@@ -1,0 +1,10 @@
+singularity pull docker://susobhang70/timeloop_4_archgym:latest
+
+ln -s /path/to/timeloop_4_archgym_latest.sif timeloop_4_archgym
+
+export USER_UID=$UID
+export USER_GID=$(id -g)
+
+
+singularity run --writable-tmpfs --bind /n/janapa_reddi_lab/Lab/susobhan/arch-gym/sims/Timeloop/script:/home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/script,/n/janapa_reddi_lab/Lab/susobhan/arch-gym/sims/Timeloop/output:/home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/output,/n/janapa_reddi_lab/Lab/susobhan/arch-gym/sims/Timeloop/arch:/home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/arch,/n/janapa_reddi_lab/Lab/susobhan/arch-gym/sims/Timeloop/mapper:/home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/mapper timeloop_4_archgym
+

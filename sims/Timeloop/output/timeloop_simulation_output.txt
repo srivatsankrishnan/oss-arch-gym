@@ -1,0 +1,15 @@
+  _______                __                
+ /_  __(_)___ ___  ___  / /___  ____  ____ 
+  / / / / __ `__ \/ _ \/ / __ \/ __ \/ __ \
+ / / / / / / / / /  __/ / /_/ / /_/ / /_/ /
+/_/ /_/_/ /_/ /_/\___/_/\____/\____/ .___/ 
+                                  /_/      
+
+Problem configuration complete.
+execute:/usr/local/bin/accelergy arch/eyeriss_like.yaml arch/components/smartbuffer_RF.yaml arch/components/smartbuffer_SRAM.yaml mapper/mapper.yaml constraints/eyeriss_like_arch_constraints.yaml constraints/eyeriss_like_map_constraints.yaml ../../layer_shapes/AlexNet/AlexNet_layer3.yaml --oprefix timeloop-mapper. -o ./ > timeloop-mapper.accelergy.log 2>&1
+Generate Accelergy ERT (energy reference table) to replace internal energy model.
+Generate Accelergy ART (area reference table) to replace internal area model.
+Architecture configuration complete.
+Sparse optimization configuration complete.
+Using threads = 8
+Mapper configuration complete.

@@ -1,0 +1,11 @@
+#!/bin/bash
+#SBATCH -J arch_gym
+#SBATCH -o arch_gym.out
+#SBATCH -e arch_gym.err
+#SBATCH -p seas_dgx1_priority
+#SBATCH -c 32
+#SBATCH -t 7-00:00
+#SBATCH --mem-per-cpu=4000
+#SBATCH --mail-type=END
+#SBATCH --mail-user=srivatsan@seas.harvard.edu
+bash run_arch_gym.sh

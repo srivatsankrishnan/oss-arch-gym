@@ -1,0 +1,229 @@
+import os
+import sys
+import json
+from typing import Optional
+
+os.sys.path.insert(0, os.path.abspath('../../'))
+from configs import arch_gym_configs
+os.sys.path.insert(0, os.path.abspath('../../acme'))
+print(os.sys.path)
+import envlogger
+from acme.agents.jax import ppo
+from acme.agents.jax import sac
+from acme import wrappers
+from acme import specs
+
+
+from absl import app
+from absl import flags
+from absl import logging
+from acme.utils import lp_utils
+from acme.jax import experiments
+from acme.agents.jax import normalization
+
+from acme.utils.loggers.tf_summary import TFSummaryLogger
+from acme.utils.loggers.terminal import TerminalLogger
+from acme.utils.loggers.csv import CSVLogger
+from acme.utils.loggers import aggregators
+from acme.utils.loggers import base
+
+
+from arch_gym.envs import timeloop_acme_wrapper_rl
+from arch_gym.envs.TimeloopEnv_RL import TimeloopEnv
+print("Import Successful")
+
+FLAGS = flags.FLAGS
+
+# get the base directory from the file
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+print("BASE_DIR: ", BASE_DIR)
+
+# Workload to run for training
+
+flags.DEFINE_string("script", str(BASE_DIR) + "/script", "Path to the script")
+flags.DEFINE_string("output", str(BASE_DIR) + "/output", "Path to the output")
+flags.DEFINE_string("arch", str(BASE_DIR) + "/arch", "Path to the arch")
+flags.DEFINE_string("mapper", str(BASE_DIR) + "/mapper", "Path to the mapper")
+_WORKLOAD = flags.DEFINE_string("workload", str(BASE_DIR) + "/layer_shapes/AlexNet", "Path to the workload")
+flags.DEFINE_string("summary_dir", ".", "Path to the log")
+flags.DEFINE_string("params_file", str(BASE_DIR) + "/parameters.ini", "Path to the parameters file")
+
+flags.DEFINE_string("runtime", "docker", "Runtime to use: docker or singularity")
+
+# select which RL algorithm to use 
+_RL_AGO = flags.DEFINE_string('rl_algo', 'ppo', 'RL algorithm.')
+
+# select which RL form to use
+_RL_FORM = flags.DEFINE_string('rl_form', 'sa', 'RL form.')
+
+
+# Hyperparameters for each RL algorithm
+_NUM_STEPS = flags.DEFINE_integer('num_steps', 1000000, 'Number of training steps.')
+_MAX_STEPS = flags.DEFINE_integer('max_steps', 1, 'Number of max training steps.')
+_EVAL_EVERY = flags.DEFINE_integer('eval_every', 50, 'Number of evaluation steps.')
+_EVAL_EPISODES = flags.DEFINE_integer('eval_episodes', 10, 'Number of evaluation episode.')
+_SEED = flags.DEFINE_integer('seed', 1, 'Random seed.')
+_LEARNING_RATE = flags.DEFINE_float('learning_rate', 2e-5, 'Learning rate.')
+# Acceptable values for reward: power, latency, area or any combination with a space in between them (i.e. "latency power")
+_REWARD_FORM = flags.DEFINE_string('reward_form', 'energy', 'Reward form.')
+# Scale reward
+_REWARD_SCALE = flags.DEFINE_string('reward_scale', 'false', 'Scale reward.')
+# Hyperparameters for PPO 
+_ENTROPY_COST = flags.DEFINE_float('entropy_cost', 0.1, 'Entropy cost.')
+_PPO_CLIPPING_EPSILON = flags.DEFINE_float('ppo_clipping_epsilon', 0.2, 'PPO clipping epsilon.')
+_PPO_BATCH_SIZE = flags.DEFINE_integer('batch_size', 32, 'PPO batch size.')
+_CLIP_VALUE = flags.DEFINE_bool('clip_value', False, 'Clip value.')
+
+# Hyperparameters for SAC
+_N_STEP = flags.DEFINE_integer('n_step', 1, 'Number of gradient steps.')
+
+# Experiment setup related parameters
+_SUMMARYDIR = flags.DEFINE_string('summarydir', './rl_logs', 'Directory to save summaries.')
+_ENVLOGGER_DIR = flags.DEFINE_string('envlogger_dir', 'trajectory', 'Directory to save envlogger.')
+_USE_ENVLOGGER = flags.DEFINE_bool('use_envlogger', False, 'Use envlogger.')
+_RUN_DISTRIBUTED = flags.DEFINE_bool(
+    'run_distributed', False, 'Should an agent be executed in a '
+    'distributed way (the default is a single-threaded agent)')
+
+flags.DEFINE_float('target_energy', 20444.2, 'Target energy value.')
+flags.DEFINE_float('target_area', 1.7255, 'Target area value.')
+flags.DEFINE_float('target_cycles', 6308563, 'Target cycles value.')
+
+_EXP_NAME = flags.DEFINE_string('exp_name', 'ppo_1agent', 'exp name')
+
+
+def get_directory_name():
+    #
+
+    _EXP_NAME = 'Algo_{}_rlform_{}_num_steps_{}_seed_{}_lr_{}_entropy_{}_bs_{}_clip_eps_{}_rewardscale_{}'.format(_RL_AGO.value, _RL_FORM.value,_NUM_STEPS.value, _SEED.value, _LEARNING_RATE.value, _ENTROPY_COST.value,_PPO_BATCH_SIZE.value,_PPO_CLIPPING_EPSILON.value, _REWARD_SCALE.value)
+    
+    return _EXP_NAME
+
+
+def wrap_in_envlogger(env, envlogger_dir):
+    metadata = {
+        'agent_type': FLAGS.rl_algo,
+        'rl_form': FLAGS.rl_form,
+        'num_steps': FLAGS.num_steps,
+        'env_type': type(env).__name__,
+    }
+    env = envlogger.EnvLogger(env,
+                        data_directory = envlogger_dir,
+                        metadata = metadata,
+                        max_episodes_per_file = 1000)
+    return env
+
+
+def _logger_factory(logger_label: str, steps_key: Optional[str] = None, task_instance: Optional[int]=0) -> base.Logger:
+  """logger factory."""
+  _EXP_NAME = get_directory_name()
+  if logger_label == 'actor':
+      terminal_logger = TerminalLogger(label=logger_label, print_fn=logging.info)
+      summarydir = os.path.join(FLAGS.summarydir,_EXP_NAME, logger_label)
+      tb_logger = TFSummaryLogger(summarydir, label=logger_label, steps_key=steps_key)
+      csv_logger = CSVLogger(summarydir, label=logger_label)
+      serialize_fn = base.to_numpy
+      logger = aggregators.Dispatcher([terminal_logger, tb_logger, csv_logger], serialize_fn)
+      return logger
+  elif logger_label == 'learner':
+      terminal_logger = TerminalLogger(label=logger_label, print_fn=logging.info)
+      summarydir = os.path.join(FLAGS.summarydir,_EXP_NAME, logger_label)
+      tb_logger = TFSummaryLogger(summarydir, label=logger_label, steps_key=steps_key)
+      csv_logger = CSVLogger(summarydir, label=logger_label)
+      serialize_fn = base.to_numpy
+      logger = aggregators.Dispatcher([terminal_logger, tb_logger, csv_logger], serialize_fn)
+      return logger
+  elif logger_label == 'evaluator':
+      terminal_logger = TerminalLogger(label=logger_label, print_fn=logging.info)
+      summarydir = os.path.join(FLAGS.summarydir,_EXP_NAME, logger_label)
+      tb_logger = TFSummaryLogger(summarydir, label=logger_label, steps_key=steps_key)
+      csv_logger = CSVLogger(summarydir, label=logger_label)
+      serialize_fn = base.to_numpy
+      logger = aggregators.Dispatcher([terminal_logger, tb_logger, csv_logger], serialize_fn)
+      return logger
+  else:
+    raise ValueError(
+        f'Improper value for logger label. Logger_label is {logger_label}')
+
+def build_experiment_config():
+    """Builds the experiment configuration."""
+    target_value = [FLAGS.target_energy, FLAGS.target_area, FLAGS.target_cycles]
+    
+    # CSV trajectory
+    _EXP_NAME = get_directory_name()
+    traj_dir = os.path.join(FLAGS.summarydir,_EXP_NAME, "csv_trajectory")
+
+    if not os.path.exists(traj_dir):
+        os.makedirs(traj_dir)
+
+    env = timeloop_acme_wrapper_rl.make_timeloop_env(script_dir= FLAGS.script, arch_dir=FLAGS.arch, 
+                            mapper_dir=FLAGS.mapper, workload_dir=FLAGS.workload,
+                            output_dir=FLAGS.output, target_val=target_value,
+                            reward_formulation=FLAGS.reward_form, 
+                            rl_form=FLAGS.rl_form,
+                            reward_scaling=FLAGS.reward_scale,
+                            max_steps=FLAGS.max_steps,
+                            traj_dir = traj_dir)
+
+    if FLAGS.use_envlogger:
+        envlogger_dir = os.path.join(FLAGS.summarydir, get_directory_name(), FLAGS.envlogger_dir)
+        if(not os.path.exists(envlogger_dir)):
+            os.makedirs(envlogger_dir)
+        env = wrap_in_envlogger(env, envlogger_dir)
+    
+    env_spec = specs.make_environment_spec(env)
+ 
+    if FLAGS.rl_algo == 'ppo':
+        config = ppo.PPOConfig(entropy_cost=FLAGS.entropy_cost,
+                            learning_rate=FLAGS.learning_rate,
+                            ppo_clipping_epsilon=FLAGS.ppo_clipping_epsilon,
+                            clip_value=FLAGS.clip_value,
+                            batch_size=FLAGS.batch_size,
+                            )
+        ppo_builder = ppo.PPOBuilder(config)
+
+        layer_sizes = (32, 32, 32)
+        make_eval_policy = lambda network: ppo.make_inference_fn(network, True)
+
+        return experiments.ExperimentConfig(
+            builder=ppo_builder,
+            environment_factory=lambda seed: env,
+            network_factory=lambda spec: ppo.make_networks(env_spec, layer_sizes),
+            policy_network_factory = ppo.make_inference_fn,
+            eval_policy_network_factory = make_eval_policy,
+            seed = FLAGS.seed,
+            logger_factory=_logger_factory,
+            max_num_actor_steps=FLAGS.num_steps)
+    elif FLAGS.rl_algo == 'sac':
+        config = sac.SACConfig(
+            learning_rate=FLAGS.learning_rate,
+            n_step=FLAGS.n_step,
+        )
+        sac_builder = sac.builder.SACBuilder(config)
+        
+        return experiments.ExperimentConfig(
+            builder = sac_builder,
+            environment_factory = lambda seed: env,
+            network_factory = lambda spec: sac.make_networks(env_spec, (32, 32, 32)),
+            seed = FLAGS.seed,
+            logger_factory = _logger_factory,
+            max_num_actor_steps = FLAGS.num_steps)
+    else:
+        raise ValueError(f'Improper value for rl_algo. rl_algo is {FLAGS.rl_algo}')
+
+
+def main(_):
+
+  config = build_experiment_config()
+  if FLAGS.run_distributed:
+    program = experiments.make_distributed_experiment(
+        experiment=config, num_actors=4)
+    lp.launch(program, xm_resources=lp_utils.make_xm_docker_resources(program))
+  else:
+    experiments.run_experiment(
+        experiment=config,
+        eval_every=FLAGS.eval_every,
+        num_eval_episodes=FLAGS.eval_episodes)
+
+if __name__ == '__main__':
+   app.run(main)

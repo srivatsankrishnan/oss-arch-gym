@@ -1,0 +1,873 @@
+ERT:
+  version: 0.3
+  tables:
+  - name: system.eyeriss.PE[0..125].psum_spad
+    actions:
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.00592
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 0.144
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 0.00592
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 0.144
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.00592
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 0.144
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 0.00592
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 0.144
+    - name: idle
+      arguments: null
+      energy: 0.00592
+  - name: system.eyeriss.PE[0..125].mac
+    actions:
+    - name: mac_random
+      arguments: null
+      energy: 2.20035
+    - name: mac_reused
+      arguments: null
+      energy: 1.87673
+    - name: mac_gated
+      arguments: null
+      energy: 0.10285
+    - name: idle
+      arguments: null
+      energy: 0.06595
+  - name: system.DRAM
+    actions:
+    - name: read
+      arguments: null
+      energy: 512
+    - name: write
+      arguments: null
+      energy: 512
+    - name: idle
+      arguments: null
+      energy: 0
+  - name: system.eyeriss.PE[0..125].ifmap_spad
+    actions:
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.04945
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 4.12573
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 1.79643
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 5.8727
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.04945
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 7.84399
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 3.38997
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 11.1845
+    - name: idle
+      arguments: null
+      energy: 0.01255
+  - name: system.eyeriss.PE[0..125].weights_spad
+    actions:
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.07216
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 0.21024
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 4.23288
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 4.37096
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.07216
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 0.21024
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 4.23288
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 4.37096
+    - name: idle
+      arguments: null
+      energy: 0.03526
+  - name: system.eyeriss.shared_glb
+    actions:
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 2
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 2
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 3
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 3
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 4
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 4
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 5
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 5
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 6
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 6
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 7
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 7
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 8
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 8
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 9
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 9
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 10
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 10
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 11
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 11
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 12
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 12
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 13
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 13
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 14
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 14
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 15
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 15
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 16
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 16
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 17
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 17
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 18
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 18
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 19
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 19
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 20
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 20
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 21
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 21
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 22
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 22
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 23
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 23
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 24
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 24
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 25
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 25
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 26
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 26
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 27
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 27
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 28
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 28
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 29
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 29
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 30
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 30
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 31
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 31
+        data_delta: 1
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 32
+        data_delta: 0
+      energy: 1.0488
+    - name: write
+      arguments:
+        address_delta: 32
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 2
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 2
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 3
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 3
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 4
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 4
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 5
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 5
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 6
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 6
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 7
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 7
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 8
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 8
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 9
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 9
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 10
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 10
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 11
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 11
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 12
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 12
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 13
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 13
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 14
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 14
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 15
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 15
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 16
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 16
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 17
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 17
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 18
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 18
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 19
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 19
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 20
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 20
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 21
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 21
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 22
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 22
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 23
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 23
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 24
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 24
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 25
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 25
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 26
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 26
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 27
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 27
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 28
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 28
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 29
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 29
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 30
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 30
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 31
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 31
+        data_delta: 1
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 32
+        data_delta: 0
+      energy: 1.0488
+    - name: read
+      arguments:
+        address_delta: 32
+        data_delta: 1
+      energy: 1.0488
+    - name: idle
+      arguments: null
+      energy: 0.0119
+  - name: system.eyeriss.DummyBuffer[0..13]
+    actions:
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.0549
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 0.19298
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 0.09824
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 0.23632
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 0.0549
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 0.19298
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 0.09824
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 0.23632
+    - name: idle
+      arguments: null
+      energy: 0.018

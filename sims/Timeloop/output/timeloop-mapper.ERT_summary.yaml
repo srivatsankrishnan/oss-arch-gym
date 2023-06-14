@@ -1,0 +1,126 @@
+ERT_summary:
+  version: 0.3
+  table_summary:
+  - name: system.eyeriss.PE[0..125].psum_spad
+    actions:
+    - name: read
+      average_energy: 0.07496
+      max_energy: 0.144
+      min_energy: 0.00592
+    - name: write
+      average_energy: 0.07496
+      max_energy: 0.144
+      min_energy: 0.00592
+    - name: idle
+      energy: 0.00592
+    primitive_estimation(s):
+    - name: system.eyeriss.PE[0..125].psum_spad
+      estimator: Aladdin_table
+  - name: system.eyeriss.PE[0..125].mac
+    actions:
+    - name: mac_random
+      energy: 2.20035
+    - name: mac_reused
+      energy: 1.87673
+    - name: mac_gated
+      energy: 0.10285
+    - name: idle
+      energy: 0.06595
+    primitive_estimation(s):
+    - name: system.eyeriss.PE[0..125].mac
+      estimator: Aladdin_table
+  - name: system.DRAM
+    actions:
+    - name: read
+      energy: 512
+    - name: write
+      energy: 512
+    - name: idle
+      energy: 0
+    primitive_estimation(s):
+    - name: system.DRAM
+      estimator: Cacti
+  - name: system.eyeriss.PE[0..125].ifmap_spad
+    actions:
+    - name: write
+      average_energy: 2.96108
+      max_energy: 5.8727
+      min_energy: 0.04945
+    - name: read
+      average_energy: 5.61698
+      max_energy: 11.1845
+      min_energy: 0.04945
+    - name: idle
+      energy: 0.01255
+    primitive_estimation(s):
+    - name: storage
+      estimator: Cacti
+    - name: address_generators[0]
+      estimator: Aladdin_table
+    - name: address_generators[1]
+      estimator: Aladdin_table
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: system.eyeriss.PE[0..125].weights_spad
+    actions:
+    - name: write
+      average_energy: 2.22156
+      max_energy: 4.37096
+      min_energy: 0.07216
+    - name: read
+      average_energy: 2.22156
+      max_energy: 4.37096
+      min_energy: 0.07216
+    - name: idle
+      energy: 0.03526
+    primitive_estimation(s):
+    - name: storage
+      estimator: Aladdin_table
+    - name: address_generators[0]
+      estimator: Aladdin_table
+    - name: address_generators[1]
+      estimator: Aladdin_table
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: system.eyeriss.shared_glb
+    actions:
+    - name: write
+      average_energy: 1.0488
+      max_energy: 1.0488
+      min_energy: 1.0488
+    - name: read
+      average_energy: 1.0488
+      max_energy: 1.0488
+      min_energy: 1.0488
+    - name: idle
+      energy: 0.0119
+    primitive_estimation(s):
+    - name: storage
+      estimator: dummy_table
+    - name: address_generators[0]
+      estimator: Aladdin_table
+    - name: address_generators[1]
+      estimator: Aladdin_table
+    - name: address_generators[0..1]
+      estimator: Aladdin_table
+  - name: system.eyeriss.DummyBuffer[0..13]
+    actions:
+    - name: write
+      average_energy: 0.14561
+      max_energy: 0.23632
+      min_energy: 0.0549
+    - name: read
+      average_energy: 0.14561
+      max_energy: 0.23632
+      min_energy: 0.0549
+    - name: idle
+      energy: 0.018
+    primitive_estimation(s):
+    - name: storage
+      estimator: Aladdin_table
+    - name: address_generators[0]
+      estimator: Aladdin_table
+    - name: address_generators[1]
+      estimator: Aladdin_table
+    - name: address_generators[0..1]
+      estimator: Aladdin_table

@@ -1,0 +1,74 @@
+architecture:
+  version: 0.3
+  subtree:
+    - name: System
+      attributes:
+        datawidth: 8
+        word-bits: 8
+        technology: 45nm
+      local:
+        - name: DRAM
+          class: DRAM
+          attributes:
+            type: LPDDR4
+            width: 64
+            block-size: 8
+            word-bits: 8
+      subtree:
+        - name: ws
+          local:
+            - name: GlobalBuffer
+              class: storage
+              subclass: smartbuffer_SRAM
+              attributes:
+                memory_depth: 2048
+                memory_width: 256
+                word-bits: 8
+                block-size: 32
+                n_banks: 4
+                nports: 2
+                meshX: 1
+          subtree:
+            - name: PE[0..15]
+              local:
+                - name: PEInputBuffer
+                  class: storage
+                  subclass: smartbuffer_RF
+                  attributes:
+                    memory_depth: 8192
+                    memory_width: 64
+                    word-bits: 8
+                    block-size: 8
+                    meshX: 16
+                - name: PEWeightBuffer[0..3]
+                  class: storage
+                  subclass: smartbuffer_RF
+                  attributes:
+                    memory_depth: 4096
+                    word-bits: 8
+                    meshX: 16
+                    block-size: 8
+                    n_banks: 8
+                - name: PEAccuBuffer[0..3]
+                  class: storage
+                  subclass: smartbuffer_RF
+                  attributes:
+                    memory_depth: 128
+                    word-bits: 24
+                    datawidth: 24
+                    meshX: 16
+                - name: PEWeightRegs[0..15]
+                  class: storage
+                  subclass: reg_storage
+                  attributes:
+                    memory_depth: 1
+                    word-bits: 8
+                    cluster-size: 64
+                    num-ports: 2
+                    meshX: 16
+                - name: LMAC[0..15]
+                  class: compute
+                  subclass: lmac
+                  attributes:
+                    datawidth: 8
+                    meshX: 16
