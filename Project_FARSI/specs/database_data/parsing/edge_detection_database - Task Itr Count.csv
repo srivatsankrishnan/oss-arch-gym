@@ -1,0 +1,9 @@
+Task Name,number of iterations
+souurce,1
+gaussianSmoothing,1638400
+laplacianEstimate,1638400
+computeZeroCrossings,1638400
+computeGradient,1638400
+computeMaxGradientLeaf,256
+rejectZeroCrossings,1638400
+siink,1

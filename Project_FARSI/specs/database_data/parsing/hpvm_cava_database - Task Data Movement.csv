@@ -1,0 +1,10 @@
+Task Name,souurce,scale_fxp_cloned,demosaic_fxp_cloned,denoise_fxp_cloned,transform_fxp_cloned,gamut_map_fxp_cloned,tone_map_fxp_cloned,descale_fxp_cloned,siink
+souurce,,91053,,,,,,,
+scale_fxp_cloned,,,364212,,,,,,
+demosaic_fxp_cloned,,,,364212,,,,,
+denoise_fxp_cloned,,,,,364212,,,,
+transform_fxp_cloned,,,,,,364212,,,
+gamut_map_fxp_cloned,,,,,,,364212,,
+tone_map_fxp_cloned,,,,,,,,364212,
+descale_fxp_cloned,,,,,,,,,91053
+siink,,,,,,,,,

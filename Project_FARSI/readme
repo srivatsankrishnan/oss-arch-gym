@@ -1,0 +1,21 @@
+This is the repository for FARSI code base
+
+
+** to run and collect data for exploration:
+	(1) cd data_collection/collection_utils/what_ifs/    # go to the executable folder
+	(2) set the workload name properly in FARSI_what_ifs.py
+	(3) python FARSI_what_ifs.py   # run FARSI.
+
+
+** to run and collect one simulation data:
+	(1) cd data_collection/collection_utils/sim_run/    # go to the executable folder
+	(2) set the workload name properly in simple_sim_run.py
+	(3) python simple_sim_run.py   # run FARSI
+
+
+
+** to modify the settings
+Modify the settings/config.py file. This file contains many knobs that will determine the exploration heuristic and simulation
+features. Please refer to the in file documentations for more details
+
+

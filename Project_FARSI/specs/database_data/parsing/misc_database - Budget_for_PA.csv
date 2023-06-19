@@ -1,0 +1,16 @@
+Workload,latency,power,area,cost
+audio_decoder,0.002,1000000.008737,1000000.000017475,0.000000001
+edge_detection,0.017,1000000.008737,1000000.000017475,0.000000001
+hpvm_cava,0.034,1000000.008737,1000000.000017475,0.000000001
+synthetic,0.034,1000000.008737,1000000.000017475,0.000000001
+simple_all_parallel,0.1,1,1,
+SOC_example,0.1,1,1,
+SOC_example_2p,0.1,1,1,
+partial_SOC_example_hard,0.1,1,1,
+SOC_example_4p,0.1,1,1,
+SOC_example_8p,0.1,1,1,
+SOC_example_1p,0.1,1,1,
+SOC_example_1p_2r,0.1,1,1,
+SOC_example_1p_4r,0.1,1,1,
+SOC_example_1p_8r,0.1,1,1,
+all,,0.008737,0.000017475,0.000000001

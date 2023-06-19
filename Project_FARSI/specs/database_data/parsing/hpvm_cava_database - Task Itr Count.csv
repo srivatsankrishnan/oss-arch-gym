@@ -1,0 +1,10 @@
+Task Name,number of iterations
+source,1
+scale_fxp_cloned,151
+demosaic_fxp_cloned,151
+denoise_fxp_cloned,151
+transform_fxp_cloned,151
+gamut_map_fxp_cloned,151
+tone_map_fxp_cloned,151
+descale_fxp_cloned,151
+siink,1

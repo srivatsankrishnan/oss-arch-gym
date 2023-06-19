@@ -1,0 +1,18 @@
+Task Name,number of iterations
+souurce,1
+zoomProcess_fxp_cloned,1
+psychoFilter_fxp_cloned,1
+rotateOrder3_fxp_cloned,1024
+FIR_right_fxp_cloned,16400
+FIR_left_fxp_cloned,16400
+IFFT_right_fxp_cloned,1
+IFFT_left_fxp_cloned,1
+rotateOrder2_fxp_cloned,1024
+rotateOrder1_fxp_cloned,1024
+overlap_right_fxp_cloned,1
+overlap_left_fxp_cloned,1
+setAndFFT_right_fxp_cloned,1
+setAndFFT_left_fxp_cloned,1
+rotatorSet_fxp_cloned,1
+zoomSet_fxp_cloned,1
+siink,1

@@ -1,0 +1,9 @@
+Task Name,A53,IP0
+souurce,0,
+gaussianSmoothing_3,,137341
+laplacianEstimate_3,,122700
+computeZeroCrossings_3,,118826
+computeGradient_3,,241114
+computeMaxGradientLeaf_3,,7148
+rejectZeroCrossings_3,,9669
+siink,0,

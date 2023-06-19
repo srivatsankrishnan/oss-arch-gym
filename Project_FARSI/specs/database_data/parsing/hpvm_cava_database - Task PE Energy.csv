@@ -1,0 +1,10 @@
+Task Name,A53,IP0
+souurce,0,
+scale_fxp_cloned,,26887
+demosaic_fxp_cloned,,131069
+denoise_fxp_cloned,,80897
+transform_fxp_cloned,,72148
+gamut_map_fxp_cloned,,208042
+tone_map_fxp_cloned,,35786
+descale_fxp_cloned,,27098
+siink,0,

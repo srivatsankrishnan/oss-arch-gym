@@ -1,0 +1,96 @@
+DeepSwarm:
+    save_folder:
+    metrics: loss
+    max_depth: 3
+    reuse_patience: 1
+
+    aco:
+        pheromone:
+            start: 0.1
+            decay: 0.1
+            evaporation: 0.1
+            verbose: False
+        greediness: 0.5
+        ant_count: 2
+
+
+Nodes:
+    # Multi-Layer Node/Network Implementation
+    # InputNode:
+    #     type: Input
+    #     attributes: 
+    #         name: ["Input"]
+    #         value: [None]
+    #     transitions:
+    #         ArchParam1Node: 1.0
+
+    # ArchParam1Node:
+    #     type: ArchParam1
+    #     attributes:
+    #         name: ["a_"]
+    #         value: [1.0, 3.0, 5.0]
+    #     transitions:
+    #         ArchParam2Node: 1.0
+
+    # ArchParam2Node:
+    #     type: ArchParam2
+    #     attributes:
+    #         name: ["b_"]
+    #         value: [1, 3, 5]
+    #     transitions:
+    #         ArchParam3Node: 1.0
+
+    # ArchParam3Node:
+    #     type: ArchParam3
+    #     attributes:
+    #         name: ["c_"]
+    #         value: [1, 3, 5]
+    #     transitions:
+    #         ArchParam4Node: 1.0
+
+    # ArchParam4Node:
+    #     type: ArchParam4
+    #     attributes:
+    #         name: ["d_"]
+    #         value: ["linear", "poly", "constant"]
+    #     transitions:
+    #         OutputNode: 1.0
+
+    # OutputNode:
+    #     type: Output
+    #     attributes:
+    #         name: ["Output"]
+    #         value: [None]
+    #     transitions: {}
+
+    # Single Node/Network Implementation
+    InputNode:
+        type: Input
+        attributes: 
+            name: ["Input"]
+            value: [None]
+        transitions:
+            ArchParamsNode: 1.0
+
+    ArchParamsNode:
+        type: ArchParams
+        attributes:
+            PagePolicy: ['Open', 'OpenAdaptive', 'Closed', 'ClosedAdaptive']
+            Scheduler:  ["Fifo", "FrFcfsGrp", "FrFcfs"]
+            SchedulerBuffer: ["Bankwise", "ReadWrite","Shared"]
+            RequestBufferSize: [1,2,3,4,5,6,7,8]
+            RespQueue: ["Fifo","Reorder"]
+            RefreshPolicy: ["NoRefresh","AllBank"]
+            RefreshMaxPostponed: [1,2,3,4,5,6,7,8]
+            RefreshMaxPulledin: [1,2,3,4,5,6,7,8]
+            Arbiter: ["Simple", "Fifo","Reorder"]
+            MaxActiveTransactions: [1,2,4,8,16,32,64,128]
+        transitions:
+            OutputNode: 1.0
+
+    OutputNode:
+        type: Output
+        attributes:
+            name: ["Output"]
+            value: [None]
+        transitions: {}

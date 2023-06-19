@@ -1,0 +1,64 @@
+DeepSwarm:
+    save_folder:
+    metrics: loss
+    max_depth: 3
+    reuse_patience: 1
+
+    aco:
+        pheromone:
+            start: 0.1
+            decay: 0.1
+            evaporation: 0.1
+            verbose: False
+        greediness: 0.5
+        ant_count: 2
+
+
+Nodes:
+    # Single Node/Network Implementation
+    InputNode:
+        type: Input
+        attributes: 
+            name: ["Input"]
+            value: [None]
+        transitions:
+            ArchParamsNode: 1.0
+
+    ArchParamsNode:
+        type: ArchParams
+        attributes:
+            NUM_PEs: ['PE[0..13]', 'PE[0..27]', 'PE[0..41]', 'PE[0..55]', 'PE[0..69]', 'PE[0..83]', 'PE[0..97]', 'PE[0..111]', 'PE[0..125]', 'PE[0..139]', 'PE[0..153]', 'PE[0..167]', 'PE[0..181]', 'PE[0..195]', 'PE[0..209]', 'PE[0..223]', 'PE[0..237]', 'PE[0..251]', 'PE[0..265]', 'PE[0..279]', 'PE[0..293]', 'PE[0..307]', 'PE[0..321]', 'PE[0..335]']
+            MAC_MESH_X: [7, 14]
+            IFMAP_SPAD_CLASS: ['regfile', 'smartbuffer_SRAM', 'smartbuffer_RF', 'SRAM']
+            PSUM_SPAD_CLASS: ['regfile', 'smartbuffer_SRAM', 'smartbuffer_RF', 'SRAM']
+            WEIGHTS_SPAD_CLASS: ['regfile', 'smartbuffer_SRAM', 'smartbuffer_RF', 'SRAM']
+            DUMMY_BUFFER_CLASS: ['regfile', 'smartbuffer_SRAM', 'smartbuffer_RF', 'SRAM']
+            SHARED_GLB_CLASS: ['regfile', 'smartbuffer_SRAM', 'smartbuffer_RF', 'SRAM']
+            IFMAP_SPAD_ATRIBUTES_memory_depth: [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
+            IFMAP_SPAD_ATRIBUTES_block-size: [1, 2, 4]
+            IFMAP_SPAD_ATRIBUTES_read_bandwidth: [2, 4, 8, 16]
+            IFMAP_SPAD_ATRIBUTES_write_bandwidth: [2, 4, 8, 16]
+            PSUM_SPAD_ATRIBUTES_memory_depth: [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
+            PSUM_SPAD_ATRIBUTES_block-size: [1, 2, 4]
+            PSUM_SPAD_ATRIBUTES_read_bandwidth: [2, 4, 8, 16]
+            PSUM_SPAD_ATRIBUTES_write_bandwidth: [2, 4, 8, 16]
+            WEIGHTS_SPAD_ATRIBUTES_memory_depth: [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
+            WEIGHTS_SPAD_ATRIBUTES_block-size: [1, 2, 4]
+            WEIGHTS_SPAD_ATRIBUTES_read_bandwidth: [2, 4, 8, 16]
+            WEIGHTS_SPAD_ATRIBUTES_write_bandwidth: [2, 4, 8, 16]
+            DUMMY_BUFFER_ATTRIBUTES_depth: [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
+            DUMMY_BUFFER_ATTRIBUTES_block-size: [1, 2, 4]
+            SHARED_GLB_ATTRIBUTES_memory_depth: [1024, 2048, 4096, 8192, 16384, 32768, 65536]
+            SHARED_GLB_ATTRIBUTES_n_banks: [16, 32, 64, 128]
+            SHARED_GLB_ATTRIBUTES_block-size: [1, 2, 4]
+            SHARED_GLB_ATTRIBUTES_read_bandwidth: [2, 4, 8, 16]
+            SHARED_GLB_ATTRIBUTES_write_bandwidth: [2, 4, 8, 16]
+        transitions:
+            OutputNode: 1.0
+
+    OutputNode:
+        type: Output
+        attributes:
+            name: ["Output"]
+            value: [None]
+        transitions: {}

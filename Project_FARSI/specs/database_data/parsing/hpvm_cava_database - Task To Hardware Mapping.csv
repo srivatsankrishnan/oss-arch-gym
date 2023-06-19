@@ -1,0 +1,10 @@
+A53_0,LMEM_0_0,LMEM_ic_0_0
+souurce,souurce -> scale_fxp_cloned,souurce -> scale_fxp_cloned
+scale_fxp_cloned,scale_fxp_cloned -> demosaic_fxp_cloned,scale_fxp_cloned -> demosaic_fxp_cloned
+demosaic_fxp_cloned,demosaic_fxp_cloned -> denoise_fxp_cloned,demosaic_fxp_cloned -> denoise_fxp_cloned
+denoise_fxp_cloned,denoise_fxp_cloned->transform_fxp_cloned,denoise_fxp_cloned->transform_fxp_cloned
+transform_fxp_cloned,transform_fxp_cloned->gamut_map_fxp_cloned,transform_fxp_cloned->gamut_map_fxp_cloned
+gamut_map_fxp_cloned,gamut_map_fxp_cloned->tone_map_fxp_cloned,gamut_map_fxp_cloned->tone_map_fxp_cloned
+tone_map_fxp_cloned,tone_map_fxp_cloned->descale_fxp_cloned,tone_map_fxp_cloned->descale_fxp_cloned
+descale_fxp_cloned,descale_fxp_cloned->siink,descale_fxp_cloned->siink
+siink,,

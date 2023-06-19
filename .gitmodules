@@ -1,0 +1,4 @@
+
+[submodule "sims/AstraSim/astra-sim"]
+	path = sims/AstraSim/astra-sim
+	url = https://github.com/astra-sim/astra-sim.git

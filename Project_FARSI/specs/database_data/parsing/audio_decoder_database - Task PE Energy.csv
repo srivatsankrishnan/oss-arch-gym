@@ -1,0 +1,19 @@
+Task Name,A53,IP0
+souurce,0,
+rotatorSet_fxp_cloned,,103.026
+psychoFilter_fxp_cloned,,142.002
+rotateOrder1_fxp_cloned,,112.713
+rotateOrder2_fxp_cloned,,386.718
+rotateOrder3_fxp_cloned,,945.308
+zoomSet_fxp_cloned,,8.986
+zoomProcess_fxp_cloned,,100.54
+setAndFFT_left_fxp_cloned,,0.206
+setAndFFT_right_fxp_cloned,,0.206
+FIR_left_fxp_cloned,,38.597
+FIR_right_fxp_cloned,,38.597
+IFFT_left_fxp_cloned,,4.371
+IFFT_right_fxp_cloned,,4.371
+overlap_left_fxp_cloned,,103.253
+overlap_right_fxp_cloned,,103.235
+siink,0,
+dummy_last,0,

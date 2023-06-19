@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Python
+*.pyc
+__pycache__/
+deepswarm-env/
+
+# Build files
+build/
+*.egg-info/
+dist/
+
+# Log files
+saves/
+
+# Temporary files
+temp-model

@@ -1,0 +1,15 @@
+variable_name,value
+ref_gpp_dhrystone_value,2.3
+arm_power_over_clock,=40.8*10^-12
+arm_fix_area,=.71*10^-6
+dsp_speed_up_coef,5
+dsp_power_over_clock,60*10^-12
+dsp_fix_area,=.44*10^-6
+mac_area,=.0000892*(10^-6)
+mac_allocated_per_mac_operations,=(10^-3)
+ip_speed_up_coef,20
+ip_power_reduction_coef,15
+memory_block_size,=1048576
+ref_ic_width,=4
+ref_mem_width,=4
+
