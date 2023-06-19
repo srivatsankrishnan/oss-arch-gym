@@ -50,7 +50,7 @@ series = {ISCA '23}
 }
 ```
 
-Checkout the [Sigarch Blog](https://www.sigarch.org/architecture-2-0-why-computer-architects-need-a-data-centric-ai-gymnasium/) for the highlevel motivation and how ArchGym serves as a template for Architecture 2.0
+Checkout the [Sigarch Blog](https://www.sigarch.org/architecture-2-0-why-computer-architects-need-a-data-centric-ai-gymnasium/) for the high level motivation and how ArchGym serves as a template for Architecture 2.0
 
 Please stay tuned regarding update to this space. We look forward to your contribution in this space.
 
