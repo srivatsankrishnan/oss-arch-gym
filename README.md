@@ -14,6 +14,7 @@ We currently support the following agents:
 - Bayesian Optimization (BO)
 - Reinforcement Learning (RL)
 - Random Walker (RW)
+- Vizier Algorithms (WIP. Please stay tuned!)
 
 ## Environments (Simulators + Workloads)
 Each environment is an encapsulation of the architecture cost model and the workload. The architecture cost model determines the cost of running the workload for a given set of architecture parameters. For example, the cost can be latency, throughput, area, or energy or any combination.
@@ -22,6 +23,8 @@ We currently support the following Gym Environments:
 - TimeloopGym (Timeloop Simulator + CNN Workloads)
 - FARSIGym    (FARSI Simulator + AR/VR Workloads)
 - MaestroGym (as used in GAMMA paper + DNN Workloads)
+- AstraSim (WIP. Please stay tuned)
+- CFUPlayground (WIP. Please stay tuned)
 
 
 ## Paper
