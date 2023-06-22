@@ -5,15 +5,19 @@ from absl import flags
 from absl import app
 from absl import logging
 
-os.sys.path.insert(0, os.path.abspath('../../'))
-from configs import arch_gym_configs
-from arch_gym.envs.envHelpers import helpers
-from arch_gym.envs import dramsys_wrapper
+os.sys.path.insert(0, os.path.abspath('../../arch_gym/envs/'))
+
+from custom_gym import ExampleEnv
+import customenv_wrapper
+print(customenv_wrapper.__dict__)
+from customenv_wrapper import CustomEnvWrapper
+# print(CustomEnvWrapper.__dict__)
+
+
 import envlogger
 import numpy as np
 import pandas as pd
 
-flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
 flags.DEFINE_integer('num_steps', 100, 'Number of training steps.')
 flags.DEFINE_integer('num_episodes', 2, 'Number of training episodes.')
 flags.DEFINE_string('traject_dir', 
@@ -21,7 +25,6 @@ flags.DEFINE_string('traject_dir',
             'Directory to save the dataset.')
 flags.DEFINE_bool('use_envlogger', False, 'Use envlogger to log the data.')  
 flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
-flags.DEFINE_string('reward_formulation', 'power', 'Which reward formulation to use?')
 FLAGS = flags.FLAGS
 
 def log_fitness_to_csv(filename, fitness_dict):
@@ -52,14 +55,15 @@ def wrap_in_envlogger(env, envlogger_dir):
         return env
 
 def main(_):
-    env = dramsys_wrapper.make_dramsys_env()
-    
-    # dram_helper = helpers()
+    # exampleEnv = ExampleEnv()
+    # env = CustomEnvWrapper(exampleEnv)
+    env = customenv_wrapper.make_custom_env()
+    # env = CustomEnvWrapper.make_custom_env()
     
     fitness_hist = {}
 
     # experiment name 
-    exp_name = str(FLAGS.workload)+"_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
+    exp_name = "num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
 
     # append logs to base path
     log_path = os.path.join(FLAGS.summary_dir, 'random_walker_logs', FLAGS.reward_formulation, exp_name)
@@ -80,10 +84,11 @@ def main(_):
         logging.info('Episode %r', i)
         for step in range(FLAGS.num_steps):
             # generate random actions
-            action = np.asarray(dram_helper.random_walk())
-
+            action = env.action_space.sample()
+            print(action)
+            sys.exit()
             # decode the actions
-            action_dict = dram_helper.action_decoder_ga(action)
+            # action_dict = 
 
             _, reward, c, info = env.step(action_dict)
             fitness_hist['reward'] = reward
@@ -93,4 +98,3 @@ def main(_):
     
 if __name__ == '__main__':
    app.run(main)
-
