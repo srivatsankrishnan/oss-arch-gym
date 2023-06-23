@@ -116,7 +116,16 @@ class AstraSimEnv(gym.Env):
         return 1 / (sum ** 0.5)
 
     # give it one action: one set of parameters from json file
-    def step(self, action):
+    def step(self, action_dict):
+
+        # write the three config files
+        with open(self.network_config, "w") as outfile:
+            outfile.write(json.dumps(action_dict['network'], indent=4))
+
+        with open(self.system_config, 'w') as file:
+            for key, value in action_dict["system"].items():
+                file.write(f'{key}: {value}\n')
+
         # the action is actually the parsed parameter files
         print("Step: " + str(self.counter))
         if (self.counter == self.max_steps):
@@ -127,11 +136,7 @@ class AstraSimEnv(gym.Env):
             self.counter += 1
 
         # start subrpocess to run the simulation
-        exe_final = self.exe_path
-        network_config = self.network_config
-        system_config = self.system_config
-        workload_config = self.workload_config
-        process = subprocess.Popen([exe_final, network_config, system_config, workload_config],
+        process = subprocess.Popen([self.exe_path, self.network_config, self.system_config, self.workload_config],
                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         # get the output
