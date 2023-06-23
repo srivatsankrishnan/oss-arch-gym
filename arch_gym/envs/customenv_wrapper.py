@@ -15,7 +15,7 @@
 """Wraps an OpenAI Gym environment to be used as a dm_env environment."""
 
 from typing import Any, Dict, List, Optional
-
+import acme
 from acme import specs
 from acme import types
 from acme import wrappers

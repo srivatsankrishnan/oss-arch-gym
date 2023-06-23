@@ -6,9 +6,9 @@ class ExampleEnv(Env):
     def __init__(self):
         super(ExampleEnv, self).__init__()
 
-        self.energy = 0.0;
-        self.area = 0.0;
-        self.latency = 0.0;
+        self.energy = 0.0
+        self.area = 0.0
+        self.latency = 0.0
     
         self.ideal = {'num_cores':4, 'freq':2.0, 'mem_type':'SRAM', 'mem_size':32}
 
@@ -42,9 +42,9 @@ class ExampleEnv(Env):
         return observation, reward, done, {}
 
     def reset(self):
-        self.energy = 0.0;
-        self.area = 0.0;
-        self.latency = 0.0;
+        self.energy = 0.0
+        self.area = 0.0
+        self.latency = 0.0
         return np.array([self.energy, self.area, self.latency], dtype=np.float32)
 
     def render(self, mode='human'):
