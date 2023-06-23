@@ -13,6 +13,7 @@ from arch_gym.envs.TimeloopEnv import TimeloopEnv
 from arch_gym.envs.timeloop_acme_wrapper import make_timeloop_env
 from arch_gym.envs.dramsys_wrapper import make_dramsys_env
 from arch_gym.envs.maestero_wrapper import make_maestro_env
+from arch_gym.envs.AstraSimWrapper import make_astraSim_env
 from arch_gym.envs.SniperEnv import SniperEnv
 from arch_gym.envs.DRAMEnv import DRAMEnv
 from arch_gym.envs.envHelpers import helpers
@@ -139,6 +140,43 @@ class BaseBackend(ABC):
     @abstractmethod
     def free_gpu(self):
         """Frees GPU memory."""
+
+
+class AstraSimBackend(BaseBackend):
+    
+    def __init__(self, dataset=None, optimizer=None, exp_name=None, traject_dir=None,
+                    log_dir=None, reward_formulation=None, use_envlogger=False):
+        super().__init__(dataset, optimizer)
+        self.exp_name = exp_name
+        self.traject_dir = traject_dir
+        self.log_dir = log_dir
+        self.reward_formulation = reward_formulation
+        self.use_envlogger = use_envlogger
+
+    def generate_model(self, path):
+        return DummyAstraSim(path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger)
+
+    def reuse_model(self, old_model, new_model_path, distance):
+        return DummyAstraSim(new_model_path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger)
+
+    def train_model(self, model):
+        return model
+
+    def fully_train_model(self, model, epochs, augment):
+        return model
+
+    def evaluate_model(self, model):
+        value = model.fit(self.dataset.x_train)
+        return (value, value)
+
+    def save_model(self, model, path):
+        return
+
+    def load_model(self, path):
+        return
+
+    def free_gpu(self):
+        return
 
 
 class DRAMSysBackend(BaseBackend):
@@ -298,6 +336,155 @@ class DummySniper():
         # for now, just return the runtime
 
         return obs[0]
+    
+
+class DummyAstraSim():
+    """Dummy placeholder for DRAMSys to do POC"""
+    def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger):
+        self.env = SniperEnv()
+        self.helper = helpers()
+        self.fitness_hist = {}
+
+        self.traject_dir = traject_dir
+        self.log_dir = log_dir
+        self.exp_name = exp_name
+        self.reward_formulation = reward_formulation
+        self.use_envlogger = use_envlogger
+
+        self.action_dict = {"system": {}, "network": {}}
+        self.action_dict["network"]["topology-name"] = "Hierarchical"
+        self.action_dict["network"]["topologies-per-dim"] = ["Ring", "Ring", "Ring"]
+        self.action_dict["network"]["dimension-type"] = ["N", "N", "N"]
+        # DIMENSION COUNT MUST BE SET TO 3 FOR NOW
+        self.action_dict["network"]["dimensions-count"] = 3  
+        self.action_dict["network"]["units-count"] = [4, 4, 4]
+        self.action_dict["network"]["link-latency"] = [1, 1, 1]
+        self.action_dict["network"]["link-bandwidth"] = [32, 16, 16]
+        self.action_dict["network"]["nic-latency"] = [0, 0, 0]
+        self.action_dict["network"]["router-latency"] = [0, 0, 0]
+        self.action_dict["network"]["hbm-latency"] = [500, 500, 500]
+        self.action_dict["network"]["hbm-bandwidth"] = [370, 370, 370]
+        self.action_dict["network"]["hbm-scale"] = [0, 0, 0]
+        self.action_dict["network"]["links-count"] = [2, 2, 2]
+
+        # system attributes
+        self.action_dict["system"]["scheduling-policy"] = "LIFO"
+        self.action_dict["system"]["endpoint-delay"] = 1
+        self.action_dict["system"]["active-chunks-per-dimension"] = 1
+        self.action_dict["system"]["preferred-dataset-splits"] = 4
+        self.action_dict["system"]["boost-mode"] = 0
+      
+        self.action_dict["system"]["all-reduce-implementation"] = "ring_ring_ring"
+        self.action_dict["system"]["all-gather-implementation"] = "ring_ring_ring"
+        self.action_dict["system"]["reduce-scatter-implementation"] = "ring_ring_ring"
+        self.action_dict["system"]["all-to-all-implementation"] = "ring_ring_ring"
+        self.action_dict["system"]["collective-optimization"] = "baseline"
+
+        self.links_count = {"Ring": 2, "FullyConnected": 7, "Switch": 1}
+
+        for node in path:
+            if hasattr(node, "topology-name"):
+
+                self.action_dict["network"]["topology-name"] = node.topologyName
+                self.action_dict["network"]["topologies-per-dim"] = [node.topologiesPerDim1, node.topologiesPerDim2, node.topologiesPerDim3]
+                self.action_dict["network"]["dimension-type"] = [node.dimensionType, node.dimensionType, node.dimensionType]
+                # ADD CHECK HERE FOR DIMENSION COUNT
+                self.action_dict["network"]["dimensions-count"] = node.dimensionsCount
+                self.action_dict["network"]["units-count"] = [node.unitsCount1, node.unitsCount2, node.unitsCount3]
+
+                self.action_dict["network"]["link-latency"] = [node.linkLatency1, node.linkLatency2, node.linkLatency3]
+                self.action_dict["network"]["linkBandwidth1"] = [node.linkBandwidth1, node.linkBandwidth2, node.linkBandwidth3]
+                self.action_dict["network"]["nic-latency"] = [node.nicLatency1, node.nicLatency2, node.nicLatency3]
+                self.action_dict["network"]["router-latency"] = [node.routerLatency1, node.routerLatency2, node.routerLatency3]
+                self.action_dict["network"]["hbm-latency"] = [node.hbmLatency1, node.hbmLatency2, node.hbmLatency3]
+                self.action_dict["network"]["hbm-bandwidth"] = [node.hbmBandwidth1, node.hbmBandwidth2, node.hbmBandwidth3]
+                self.action_dict["network"]["hbm-scale"] = [node.hbmScale1, node.hbmScale2, node.hbmScale3]
+                
+                # Need to map links-count to topology
+                self.action_dict["network"]["links-count"] = [self.links_count[self.action_dict["network"]["topologies-per-dim"][i]]
+                                for i in range(self.action_dict["network"]["dimensions-count"])]
+
+                # system attributes
+                self.action_dict["system"]["scheduling-policy"] = node.schedulingPolicy
+                self.action_dict["system"]["endpoint-delay"] = node.endpointDelay
+                self.action_dict["system"]["active-chunks-per-dimension"] = node.activeChunksPerDimension
+                self.action_dict["system"]["preferred-dataset-splits"] = node.preferredDatasetSplits
+                self.action_dict["system"]["boost-mode"] = node.boostMode
+
+                self.action_dict["system"]["all-reduce-implementation"] = f"{node.allReduceImplementation1}_{node.allReduceImplementation2}_{node.allReduceImplementation3}"
+                self.action_dict["system"]["all-gather-implementation"] = f"{node.allGatherImplementation1}_{node.allGatherImplementation2}_{node.allGatherImplementation3}"
+                self.action_dict["system"]["reduce-scatter-implementation"] = f"{node.reduceScatterImplementation1}_{node.reduceScatterImplementation2}_{node.reduceScatterImplementation3}"
+                self.action_dict["system"]["all-to-all-implementation"] = f"{node.allToAllImplementation1}_{node.allToAllImplementation2}_{node.allToAllImplementation3}"
+
+                self.action_dict["system"]["collective-optimization"] = node.collectiveOptimization
+    
+    
+    # ADD ENVLOGGER STUFF (SEE BELOW)
+
+    # Fit function = step function
+    # Environment already calculates reward so don't need calc_reward
+    def wrap_in_envlogger(self, env, envlogger_dir, use_envlogger):
+        metadata = {
+            'agent_type': 'ACO',
+            'env_type': type(env).__name__,
+        }
+        if use_envlogger == True:
+            logging.info('Wrapping environment with EnvironmentLogger...')
+            env = envlogger.EnvLogger(env,
+                                    data_directory=envlogger_dir,
+                                    max_episodes_per_file=1000,
+                                    metadata=metadata)
+            logging.info('Done wrapping environment with EnvironmentLogger.')
+            return env
+        else:
+            print("Not using envlogger")
+            return env
+    
+    def fit(self, X, y=None):
+        '''
+        This is the function that is called by the optimizer. ACO by defaul tries to minimize the fitness function.
+        If you have a fitness function that you want to maximize, you can simply return the negative of the fitness function.
+        '''
+
+        env_wrapper = make_astraSim_env(reward_formulation = self.reward_formulation, rl_form = "aco")
+
+        if self.use_envlogger:
+            # check if trajectory directory exists
+            if not os.path.exists(self.traject_dir):
+                os.makedirs(self.traject_dir)
+        
+        # check if log directory exists
+        if not os.path.exists(self.log_dir):
+            os.makedirs(self.log_dir)
+        
+        env = self.wrap_in_envlogger(env_wrapper, self.traject_dir, self.use_envlogger)
+        env.reset()
+        
+        step_type, reward, discount, info = env.step(self.action_dict)
+        
+        self.fitness_hist['reward'] = reward
+        self.fitness_hist['action_dict'] = self.action_dict
+        self.fitness_hist['obs'] = info
+
+        print("Reward: ", reward)
+        print("Action Dict: ", self.action_dict)
+        print("Info: ", info)
+        
+        self.log_fitness_to_csv()
+        return -1 * reward
+
+
+    def log_fitness_to_csv(self):
+        df_traj = pd.DataFrame([self.fitness_hist])
+        filename = os.path.join(self.log_dir, self.exp_name + "_traj.csv")
+        df_traj.to_csv(filename,
+                  index=False, header=False, mode='a')
+        
+        df_rewards = pd.DataFrame([self.fitness_hist['reward']])
+        filename = os.path.join(self.log_dir, self.exp_name + "_rewards.csv")
+        df_rewards.to_csv(filename,
+                  index=False, header=False, mode='a')
+
 
 
 class DummyDRAMSys():
@@ -351,7 +538,7 @@ class DummyDRAMSys():
             'agent_type': 'RandomWalker',
             'env_type': type(env).__name__,
         }
-        if use_envlogger == 'True':
+        if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
                                     data_directory=envlogger_dir,
@@ -557,7 +744,7 @@ class DummyMaestro():
             'agent_type': 'ACO',
             'env_type': type(env).__name__,
         }
-        if use_envlogger == 'True':
+        if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
                                     data_directory=envlogger_dir,
@@ -744,7 +931,7 @@ class DummyTimeloop():
             'agent_type': 'ACO',
             'env_type': type(env).__name__,
         }
-        if use_envlogger == 'True':
+        if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
                                     data_directory=envlogger_dir,
@@ -971,7 +1158,7 @@ class DummyFARSI():
             'agent_type': 'ACO',
             'env_type': type(env).__name__,
         }
-        if use_envlogger == 'True':
+        if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
                                     data_directory=envlogger_dir,
