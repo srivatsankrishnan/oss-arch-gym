@@ -5,15 +5,8 @@ from absl import flags
 from absl import app
 from absl import logging
 
-os.sys.path.insert(0, os.path.abspath('../../arch_gym/envs/'))
-
-from custom_gym import ExampleEnv
-import customenv_wrapper
-print(customenv_wrapper.__dict__)
-from customenv_wrapper import CustomEnvWrapper
-# print(CustomEnvWrapper.__dict__)
-
-
+os.sys.path.insert(0, os.path.abspath('../../'))
+from arch_gym.envs import customenv_wrapper
 import envlogger
 import numpy as np
 import pandas as pd
@@ -55,10 +48,7 @@ def wrap_in_envlogger(env, envlogger_dir):
         return env
 
 def main(_):
-    # exampleEnv = ExampleEnv()
-    # env = CustomEnvWrapper(exampleEnv)
     env = customenv_wrapper.make_custom_env()
-    # env = CustomEnvWrapper.make_custom_env()
     
     fitness_hist = {}
 
@@ -66,10 +56,10 @@ def main(_):
     exp_name = "num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
 
     # append logs to base path
-    log_path = os.path.join(FLAGS.summary_dir, 'random_walker_logs', FLAGS.reward_formulation, exp_name)
+    log_path = os.path.join(FLAGS.summary_dir, 'random_walker_logs', exp_name)
 
     # get the current working directory and append the exp name
-    traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
+    traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, exp_name)
 
     # check if log_path exists else create it
     if not os.path.exists(log_path):
@@ -86,13 +76,10 @@ def main(_):
             # generate random actions
             action = env.action_space.sample()
             print(action)
-            sys.exit()
-            # decode the actions
-            # action_dict = 
 
-            _, reward, c, info = env.step(action_dict)
+            _, reward, c, info = env.step(action)
             fitness_hist['reward'] = reward
-            fitness_hist['action'] = action_dict
+            fitness_hist['action'] = action
             fitness_hist['obs'] = info
             log_fitness_to_csv(log_path, fitness_hist)
     
