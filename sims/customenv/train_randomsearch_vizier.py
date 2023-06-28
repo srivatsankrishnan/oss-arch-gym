@@ -12,8 +12,8 @@ from vizier.service import clients
 from vizier.service import pyvizier as vz
 from vizier.service import vizier_server
 from vizier.service import vizier_service_pb2_grpc
-from vizier import algorithms as vza
-from vizier.service.pyvizier import Algorithm
+# from vizier import algorithms as vza
+# from vizier.service.pyvizier import Algorithm
 
 # from random_train import RandomDesigner
 from absl import flags
@@ -21,7 +21,7 @@ from absl import flags
 
 
 
-flags.DEFINE_integer('num_steps', 4, 'Number of training steps')
+flags.DEFINE_integer('num_steps', 100, 'Number of training steps')
 flags.FLAGS(sys.argv)
 steps = flags.FLAGS.num_steps
 print(steps)
@@ -73,17 +73,17 @@ study = clients.Study.from_study_config(
 
 suggestions = study.suggest(count=steps)
 for suggestion in suggestions:
-  num_cores = float(suggestion.parameters['num_cores'])
-  freq = float(suggestion.parameters['freq'])
-  mem_type_dict = {'SRAM':0, 'DRAM':1, 'Hybrid':2}
-  mem_type = float(mem_type_dict[suggestion.parameters['mem_type']])
-  mem_size = float(suggestion.parameters['mem_size'])
-  action = {"num_cores":num_cores, "freq": freq, "mem_type":mem_type, "mem_size": mem_size}
-  print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
-  obs, reward, done, info = (env.step(action))
-  print(obs)
-  #   final_measurement = vz.Measurement({'energy': energy, 'area': area, 'latency': latency})
-#   suggestion.complete(final_measurement)
+    num_cores = float(suggestion.parameters['num_cores'])
+    freq = float(suggestion.parameters['freq'])
+    mem_type_dict = {'SRAM':0, 'DRAM':1, 'Hybrid':2}
+    mem_type = float(mem_type_dict[suggestion.parameters['mem_type']])
+    mem_size = float(suggestion.parameters['mem_size'])
+    action = {"num_cores":num_cores, "freq": freq, "mem_type":mem_type, "mem_size": mem_size}
+    print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
+    obs, reward, done, info = (env.step(action))
+    print(obs)
+    final_measurement = vz.Measurement({'energy': obs[0], 'area': obs[1], 'latency': obs[2]})
+    suggestion.complete(final_measurement)
 
 
 for optimal_trial in study.optimal_trials():
