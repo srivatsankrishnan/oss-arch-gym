@@ -5,7 +5,9 @@ from absl import flags
 from absl import app
 from absl import logging
 
+# add oss-arch-gym to the path
 os.sys.path.insert(0, os.path.abspath('../../'))
+
 from arch_gym.envs import customenv_wrapper
 import envlogger
 import numpy as np
@@ -20,6 +22,7 @@ flags.DEFINE_bool('use_envlogger', False, 'Use envlogger to log the data.')
 flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
 FLAGS = flags.FLAGS
 
+# function to add the fitness history to a csv file
 def log_fitness_to_csv(filename, fitness_dict):
         df = pd.DataFrame([fitness_dict['reward']])
         csvfile = os.path.join(filename, "fitness.csv")
@@ -30,6 +33,7 @@ def log_fitness_to_csv(filename, fitness_dict):
         csvfile = os.path.join(filename, "trajectory.csv")
         df.to_csv(csvfile, index=False, header=False, mode='a')
 
+# function to wrap the environment in envlogger
 def wrap_in_envlogger(env, envlogger_dir):
     metadata = {
         'agent_type': 'RandomWalker',
@@ -50,6 +54,7 @@ def wrap_in_envlogger(env, envlogger_dir):
 def main(_):
     env = customenv_wrapper.make_custom_env()
     
+    # a dictionary to store the fitness history: this includes the reward, action and observation
     fitness_hist = {}
 
     # experiment name 

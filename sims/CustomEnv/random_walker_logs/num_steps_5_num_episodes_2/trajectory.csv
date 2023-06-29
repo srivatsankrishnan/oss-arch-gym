@@ -1,0 +1,10 @@
+,"(4, array([1.851414], dtype=float32), 2, 1)",[0. 0. 0.]
+[-22.360703],"(0, array([2.0321639], dtype=float32), 1, 10)","[array(4, dtype=int32), array([0.03216386], dtype=float32), array(22, dtype=int32)]"
+,"(3, array([0.76445234], dtype=float32), 1, 10)",[0. 0. 0.]
+[-12.172842],"(2, array([1.5780017], dtype=float32), 1, 20)","[array(2, dtype=int32), array([0.42199826], dtype=float32), array(12, dtype=int32)]"
+,"(3, array([2.333836], dtype=float32), 2, 60)",[0. 0. 0.]
+[-12.256659],"(6, array([1.6958486], dtype=float32), 0, 33)","[array(2, dtype=int32), array([0.30415142], dtype=float32), array(1, dtype=int32)]"
+,"(7, array([1.9273322], dtype=float32), 0, 54)",[0. 0. 0.]
+[-36.179142],"(1, array([1.4105326], dtype=float32), 0, 6)","[array(3, dtype=int32), array([0.5894674], dtype=float32), array(26, dtype=int32)]"
+,"(5, array([1.1079541], dtype=float32), 0, 9)",[0. 0. 0.]
+[-17.287766],"(6, array([2.3339815], dtype=float32), 2, 39)","[array(2, dtype=int32), array([0.3339815], dtype=float32), array(7, dtype=int32)]"

@@ -1,1000 +1,400 @@
-,"(6, array([1.2042311], dtype=float32), 2, 18)",[0. 0. 0.]
-[-29.278791],"(0, array([2.4976761], dtype=float32), 1, 3)","[array(4, dtype=int32), array([0.49767613], dtype=float32), array(29, dtype=int32)]"
-,"(3, array([2.3731987], dtype=float32), 1, 22)",[0. 0. 0.]
-[-29.418123],"(0, array([2.2520344], dtype=float32), 0, 13)","[array(4, dtype=int32), array([0.25203443], dtype=float32), array(19, dtype=int32)]"
-,"(2, array([1.7501024], dtype=float32), 1, 1)",[0. 0. 0.]
-[-10.2070875],"(6, array([2.429696], dtype=float32), 1, 42)","[array(2, dtype=int32), array([0.42969608], dtype=float32), array(10, dtype=int32)]"
-,"(6, array([0.6229618], dtype=float32), 0, 60)",[0. 0. 0.]
-[-31.032413],"(5, array([0.99463546], dtype=float32), 1, 63)","[array(1, dtype=int32), array([1.0053645], dtype=float32), array(31, dtype=int32)]"
-,"(7, array([0.654899], dtype=float32), 0, 17)",[0. 0. 0.]
-[-38.02288],"(3, array([1.4692135], dtype=float32), 2, 4)","[array(1, dtype=int32), array([0.5307865], dtype=float32), array(28, dtype=int32)]"
-,"(6, array([2.2849538], dtype=float32), 1, 21)",[0. 0. 0.]
-[-13.189327],"(6, array([1.0210423], dtype=float32), 1, 19)","[array(2, dtype=int32), array([0.97895765], dtype=float32), array(13, dtype=int32)]"
-,"(2, array([1.0846655], dtype=float32), 1, 59)",[0. 0. 0.]
-[-25.315262],"(1, array([1.2535325], dtype=float32), 2, 17)","[array(3, dtype=int32), array([0.7464675], dtype=float32), array(15, dtype=int32)]"
-,"(5, array([0.7841801], dtype=float32), 1, 63)",[0. 0. 0.]
-[-32.035774],"(5, array([1.2414888], dtype=float32), 0, 10)","[array(1, dtype=int32), array([0.7585112], dtype=float32), array(22, dtype=int32)]"
-,"(4, array([0.5780307], dtype=float32), 2, 37)",[0. 0. 0.]
-[-22.233398],"(2, array([0.7131207], dtype=float32), 2, 20)","[array(2, dtype=int32), array([1.2868793], dtype=float32), array(12, dtype=int32)]"
-,"(0, array([0.8447004], dtype=float32), 0, 23)",[0. 0. 0.]
-[-3.0052214],"(2, array([0.9844436], dtype=float32), 1, 30)","[array(2, dtype=int32), array([1.0155563], dtype=float32), array(2, dtype=int32)]"
-,"(2, array([2.245632], dtype=float32), 1, 6)",[0. 0. 0.]
-[-16.100807],"(3, array([2.4688854], dtype=float32), 2, 38)","[array(1, dtype=int32), array([0.46888542], dtype=float32), array(6, dtype=int32)]"
-,"(3, array([1.6656559], dtype=float32), 2, 19)",[0. 0. 0.]
-[-38.17849],"(7, array([0.9864525], dtype=float32), 0, 60)","[array(3, dtype=int32), array([1.0135474], dtype=float32), array(28, dtype=int32)]"
-,"(7, array([0.723063], dtype=float32), 0, 52)",[0. 0. 0.]
-[-29.265673],"(7, array([0.9201126], dtype=float32), 0, 51)","[array(3, dtype=int32), array([1.0798874], dtype=float32), array(19, dtype=int32)]"
-,"(5, array([2.4421282], dtype=float32), 2, 4)",[0. 0. 0.]
-[-31.379114],"(0, array([2.257848], dtype=float32), 0, 53)","[array(4, dtype=int32), array([0.25784802], dtype=float32), array(21, dtype=int32)]"
-,"(2, array([1.5989081], dtype=float32), 1, 30)",[0. 0. 0.]
-[-15.84503],"(7, array([1.5945672], dtype=float32), 0, 37)","[array(3, dtype=int32), array([0.40543282], dtype=float32), array(5, dtype=int32)]"
-,"(1, array([1.8623053], dtype=float32), 1, 24)",[0. 0. 0.]
-[-15.300259],"(7, array([2.3129065], dtype=float32), 1, 47)","[array(3, dtype=int32), array([0.3129065], dtype=float32), array(15, dtype=int32)]"
-,"(5, array([2.1923573], dtype=float32), 1, 50)",[0. 0. 0.]
-[-12.87202],"(6, array([2.4984944], dtype=float32), 2, 30)","[array(2, dtype=int32), array([0.4984944], dtype=float32), array(2, dtype=int32)]"
-,"(1, array([2.3229318], dtype=float32), 1, 48)",[0. 0. 0.]
-[-32.000004],"(4, array([1.9811703], dtype=float32), 1, 0)","[array(0, dtype=int32), array([0.0188297], dtype=float32), array(32, dtype=int32)]"
-,"(0, array([0.85581577], dtype=float32), 1, 63)",[0. 0. 0.]
-[-10.49473],"(7, array([0.9325902], dtype=float32), 1, 42)","[array(3, dtype=int32), array([1.0674098], dtype=float32), array(10, dtype=int32)]"
-,"(2, array([2.1939309], dtype=float32), 0, 27)",[0. 0. 0.]
-[-21.13091],"(2, array([0.7689809], dtype=float32), 1, 11)","[array(2, dtype=int32), array([1.231019], dtype=float32), array(21, dtype=int32)]"
-,"(6, array([2.498078], dtype=float32), 0, 8)",[0. 0. 0.]
-[-35.022053],"(5, array([2.32107], dtype=float32), 2, 7)","[array(1, dtype=int32), array([0.32106996], dtype=float32), array(25, dtype=int32)]"
-,"(5, array([1.36832], dtype=float32), 2, 46)",[0. 0. 0.]
-[-23.608727],"(0, array([2.4443603], dtype=float32), 2, 19)","[array(4, dtype=int32), array([0.44436026], dtype=float32), array(13, dtype=int32)]"
-,"(2, array([1.8035225], dtype=float32), 0, 40)",[0. 0. 0.]
-[-42.01618],"(5, array([2.188957], dtype=float32), 0, 0)","[array(1, dtype=int32), array([0.18895698], dtype=float32), array(32, dtype=int32)]"
-,"(0, array([2.1061993], dtype=float32), 1, 18)",[0. 0. 0.]
-[-21.377775],"(0, array([2.0965242], dtype=float32), 1, 11)","[array(4, dtype=int32), array([0.09652424], dtype=float32), array(21, dtype=int32)]"
-,"(7, array([2.0375812], dtype=float32), 0, 28)",[0. 0. 0.]
-[-26.32204],"(7, array([0.8129879], dtype=float32), 2, 48)","[array(3, dtype=int32), array([1.1870121], dtype=float32), array(16, dtype=int32)]"
-,"(6, array([0.70991045], dtype=float32), 1, 14)",[0. 0. 0.]
-[-13.867937],"(6, array([0.59966415], dtype=float32), 2, 29)","[array(2, dtype=int32), array([1.4003358], dtype=float32), array(3, dtype=int32)]"
-,"(4, array([2.2838626], dtype=float32), 0, 42)",[0. 0. 0.]
-[-23.344604],"(1, array([2.2801545], dtype=float32), 2, 19)","[array(3, dtype=int32), array([0.28015447], dtype=float32), array(13, dtype=int32)]"
-,"(2, array([1.6824954], dtype=float32), 0, 43)",[0. 0. 0.]
-[-26.172848],"(1, array([1.8661134], dtype=float32), 1, 58)","[array(3, dtype=int32), array([0.13388658], dtype=float32), array(26, dtype=int32)]"
-,"(3, array([0.82467806], dtype=float32), 0, 13)",[0. 0. 0.]
-[-30.24732],"(1, array([1.0232902], dtype=float32), 0, 52)","[array(3, dtype=int32), array([0.97670984], dtype=float32), array(20, dtype=int32)]"
-,"(1, array([0.5988396], dtype=float32), 0, 32)",[0. 0. 0.]
-[-23.38341],"(1, array([0.9437517], dtype=float32), 2, 45)","[array(3, dtype=int32), array([1.0562483], dtype=float32), array(13, dtype=int32)]"
-,"(3, array([1.759549], dtype=float32), 0, 37)",[0. 0. 0.]
-[-26.031853],"(5, array([2.1426125], dtype=float32), 0, 16)","[array(1, dtype=int32), array([0.14261246], dtype=float32), array(16, dtype=int32)]"
-,"(4, array([1.9355116], dtype=float32), 0, 14)",[0. 0. 0.]
-[-20.487608],"(7, array([1.0050491], dtype=float32), 0, 42)","[array(3, dtype=int32), array([0.9949509], dtype=float32), array(10, dtype=int32)]"
-,"(0, array([2.1901095], dtype=float32), 1, 38)",[0. 0. 0.]
-[-39.27495],"(0, array([2.1501973], dtype=float32), 2, 61)","[array(4, dtype=int32), array([0.15019727], dtype=float32), array(29, dtype=int32)]"
-,"(3, array([1.2493849], dtype=float32), 2, 59)",[0. 0. 0.]
-[-20.225096],"(1, array([1.7665613], dtype=float32), 1, 52)","[array(3, dtype=int32), array([0.23343873], dtype=float32), array(20, dtype=int32)]"
-,"(5, array([2.3519516], dtype=float32), 1, 55)",[0. 0. 0.]
-[-18.07019],"(3, array([1.6422789], dtype=float32), 2, 24)","[array(1, dtype=int32), array([0.3577211], dtype=float32), array(8, dtype=int32)]"
-,"(0, array([0.7261916], dtype=float32), 2, 55)",[0. 0. 0.]
-[-12.267212],"(5, array([2.3745015], dtype=float32), 0, 30)","[array(1, dtype=int32), array([0.37450147], dtype=float32), array(2, dtype=int32)]"
-,"(7, array([1.9978726], dtype=float32), 2, 15)",[0. 0. 0.]
-[-41.171833],"(7, array([0.7026239], dtype=float32), 0, 63)","[array(3, dtype=int32), array([1.2973762], dtype=float32), array(31, dtype=int32)]"
-,"(7, array([0.53526914], dtype=float32), 0, 51)",[0. 0. 0.]
-[-3.2986526],"(1, array([1.0613256], dtype=float32), 1, 31)","[array(3, dtype=int32), array([0.93867445], dtype=float32), array(1, dtype=int32)]"
-,"(6, array([1.537948], dtype=float32), 1, 3)",[0. 0. 0.]
-[-16.55529],"(0, array([0.5586124], dtype=float32), 1, 48)","[array(4, dtype=int32), array([1.4413877], dtype=float32), array(16, dtype=int32)]"
-,"(2, array([1.2253501], dtype=float32), 1, 31)",[0. 0. 0.]
-[-13.086284],"(5, array([0.8816071], dtype=float32), 1, 19)","[array(1, dtype=int32), array([1.118393], dtype=float32), array(13, dtype=int32)]"
-,"(5, array([1.0523732], dtype=float32), 0, 45)",[0. 0. 0.]
-[-20.518585],"(7, array([0.7191376], dtype=float32), 0, 22)","[array(3, dtype=int32), array([1.2808623], dtype=float32), array(10, dtype=int32)]"
-,"(6, array([1.7277461], dtype=float32), 1, 54)",[0. 0. 0.]
-[-37.074203],"(2, array([1.8882917], dtype=float32), 2, 59)","[array(2, dtype=int32), array([0.11170828], dtype=float32), array(27, dtype=int32)]"
-,"(1, array([2.3952188], dtype=float32), 1, 38)",[0. 0. 0.]
-[-9.533589],"(1, array([1.0569594], dtype=float32), 1, 23)","[array(3, dtype=int32), array([0.9430406], dtype=float32), array(9, dtype=int32)]"
-,"(5, array([1.4457816], dtype=float32), 2, 11)",[0. 0. 0.]
-[-6.3245583],"(6, array([2.0059667], dtype=float32), 1, 38)","[array(2, dtype=int32), array([0.00596666], dtype=float32), array(6, dtype=int32)]"
-,"(7, array([1.4184469], dtype=float32), 0, 39)",[0. 0. 0.]
-[-35.10803],"(6, array([0.81125665], dtype=float32), 2, 7)","[array(2, dtype=int32), array([1.1887434], dtype=float32), array(25, dtype=int32)]"
-,"(5, array([1.5003891], dtype=float32), 1, 13)",[0. 0. 0.]
-[-22.165543],"(2, array([1.9798648], dtype=float32), 2, 20)","[array(2, dtype=int32), array([0.02013516], dtype=float32), array(12, dtype=int32)]"
-,"(4, array([1.6140059], dtype=float32), 1, 44)",[0. 0. 0.]
-[-39.281754],"(0, array([1.3511572], dtype=float32), 0, 3)","[array(4, dtype=int32), array([0.6488428], dtype=float32), array(29, dtype=int32)]"
-,"(2, array([1.4829103], dtype=float32), 0, 35)",[0. 0. 0.]
-[-29.257524],"(7, array([1.0768298], dtype=float32), 2, 13)","[array(3, dtype=int32), array([0.9231702], dtype=float32), array(19, dtype=int32)]"
-,"(5, array([1.3448471], dtype=float32), 1, 25)",[0. 0. 0.]
-[-13.606093],"(7, array([2.0625184], dtype=float32), 0, 30)","[array(3, dtype=int32), array([0.06251836], dtype=float32), array(2, dtype=int32)]"
-,"(7, array([0.6993013], dtype=float32), 2, 55)",[0. 0. 0.]
-[-26.083796],"(3, array([0.7005695], dtype=float32), 2, 48)","[array(1, dtype=int32), array([1.2994305], dtype=float32), array(16, dtype=int32)]"
-,"(6, array([0.81130224], dtype=float32), 1, 58)",[0. 0. 0.]
-[-17.036148],"(3, array([1.5200629], dtype=float32), 1, 15)","[array(1, dtype=int32), array([0.47993708], dtype=float32), array(17, dtype=int32)]"
-,"(2, array([0.71861506], dtype=float32), 2, 3)",[0. 0. 0.]
-[-19.542824],"(1, array([0.96778244], dtype=float32), 0, 41)","[array(3, dtype=int32), array([1.0322175], dtype=float32), array(9, dtype=int32)]"
-,"(7, array([0.852435], dtype=float32), 0, 23)",[0. 0. 0.]
-[-7.211517],"(0, array([2.0772984], dtype=float32), 1, 26)","[array(4, dtype=int32), array([0.0772984], dtype=float32), array(6, dtype=int32)]"
-,"(7, array([1.7531097], dtype=float32), 0, 6)",[0. 0. 0.]
-[-40.022377],"(3, array([1.4142354], dtype=float32), 2, 2)","[array(1, dtype=int32), array([0.58576465], dtype=float32), array(30, dtype=int32)]"
-,"(3, array([1.2032967], dtype=float32), 0, 45)",[0. 0. 0.]
-[-16.307846],"(1, array([1.0274549], dtype=float32), 1, 48)","[array(3, dtype=int32), array([0.97254515], dtype=float32), array(16, dtype=int32)]"
-,"(2, array([2.2597275], dtype=float32), 0, 30)",[0. 0. 0.]
-[-22.091364],"(2, array([1.8317528], dtype=float32), 1, 10)","[array(2, dtype=int32), array([0.16824722], dtype=float32), array(22, dtype=int32)]"
-,"(3, array([1.6226445], dtype=float32), 2, 5)",[0. 0. 0.]
-[-17.095747],"(3, array([1.4087015], dtype=float32), 2, 25)","[array(1, dtype=int32), array([0.59129846], dtype=float32), array(7, dtype=int32)]"
-,"(6, array([1.964974], dtype=float32), 2, 30)",[0. 0. 0.]
-[-28.485826],"(0, array([0.6863132], dtype=float32), 2, 50)","[array(4, dtype=int32), array([1.3136868], dtype=float32), array(18, dtype=int32)]"
-,"(7, array([0.71367645], dtype=float32), 2, 5)",[0. 0. 0.]
-[-39.1576],"(7, array([1.5930953], dtype=float32), 0, 61)","[array(3, dtype=int32), array([0.4069047], dtype=float32), array(29, dtype=int32)]"
-,"(4, array([0.6390084], dtype=float32), 1, 7)",[0. 0. 0.]
-[-38.05414],"(5, array([0.5735335], dtype=float32), 2, 4)","[array(1, dtype=int32), array([1.4264665], dtype=float32), array(28, dtype=int32)]"
-,"(0, array([1.6971282], dtype=float32), 2, 35)",[0. 0. 0.]
-[-22.40044],"(0, array([0.6659484], dtype=float32), 1, 54)","[array(4, dtype=int32), array([1.3340516], dtype=float32), array(22, dtype=int32)]"
-,"(1, array([1.0220345], dtype=float32), 0, 57)",[0. 0. 0.]
-[-33.024616],"(4, array([0.93559366], dtype=float32), 2, 9)","[array(0, dtype=int32), array([1.0644064], dtype=float32), array(23, dtype=int32)]"
-,"(2, array([1.4939972], dtype=float32), 1, 40)",[0. 0. 0.]
-[-32.220688],"(7, array([1.128775], dtype=float32), 0, 54)","[array(3, dtype=int32), array([0.871225], dtype=float32), array(22, dtype=int32)]"
-,"(0, array([2.352488], dtype=float32), 0, 7)",[0. 0. 0.]
-[-16.137445],"(2, array([1.354098], dtype=float32), 1, 16)","[array(2, dtype=int32), array([0.64590204], dtype=float32), array(16, dtype=int32)]"
-,"(4, array([1.4832217], dtype=float32), 2, 42)",[0. 0. 0.]
-[-36.079845],"(2, array([2.3979433], dtype=float32), 0, 58)","[array(2, dtype=int32), array([0.39794326], dtype=float32), array(26, dtype=int32)]"
-,"(0, array([1.6873444], dtype=float32), 2, 59)",[0. 0. 0.]
-[-37.167534],"(1, array([1.7264191], dtype=float32), 2, 59)","[array(3, dtype=int32), array([0.2735809], dtype=float32), array(27, dtype=int32)]"
-,"(2, array([1.4115989], dtype=float32), 2, 30)",[0. 0. 0.]
-[-21.254917],"(1, array([0.66901386], dtype=float32), 1, 53)","[array(3, dtype=int32), array([1.3309861], dtype=float32), array(21, dtype=int32)]"
-,"(0, array([1.7864926], dtype=float32), 2, 54)",[0. 0. 0.]
-[-24.318672],"(1, array([1.8438464], dtype=float32), 0, 18)","[array(3, dtype=int32), array([0.15615356], dtype=float32), array(14, dtype=int32)]"
-,"(2, array([0.9403723], dtype=float32), 0, 26)",[0. 0. 0.]
-[-22.043644],"(4, array([0.97562015], dtype=float32), 2, 20)","[array(0, dtype=int32), array([1.0243798], dtype=float32), array(12, dtype=int32)]"
-,"(5, array([1.4817128], dtype=float32), 1, 61)",[0. 0. 0.]
-[-17.624172],"(7, array([1.6422331], dtype=float32), 0, 25)","[array(3, dtype=int32), array([0.35776687], dtype=float32), array(7, dtype=int32)]"
-,"(4, array([2.0588493], dtype=float32), 1, 9)",[0. 0. 0.]
-[-11.420884],"(1, array([1.3392502], dtype=float32), 1, 21)","[array(3, dtype=int32), array([0.6607498], dtype=float32), array(11, dtype=int32)]"
-,"(3, array([2.2739077], dtype=float32), 1, 43)",[0. 0. 0.]
-[-21.002863],"(4, array([2.346758], dtype=float32), 1, 11)","[array(0, dtype=int32), array([0.3467579], dtype=float32), array(21, dtype=int32)]"
-,"(4, array([0.7048], dtype=float32), 2, 47)",[0. 0. 0.]
-[-3.6210973],"(6, array([2.3351812], dtype=float32), 1, 29)","[array(2, dtype=int32), array([0.33518124], dtype=float32), array(3, dtype=int32)]"
-,"(3, array([1.691224], dtype=float32), 0, 44)",[0. 0. 0.]
-[-28.252644],"(1, array([2.3987691], dtype=float32), 0, 14)","[array(3, dtype=int32), array([0.39876914], dtype=float32), array(18, dtype=int32)]"
-,"(4, array([2.2503598], dtype=float32), 1, 17)",[0. 0. 0.]
-[-2.237468],"(3, array([2.0791395], dtype=float32), 1, 30)","[array(1, dtype=int32), array([0.07913947], dtype=float32), array(2, dtype=int32)]"
-,"(1, array([2.4269848], dtype=float32), 1, 32)",[0. 0. 0.]
-[-36.175682],"(7, array([1.5922165], dtype=float32), 2, 58)","[array(3, dtype=int32), array([0.4077835], dtype=float32), array(26, dtype=int32)]"
-,"(3, array([1.4511805], dtype=float32), 0, 60)",[0. 0. 0.]
-[-17.620918],"(7, array([2.279977], dtype=float32), 2, 25)","[array(3, dtype=int32), array([0.27997708], dtype=float32), array(7, dtype=int32)]"
-,"(7, array([2.4237163], dtype=float32), 0, 49)",[0. 0. 0.]
-[-18.248936],"(1, array([1.8462933], dtype=float32), 1, 50)","[array(3, dtype=int32), array([0.15370667], dtype=float32), array(18, dtype=int32)]"
-,"(4, array([2.1489756], dtype=float32), 1, 41)",[0. 0. 0.]
-[-14.094806],"(5, array([0.7102096], dtype=float32), 1, 46)","[array(1, dtype=int32), array([1.2897904], dtype=float32), array(14, dtype=int32)]"
-,"(1, array([1.2482797], dtype=float32), 2, 37)",[0. 0. 0.]
-[-18.003231],"(4, array([1.7726041], dtype=float32), 0, 24)","[array(0, dtype=int32), array([0.22739589], dtype=float32), array(8, dtype=int32)]"
-,"(3, array([0.992773], dtype=float32), 1, 35)",[0. 0. 0.]
-[-1.4227178],"(5, array([1.844675], dtype=float32), 1, 31)","[array(1, dtype=int32), array([0.15532506], dtype=float32), array(1, dtype=int32)]"
-,"(3, array([1.2165601], dtype=float32), 1, 44)",[0. 0. 0.]
-[-28.019737],"(3, array([2.3250604], dtype=float32), 1, 60)","[array(1, dtype=int32), array([0.32506037], dtype=float32), array(28, dtype=int32)]"
-,"(5, array([2.37466], dtype=float32), 2, 33)",[0. 0. 0.]
-[-12.000213],"(4, array([1.928652], dtype=float32), 1, 44)","[array(0, dtype=int32), array([0.07134795], dtype=float32), array(12, dtype=int32)]"
-,"(6, array([1.6230154], dtype=float32), 0, 47)",[0. 0. 0.]
-[-41.145954],"(1, array([1.7345998], dtype=float32), 2, 1)","[array(3, dtype=int32), array([0.26540017], dtype=float32), array(31, dtype=int32)]"
-,"(6, array([0.5189192], dtype=float32), 0, 50)",[0. 0. 0.]
-[-18.00423],"(4, array([2.2601995], dtype=float32), 0, 24)","[array(0, dtype=int32), array([0.26019955], dtype=float32), array(8, dtype=int32)]"
-,"(7, array([2.029264], dtype=float32), 1, 40)",[0. 0. 0.]
-[-19.109568],"(6, array([1.5809926], dtype=float32), 1, 13)","[array(2, dtype=int32), array([0.41900742], dtype=float32), array(19, dtype=int32)]"
-,"(5, array([2.4570897], dtype=float32), 2, 12)",[0. 0. 0.]
-[-6.421226],"(2, array([0.8899806], dtype=float32), 1, 26)","[array(2, dtype=int32), array([1.1100194], dtype=float32), array(6, dtype=int32)]"
-,"(1, array([1.3502115], dtype=float32), 2, 40)",[0. 0. 0.]
-[-42.00104],"(4, array([2.2581062], dtype=float32), 0, 0)","[array(0, dtype=int32), array([0.25810623], dtype=float32), array(32, dtype=int32)]"
-,"(0, array([0.6420928], dtype=float32), 2, 52)",[0. 0. 0.]
-[-27.053167],"(4, array([0.6544371], dtype=float32), 0, 49)","[array(0, dtype=int32), array([1.3455629], dtype=float32), array(17, dtype=int32)]"
-,"(7, array([1.1622638], dtype=float32), 1, 22)",[0. 0. 0.]
-[-12.245992],"(6, array([2.2109013], dtype=float32), 0, 33)","[array(2, dtype=int32), array([0.21090126], dtype=float32), array(1, dtype=int32)]"
-,"(2, array([0.61210185], dtype=float32), 0, 57)",[0. 0. 0.]
-[-27.12081],"(6, array([1.6505731], dtype=float32), 0, 15)","[array(2, dtype=int32), array([0.34942687], dtype=float32), array(17, dtype=int32)]"
-,"(4, array([1.2271367], dtype=float32), 1, 23)",[0. 0. 0.]
-[-32.118664],"(6, array([0.88855684], dtype=float32), 2, 10)","[array(2, dtype=int32), array([1.1114432], dtype=float32), array(22, dtype=int32)]"
-,"(3, array([1.508366], dtype=float32), 1, 34)",[0. 0. 0.]
-[-17.000217],"(4, array([1.9449509], dtype=float32), 2, 39)","[array(0, dtype=int32), array([0.05504906], dtype=float32), array(7, dtype=int32)]"
-,"(6, array([1.3845493], dtype=float32), 0, 3)",[0. 0. 0.]
-[-26.032003],"(5, array([1.8415169], dtype=float32), 0, 16)","[array(1, dtype=int32), array([0.15848315], dtype=float32), array(16, dtype=int32)]"
-,"(1, array([1.4525822], dtype=float32), 0, 39)",[0. 0. 0.]
-[-18.248814],"(7, array([2.1384206], dtype=float32), 1, 14)","[array(3, dtype=int32), array([0.13842058], dtype=float32), array(18, dtype=int32)]"
-,"(3, array([1.6776806], dtype=float32), 1, 29)",[0. 0. 0.]
-[-38.197487],"(7, array([0.5514378], dtype=float32), 0, 4)","[array(3, dtype=int32), array([1.4485621], dtype=float32), array(28, dtype=int32)]"
-,"(3, array([2.2849853], dtype=float32), 1, 48)",[0. 0. 0.]
-[-2.3125284],"(3, array([1.4102644], dtype=float32), 1, 34)","[array(1, dtype=int32), array([0.5897356], dtype=float32), array(2, dtype=int32)]"
-,"(0, array([2.2990491], dtype=float32), 2, 27)",[0. 0. 0.]
-[-17.029404],"(3, array([2.0244148], dtype=float32), 1, 15)","[array(1, dtype=int32), array([0.02441478], dtype=float32), array(17, dtype=int32)]"
-,"(7, array([0.53632957], dtype=float32), 1, 43)",[0. 0. 0.]
-[-30.396133],"(0, array([1.9528744], dtype=float32), 0, 12)","[array(4, dtype=int32), array([0.04712558], dtype=float32), array(20, dtype=int32)]"
-,"(1, array([1.157823], dtype=float32), 1, 25)",[0. 0. 0.]
-[-41.01773],"(4, array([0.95144695], dtype=float32), 0, 1)","[array(0, dtype=int32), array([1.048553], dtype=float32), array(31, dtype=int32)]"
-,"(7, array([1.0564724], dtype=float32), 2, 46)",[0. 0. 0.]
-[-23.203526],"(6, array([0.8453959], dtype=float32), 2, 45)","[array(2, dtype=int32), array([1.1546041], dtype=float32), array(13, dtype=int32)]"
-,"(4, array([1.4179351], dtype=float32), 2, 29)",[0. 0. 0.]
-[-28.137224],"(6, array([1.0207518], dtype=float32), 0, 50)","[array(2, dtype=int32), array([0.97924817], dtype=float32), array(18, dtype=int32)]"
-,"(5, array([1.434313], dtype=float32), 1, 42)",[0. 0. 0.]
-[-27.14252],"(6, array([1.0694015], dtype=float32), 2, 49)","[array(2, dtype=int32), array([0.9305985], dtype=float32), array(17, dtype=int32)]"
-,"(3, array([2.3722646], dtype=float32), 0, 32)",[0. 0. 0.]
-[-16.306248],"(7, array([1.0546347], dtype=float32), 1, 48)","[array(3, dtype=int32), array([0.9453653], dtype=float32), array(16, dtype=int32)]"
-,"(5, array([2.3615148], dtype=float32), 1, 34)",[0. 0. 0.]
-[-36.07687],"(2, array([1.9434695], dtype=float32), 2, 58)","[array(2, dtype=int32), array([0.05653048], dtype=float32), array(26, dtype=int32)]"
-,"(4, array([2.099897], dtype=float32), 0, 34)",[0. 0. 0.]
-[-17.36585],"(2, array([0.87939954], dtype=float32), 2, 25)","[array(2, dtype=int32), array([1.1206005], dtype=float32), array(7, dtype=int32)]"
-,"(2, array([0.6536125], dtype=float32), 0, 14)",[0. 0. 0.]
-[-19.487082],"(7, array([2.0687284], dtype=float32), 0, 41)","[array(3, dtype=int32), array([0.06872845], dtype=float32), array(9, dtype=int32)]"
-,"(2, array([0.9609455], dtype=float32), 0, 22)",[0. 0. 0.]
-[-31.000158],"(4, array([1.9182162], dtype=float32), 2, 53)","[array(0, dtype=int32), array([0.08178377], dtype=float32), array(21, dtype=int32)]"
-,"(1, array([1.4505327], dtype=float32), 1, 18)",[0. 0. 0.]
-[-34.083218],"(2, array([2.0376275], dtype=float32), 0, 56)","[array(2, dtype=int32), array([0.03762746], dtype=float32), array(24, dtype=int32)]"
-,"(5, array([1.7927055], dtype=float32), 1, 20)",[0. 0. 0.]
-[-4.494021],"(0, array([1.5570272], dtype=float32), 1, 30)","[array(4, dtype=int32), array([0.44297278], dtype=float32), array(2, dtype=int32)]"
-,"(2, array([2.1855285], dtype=float32), 0, 48)",[0. 0. 0.]
-[-22.211906],"(1, array([1.3927373], dtype=float32), 1, 54)","[array(3, dtype=int32), array([0.60726273], dtype=float32), array(22, dtype=int32)]"
-,"(5, array([0.96666425], dtype=float32), 2, 14)",[0. 0. 0.]
-[-1.4124568],"(5, array([1.0024861], dtype=float32), 1, 32)","[array(1, dtype=int32), array([0.9975139], dtype=float32), array(0, dtype=int32)]"
-,"(2, array([2.3214254], dtype=float32), 2, 35)",[0. 0. 0.]
-[-29.05412],"(5, array([0.9707099], dtype=float32), 0, 51)","[array(1, dtype=int32), array([1.0292901], dtype=float32), array(19, dtype=int32)]"
-,"(0, array([0.8714423], dtype=float32), 0, 41)",[0. 0. 0.]
-[-21.106272],"(2, array([1.3110348], dtype=float32), 1, 11)","[array(2, dtype=int32), array([0.6889652], dtype=float32), array(21, dtype=int32)]"
-,"(0, array([0.5182504], dtype=float32), 2, 21)",[0. 0. 0.]
-[-28.000256],"(4, array([1.9041094], dtype=float32), 0, 14)","[array(0, dtype=int32), array([0.09589064], dtype=float32), array(18, dtype=int32)]"
-,"(1, array([1.1456871], dtype=float32), 1, 19)",[0. 0. 0.]
-[-15.010531],"(1, array([1.6753107], dtype=float32), 0, 36)","[array(3, dtype=int32), array([0.32468927], dtype=float32), array(4, dtype=int32)]"
-,"(4, array([0.78660464], dtype=float32), 1, 31)",[0. 0. 0.]
-[-35.198013],"(7, array([1.0305582], dtype=float32), 2, 57)","[array(3, dtype=int32), array([0.9694418], dtype=float32), array(25, dtype=int32)]"
-,"(3, array([2.3868122], dtype=float32), 1, 34)",[0. 0. 0.]
-[-40.068275],"(2, array([2.3182292], dtype=float32), 0, 62)","[array(2, dtype=int32), array([0.3182292], dtype=float32), array(30, dtype=int32)]"
-,"(6, array([1.8106604], dtype=float32), 0, 44)",[0. 0. 0.]
-[-28.071463],"(6, array([2.0836916], dtype=float32), 1, 4)","[array(2, dtype=int32), array([0.0836916], dtype=float32), array(28, dtype=int32)]"
-,"(0, array([0.87206155], dtype=float32), 2, 60)",[0. 0. 0.]
-[-28.017979],"(3, array([2.0846698], dtype=float32), 1, 60)","[array(1, dtype=int32), array([0.08466983], dtype=float32), array(28, dtype=int32)]"
-,"(3, array([1.0164281], dtype=float32), 0, 51)",[0. 0. 0.]
-[-39.069794],"(2, array([2.2297819], dtype=float32), 0, 3)","[array(2, dtype=int32), array([0.22978187], dtype=float32), array(29, dtype=int32)]"
-,"(6, array([2.2158344], dtype=float32), 0, 19)",[0. 0. 0.]
-[-13.60688],"(6, array([2.0978773], dtype=float32), 2, 35)","[array(2, dtype=int32), array([0.09787726], dtype=float32), array(3, dtype=int32)]"
-,"(1, array([0.7052238], dtype=float32), 2, 32)",[0. 0. 0.]
-[-7.2259517],"(0, array([1.5369875], dtype=float32), 1, 26)","[array(4, dtype=int32), array([0.46301246], dtype=float32), array(6, dtype=int32)]"
-,"(7, array([1.6429565], dtype=float32), 2, 37)",[0. 0. 0.]
-[-28.038664],"(3, array([0.91987425], dtype=float32), 1, 4)","[array(1, dtype=int32), array([1.0801258], dtype=float32), array(28, dtype=int32)]"
-,"(7, array([1.0428946], dtype=float32), 2, 7)",[0. 0. 0.]
-[-17.46431],"(0, array([1.9541751], dtype=float32), 1, 49)","[array(4, dtype=int32), array([0.04582489], dtype=float32), array(17, dtype=int32)]"
-,"(7, array([1.1794248], dtype=float32), 0, 0)",[0. 0. 0.]
-[-31.024042],"(3, array([1.2991148], dtype=float32), 1, 1)","[array(1, dtype=int32), array([0.7008852], dtype=float32), array(31, dtype=int32)]"
-,"(0, array([2.4609911], dtype=float32), 0, 23)",[0. 0. 0.]
-[-26.077076],"(6, array([2.1176584], dtype=float32), 1, 58)","[array(2, dtype=int32), array([0.11765838], dtype=float32), array(26, dtype=int32)]"
-,"(1, array([1.3749957], dtype=float32), 0, 40)",[0. 0. 0.]
-[-40.160675],"(1, array([1.1836716], dtype=float32), 0, 2)","[array(3, dtype=int32), array([0.8163284], dtype=float32), array(30, dtype=int32)]"
-,"(2, array([2.4503872], dtype=float32), 2, 0)",[0. 0. 0.]
-[-13.673338],"(7, array([1.2975693], dtype=float32), 0, 34)","[array(3, dtype=int32), array([0.7024307], dtype=float32), array(2, dtype=int32)]"
-,"(0, array([2.3063169], dtype=float32), 0, 2)",[0. 0. 0.]
-[-16.093708],"(3, array([1.6349214], dtype=float32), 2, 26)","[array(1, dtype=int32), array([0.36507857], dtype=float32), array(6, dtype=int32)]"
-,"(3, array([0.86780685], dtype=float32), 0, 47)",[0. 0. 0.]
-[-27.086039],"(2, array([1.1916535], dtype=float32), 1, 5)","[array(2, dtype=int32), array([0.8083465], dtype=float32), array(27, dtype=int32)]"
-,"(0, array([2.0564506], dtype=float32), 0, 20)",[0. 0. 0.]
-[-25.206848],"(2, array([0.5005975], dtype=float32), 2, 17)","[array(2, dtype=int32), array([1.4994025], dtype=float32), array(15, dtype=int32)]"
-,"(2, array([0.98178965], dtype=float32), 0, 31)",[0. 0. 0.]
-[-15.078007],"(7, array([1.1133507], dtype=float32), 0, 36)","[array(3, dtype=int32), array([0.88664925], dtype=float32), array(4, dtype=int32)]"
-,"(1, array([2.2819269], dtype=float32), 2, 55)",[0. 0. 0.]
-[-38.314346],"(0, array([0.6953373], dtype=float32), 0, 4)","[array(4, dtype=int32), array([1.3046627], dtype=float32), array(28, dtype=int32)]"
-,"(6, array([1.5653994], dtype=float32), 2, 21)",[0. 0. 0.]
-[-18.170923],"(5, array([0.67184925], dtype=float32), 2, 40)","[array(1, dtype=int32), array([1.3281507], dtype=float32), array(8, dtype=int32)]"
-,"(0, array([2.2099438], dtype=float32), 1, 3)",[0. 0. 0.]
-[-27.166162],"(1, array([2.0212312], dtype=float32), 1, 5)","[array(3, dtype=int32), array([0.02123117], dtype=float32), array(27, dtype=int32)]"
-,"(2, array([2.2886007], dtype=float32), 2, 24)",[0. 0. 0.]
-[-41.016876],"(5, array([1.7837569], dtype=float32), 0, 1)","[array(1, dtype=int32), array([0.21624315], dtype=float32), array(31, dtype=int32)]"
-,"(5, array([1.7398306], dtype=float32), 2, 34)",[0. 0. 0.]
-[-17.068174],"(3, array([0.8499729], dtype=float32), 1, 15)","[array(1, dtype=int32), array([1.150027], dtype=float32), array(17, dtype=int32)]"
-,"(0, array([0.93669397], dtype=float32), 2, 3)",[0. 0. 0.]
-[-42.140823],"(7, array([1.8197268], dtype=float32), 0, 0)","[array(3, dtype=int32), array([0.18027318], dtype=float32), array(32, dtype=int32)]"
-,"(0, array([1.7543561], dtype=float32), 0, 50)",[0. 0. 0.]
-[-21.410849],"(7, array([2.4554996], dtype=float32), 2, 43)","[array(3, dtype=int32), array([0.45549965], dtype=float32), array(11, dtype=int32)]"
-,"(1, array([1.685907], dtype=float32), 0, 35)",[0. 0. 0.]
-[-19.050037],"(3, array([1.0492518], dtype=float32), 1, 13)","[array(1, dtype=int32), array([0.9507482], dtype=float32), array(19, dtype=int32)]"
-,"(0, array([1.0064508], dtype=float32), 1, 3)",[0. 0. 0.]
-[-38.298935],"(0, array([1.0890702], dtype=float32), 2, 4)","[array(4, dtype=int32), array([0.9109298], dtype=float32), array(28, dtype=int32)]"
-,"(4, array([1.5672631], dtype=float32), 2, 56)",[0. 0. 0.]
-[-33.0233],"(4, array([0.9644181], dtype=float32), 2, 9)","[array(0, dtype=int32), array([1.0355818], dtype=float32), array(23, dtype=int32)]"
-,"(1, array([2.249229], dtype=float32), 0, 38)",[0. 0. 0.]
-[-16.71017],"(1, array([1.8375335], dtype=float32), 2, 26)","[array(3, dtype=int32), array([0.16246653], dtype=float32), array(6, dtype=int32)]"
-,"(5, array([0.9063988], dtype=float32), 0, 37)",[0. 0. 0.]
-[-22.17372],"(6, array([1.5534049], dtype=float32), 0, 44)","[array(2, dtype=int32), array([0.44659507], dtype=float32), array(12, dtype=int32)]"
-,"(0, array([1.0909233], dtype=float32), 1, 2)",[0. 0. 0.]
-[-11.450785],"(4, array([0.5492156], dtype=float32), 0, 32)","[array(0, dtype=int32), array([1.4507844], dtype=float32), array(0, dtype=int32)]"
-,"(2, array([1.4684973], dtype=float32), 2, 35)",[0. 0. 0.]
-[-28.115465],"(6, array([2.4124496], dtype=float32), 2, 14)","[array(2, dtype=int32), array([0.4124496], dtype=float32), array(18, dtype=int32)]"
-,"(2, array([1.9589037], dtype=float32), 1, 16)",[0. 0. 0.]
-[-14.006529],"(4, array([1.7713574], dtype=float32), 2, 28)","[array(0, dtype=int32), array([0.22864258], dtype=float32), array(4, dtype=int32)]"
-,"(3, array([2.2650204], dtype=float32), 0, 58)",[0. 0. 0.]
-[-18.081566],"(5, array([1.4417154], dtype=float32), 0, 24)","[array(1, dtype=int32), array([0.55828464], dtype=float32), array(8, dtype=int32)]"
-,"(7, array([0.63128513], dtype=float32), 1, 36)",[0. 0. 0.]
-[-20.030766],"(3, array([2.4812212], dtype=float32), 1, 12)","[array(1, dtype=int32), array([0.4812212], dtype=float32), array(20, dtype=int32)]"
-,"(0, array([1.6683112], dtype=float32), 1, 50)",[0. 0. 0.]
-[-13.710436],"(1, array([1.124022], dtype=float32), 0, 34)","[array(3, dtype=int32), array([0.875978], dtype=float32), array(2, dtype=int32)]"
-,"(6, array([1.8929448], dtype=float32), 0, 55)",[0. 0. 0.]
-[-21.000784],"(4, array([2.1815538], dtype=float32), 1, 53)","[array(0, dtype=int32), array([0.18155384], dtype=float32), array(21, dtype=int32)]"
-,"(1, array([0.5443361], dtype=float32), 1, 43)",[0. 0. 0.]
-[-13.122587],"(7, array([1.1336575], dtype=float32), 0, 32)","[array(3, dtype=int32), array([0.86634254], dtype=float32), array(0, dtype=int32)]"
-,"(2, array([0.9780264], dtype=float32), 0, 54)",[0. 0. 0.]
-[-16.130852],"(3, array([1.2336092], dtype=float32), 2, 26)","[array(1, dtype=int32), array([0.7663908], dtype=float32), array(6, dtype=int32)]"
-,"(3, array([2.3755329], dtype=float32), 2, 40)",[0. 0. 0.]
-[-22.202602],"(6, array([1.0494732], dtype=float32), 0, 20)","[array(2, dtype=int32), array([0.95052683], dtype=float32), array(12, dtype=int32)]"
-,"(5, array([0.9708559], dtype=float32), 1, 13)",[0. 0. 0.]
-[-21.226662],"(2, array([0.9811963], dtype=float32), 0, 21)","[array(2, dtype=int32), array([1.0188037], dtype=float32), array(11, dtype=int32)]"
-,"(6, array([0.76737297], dtype=float32), 2, 19)",[0. 0. 0.]
-[-12.000286],"(4, array([2.0338674], dtype=float32), 0, 30)","[array(0, dtype=int32), array([0.03386736], dtype=float32), array(2, dtype=int32)]"
-,"(5, array([0.8504308], dtype=float32), 1, 31)",[0. 0. 0.]
-[-26.13416],"(6, array([1.442254], dtype=float32), 0, 16)","[array(2, dtype=int32), array([0.55774605], dtype=float32), array(16, dtype=int32)]"
-,"(3, array([1.7362672], dtype=float32), 1, 31)",[0. 0. 0.]
-[-39.03217],"(3, array([1.0689675], dtype=float32), 2, 61)","[array(1, dtype=int32), array([0.93103254], dtype=float32), array(29, dtype=int32)]"
-,"(0, array([1.7276591], dtype=float32), 1, 51)",[0. 0. 0.]
-[-15.007803],"(7, array([2.2794473], dtype=float32), 0, 36)","[array(3, dtype=int32), array([0.27944732], dtype=float32), array(4, dtype=int32)]"
-,"(7, array([1.0796552], dtype=float32), 1, 15)",[0. 0. 0.]
-[-40.26554],"(0, array([1.9467785], dtype=float32), 0, 2)","[array(4, dtype=int32), array([0.05322146], dtype=float32), array(30, dtype=int32)]"
-,"(3, array([1.144884], dtype=float32), 1, 18)",[0. 0. 0.]
-[-12.649507],"(0, array([1.8999244], dtype=float32), 1, 44)","[array(4, dtype=int32), array([0.1000756], dtype=float32), array(12, dtype=int32)]"
-,"(6, array([2.4591234], dtype=float32), 0, 40)",[0. 0. 0.]
-[-27.019207],"(4, array([0.981381], dtype=float32), 1, 59)","[array(0, dtype=int32), array([1.0186191], dtype=float32), array(27, dtype=int32)]"
-,"(3, array([1.8587277], dtype=float32), 0, 44)",[0. 0. 0.]
-[-15.661902],"(0, array([1.7609714], dtype=float32), 0, 36)","[array(4, dtype=int32), array([0.23902857], dtype=float32), array(4, dtype=int32)]"
-,"(0, array([2.431756], dtype=float32), 1, 45)",[0. 0. 0.]
-[-42.1623],"(7, array([0.8111322], dtype=float32), 0, 0)","[array(3, dtype=int32), array([1.1888678], dtype=float32), array(32, dtype=int32)]"
-,"(3, array([1.1692721], dtype=float32), 1, 6)",[0. 0. 0.]
-[-9.519717],"(1, array([1.2094171], dtype=float32), 1, 23)","[array(3, dtype=int32), array([0.7905829], dtype=float32), array(9, dtype=int32)]"
-,"(2, array([1.8333156], dtype=float32), 2, 19)",[0. 0. 0.]
-[-29.048466],"(5, array([1.0812731], dtype=float32), 0, 51)","[array(1, dtype=int32), array([0.9187269], dtype=float32), array(19, dtype=int32)]"
-,"(4, array([1.9496027], dtype=float32), 1, 38)",[0. 0. 0.]
-[-11.712589],"(0, array([1.5701743], dtype=float32), 1, 43)","[array(4, dtype=int32), array([0.42982566], dtype=float32), array(11, dtype=int32)]"
-,"(4, array([0.91865855], dtype=float32), 0, 48)",[0. 0. 0.]
-[-26.133041],"(6, array([1.4755886], dtype=float32), 0, 16)","[array(2, dtype=int32), array([0.52441144], dtype=float32), array(16, dtype=int32)]"
-,"(0, array([1.4986566], dtype=float32), 1, 42)",[0. 0. 0.]
-[-13.609737],"(6, array([2.1737986], dtype=float32), 0, 29)","[array(2, dtype=int32), array([0.17379856], dtype=float32), array(3, dtype=int32)]"
-,"(3, array([1.8457503], dtype=float32), 1, 18)",[0. 0. 0.]
-[-24.02126],"(3, array([2.1446223], dtype=float32), 1, 56)","[array(1, dtype=int32), array([0.14462233], dtype=float32), array(24, dtype=int32)]"
-,"(6, array([1.2258127], dtype=float32), 2, 43)",[0. 0. 0.]
-[-18.260654],"(1, array([1.3280662], dtype=float32), 1, 50)","[array(3, dtype=int32), array([0.67193377], dtype=float32), array(18, dtype=int32)]"
-,"(7, array([2.4777377], dtype=float32), 2, 45)",[0. 0. 0.]
-[-10.209959],"(2, array([2.4932249], dtype=float32), 1, 42)","[array(2, dtype=int32), array([0.49322486], dtype=float32), array(10, dtype=int32)]"
-,"(1, array([2.1153536], dtype=float32), 0, 47)",[0. 0. 0.]
-[-30.099846],"(2, array([2.061873], dtype=float32), 2, 12)","[array(2, dtype=int32), array([0.06187296], dtype=float32), array(20, dtype=int32)]"
-,"(6, array([0.95422435], dtype=float32), 1, 14)",[0. 0. 0.]
-[-30.228575],"(7, array([2.441852], dtype=float32), 0, 52)","[array(3, dtype=int32), array([0.4418521], dtype=float32), array(20, dtype=int32)]"
-,"(6, array([0.6534745], dtype=float32), 2, 13)",[0. 0. 0.]
-[-3.316222],"(4, array([0.5867317], dtype=float32), 1, 29)","[array(0, dtype=int32), array([1.4132683], dtype=float32), array(3, dtype=int32)]"
-,"(1, array([0.52026916], dtype=float32), 2, 34)",[0. 0. 0.]
-[-40.080544],"(6, array([1.0839205], dtype=float32), 2, 2)","[array(2, dtype=int32), array([0.9160795], dtype=float32), array(30, dtype=int32)]"
-,"(5, array([2.0715044], dtype=float32), 1, 57)",[0. 0. 0.]
-[-30.023642],"(3, array([1.3527114], dtype=float32), 1, 62)","[array(1, dtype=int32), array([0.64728856], dtype=float32), array(30, dtype=int32)]"
-,"(1, array([1.2468904], dtype=float32), 2, 10)",[0. 0. 0.]
-[-30.423923],"(0, array([0.9338774], dtype=float32), 2, 52)","[array(4, dtype=int32), array([1.0661225], dtype=float32), array(20, dtype=int32)]"
-,"(4, array([2.374836], dtype=float32), 1, 30)",[0. 0. 0.]
-[-40.068474],"(2, array([2.336512], dtype=float32), 0, 2)","[array(2, dtype=int32), array([0.3365121], dtype=float32), array(30, dtype=int32)]"
-,"(7, array([2.3943443], dtype=float32), 0, 24)",[0. 0. 0.]
-[-11.647337],"(5, array([1.1551816], dtype=float32), 2, 31)","[array(1, dtype=int32), array([0.84481835], dtype=float32), array(1, dtype=int32)]"
-,"(4, array([1.1493067], dtype=float32), 2, 53)",[0. 0. 0.]
-[-27.113031],"(6, array([0.54519534], dtype=float32), 1, 59)","[array(2, dtype=int32), array([1.4548047], dtype=float32), array(27, dtype=int32)]"
-,"(6, array([0.8341883], dtype=float32), 1, 56)",[0. 0. 0.]
-[-36.025864],"(3, array([1.4121333], dtype=float32), 0, 6)","[array(1, dtype=int32), array([0.58786666], dtype=float32), array(26, dtype=int32)]"
-,"(5, array([1.8064181], dtype=float32), 0, 44)",[0. 0. 0.]
-[-16.760675],"(1, array([1.1593238], dtype=float32), 2, 26)","[array(3, dtype=int32), array([0.8406762], dtype=float32), array(6, dtype=int32)]"
-,"(2, array([1.924202], dtype=float32), 1, 63)",[0. 0. 0.]
-[-16.01978],"(4, array([1.5123979], dtype=float32), 0, 38)","[array(0, dtype=int32), array([0.4876021], dtype=float32), array(6, dtype=int32)]"
-,"(3, array([1.1425531], dtype=float32), 2, 57)",[0. 0. 0.]
-[-27.055346],"(5, array([0.5887297], dtype=float32), 1, 59)","[array(1, dtype=int32), array([1.4112704], dtype=float32), array(27, dtype=int32)]"
-,"(2, array([1.8701383], dtype=float32), 0, 33)",[0. 0. 0.]
-[-28.119184],"(2, array([1.4478598], dtype=float32), 0, 50)","[array(2, dtype=int32), array([0.55214024], dtype=float32), array(18, dtype=int32)]"
-,"(0, array([0.6138464], dtype=float32), 2, 15)",[0. 0. 0.]
-[-20.855274],"(0, array([0.64465], dtype=float32), 2, 42)","[array(4, dtype=int32), array([1.35535], dtype=float32), array(10, dtype=int32)]"
-,"(5, array([1.7300895], dtype=float32), 1, 35)",[0. 0. 0.]
-[-13.232252],"(3, array([1.3310812], dtype=float32), 2, 29)","[array(1, dtype=int32), array([0.66891885], dtype=float32), array(3, dtype=int32)]"
-,"(2, array([0.78861266], dtype=float32), 1, 11)",[0. 0. 0.]
-[-3.6189108],"(6, array([1.6893294], dtype=float32), 1, 29)","[array(2, dtype=int32), array([0.3106706], dtype=float32), array(3, dtype=int32)]"
-,"(2, array([1.620982], dtype=float32), 2, 9)",[0. 0. 0.]
-[-34.214176],"(7, array([0.8483574], dtype=float32), 0, 8)","[array(3, dtype=int32), array([1.1516426], dtype=float32), array(24, dtype=int32)]"
-,"(5, array([0.5369722], dtype=float32), 2, 22)",[0. 0. 0.]
-[-27.033707],"(5, array([2.3836153], dtype=float32), 0, 15)","[array(1, dtype=int32), array([0.38361526], dtype=float32), array(17, dtype=int32)]"
-,"(5, array([0.9923055], dtype=float32), 0, 19)",[0. 0. 0.]
-[-31.09547],"(6, array([1.8626734], dtype=float32), 2, 53)","[array(2, dtype=int32), array([0.1373266], dtype=float32), array(21, dtype=int32)]"
-,"(7, array([1.8718978], dtype=float32), 1, 47)",[0. 0. 0.]
-[-33.092377],"(6, array([1.4921949], dtype=float32), 0, 9)","[array(2, dtype=int32), array([0.5078051], dtype=float32), array(23, dtype=int32)]"
-,"(7, array([1.7059268], dtype=float32), 2, 59)",[0. 0. 0.]
-[-26.27996],"(7, array([2.1927502], dtype=float32), 2, 16)","[array(3, dtype=int32), array([0.19275022], dtype=float32), array(16, dtype=int32)]"
-,"(4, array([2.061747], dtype=float32), 1, 43)",[0. 0. 0.]
-[-5.8382325],"(7, array([2.291481], dtype=float32), 1, 37)","[array(3, dtype=int32), array([0.29148102], dtype=float32), array(5, dtype=int32)]"
-,"(7, array([0.9527354], dtype=float32), 0, 17)",[0. 0. 0.]
-[-34.186775],"(7, array([2.0001135], dtype=float32), 2, 8)","[array(3, dtype=int32), array([0.00011349], dtype=float32), array(24, dtype=int32)]"
-,"(1, array([2.0192106], dtype=float32), 2, 35)",[0. 0. 0.]
-[-22.090729],"(6, array([2.0180578], dtype=float32), 1, 10)","[array(2, dtype=int32), array([0.01805782], dtype=float32), array(22, dtype=int32)]"
-,"(6, array([1.8791107], dtype=float32), 2, 3)",[0. 0. 0.]
-[-17.127567],"(2, array([1.4053717], dtype=float32), 1, 49)","[array(2, dtype=int32), array([0.59462833], dtype=float32), array(17, dtype=int32)]"
-,"(6, array([2.0123181], dtype=float32), 0, 58)",[0. 0. 0.]
-[-6.736352],"(1, array([1.3848263], dtype=float32), 1, 26)","[array(3, dtype=int32), array([0.6151737], dtype=float32), array(6, dtype=int32)]"
-,"(3, array([0.79172957], dtype=float32), 0, 26)",[0. 0. 0.]
-[-37.17498],"(7, array([1.3074244], dtype=float32), 0, 59)","[array(3, dtype=int32), array([0.6925756], dtype=float32), array(27, dtype=int32)]"
-,"(2, array([2.3195808], dtype=float32), 2, 17)",[0. 0. 0.]
-[-21.0036],"(4, array([1.6111652], dtype=float32), 1, 11)","[array(0, dtype=int32), array([0.38883483], dtype=float32), array(21, dtype=int32)]"
-,"(1, array([2.398701], dtype=float32), 2, 0)",[0. 0. 0.]
-[-33.199776],"(7, array([2.4792118], dtype=float32), 0, 9)","[array(3, dtype=int32), array([0.4792118], dtype=float32), array(23, dtype=int32)]"
-,"(6, array([2.4285393], dtype=float32), 1, 57)",[0. 0. 0.]
-[-24.085472],"(2, array([2.3316343], dtype=float32), 1, 8)","[array(2, dtype=int32), array([0.33163428], dtype=float32), array(24, dtype=int32)]"
-,"(0, array([0.51898783], dtype=float32), 2, 25)",[0. 0. 0.]
-[-36.079258],"(6, array([1.6426774], dtype=float32), 0, 6)","[array(2, dtype=int32), array([0.35732257], dtype=float32), array(26, dtype=int32)]"
-,"(0, array([1.6809263], dtype=float32), 2, 2)",[0. 0. 0.]
-[-29.453215],"(0, array([0.8051812], dtype=float32), 0, 13)","[array(4, dtype=int32), array([1.1948187], dtype=float32), array(19, dtype=int32)]"
-,"(7, array([1.0122321], dtype=float32), 1, 17)",[0. 0. 0.]
-[-35.202057],"(7, array([0.9305729], dtype=float32), 2, 7)","[array(3, dtype=int32), array([1.069427], dtype=float32), array(25, dtype=int32)]"
-,"(5, array([1.6047293], dtype=float32), 1, 21)",[0. 0. 0.]
-[-20.450113],"(7, array([1.5473748], dtype=float32), 0, 42)","[array(3, dtype=int32), array([0.45262516], dtype=float32), array(10, dtype=int32)]"
-,"(2, array([2.185431], dtype=float32), 2, 2)",[0. 0. 0.]
-[-33.087307],"(2, array([2.1541102], dtype=float32), 2, 9)","[array(2, dtype=int32), array([0.1541102], dtype=float32), array(23, dtype=int32)]"
-,"(7, array([2.085061], dtype=float32), 0, 23)",[0. 0. 0.]
-[-28.032951],"(3, array([1.5671875], dtype=float32), 2, 14)","[array(1, dtype=int32), array([0.43281245], dtype=float32), array(18, dtype=int32)]"
-,"(4, array([1.197421], dtype=float32), 0, 20)",[0. 0. 0.]
-[-38.036602],"(5, array([0.9747948], dtype=float32), 0, 4)","[array(1, dtype=int32), array([1.0252051], dtype=float32), array(28, dtype=int32)]"
-,"(5, array([2.351613], dtype=float32), 2, 44)",[0. 0. 0.]
-[-29.070417],"(6, array([2.2986455], dtype=float32), 1, 3)","[array(2, dtype=int32), array([0.2986455], dtype=float32), array(29, dtype=int32)]"
-,"(0, array([2.4886446], dtype=float32), 1, 38)",[0. 0. 0.]
-[-41.0187],"(3, array([1.6002133], dtype=float32), 2, 63)","[array(1, dtype=int32), array([0.3997867], dtype=float32), array(31, dtype=int32)]"
-,"(1, array([0.75359684], dtype=float32), 0, 63)",[0. 0. 0.]
-[-10.060205],"(3, array([2.4557817], dtype=float32), 1, 42)","[array(1, dtype=int32), array([0.4557817], dtype=float32), array(10, dtype=int32)]"
-,"(5, array([1.7463827], dtype=float32), 2, 14)",[0. 0. 0.]
-[-40.01667],"(5, array([1.9775347], dtype=float32), 0, 62)","[array(1, dtype=int32), array([0.02246535], dtype=float32), array(30, dtype=int32)]"
-,"(6, array([1.2823725], dtype=float32), 1, 60)",[0. 0. 0.]
-[-39.001495],"(4, array([2.29426], dtype=float32), 2, 3)","[array(0, dtype=int32), array([0.29426003], dtype=float32), array(29, dtype=int32)]"
-,"(7, array([2.0643613], dtype=float32), 1, 9)",[0. 0. 0.]
-[-18.056126],"(3, array([0.98822236], dtype=float32), 1, 50)","[array(1, dtype=int32), array([1.0117776], dtype=float32), array(18, dtype=int32)]"
-,"(6, array([1.943227], dtype=float32), 1, 24)",[0. 0. 0.]
-[-19.028744],"(3, array([1.6948758], dtype=float32), 1, 13)","[array(1, dtype=int32), array([0.30512416], dtype=float32), array(19, dtype=int32)]"
-,"(4, array([1.1525048], dtype=float32), 1, 19)",[0. 0. 0.]
-[-28.164633],"(7, array([1.5035189], dtype=float32), 1, 60)","[array(3, dtype=int32), array([0.49648106], dtype=float32), array(28, dtype=int32)]"
-,"(1, array([2.2672815], dtype=float32), 1, 1)",[0. 0. 0.]
-[-37.20619],"(7, array([0.5246581], dtype=float32), 2, 5)","[array(3, dtype=int32), array([1.4753419], dtype=float32), array(27, dtype=int32)]"
-,"(2, array([1.4811158], dtype=float32), 1, 9)",[0. 0. 0.]
-[-23.233341],"(2, array([0.54353446], dtype=float32), 2, 19)","[array(2, dtype=int32), array([1.4564655], dtype=float32), array(13, dtype=int32)]"
-,"(1, array([2.3085637], dtype=float32), 1, 1)",[0. 0. 0.]
-[-15.158556],"(7, array([0.73086673], dtype=float32), 0, 28)","[array(3, dtype=int32), array([1.2691333], dtype=float32), array(4, dtype=int32)]"
-,"(7, array([1.4326819], dtype=float32), 0, 21)",[0. 0. 0.]
-[-19.223072],"(2, array([1.7449002], dtype=float32), 2, 23)","[array(2, dtype=int32), array([0.25509977], dtype=float32), array(9, dtype=int32)]"
-,"(6, array([1.7996498], dtype=float32), 2, 6)",[0. 0. 0.]
-[-19.026653],"(5, array([1.8837616], dtype=float32), 1, 51)","[array(1, dtype=int32), array([0.11623836], dtype=float32), array(19, dtype=int32)]"
-,"(1, array([0.9014684], dtype=float32), 2, 22)",[0. 0. 0.]
-[-35.197906],"(7, array([1.0333077], dtype=float32), 0, 7)","[array(3, dtype=int32), array([0.9666923], dtype=float32), array(25, dtype=int32)]"
-,"(2, array([1.2824286], dtype=float32), 0, 54)",[0. 0. 0.]
-[-4.124336],"(5, array([1.8992788], dtype=float32), 1, 36)","[array(1, dtype=int32), array([0.10072124], dtype=float32), array(4, dtype=int32)]"
-,"(6, array([1.1713257], dtype=float32), 1, 53)",[0. 0. 0.]
-[-24.028736],"(5, array([1.3834763], dtype=float32), 1, 8)","[array(1, dtype=int32), array([0.61652374], dtype=float32), array(24, dtype=int32)]"
-,"(4, array([1.7457297], dtype=float32), 2, 22)",[0. 0. 0.]
-[-18.246447],"(6, array([1.9377522], dtype=float32), 0, 40)","[array(2, dtype=int32), array([0.06224775], dtype=float32), array(8, dtype=int32)]"
-,"(6, array([0.67135495], dtype=float32), 0, 35)",[0. 0. 0.]
-[-37.015068],"(4, array([1.0978435], dtype=float32), 2, 59)","[array(0, dtype=int32), array([0.9021565], dtype=float32), array(27, dtype=int32)]"
-,"(0, array([1.2081345], dtype=float32), 1, 16)",[0. 0. 0.]
-[-15.133515],"(6, array([2.1525903], dtype=float32), 1, 17)","[array(2, dtype=int32), array([0.15259027], dtype=float32), array(15, dtype=int32)]"
-,"(7, array([0.61971533], dtype=float32), 2, 24)",[0. 0. 0.]
-[-30.102922],"(6, array([1.6429043], dtype=float32), 0, 12)","[array(2, dtype=int32), array([0.35709572], dtype=float32), array(20, dtype=int32)]"
-,"(6, array([0.6185765], dtype=float32), 0, 52)",[0. 0. 0.]
-[-18.003773],"(4, array([1.7543155], dtype=float32), 0, 24)","[array(0, dtype=int32), array([0.2456845], dtype=float32), array(8, dtype=int32)]"
-,"(0, array([1.3969438], dtype=float32), 2, 57)",[0. 0. 0.]
-[-18.266346],"(7, array([1.1879418], dtype=float32), 1, 14)","[array(3, dtype=int32), array([0.8120582], dtype=float32), array(18, dtype=int32)]"
-,"(5, array([1.552594], dtype=float32), 2, 48)",[0. 0. 0.]
-[-15.135624],"(1, array([0.82755303], dtype=float32), 2, 36)","[array(3, dtype=int32), array([1.172447], dtype=float32), array(4, dtype=int32)]"
-,"(6, array([1.3488524], dtype=float32), 0, 28)",[0. 0. 0.]
-[-7.160842],"(5, array([0.869663], dtype=float32), 1, 25)","[array(1, dtype=int32), array([1.130337], dtype=float32), array(7, dtype=int32)]"
-,"(1, array([1.245602], dtype=float32), 2, 62)",[0. 0. 0.]
-[-12.002047],"(3, array([0.58289313], dtype=float32), 0, 31)","[array(1, dtype=int32), array([1.4171069], dtype=float32), array(1, dtype=int32)]"
-,"(2, array([0.7203998], dtype=float32), 1, 19)",[0. 0. 0.]
-[-33.12223],"(6, array([0.72033054], dtype=float32), 0, 55)","[array(2, dtype=int32), array([1.2796695], dtype=float32), array(23, dtype=int32)]"
-,"(2, array([0.8082688], dtype=float32), 0, 42)",[0. 0. 0.]
-[-32.245674],"(7, array([0.63252], dtype=float32), 2, 10)","[array(3, dtype=int32), array([1.36748], dtype=float32), array(22, dtype=int32)]"
-,"(1, array([0.51230067], dtype=float32), 1, 11)",[0. 0. 0.]
-[-27.117897],"(2, array([2.1495774], dtype=float32), 0, 49)","[array(2, dtype=int32), array([0.14957738], dtype=float32), array(17, dtype=int32)]"
-,"(3, array([2.182071], dtype=float32), 0, 6)",[0. 0. 0.]
-[-39.275204],"(0, array([1.8061997], dtype=float32), 2, 3)","[array(4, dtype=int32), array([0.19380033], dtype=float32), array(29, dtype=int32)]"
-,"(6, array([1.8992225], dtype=float32), 1, 50)",[0. 0. 0.]
-[-22.203646],"(7, array([1.9561168], dtype=float32), 1, 10)","[array(3, dtype=int32), array([0.0438832], dtype=float32), array(22, dtype=int32)]"
-,"(2, array([1.323926], dtype=float32), 2, 58)",[0. 0. 0.]
-[-20.150558],"(3, array([0.57387906], dtype=float32), 2, 22)","[array(1, dtype=int32), array([1.426121], dtype=float32), array(10, dtype=int32)]"
-,"(0, array([1.711998], dtype=float32), 1, 8)",[0. 0. 0.]
-[-14.413403],"(1, array([0.78421885], dtype=float32), 0, 35)","[array(3, dtype=int32), array([1.2157812], dtype=float32), array(3, dtype=int32)]"
-,"(5, array([2.1402137], dtype=float32), 1, 22)",[0. 0. 0.]
-[-33.020317],"(4, array([1.0330236], dtype=float32), 0, 55)","[array(0, dtype=int32), array([0.9669764], dtype=float32), array(23, dtype=int32)]"
-,"(3, array([1.670091], dtype=float32), 1, 22)",[0. 0. 0.]
-[-26.01952],"(5, array([1.8759277], dtype=float32), 1, 6)","[array(1, dtype=int32), array([0.12407231], dtype=float32), array(26, dtype=int32)]"
-,"(2, array([1.2071387], dtype=float32), 1, 55)",[0. 0. 0.]
-[-12.165989],"(2, array([1.8937232], dtype=float32), 1, 20)","[array(2, dtype=int32), array([0.10627675], dtype=float32), array(12, dtype=int32)]"
-,"(4, array([2.352058], dtype=float32), 0, 55)",[0. 0. 0.]
-[-27.053947],"(4, array([0.6445881], dtype=float32), 0, 15)","[array(0, dtype=int32), array([1.3554119], dtype=float32), array(17, dtype=int32)]"
-,"(3, array([1.0948508], dtype=float32), 2, 33)",[0. 0. 0.]
-[-23.04056],"(3, array([1.0686705], dtype=float32), 1, 9)","[array(1, dtype=int32), array([0.9313295], dtype=float32), array(23, dtype=int32)]"
-,"(1, array([1.388741], dtype=float32), 2, 24)",[0. 0. 0.]
-[-34.21695],"(7, array([0.79148304], dtype=float32), 0, 56)","[array(3, dtype=int32), array([1.208517], dtype=float32), array(24, dtype=int32)]"
-,"(5, array([1.7595149], dtype=float32), 0, 11)",[0. 0. 0.]
-[-32.026176],"(5, array([2.3904536], dtype=float32), 0, 10)","[array(1, dtype=int32), array([0.39045358], dtype=float32), array(22, dtype=int32)]"
-,"(7, array([1.8248911], dtype=float32), 2, 37)",[0. 0. 0.]
-[-5.8425927],"(7, array([2.3686292], dtype=float32), 1, 27)","[array(3, dtype=int32), array([0.36862922], dtype=float32), array(5, dtype=int32)]"
-,"(1, array([0.6017488], dtype=float32), 1, 6)",[0. 0. 0.]
-[-7.0711184],"(3, array([1.9732642], dtype=float32), 1, 39)","[array(1, dtype=int32), array([0.02673578], dtype=float32), array(7, dtype=int32)]"
-,"(0, array([1.0755157], dtype=float32), 1, 26)",[0. 0. 0.]
-[-27.078505],"(2, array([2.4954035], dtype=float32), 1, 59)","[array(2, dtype=int32), array([0.49540353], dtype=float32), array(27, dtype=int32)]"
-,"(2, array([1.469715], dtype=float32), 2, 53)",[0. 0. 0.]
-[-17.285221],"(2, array([2.2728677], dtype=float32), 0, 39)","[array(2, dtype=int32), array([0.27286768], dtype=float32), array(7, dtype=int32)]"
-,"(0, array([1.1818933], dtype=float32), 2, 58)",[0. 0. 0.]
-[-13.870718],"(1, array([0.5920016], dtype=float32), 2, 30)","[array(3, dtype=int32), array([1.4079983], dtype=float32), array(2, dtype=int32)]"
-,"(3, array([1.078828], dtype=float32), 2, 35)",[0. 0. 0.]
-[-14.142273],"(6, array([1.9376122], dtype=float32), 1, 18)","[array(2, dtype=int32), array([0.06238782], dtype=float32), array(14, dtype=int32)]"
-,"(0, array([1.7287219], dtype=float32), 0, 11)",[0. 0. 0.]
-[-19.28102],"(1, array([0.67420584], dtype=float32), 1, 13)","[array(3, dtype=int32), array([1.3257942], dtype=float32), array(19, dtype=int32)]"
-,"(1, array([2.1564813], dtype=float32), 0, 59)",[0. 0. 0.]
-[-35.08485],"(6, array([1.5002935], dtype=float32), 2, 7)","[array(2, dtype=int32), array([0.4997065], dtype=float32), array(25, dtype=int32)]"
-,"(6, array([2.0145435], dtype=float32), 1, 26)",[0. 0. 0.]
-[-34.052284],"(3, array([0.7701535], dtype=float32), 0, 8)","[array(1, dtype=int32), array([1.2298465], dtype=float32), array(24, dtype=int32)]"
-,"(1, array([0.9674935], dtype=float32), 2, 19)",[0. 0. 0.]
-[-38.072655],"(6, array([2.2722182], dtype=float32), 2, 4)","[array(2, dtype=int32), array([0.27221823], dtype=float32), array(28, dtype=int32)]"
-,"(7, array([1.0870054], dtype=float32), 2, 31)",[0. 0. 0.]
-[-31.025732],"(5, array([2.2853167], dtype=float32), 0, 53)","[array(1, dtype=int32), array([0.2853167], dtype=float32), array(21, dtype=int32)]"
-,"(2, array([2.0577774], dtype=float32), 1, 19)",[0. 0. 0.]
-[-31.023933],"(3, array([2.0760639], dtype=float32), 0, 11)","[array(1, dtype=int32), array([0.07606387], dtype=float32), array(21, dtype=int32)]"
-,"(5, array([1.7085351], dtype=float32), 0, 51)",[0. 0. 0.]
-[-40.06673],"(6, array([1.9091026], dtype=float32), 2, 62)","[array(2, dtype=int32), array([0.09089744], dtype=float32), array(30, dtype=int32)]"
-,"(0, array([0.5859464], dtype=float32), 1, 44)",[0. 0. 0.]
-[-17.032255],"(5, array([2.3126373], dtype=float32), 1, 15)","[array(1, dtype=int32), array([0.31263733], dtype=float32), array(17, dtype=int32)]"
-,"(4, array([0.7280909], dtype=float32), 2, 28)",[0. 0. 0.]
-[-28.27711],"(1, array([0.97396666], dtype=float32), 2, 14)","[array(3, dtype=int32), array([1.0260334], dtype=float32), array(18, dtype=int32)]"
-,"(0, array([0.51856023], dtype=float32), 2, 18)",[0. 0. 0.]
-[-15.584642],"(0, array([0.6284746], dtype=float32), 1, 17)","[array(4, dtype=int32), array([1.3715254], dtype=float32), array(15, dtype=int32)]"
-,"(3, array([1.7670633], dtype=float32), 1, 0)",[0. 0. 0.]
-[-23.085793],"(4, array([0.504029], dtype=float32), 2, 19)","[array(0, dtype=int32), array([1.495971], dtype=float32), array(13, dtype=int32)]"
-,"(0, array([0.5607533], dtype=float32), 0, 61)",[0. 0. 0.]
-[-21.0441],"(5, array([1.0758026], dtype=float32), 1, 53)","[array(1, dtype=int32), array([0.92419744], dtype=float32), array(21, dtype=int32)]"
-,"(4, array([1.4826722], dtype=float32), 2, 46)",[0. 0. 0.]
-[-2.3704667],"(6, array([0.7275567], dtype=float32), 1, 32)","[array(2, dtype=int32), array([1.2724433], dtype=float32), array(0, dtype=int32)]"
-,"(7, array([2.3236787], dtype=float32), 1, 63)",[0. 0. 0.]
-[-32.09108],"(2, array([1.874246], dtype=float32), 2, 10)","[array(2, dtype=int32), array([0.125754], dtype=float32), array(22, dtype=int32)]"
-,"(2, array([1.7893788], dtype=float32), 0, 36)",[0. 0. 0.]
-[-17.470032],"(0, array([2.4494743], dtype=float32), 1, 15)","[array(4, dtype=int32), array([0.44947433], dtype=float32), array(17, dtype=int32)]"
-,"(7, array([1.4212724], dtype=float32), 0, 11)",[0. 0. 0.]
-[-38.037952],"(5, array([0.93849736], dtype=float32), 2, 4)","[array(1, dtype=int32), array([1.0615027], dtype=float32), array(28, dtype=int32)]"
-,"(5, array([1.9997154], dtype=float32), 0, 16)",[0. 0. 0.]
-[-14.142716],"(2, array([2.1281953], dtype=float32), 1, 18)","[array(2, dtype=int32), array([0.12819529], dtype=float32), array(14, dtype=int32)]"
-,"(4, array([2.3281527], dtype=float32), 0, 6)",[0. 0. 0.]
-[-40.041664],"(3, array([0.77458036], dtype=float32), 2, 2)","[array(1, dtype=int32), array([1.2254196], dtype=float32), array(30, dtype=int32)]"
-,"(3, array([1.4244152], dtype=float32), 1, 6)",[0. 0. 0.]
-[-28.248848],"(7, array([2.1430504], dtype=float32), 0, 14)","[array(3, dtype=int32), array([0.14305043], dtype=float32), array(18, dtype=int32)]"
-,"(4, array([1.6468409], dtype=float32), 2, 45)",[0. 0. 0.]
-[-12.279413],"(2, array([1.5575895], dtype=float32), 2, 33)","[array(2, dtype=int32), array([0.44241047], dtype=float32), array(1, dtype=int32)]"
-,"(6, array([1.3656131], dtype=float32), 1, 61)",[0. 0. 0.]
-[-13.267212],"(4, array([0.7059071], dtype=float32), 2, 35)","[array(0, dtype=int32), array([1.2940929], dtype=float32), array(3, dtype=int32)]"
-,"(0, array([0.68940175], dtype=float32), 1, 30)",[0. 0. 0.]
-[-41.017136],"(5, array([2.2507436], dtype=float32), 2, 63)","[array(1, dtype=int32), array([0.25074363], dtype=float32), array(31, dtype=int32)]"
-,"(3, array([2.1465402], dtype=float32), 2, 26)",[0. 0. 0.]
-[-32.093662],"(6, array([1.6395224], dtype=float32), 2, 10)","[array(2, dtype=int32), array([0.36047757], dtype=float32), array(22, dtype=int32)]"
-,"(1, array([0.6629669], dtype=float32), 2, 7)",[0. 0. 0.]
-[-31.26023],"(0, array([1.5506227], dtype=float32), 1, 1)","[array(4, dtype=int32), array([0.4493773], dtype=float32), array(31, dtype=int32)]"
-,"(1, array([0.7751427], dtype=float32), 1, 38)",[0. 0. 0.]
-[-21.04927],"(5, array([2.2938933], dtype=float32), 2, 43)","[array(1, dtype=int32), array([0.29389334], dtype=float32), array(11, dtype=int32)]"
-,"(5, array([2.2704418], dtype=float32), 0, 45)",[0. 0. 0.]
-[-3.002028],"(7, array([1.8896761], dtype=float32), 1, 32)","[array(3, dtype=int32), array([0.11032391], dtype=float32), array(0, dtype=int32)]"
-,"(7, array([0.75070596], dtype=float32), 2, 24)",[0. 0. 0.]
-[-16.324598],"(6, array([2.0233698], dtype=float32), 2, 26)","[array(2, dtype=int32), array([0.02336979], dtype=float32), array(6, dtype=int32)]"
-,"(1, array([1.0378273], dtype=float32), 0, 45)",[0. 0. 0.]
-[-33.086884],"(2, array([1.9349053], dtype=float32), 2, 55)","[array(2, dtype=int32), array([0.06509471], dtype=float32), array(23, dtype=int32)]"
-,"(0, array([1.8629172], dtype=float32), 2, 40)",[0. 0. 0.]
-[-14.376562],"(7, array([0.92561924], dtype=float32), 0, 29)","[array(3, dtype=int32), array([1.0743808], dtype=float32), array(3, dtype=int32)]"
-,"(3, array([0.98109627], dtype=float32), 0, 37)",[0. 0. 0.]
-[-29.420969],"(0, array([1.5828404], dtype=float32), 0, 51)","[array(4, dtype=int32), array([0.41715956], dtype=float32), array(19, dtype=int32)]"
-,"(7, array([1.8837628], dtype=float32), 2, 30)",[0. 0. 0.]
-[-24.382675],"(1, array([0.6356828], dtype=float32), 2, 46)","[array(3, dtype=int32), array([1.3643172], dtype=float32), array(14, dtype=int32)]"
-,"(3, array([1.3980274], dtype=float32), 2, 30)",[0. 0. 0.]
-[-15.1026325],"(5, array([2.191978], dtype=float32), 2, 37)","[array(1, dtype=int32), array([0.19197798], dtype=float32), array(5, dtype=int32)]"
-,"(7, array([1.9389977], dtype=float32), 2, 10)",[0. 0. 0.]
-[-30.07334],"(6, array([1.3630395], dtype=float32), 1, 62)","[array(2, dtype=int32), array([0.6369605], dtype=float32), array(30, dtype=int32)]"
-,"(4, array([2.1961741], dtype=float32), 2, 47)",[0. 0. 0.]
-[-16.278824],"(1, array([2.0089407], dtype=float32), 1, 48)","[array(3, dtype=int32), array([0.0089407], dtype=float32), array(16, dtype=int32)]"
-,"(0, array([0.63002837], dtype=float32), 1, 51)",[0. 0. 0.]
-[-39.02542],"(5, array([1.3108037], dtype=float32), 0, 3)","[array(1, dtype=int32), array([0.68919635], dtype=float32), array(29, dtype=int32)]"
-,"(5, array([1.6334896], dtype=float32), 2, 25)",[0. 0. 0.]
-[-26.189373],"(7, array([1.0601959], dtype=float32), 1, 6)","[array(3, dtype=int32), array([0.9398041], dtype=float32), array(26, dtype=int32)]"
-,"(7, array([1.4438562], dtype=float32), 0, 54)",[0. 0. 0.]
-[-24.087708],"(2, array([1.5334545], dtype=float32), 1, 56)","[array(2, dtype=int32), array([0.46654546], dtype=float32), array(24, dtype=int32)]"
-,"(7, array([2.0061197], dtype=float32), 2, 50)",[0. 0. 0.]
-[-26.495987],"(0, array([1.6570535], dtype=float32), 0, 16)","[array(4, dtype=int32), array([0.34294653], dtype=float32), array(16, dtype=int32)]"
-,"(3, array([0.8670787], dtype=float32), 0, 24)",[0. 0. 0.]
-[-7.2932425],"(2, array([1.5625265], dtype=float32), 1, 25)","[array(2, dtype=int32), array([0.43747354], dtype=float32), array(7, dtype=int32)]"
-,"(2, array([1.4431646], dtype=float32), 0, 55)",[0. 0. 0.]
-[-12.256859],"(6, array([0.506486], dtype=float32), 1, 44)","[array(2, dtype=int32), array([1.4935141], dtype=float32), array(12, dtype=int32)]"
-,"(0, array([2.1035726], dtype=float32), 2, 33)",[0. 0. 0.]
-[-11.039866],"(4, array([1.0626324], dtype=float32), 1, 21)","[array(0, dtype=int32), array([0.93736756], dtype=float32), array(11, dtype=int32)]"
-,"(6, array([2.4002974], dtype=float32), 1, 52)",[0. 0. 0.]
-[-2.4160466],"(3, array([1.0849695], dtype=float32), 1, 34)","[array(1, dtype=int32), array([0.9150305], dtype=float32), array(2, dtype=int32)]"
-,"(2, array([0.5770931], dtype=float32), 2, 22)",[0. 0. 0.]
-[-24.0451],"(3, array([1.4853902], dtype=float32), 2, 46)","[array(1, dtype=int32), array([0.5146098], dtype=float32), array(14, dtype=int32)]"
-,"(5, array([0.9265105], dtype=float32), 0, 0)",[0. 0. 0.]
-[-20.30032],"(2, array([0.5520354], dtype=float32), 0, 42)","[array(2, dtype=int32), array([1.4479647], dtype=float32), array(10, dtype=int32)]"
-,"(6, array([2.1265595], dtype=float32), 2, 59)",[0. 0. 0.]
-[-40.021484],"(3, array([1.4618889], dtype=float32), 0, 2)","[array(1, dtype=int32), array([0.5381111], dtype=float32), array(30, dtype=int32)]"
-,"(5, array([1.8317204], dtype=float32), 1, 27)",[0. 0. 0.]
-[-10.128905],"(5, array([0.73717433], dtype=float32), 1, 42)","[array(1, dtype=int32), array([1.2628257], dtype=float32), array(10, dtype=int32)]"
-,"(7, array([1.0151651], dtype=float32), 0, 39)",[0. 0. 0.]
-[-36.17255],"(7, array([2.049066], dtype=float32), 2, 58)","[array(3, dtype=int32), array([0.04906607], dtype=float32), array(26, dtype=int32)]"
-,"(3, array([1.9809171], dtype=float32), 0, 17)",[0. 0. 0.]
-[-26.17256],"(7, array([2.0536454], dtype=float32), 1, 6)","[array(3, dtype=int32), array([0.05364537], dtype=float32), array(26, dtype=int32)]"
-,"(3, array([1.0789938], dtype=float32), 1, 4)",[0. 0. 0.]
-[-0.00470138],"(4, array([2.0047014], dtype=float32), 1, 32)","[array(0, dtype=int32), array([0.00470138], dtype=float32), array(0, dtype=int32)]"
-,"(6, array([2.322938], dtype=float32), 2, 7)",[0. 0. 0.]
-[-25.149088],"(6, array([1.2965345], dtype=float32), 0, 47)","[array(2, dtype=int32), array([0.70346546], dtype=float32), array(15, dtype=int32)]"
-,"(7, array([2.2682633], dtype=float32), 1, 51)",[0. 0. 0.]
-[-14.248325],"(7, array([2.2196975], dtype=float32), 2, 29)","[array(3, dtype=int32), array([0.21969748], dtype=float32), array(3, dtype=int32)]"
-,"(0, array([0.72731763], dtype=float32), 2, 63)",[0. 0. 0.]
-[-29.235428],"(7, array([2.0414934], dtype=float32), 0, 13)","[array(3, dtype=int32), array([0.04149342], dtype=float32), array(19, dtype=int32)]"
-,"(6, array([2.4522502], dtype=float32), 1, 3)",[0. 0. 0.]
-[-32.078636],"(6, array([0.980714], dtype=float32), 1, 0)","[array(2, dtype=int32), array([1.0192859], dtype=float32), array(32, dtype=int32)]"
-,"(3, array([2.3380265], dtype=float32), 0, 12)",[0. 0. 0.]
-[-18.075592],"(3, array([1.5361092], dtype=float32), 2, 40)","[array(1, dtype=int32), array([0.4638908], dtype=float32), array(8, dtype=int32)]"
-,"(7, array([2.1855478], dtype=float32), 2, 48)",[0. 0. 0.]
-[-30.24968],"(7, array([0.97553474], dtype=float32), 2, 12)","[array(3, dtype=int32), array([1.0244653], dtype=float32), array(20, dtype=int32)]"
-,"(2, array([1.5982246], dtype=float32), 1, 22)",[0. 0. 0.]
-[-29.126284],"(2, array([1.0973859], dtype=float32), 0, 13)","[array(2, dtype=int32), array([0.9026141], dtype=float32), array(19, dtype=int32)]"
-,"(7, array([1.4701401], dtype=float32), 2, 37)",[0. 0. 0.]
-[-14.001586],"(4, array([1.7892517], dtype=float32), 1, 46)","[array(0, dtype=int32), array([0.21074831], dtype=float32), array(14, dtype=int32)]"
-,"(5, array([0.73263514], dtype=float32), 1, 11)",[0. 0. 0.]
-[-22.049166],"(3, array([1.5729052], dtype=float32), 0, 44)","[array(1, dtype=int32), array([0.42709482], dtype=float32), array(12, dtype=int32)]"
-,"(4, array([2.3056135], dtype=float32), 2, 25)",[0. 0. 0.]
-[-25.00056],"(4, array([2.129631], dtype=float32), 0, 47)","[array(0, dtype=int32), array([0.12963104], dtype=float32), array(15, dtype=int32)]"
-,"(0, array([1.1919324], dtype=float32), 2, 4)",[0. 0. 0.]
-[-35.22142],"(7, array([0.5439853], dtype=float32), 0, 7)","[array(3, dtype=int32), array([1.4560146], dtype=float32), array(25, dtype=int32)]"
-,"(2, array([1.8540804], dtype=float32), 2, 22)",[0. 0. 0.]
-[-28.018602],"(5, array([2.2051394], dtype=float32), 1, 4)","[array(1, dtype=int32), array([0.2051394], dtype=float32), array(28, dtype=int32)]"
-,"(1, array([1.8042738], dtype=float32), 1, 5)",[0. 0. 0.]
-[-29.044395],"(3, array([1.1699336], dtype=float32), 0, 51)","[array(1, dtype=int32), array([0.83006644], dtype=float32), array(19, dtype=int32)]"
-,"(4, array([2.2875297], dtype=float32), 0, 35)",[0. 0. 0.]
-[-27.470337],"(0, array([1.538871], dtype=float32), 2, 49)","[array(4, dtype=int32), array([0.46112895], dtype=float32), array(17, dtype=int32)]"
-,"(3, array([1.675416], dtype=float32), 1, 6)",[0. 0. 0.]
-[-25.211983],"(1, array([0.71780145], dtype=float32), 1, 57)","[array(3, dtype=int32), array([1.2821985], dtype=float32), array(25, dtype=int32)]"
-,"(4, array([0.6572563], dtype=float32), 2, 31)",[0. 0. 0.]
-[-18.439377],"(0, array([1.8970734], dtype=float32), 1, 14)","[array(4, dtype=int32), array([0.10292661], dtype=float32), array(18, dtype=int32)]"
-,"(6, array([1.5370803], dtype=float32), 0, 52)",[0. 0. 0.]
-[-10.472275],"(7, array([1.182359], dtype=float32), 1, 42)","[array(3, dtype=int32), array([0.817641], dtype=float32), array(10, dtype=int32)]"
-,"(4, array([2.2517197], dtype=float32), 0, 42)",[0. 0. 0.]
-[-34.021507],"(5, array([2.1810315], dtype=float32), 2, 56)","[array(1, dtype=int32), array([0.18103147], dtype=float32), array(24, dtype=int32)]"
-,"(5, array([1.9033033], dtype=float32), 1, 27)",[0. 0. 0.]
-[-32.090725],"(2, array([2.0122159], dtype=float32), 2, 10)","[array(2, dtype=int32), array([0.01221585], dtype=float32), array(22, dtype=int32)]"
-,"(2, array([0.5399762], dtype=float32), 2, 40)",[0. 0. 0.]
-[-24.213385],"(1, array([0.86511105], dtype=float32), 1, 56)","[array(3, dtype=int32), array([1.1348889], dtype=float32), array(24, dtype=int32)]"
-,"(2, array([2.3095152], dtype=float32), 1, 28)",[0. 0. 0.]
-[-12.011461],"(2, array([2.2144244], dtype=float32), 0, 32)","[array(2, dtype=int32), array([0.21442437], dtype=float32), array(0, dtype=int32)]"
-,"(4, array([1.4320903], dtype=float32), 1, 56)",[0. 0. 0.]
-[-38.1679],"(7, array([1.3437401], dtype=float32), 2, 60)","[array(3, dtype=int32), array([0.6562599], dtype=float32), array(28, dtype=int32)]"
-,"(7, array([0.80357105], dtype=float32), 0, 37)",[0. 0. 0.]
-[-10.011891],"(4, array([2.0118911], dtype=float32), 2, 32)","[array(0, dtype=int32), array([0.01189113], dtype=float32), array(0, dtype=int32)]"
-,"(7, array([1.028677], dtype=float32), 1, 43)",[0. 0. 0.]
-[-17.524673],"(0, array([0.54597], dtype=float32), 1, 15)","[array(4, dtype=int32), array([1.45403], dtype=float32), array(17, dtype=int32)]"
-,"(4, array([1.2988492], dtype=float32), 2, 41)",[0. 0. 0.]
-[-13.666605],"(1, array([1.3336747], dtype=float32), 0, 30)","[array(3, dtype=int32), array([0.66632533], dtype=float32), array(2, dtype=int32)]"
-,"(4, array([2.0220792], dtype=float32), 0, 2)",[0. 0. 0.]
-[-21.381],"(0, array([1.616324], dtype=float32), 1, 53)","[array(4, dtype=int32), array([0.38367605], dtype=float32), array(21, dtype=int32)]"
-,"(5, array([1.7980864], dtype=float32), 2, 44)",[0. 0. 0.]
-[-42.083008],"(2, array([0.8513292], dtype=float32), 0, 0)","[array(2, dtype=int32), array([1.1486708], dtype=float32), array(32, dtype=int32)]"
-,"(4, array([1.8633341], dtype=float32), 2, 9)",[0. 0. 0.]
-[-29.235388],"(1, array([1.9896287], dtype=float32), 0, 13)","[array(3, dtype=int32), array([0.01037133], dtype=float32), array(19, dtype=int32)]"
-,"(4, array([0.8415662], dtype=float32), 1, 52)",[0. 0. 0.]
-[-32.032097],"(3, array([1.3571018], dtype=float32), 0, 10)","[array(1, dtype=int32), array([0.6428982], dtype=float32), array(22, dtype=int32)]"
-,"(0, array([1.2957203], dtype=float32), 2, 33)",[0. 0. 0.]
-[-36.056534],"(5, array([0.60615563], dtype=float32), 0, 58)","[array(1, dtype=int32), array([1.3938444], dtype=float32), array(26, dtype=int32)]"
-,"(2, array([2.0735567], dtype=float32), 0, 37)",[0. 0. 0.]
-[-32.20868],"(7, array([1.5251902], dtype=float32), 0, 10)","[array(3, dtype=int32), array([0.47480977], dtype=float32), array(22, dtype=int32)]"
-,"(3, array([2.3421378], dtype=float32), 1, 18)",[0. 0. 0.]
-[-12.511314],"(3, array([0.8568903], dtype=float32), 0, 30)","[array(1, dtype=int32), array([1.1431097], dtype=float32), array(2, dtype=int32)]"
-,"(2, array([0.7126021], dtype=float32), 1, 18)",[0. 0. 0.]
-[-16.001675],"(4, array([2.141749], dtype=float32), 2, 26)","[array(0, dtype=int32), array([0.1417489], dtype=float32), array(6, dtype=int32)]"
-,"(4, array([1.3151892], dtype=float32), 1, 27)",[0. 0. 0.]
-[-36.187035],"(7, array([1.1278042], dtype=float32), 0, 58)","[array(3, dtype=int32), array([0.87219584], dtype=float32), array(26, dtype=int32)]"
-,"(3, array([1.92597], dtype=float32), 0, 54)",[0. 0. 0.]
-[-15.059677],"(1, array([1.2251886], dtype=float32), 2, 36)","[array(3, dtype=int32), array([0.7748114], dtype=float32), array(4, dtype=int32)]"
-,"(1, array([1.0620166], dtype=float32), 1, 62)",[0. 0. 0.]
-[-32.02321],"(3, array([1.302932], dtype=float32), 1, 0)","[array(1, dtype=int32), array([0.697068], dtype=float32), array(32, dtype=int32)]"
-,"(2, array([1.3133801], dtype=float32), 2, 30)",[0. 0. 0.]
-[-34.111183],"(2, array([0.8384563], dtype=float32), 0, 8)","[array(2, dtype=int32), array([1.1615437], dtype=float32), array(24, dtype=int32)]"
-,"(7, array([2.0630088], dtype=float32), 2, 9)",[0. 0. 0.]
-[-27.262936],"(7, array([2.0946152], dtype=float32), 0, 15)","[array(3, dtype=int32), array([0.09461522], dtype=float32), array(17, dtype=int32)]"
-,"(1, array([0.97885686], dtype=float32), 0, 2)",[0. 0. 0.]
-[-26.278824],"(7, array([1.9885601], dtype=float32), 2, 16)","[array(3, dtype=int32), array([0.01143992], dtype=float32), array(16, dtype=int32)]"
-,"(5, array([1.7386621], dtype=float32), 2, 38)",[0. 0. 0.]
-[-34.086082],"(2, array([2.3733318], dtype=float32), 0, 56)","[array(2, dtype=int32), array([0.3733318], dtype=float32), array(24, dtype=int32)]"
-,"(3, array([2.4714515], dtype=float32), 1, 13)",[0. 0. 0.]
-[-18.944386],"(0, array([1.9550334], dtype=float32), 0, 24)","[array(4, dtype=int32), array([0.04496658], dtype=float32), array(8, dtype=int32)]"
-,"(3, array([1.297568], dtype=float32), 0, 51)",[0. 0. 0.]
-[-31.28578],"(0, array([0.65834016], dtype=float32), 1, 63)","[array(4, dtype=int32), array([1.3416598], dtype=float32), array(31, dtype=int32)]"
-,"(0, array([2.3987021], dtype=float32), 0, 41)",[0. 0. 0.]
-[-3.4157963],"(7, array([0.708619], dtype=float32), 1, 33)","[array(3, dtype=int32), array([1.291381], dtype=float32), array(1, dtype=int32)]"
-,"(2, array([0.98130536], dtype=float32), 0, 14)",[0. 0. 0.]
-[-28.16108],"(7, array([1.7846662], dtype=float32), 1, 4)","[array(3, dtype=int32), array([0.21533382], dtype=float32), array(28, dtype=int32)]"
-,"(3, array([1.5581129], dtype=float32), 2, 18)",[0. 0. 0.]
-[-15.048876],"(0, array([1.2991799], dtype=float32), 0, 35)","[array(4, dtype=int32), array([0.7008201], dtype=float32), array(3, dtype=int32)]"
-,"(0, array([2.3627377], dtype=float32), 2, 8)",[0. 0. 0.]
-[-30.041313],"(5, array([1.1911504], dtype=float32), 0, 52)","[array(1, dtype=int32), array([0.8088496], dtype=float32), array(20, dtype=int32)]"
-,"(7, array([1.1199056], dtype=float32), 0, 51)",[0. 0. 0.]
-[-32.136642],"(2, array([0.5749068], dtype=float32), 0, 54)","[array(2, dtype=int32), array([1.4250932], dtype=float32), array(22, dtype=int32)]"
-,"(6, array([2.1662526], dtype=float32), 0, 2)",[0. 0. 0.]
-[-1.7278045],"(4, array([0.5909902], dtype=float32), 1, 31)","[array(0, dtype=int32), array([1.4090098], dtype=float32), array(1, dtype=int32)]"
-,"(4, array([1.6787289], dtype=float32), 1, 26)",[0. 0. 0.]
-[-13.17837],"(1, array([2.319436], dtype=float32), 2, 31)","[array(3, dtype=int32), array([0.31943607], dtype=float32), array(1, dtype=int32)]"
-,"(7, array([2.1178248], dtype=float32), 2, 49)",[0. 0. 0.]
-[-33.195198],"(7, array([2.1311038], dtype=float32), 0, 9)","[array(3, dtype=int32), array([0.13110375], dtype=float32), array(23, dtype=int32)]"
-,"(0, array([1.1924819], dtype=float32), 1, 45)",[0. 0. 0.]
-[-20.227484],"(1, array([1.6113482], dtype=float32), 1, 52)","[array(3, dtype=int32), array([0.38865185], dtype=float32), array(20, dtype=int32)]"
-,"(4, array([1.5142816], dtype=float32), 0, 24)",[0. 0. 0.]
-[-22.11615],"(3, array([0.65794826], dtype=float32), 0, 20)","[array(1, dtype=int32), array([1.3420517], dtype=float32), array(12, dtype=int32)]"
-,"(4, array([2.13186], dtype=float32), 1, 12)",[0. 0. 0.]
-[-29.00564],"(4, array([2.4629593], dtype=float32), 0, 13)","[array(0, dtype=int32), array([0.4629593], dtype=float32), array(19, dtype=int32)]"
-,"(7, array([1.6914208], dtype=float32), 1, 25)",[0. 0. 0.]
-[-23.15303],"(6, array([2.0470512], dtype=float32), 2, 19)","[array(2, dtype=int32), array([0.04705119], dtype=float32), array(13, dtype=int32)]"
-,"(6, array([0.74381125], dtype=float32), 1, 15)",[0. 0. 0.]
-[-36.17679],"(7, array([2.473542], dtype=float32), 0, 6)","[array(3, dtype=int32), array([0.47354198], dtype=float32), array(26, dtype=int32)]"
-,"(6, array([0.72945565], dtype=float32), 0, 11)",[0. 0. 0.]
-[-25.033382],"(5, array([1.9495187], dtype=float32), 2, 47)","[array(1, dtype=int32), array([0.05048132], dtype=float32), array(15, dtype=int32)]"
-,"(2, array([0.5738339], dtype=float32), 0, 4)",[0. 0. 0.]
-[-16.175102],"(4, array([0.5399005], dtype=float32), 0, 26)","[array(0, dtype=int32), array([1.4600995], dtype=float32), array(6, dtype=int32)]"
-,"(0, array([1.7026837], dtype=float32), 2, 13)",[0. 0. 0.]
-[-18.610939],"(7, array([0.92843264], dtype=float32), 2, 24)","[array(3, dtype=int32), array([1.0715673], dtype=float32), array(8, dtype=int32)]"
-,"(6, array([0.7770691], dtype=float32), 1, 21)",[0. 0. 0.]
-[-14.038813],"(5, array([1.7029144], dtype=float32), 1, 46)","[array(1, dtype=int32), array([0.29708564], dtype=float32), array(14, dtype=int32)]"
-,"(6, array([0.5426604], dtype=float32), 1, 54)",[0. 0. 0.]
-[-19.],"(4, array([2.005191], dtype=float32), 1, 13)","[array(0, dtype=int32), array([0.00519109], dtype=float32), array(19, dtype=int32)]"
-,"(3, array([1.8601794], dtype=float32), 1, 22)",[0. 0. 0.]
-[-11.053013],"(4, array([2.3299043], dtype=float32), 0, 33)","[array(0, dtype=int32), array([0.32990432], dtype=float32), array(1, dtype=int32)]"
-,"(3, array([2.1616693], dtype=float32), 1, 41)",[0. 0. 0.]
-[-3.8096373],"(2, array([0.7698225], dtype=float32), 1, 35)","[array(2, dtype=int32), array([1.2301775], dtype=float32), array(3, dtype=int32)]"
-,"(0, array([0.6629118], dtype=float32), 2, 4)",[0. 0. 0.]
-[-8.062732],"(3, array([2.0873961], dtype=float32), 1, 24)","[array(1, dtype=int32), array([0.08739614], dtype=float32), array(8, dtype=int32)]"
-,"(1, array([1.3046715], dtype=float32), 0, 35)",[0. 0. 0.]
-[-17.211498],"(0, array([2.0756438], dtype=float32), 0, 26)","[array(4, dtype=int32), array([0.07564378], dtype=float32), array(6, dtype=int32)]"
-,"(4, array([2.3340425], dtype=float32), 0, 45)",[0. 0. 0.]
-[-30.267258],"(0, array([1.6729878], dtype=float32), 1, 2)","[array(4, dtype=int32), array([0.32701218], dtype=float32), array(30, dtype=int32)]"
-,"(4, array([2.0309017], dtype=float32), 0, 63)",[0. 0. 0.]
-[-14.14352],"(0, array([2.4108002], dtype=float32), 2, 31)","[array(4, dtype=int32), array([0.41080022], dtype=float32), array(1, dtype=int32)]"
-,"(2, array([0.6172923], dtype=float32), 2, 54)",[0. 0. 0.]
-[-21.25092],"(6, array([0.7417611], dtype=float32), 0, 21)","[array(2, dtype=int32), array([1.2582389], dtype=float32), array(11, dtype=int32)]"
-,"(3, array([2.1021304], dtype=float32), 1, 49)",[0. 0. 0.]
-[-31.146076],"(7, array([1.7205902], dtype=float32), 1, 1)","[array(3, dtype=int32), array([0.27940977], dtype=float32), array(31, dtype=int32)]"
-,"(0, array([1.5281422], dtype=float32), 0, 29)",[0. 0. 0.]
-[-16.409828],"(0, array([2.2930624], dtype=float32), 0, 27)","[array(4, dtype=int32), array([0.29306245], dtype=float32), array(5, dtype=int32)]"
-,"(5, array([1.2734991], dtype=float32), 2, 44)",[0. 0. 0.]
-[-4.2523365],"(7, array([1.7130029], dtype=float32), 1, 29)","[array(3, dtype=int32), array([0.28699708], dtype=float32), array(3, dtype=int32)]"
-,"(5, array([2.4105837], dtype=float32), 1, 44)",[0. 0. 0.]
-[-39.154816],"(1, array([2.0565667], dtype=float32), 0, 3)","[array(3, dtype=int32), array([0.05656672], dtype=float32), array(29, dtype=int32)]"
-,"(1, array([0.9122629], dtype=float32), 1, 33)",[0. 0. 0.]
-[-14.630816],"(2, array([0.7981426], dtype=float32), 0, 28)","[array(2, dtype=int32), array([1.2018573], dtype=float32), array(4, dtype=int32)]"
-,"(0, array([0.99759173], dtype=float32), 2, 41)",[0. 0. 0.]
-[-35.05452],"(3, array([0.6850889], dtype=float32), 0, 57)","[array(1, dtype=int32), array([1.3149111], dtype=float32), array(25, dtype=int32)]"
-,"(3, array([1.3136765], dtype=float32), 1, 60)",[0. 0. 0.]
-[-42.14248],"(1, array([1.6270804], dtype=float32), 0, 0)","[array(3, dtype=int32), array([0.37291956], dtype=float32), array(32, dtype=int32)]"
-,"(5, array([1.1792217], dtype=float32), 1, 53)",[0. 0. 0.]
-[-12.206472],"(4, array([1.0680556], dtype=float32), 2, 34)","[array(0, dtype=int32), array([0.9319444], dtype=float32), array(2, dtype=int32)]"
-,"(4, array([2.0678756], dtype=float32), 0, 13)",[0. 0. 0.]
-[-26.319706],"(1, array([0.8455139], dtype=float32), 0, 48)","[array(3, dtype=int32), array([1.1544862], dtype=float32), array(16, dtype=int32)]"
-,"(6, array([2.1236567], dtype=float32), 0, 5)",[0. 0. 0.]
-[-2.241516],"(3, array([1.8438114], dtype=float32), 1, 30)","[array(1, dtype=int32), array([0.1561886], dtype=float32), array(2, dtype=int32)]"
-,"(1, array([2.22587], dtype=float32), 1, 29)",[0. 0. 0.]
-[-17.511433],"(0, array([0.7153611], dtype=float32), 1, 49)","[array(4, dtype=int32), array([1.2846389], dtype=float32), array(17, dtype=int32)]"
-,"(5, array([0.5242721], dtype=float32), 1, 28)",[0. 0. 0.]
-[-30.089968],"(6, array([0.81417435], dtype=float32), 1, 2)","[array(2, dtype=int32), array([1.1858256], dtype=float32), array(30, dtype=int32)]"
-,"(2, array([1.7864233], dtype=float32), 1, 51)",[0. 0. 0.]
-[-41.080124],"(6, array([1.0129504], dtype=float32), 2, 1)","[array(2, dtype=int32), array([0.9870496], dtype=float32), array(31, dtype=int32)]"
-,"(2, array([1.5385998], dtype=float32), 0, 43)",[0. 0. 0.]
-[-15.419746],"(6, array([1.3887321], dtype=float32), 0, 37)","[array(2, dtype=int32), array([0.6112679], dtype=float32), array(5, dtype=int32)]"
-,"(1, array([1.5660739], dtype=float32), 0, 40)",[0. 0. 0.]
-[-20.032778],"(4, array([1.1896783], dtype=float32), 0, 42)","[array(0, dtype=int32), array([0.8103217], dtype=float32), array(10, dtype=int32)]"
-,"(3, array([2.3359847], dtype=float32), 0, 58)",[0. 0. 0.]
-[-40.29412],"(0, array([0.68332136], dtype=float32), 0, 2)","[array(4, dtype=int32), array([1.3166786], dtype=float32), array(30, dtype=int32)]"
-,"(5, array([2.416351], dtype=float32), 2, 36)",[0. 0. 0.]
-[-36.17257],"(1, array([1.9429216], dtype=float32), 2, 6)","[array(3, dtype=int32), array([0.05707836], dtype=float32), array(26, dtype=int32)]"
-,"(2, array([1.1024565], dtype=float32), 1, 2)",[0. 0. 0.]
-[-3.6262193],"(2, array([2.3866076], dtype=float32), 1, 35)","[array(2, dtype=int32), array([0.38660765], dtype=float32), array(3, dtype=int32)]"
-,"(1, array([1.8913223], dtype=float32), 1, 17)",[0. 0. 0.]
-[-20.221035],"(6, array([1.3147801], dtype=float32), 2, 42)","[array(2, dtype=int32), array([0.6852199], dtype=float32), array(10, dtype=int32)]"
-,"(3, array([1.8364254], dtype=float32), 1, 60)",[0. 0. 0.]
-[-30.15495],"(7, array([1.4334868], dtype=float32), 1, 2)","[array(3, dtype=int32), array([0.5665132], dtype=float32), array(30, dtype=int32)]"
-,"(5, array([1.9431398], dtype=float32), 1, 25)",[0. 0. 0.]
-[-10.144374],"(5, array([0.61858076], dtype=float32), 1, 42)","[array(1, dtype=int32), array([1.3814192], dtype=float32), array(10, dtype=int32)]"
-,"(3, array([1.7260864], dtype=float32), 2, 28)",[0. 0. 0.]
-[-30.073566],"(3, array([0.60425645], dtype=float32), 0, 52)","[array(1, dtype=int32), array([1.3957436], dtype=float32), array(20, dtype=int32)]"
-,"(4, array([1.9576967], dtype=float32), 0, 32)",[0. 0. 0.]
-[-7.6176825],"(7, array([1.8294617], dtype=float32), 1, 25)","[array(3, dtype=int32), array([0.1705383], dtype=float32), array(7, dtype=int32)]"
-,"(2, array([0.63623255], dtype=float32), 0, 34)",[0. 0. 0.]
-[-19.8491],"(0, array([2.0690935], dtype=float32), 0, 23)","[array(4, dtype=int32), array([0.06909347], dtype=float32), array(9, dtype=int32)]"
-,"(6, array([0.5966836], dtype=float32), 2, 9)",[0. 0. 0.]
-[-26.057291],"(5, array([1.0853509], dtype=float32), 2, 16)","[array(1, dtype=int32), array([0.9146491], dtype=float32), array(16, dtype=int32)]"
-,"(6, array([2.1880283], dtype=float32), 2, 53)",[0. 0. 0.]
-[-26.131548],"(2, array([1.5236998], dtype=float32), 0, 48)","[array(2, dtype=int32), array([0.47630024], dtype=float32), array(16, dtype=int32)]"
-,"(3, array([1.1692771], dtype=float32), 1, 4)",[0. 0. 0.]
-[-27.065975],"(3, array([0.8830744], dtype=float32), 2, 15)","[array(1, dtype=int32), array([1.1169256], dtype=float32), array(17, dtype=int32)]"
-,"(4, array([0.6637303], dtype=float32), 0, 28)",[0. 0. 0.]
-[-18.073322],"(3, array([2.4225504], dtype=float32), 2, 24)","[array(1, dtype=int32), array([0.42255044], dtype=float32), array(8, dtype=int32)]"
-,"(0, array([1.0963353], dtype=float32), 1, 26)",[0. 0. 0.]
-[-35.182365],"(1, array([1.610886], dtype=float32), 2, 7)","[array(3, dtype=int32), array([0.38911402], dtype=float32), array(25, dtype=int32)]"
-,"(0, array([2.4930983], dtype=float32), 2, 9)",[0. 0. 0.]
-[-26.040257],"(5, array([0.9535932], dtype=float32), 1, 6)","[array(1, dtype=int32), array([1.0464067], dtype=float32), array(26, dtype=int32)]"
-,"(0, array([1.6956581], dtype=float32), 1, 9)",[0. 0. 0.]
-[-10.075645],"(4, array([0.76766944], dtype=float32), 1, 42)","[array(0, dtype=int32), array([1.2323306], dtype=float32), array(10, dtype=int32)]"
-,"(3, array([1.1380862], dtype=float32), 0, 1)",[0. 0. 0.]
-[-26.492504],"(0, array([1.9483213], dtype=float32), 0, 48)","[array(4, dtype=int32), array([0.05167866], dtype=float32), array(16, dtype=int32)]"
-,"(3, array([1.7969593], dtype=float32), 2, 16)",[0. 0. 0.]
-[-29.135979],"(2, array([0.91112137], dtype=float32), 0, 51)","[array(2, dtype=int32), array([1.0888786], dtype=float32), array(19, dtype=int32)]"
-,"(6, array([1.0831741], dtype=float32), 1, 9)",[0. 0. 0.]
-[-21.480282],"(7, array([0.65952754], dtype=float32), 2, 43)","[array(3, dtype=int32), array([1.3404725], dtype=float32), array(11, dtype=int32)]"
-,"(0, array([2.3985102], dtype=float32), 1, 52)",[0. 0. 0.]
-[-14.252707],"(1, array([1.7075721], dtype=float32), 2, 35)","[array(3, dtype=int32), array([0.2924279], dtype=float32), array(3, dtype=int32)]"
-,"(7, array([1.5947583], dtype=float32), 2, 24)",[0. 0. 0.]
-[-13.0846195],"(3, array([0.90124565], dtype=float32), 1, 45)","[array(1, dtype=int32), array([1.0987544], dtype=float32), array(13, dtype=int32)]"
-,"(5, array([2.0895982], dtype=float32), 0, 20)",[0. 0. 0.]
-[-40.151657],"(1, array([2.3500638], dtype=float32), 0, 62)","[array(3, dtype=int32), array([0.3500638], dtype=float32), array(30, dtype=int32)]"
-,"(7, array([1.1565433], dtype=float32), 1, 21)",[0. 0. 0.]
-[-20.440308],"(7, array([1.9977164], dtype=float32), 0, 22)","[array(3, dtype=int32), array([0.00228357], dtype=float32), array(10, dtype=int32)]"
-,"(5, array([1.7585338], dtype=float32), 0, 21)",[0. 0. 0.]
-[-27.134571],"(2, array([1.2295927], dtype=float32), 2, 15)","[array(2, dtype=int32), array([0.7704073], dtype=float32), array(17, dtype=int32)]"
-,"(0, array([1.838407], dtype=float32), 1, 54)",[0. 0. 0.]
-[-15.33428],"(1, array([0.9322251], dtype=float32), 1, 17)","[array(3, dtype=int32), array([1.0677749], dtype=float32), array(15, dtype=int32)]"
-,"(3, array([1.3284929], dtype=float32), 0, 62)",[0. 0. 0.]
-[-13.009749],"(4, array([1.4964293], dtype=float32), 1, 19)","[array(0, dtype=int32), array([0.5035707], dtype=float32), array(13, dtype=int32)]"
-,"(3, array([0.54916], dtype=float32), 2, 17)",[0. 0. 0.]
-[-18.27842],"(2, array([1.2704695], dtype=float32), 2, 40)","[array(2, dtype=int32), array([0.72953045], dtype=float32), array(8, dtype=int32)]"
-,"(1, array([2.192721], dtype=float32), 2, 63)",[0. 0. 0.]
-[-20.210276],"(6, array([1.5002671], dtype=float32), 0, 42)","[array(2, dtype=int32), array([0.49973285], dtype=float32), array(10, dtype=int32)]"
-,"(6, array([1.9664254], dtype=float32), 2, 43)",[0. 0. 0.]
-[-26.175743],"(7, array([1.5882897], dtype=float32), 1, 58)","[array(3, dtype=int32), array([0.41171026], dtype=float32), array(26, dtype=int32)]"
-,"(2, array([0.5855148], dtype=float32), 0, 19)",[0. 0. 0.]
-[-38.2924],"(0, array([1.3218558], dtype=float32), 0, 60)","[array(4, dtype=int32), array([0.6781442], dtype=float32), array(28, dtype=int32)]"
-,"(7, array([0.935343], dtype=float32), 0, 55)",[0. 0. 0.]
-[-38.160294],"(7, array([1.95453], dtype=float32), 2, 60)","[array(3, dtype=int32), array([0.04547], dtype=float32), array(28, dtype=int32)]"
-,"(0, array([1.4676976], dtype=float32), 2, 19)",[0. 0. 0.]
-[-31.030537],"(3, array([1.4675742], dtype=float32), 2, 11)","[array(1, dtype=int32), array([0.53242576], dtype=float32), array(21, dtype=int32)]"
-,"(0, array([1.5609264], dtype=float32), 2, 26)",[0. 0. 0.]
-[-12.02388],"(4, array([1.242577], dtype=float32), 1, 20)","[array(0, dtype=int32), array([0.75742304], dtype=float32), array(12, dtype=int32)]"
-,"(1, array([1.593881], dtype=float32), 2, 18)",[0. 0. 0.]
-[-27.118036],"(6, array([2.164898], dtype=float32), 0, 49)","[array(2, dtype=int32), array([0.16489792], dtype=float32), array(17, dtype=int32)]"
-,"(1, array([0.94436616], dtype=float32), 1, 44)",[0. 0. 0.]
-[-12.171343],"(6, array([1.6237162], dtype=float32), 1, 20)","[array(2, dtype=int32), array([0.37628376], dtype=float32), array(12, dtype=int32)]"
-,"(3, array([1.0513577], dtype=float32), 1, 15)",[0. 0. 0.]
-[-29.114782],"(6, array([1.3877399], dtype=float32), 2, 13)","[array(2, dtype=int32), array([0.6122601], dtype=float32), array(19, dtype=int32)]"
-,"(6, array([0.6333137], dtype=float32), 1, 29)",[0. 0. 0.]
-[-23.202291],"(7, array([1.4115299], dtype=float32), 1, 9)","[array(3, dtype=int32), array([0.5884701], dtype=float32), array(23, dtype=int32)]"
-,"(6, array([1.8876278], dtype=float32), 2, 61)",[0. 0. 0.]
-[-29.291946],"(0, array([0.99097246], dtype=float32), 1, 3)","[array(4, dtype=int32), array([1.0090275], dtype=float32), array(29, dtype=int32)]"
-,"(2, array([2.157109], dtype=float32), 1, 30)",[0. 0. 0.]
-[-28.031576],"(5, array([1.6288795], dtype=float32), 2, 50)","[array(1, dtype=int32), array([0.37112045], dtype=float32), array(18, dtype=int32)]"
-,"(0, array([0.5360922], dtype=float32), 0, 42)",[0. 0. 0.]
-[-31.403015],"(0, array([0.9564167], dtype=float32), 2, 11)","[array(4, dtype=int32), array([1.0435833], dtype=float32), array(21, dtype=int32)]"
-,"(5, array([1.4276986], dtype=float32), 0, 20)",[0. 0. 0.]
-[-27.043924],"(3, array([0.8279026], dtype=float32), 1, 59)","[array(1, dtype=int32), array([1.1720974], dtype=float32), array(27, dtype=int32)]"
-,"(2, array([1.077995], dtype=float32), 0, 26)",[0. 0. 0.]
-[-37.173367],"(1, array([1.3740213], dtype=float32), 2, 59)","[array(3, dtype=int32), array([0.6259787], dtype=float32), array(27, dtype=int32)]"
-,"(7, array([1.7677588], dtype=float32), 2, 5)",[0. 0. 0.]
-[-25.301727],"(1, array([2.3779452], dtype=float32), 2, 17)","[array(3, dtype=int32), array([0.37794518], dtype=float32), array(15, dtype=int32)]"
-,"(3, array([2.2060525], dtype=float32), 0, 27)",[0. 0. 0.]
-[-31.000439],"(4, array([1.8352005], dtype=float32), 1, 1)","[array(0, dtype=int32), array([0.16479945], dtype=float32), array(31, dtype=int32)]"
-,"(4, array([1.0879331], dtype=float32), 2, 9)",[0. 0. 0.]
-[-23.03843],"(3, array([1.9747204], dtype=float32), 0, 19)","[array(1, dtype=int32), array([0.02527964], dtype=float32), array(13, dtype=int32)]"
-,"(1, array([1.7170413], dtype=float32), 1, 29)",[0. 0. 0.]
-[-24.186733],"(2, array([0.87600726], dtype=float32), 0, 46)","[array(2, dtype=int32), array([1.1239927], dtype=float32), array(14, dtype=int32)]"
-,"(4, array([0.8311557], dtype=float32), 1, 18)",[0. 0. 0.]
-[-5.100069],"(3, array([2.1034477], dtype=float32), 1, 37)","[array(1, dtype=int32), array([0.10344768], dtype=float32), array(5, dtype=int32)]"
-,"(5, array([0.6310409], dtype=float32), 2, 33)",[0. 0. 0.]
-[-4.1769805],"(3, array([1.3312968], dtype=float32), 1, 36)","[array(1, dtype=int32), array([0.6687032], dtype=float32), array(4, dtype=int32)]"
-,"(1, array([0.82645285], dtype=float32), 0, 37)",[0. 0. 0.]
-[-36.07997],"(6, array([1.5940113], dtype=float32), 2, 58)","[array(2, dtype=int32), array([0.4059887], dtype=float32), array(26, dtype=int32)]"
-,"(3, array([1.063265], dtype=float32), 2, 39)",[0. 0. 0.]
-[-31.064535],"(2, array([1.9270573], dtype=float32), 1, 63)","[array(2, dtype=int32), array([0.07294273], dtype=float32), array(31, dtype=int32)]"
-,"(0, array([1.4879524], dtype=float32), 0, 16)",[0. 0. 0.]
-[-18.29602],"(7, array([0.6792452], dtype=float32), 1, 50)","[array(3, dtype=int32), array([1.3207548], dtype=float32), array(18, dtype=int32)]"
-,"(7, array([1.8030261], dtype=float32), 1, 27)",[0. 0. 0.]
-[-8.001272],"(4, array([2.1426804], dtype=float32), 1, 40)","[array(0, dtype=int32), array([0.1426804], dtype=float32), array(8, dtype=int32)]"
-,"(1, array([0.7475374], dtype=float32), 2, 28)",[0. 0. 0.]
-[-38.028236],"(5, array([1.2371126], dtype=float32), 2, 4)","[array(1, dtype=int32), array([0.76288736], dtype=float32), array(28, dtype=int32)]"
-,"(3, array([2.1697888], dtype=float32), 2, 23)",[0. 0. 0.]
-[-21.4882],"(7, array([0.5933327], dtype=float32), 2, 43)","[array(3, dtype=int32), array([1.4066672], dtype=float32), array(11, dtype=int32)]"
-,"(2, array([1.1112623], dtype=float32), 2, 6)",[0. 0. 0.]
-[-41.260082],"(0, array([2.43893], dtype=float32), 2, 63)","[array(4, dtype=int32), array([0.43893003], dtype=float32), array(31, dtype=int32)]"
-,"(7, array([1.3292173], dtype=float32), 0, 44)",[0. 0. 0.]
-[-32.13735],"(2, array([0.56396425], dtype=float32), 2, 54)","[array(2, dtype=int32), array([1.4360358], dtype=float32), array(22, dtype=int32)]"
-,"(4, array([1.3656461], dtype=float32), 2, 45)",[0. 0. 0.]
-[-24.050396],"(5, array([1.3568381], dtype=float32), 2, 46)","[array(1, dtype=int32), array([0.6431619], dtype=float32), array(14, dtype=int32)]"
-,"(6, array([1.7445828], dtype=float32), 0, 8)",[0. 0. 0.]
-[-14.356946],"(1, array([0.94080913], dtype=float32), 1, 18)","[array(3, dtype=int32), array([1.0591909], dtype=float32), array(14, dtype=int32)]"
-,"(0, array([1.7163357], dtype=float32), 1, 51)",[0. 0. 0.]
-[-15.908338],"(1, array([1.0468727], dtype=float32), 2, 27)","[array(3, dtype=int32), array([0.95312726], dtype=float32), array(5, dtype=int32)]"
-,"(7, array([1.5677779], dtype=float32), 2, 18)",[0. 0. 0.]
-[-25.170448],"(6, array([0.93112713], dtype=float32), 2, 47)","[array(2, dtype=int32), array([1.0688729], dtype=float32), array(15, dtype=int32)]"
-,"(2, array([2.3921251], dtype=float32), 0, 45)",[0. 0. 0.]
-[-31.126595],"(6, array([0.84544194], dtype=float32), 0, 11)","[array(2, dtype=int32), array([1.1545581], dtype=float32), array(21, dtype=int32)]"
-,"(3, array([1.8301862], dtype=float32), 1, 10)",[0. 0. 0.]
-[-26.124956],"(6, array([2.119314], dtype=float32), 0, 16)","[array(2, dtype=int32), array([0.11931396], dtype=float32), array(16, dtype=int32)]"
-,"(4, array([2.3111734], dtype=float32), 1, 9)",[0. 0. 0.]
-[-14.148241],"(6, array([1.5844071], dtype=float32), 1, 46)","[array(2, dtype=int32), array([0.4155929], dtype=float32), array(14, dtype=int32)]"
-,"(7, array([2.00884], dtype=float32), 2, 26)",[0. 0. 0.]
-[-40.152824],"(1, array([2.4392717], dtype=float32), 2, 2)","[array(3, dtype=int32), array([0.4392717], dtype=float32), array(30, dtype=int32)]"
-,"(3, array([1.3627862], dtype=float32), 2, 43)",[0. 0. 0.]
-[-16.754744],"(1, array([1.2084469], dtype=float32), 2, 26)","[array(3, dtype=int32), array([0.79155314], dtype=float32), array(6, dtype=int32)]"
-,"(4, array([1.5033559], dtype=float32), 1, 9)",[0. 0. 0.]
-[-11.630089],"(4, array([0.7126818], dtype=float32), 2, 33)","[array(0, dtype=int32), array([1.2873182], dtype=float32), array(1, dtype=int32)]"
-,"(6, array([2.0958836], dtype=float32), 0, 45)",[0. 0. 0.]
-[-21.048923],"(3, array([0.97180825], dtype=float32), 1, 53)","[array(1, dtype=int32), array([1.0281918], dtype=float32), array(21, dtype=int32)]"
-,"(0, array([1.1180899], dtype=float32), 2, 38)",[0. 0. 0.]
-[-23.11937],"(3, array([0.5447048], dtype=float32), 0, 45)","[array(1, dtype=int32), array([1.4552952], dtype=float32), array(13, dtype=int32)]"
-,"(3, array([1.8857592], dtype=float32), 2, 59)",[0. 0. 0.]
-[-29.071375],"(2, array([1.6194178], dtype=float32), 1, 3)","[array(2, dtype=int32), array([0.3805822], dtype=float32), array(29, dtype=int32)]"
-,"(4, array([2.0732255], dtype=float32), 2, 51)",[0. 0. 0.]
-[-41.14492],"(1, array([1.9217227], dtype=float32), 2, 63)","[array(3, dtype=int32), array([0.07827735], dtype=float32), array(31, dtype=int32)]"
-,"(0, array([2.024786], dtype=float32), 0, 54)",[0. 0. 0.]
-[-41.26009],"(0, array([2.43958], dtype=float32), 2, 1)","[array(4, dtype=int32), array([0.43957996], dtype=float32), array(31, dtype=int32)]"
-,"(6, array([1.729353], dtype=float32), 1, 42)",[0. 0. 0.]
-[-15.297247],"(1, array([2.0759468], dtype=float32), 1, 47)","[array(3, dtype=int32), array([0.07594681], dtype=float32), array(15, dtype=int32)]"
-,"(5, array([1.6090323], dtype=float32), 2, 23)",[0. 0. 0.]
-[-15.297331],"(7, array([1.9087594], dtype=float32), 1, 17)","[array(3, dtype=int32), array([0.09124064], dtype=float32), array(15, dtype=int32)]"
-,"(4, array([0.77816767], dtype=float32), 0, 30)",[0. 0. 0.]
-[-12.845853],"(2, array([1.6855483], dtype=float32), 2, 34)","[array(2, dtype=int32), array([0.3144517], dtype=float32), array(2, dtype=int32)]"
-,"(0, array([1.5334622], dtype=float32), 1, 36)",[0. 0. 0.]
-[-20.027363],"(3, array([2.3086014], dtype=float32), 1, 12)","[array(1, dtype=int32), array([0.30860138], dtype=float32), array(20, dtype=int32)]"
-,"(7, array([1.3468076], dtype=float32), 1, 16)",[0. 0. 0.]
-[-12.172613],"(2, array([1.5846738], dtype=float32), 1, 44)","[array(2, dtype=int32), array([0.41532624], dtype=float32), array(12, dtype=int32)]"
-,"(4, array([1.8120483], dtype=float32), 2, 59)",[0. 0. 0.]
-[-38.286316],"(0, array([1.6596907], dtype=float32), 2, 4)","[array(4, dtype=int32), array([0.34030926], dtype=float32), array(28, dtype=int32)]"
-,"(3, array([2.112534], dtype=float32), 2, 41)",[0. 0. 0.]
-[-27.016464],"(4, array([1.2516514], dtype=float32), 0, 15)","[array(0, dtype=int32), array([0.7483486], dtype=float32), array(17, dtype=int32)]"
-,"(0, array([2.0780072], dtype=float32), 0, 44)",[0. 0. 0.]
-[-28.114689],"(2, array([2.3767557], dtype=float32), 2, 50)","[array(2, dtype=int32), array([0.3767557], dtype=float32), array(18, dtype=int32)]"
-,"(2, array([0.6034393], dtype=float32), 1, 55)",[0. 0. 0.]
-[-25.039745],"(3, array([1.5596497], dtype=float32), 0, 17)","[array(1, dtype=int32), array([0.4403503], dtype=float32), array(15, dtype=int32)]"
-,"(2, array([1.9039031], dtype=float32), 1, 58)",[0. 0. 0.]
-[-19.488203],"(7, array([1.838764], dtype=float32), 0, 41)","[array(3, dtype=int32), array([0.16123605], dtype=float32), array(9, dtype=int32)]"
-,"(3, array([1.444034], dtype=float32), 0, 8)",[0. 0. 0.]
-[-24.00089],"(4, array([2.1579263], dtype=float32), 2, 18)","[array(0, dtype=int32), array([0.15792632], dtype=float32), array(14, dtype=int32)]"
-,"(1, array([1.9329342], dtype=float32), 2, 19)",[0. 0. 0.]
-[-18.342125],"(6, array([0.7386263], dtype=float32), 2, 24)","[array(2, dtype=int32), array([1.2613738], dtype=float32), array(8, dtype=int32)]"
-,"(3, array([1.2860143], dtype=float32), 2, 5)",[0. 0. 0.]
-[-19.488602],"(7, array([2.1831408], dtype=float32), 0, 23)","[array(3, dtype=int32), array([0.18314075], dtype=float32), array(9, dtype=int32)]"
-,"(6, array([2.10653], dtype=float32), 0, 24)",[0. 0. 0.]
-[-12.903004],"(2, array([1.3462173], dtype=float32), 2, 30)","[array(2, dtype=int32), array([0.6537827], dtype=float32), array(2, dtype=int32)]"
-,"(4, array([2.154401], dtype=float32), 0, 62)",[0. 0. 0.]
-[-20.109213],"(2, array([1.3831807], dtype=float32), 1, 12)","[array(2, dtype=int32), array([0.61681926], dtype=float32), array(20, dtype=int32)]"
-,"(6, array([1.8356537], dtype=float32), 0, 16)",[0. 0. 0.]
-[-18.067745],"(0, array([2.297524], dtype=float32), 2, 39)","[array(4, dtype=int32), array([0.29752398], dtype=float32), array(7, dtype=int32)]"
-,"(3, array([1.0478328], dtype=float32), 2, 31)",[0. 0. 0.]
-[-27.036766],"(4, array([0.59047264], dtype=float32), 1, 5)","[array(0, dtype=int32), array([1.4095273], dtype=float32), array(27, dtype=int32)]"
-,"(5, array([1.4968035], dtype=float32), 1, 13)",[0. 0. 0.]
-[-17.015455],"(4, array([1.2749512], dtype=float32), 1, 49)","[array(0, dtype=int32), array([0.7250488], dtype=float32), array(17, dtype=int32)]"
-,"(1, array([0.55599487], dtype=float32), 1, 27)",[0. 0. 0.]
-[-19.235909],"(7, array([2.141983], dtype=float32), 1, 51)","[array(3, dtype=int32), array([0.14198303], dtype=float32), array(19, dtype=int32)]"
-,"(6, array([1.0428218], dtype=float32), 0, 51)",[0. 0. 0.]
-[-12.045872],"(3, array([2.320973], dtype=float32), 1, 44)","[array(1, dtype=int32), array([0.32097292], dtype=float32), array(12, dtype=int32)]"
-,"(5, array([2.2865055], dtype=float32), 2, 52)",[0. 0. 0.]
-[-27.037733],"(5, array([0.98069394], dtype=float32), 1, 5)","[array(1, dtype=int32), array([1.0193061], dtype=float32), array(27, dtype=int32)]"
-,"(7, array([0.9118873], dtype=float32), 0, 4)",[0. 0. 0.]
-[-15.297857],"(7, array([2.1562955], dtype=float32), 1, 17)","[array(3, dtype=int32), array([0.15629554], dtype=float32), array(15, dtype=int32)]"
-,"(0, array([1.2872931], dtype=float32), 0, 51)",[0. 0. 0.]
-[-25.298977],"(1, array([1.7578017], dtype=float32), 2, 17)","[array(3, dtype=int32), array([0.24219835], dtype=float32), array(15, dtype=int32)]"
-,"(6, array([2.196659], dtype=float32), 0, 31)",[0. 0. 0.]
-[-14.154985],"(5, array([1.4862887], dtype=float32), 0, 28)","[array(1, dtype=int32), array([0.51371133], dtype=float32), array(4, dtype=int32)]"
-,"(6, array([1.0209206], dtype=float32), 2, 25)",[0. 0. 0.]
-[-6.246656],"(3, array([0.5784827], dtype=float32), 1, 26)","[array(1, dtype=int32), array([1.4215174], dtype=float32), array(6, dtype=int32)]"
-,"(1, array([1.4089006], dtype=float32), 2, 3)",[0. 0. 0.]
-[-11.446793],"(4, array([0.9544335], dtype=float32), 2, 33)","[array(0, dtype=int32), array([1.0455666], dtype=float32), array(1, dtype=int32)]"
-,"(6, array([0.7608175], dtype=float32), 2, 22)",[0. 0. 0.]
-[-30.000221],"(4, array([1.9059676], dtype=float32), 0, 12)","[array(0, dtype=int32), array([0.09403241], dtype=float32), array(20, dtype=int32)]"
-,"(0, array([0.5157123], dtype=float32), 0, 1)",[0. 0. 0.]
-[-39.18446],"(1, array([0.683669], dtype=float32), 2, 61)","[array(3, dtype=int32), array([1.316331], dtype=float32), array(29, dtype=int32)]"
-,"(0, array([0.560684], dtype=float32), 0, 22)",[0. 0. 0.]
-[-37.022896],"(5, array([2.4867268], dtype=float32), 2, 5)","[array(1, dtype=int32), array([0.48672676], dtype=float32), array(27, dtype=int32)]"
-,"(0, array([2.3869574], dtype=float32), 2, 1)",[0. 0. 0.]
-[-27.117481],"(6, array([2.0904408], dtype=float32), 2, 15)","[array(2, dtype=int32), array([0.09044075], dtype=float32), array(17, dtype=int32)]"
-,"(5, array([1.1759539], dtype=float32), 0, 27)",[0. 0. 0.]
-[-14.609314],"(2, array([0.883859], dtype=float32), 2, 36)","[array(2, dtype=int32), array([1.1161411], dtype=float32), array(4, dtype=int32)]"
-,"(0, array([0.7877152], dtype=float32), 1, 27)",[0. 0. 0.]
-[-27.11789],"(6, array([1.8511568], dtype=float32), 2, 49)","[array(2, dtype=int32), array([0.14884317], dtype=float32), array(17, dtype=int32)]"
-,"(6, array([1.1352425], dtype=float32), 0, 15)",[0. 0. 0.]
-[-17.294422],"(0, array([0.9006417], dtype=float32), 0, 26)","[array(4, dtype=int32), array([1.0993583], dtype=float32), array(6, dtype=int32)]"
-,"(3, array([1.9674993], dtype=float32), 1, 42)",[0. 0. 0.]
-[-4.249074],"(1, array([2.2337282], dtype=float32), 1, 29)","[array(3, dtype=int32), array([0.23372817], dtype=float32), array(3, dtype=int32)]"
-,"(2, array([1.0782592], dtype=float32), 2, 42)",[0. 0. 0.]
-[-40.163174],"(7, array([1.0960938], dtype=float32), 0, 2)","[array(3, dtype=int32), array([0.9039062], dtype=float32), array(30, dtype=int32)]"
-,"(6, array([0.6532862], dtype=float32), 2, 32)",[0. 0. 0.]
-[-30.050438],"(5, array([0.9900258], dtype=float32), 2, 52)","[array(1, dtype=int32), array([1.0099742], dtype=float32), array(20, dtype=int32)]"
-,"(6, array([1.1316289], dtype=float32), 1, 48)",[0. 0. 0.]
-[-33.094193],"(6, array([1.4155464], dtype=float32), 2, 55)","[array(2, dtype=int32), array([0.5844536], dtype=float32), array(23, dtype=int32)]"
-,"(1, array([2.3927133], dtype=float32), 0, 4)",[0. 0. 0.]
-[-34.194897],"(1, array([1.3730748], dtype=float32), 2, 56)","[array(3, dtype=int32), array([0.62692523], dtype=float32), array(24, dtype=int32)]"
-,"(1, array([1.560688], dtype=float32), 0, 48)",[0. 0. 0.]
-[-19.848984],"(0, array([1.9501021], dtype=float32), 2, 23)","[array(4, dtype=int32), array([0.04989791], dtype=float32), array(9, dtype=int32)]"
-,"(2, array([1.1430444], dtype=float32), 0, 36)",[0. 0. 0.]
-[-33.19488],"(1, array([1.9494369], dtype=float32), 0, 9)","[array(3, dtype=int32), array([0.0505631], dtype=float32), array(23, dtype=int32)]"
-,"(3, array([2.3425586], dtype=float32), 0, 30)",[0. 0. 0.]
-[-37.18328],"(7, array([1.0352985], dtype=float32), 2, 5)","[array(3, dtype=int32), array([0.96470153], dtype=float32), array(27, dtype=int32)]"
-,"(7, array([1.3376307], dtype=float32), 0, 47)",[0. 0. 0.]
-[-13.605553],"(1, array([2.003218], dtype=float32), 0, 30)","[array(3, dtype=int32), array([0.00321794], dtype=float32), array(2, dtype=int32)]"
+,"(3, array([1.5014601], dtype=float32), 2, 54)",[0. 0. 0.]
+[-38.160324],"(7, array([2.0627053], dtype=float32), 2, 4)","[array(3, dtype=int32), array([0.06270528], dtype=float32), array(28, dtype=int32)]"
+,"(6, array([2.1536508], dtype=float32), 1, 14)",[0. 0. 0.]
+[-36.028717],"(4, array([0.7776907], dtype=float32), 2, 6)","[array(0, dtype=int32), array([1.2223094], dtype=float32), array(26, dtype=int32)]"
+,"(1, array([0.6800543], dtype=float32), 1, 27)",[0. 0. 0.]
+[-7.0263534],"(4, array([1.3920168], dtype=float32), 1, 39)","[array(0, dtype=int32), array([0.60798323], dtype=float32), array(7, dtype=int32)]"
+,"(4, array([1.1596799], dtype=float32), 2, 30)",[0. 0. 0.]
+[-38.285553],"(0, array([2.2695556], dtype=float32), 2, 60)","[array(4, dtype=int32), array([0.26955557], dtype=float32), array(28, dtype=int32)]"
+,"(6, array([0.75463367], dtype=float32), 2, 54)",[0. 0. 0.]
+[-23.05756],"(4, array([0.77531964], dtype=float32), 0, 45)","[array(0, dtype=int32), array([1.2246804], dtype=float32), array(13, dtype=int32)]"
+,"(3, array([0.6703172], dtype=float32), 0, 29)",[0. 0. 0.]
+[-5.84253],"(7, array([1.6323658], dtype=float32), 1, 27)","[array(3, dtype=int32), array([0.36763418], dtype=float32), array(5, dtype=int32)]"
+,"(7, array([0.81775326], dtype=float32), 2, 41)",[0. 0. 0.]
+[-23.023533],"(4, array([1.2174407], dtype=float32), 0, 45)","[array(0, dtype=int32), array([0.7825593], dtype=float32), array(13, dtype=int32)]"
+,"(3, array([0.5589115], dtype=float32), 2, 1)",[0. 0. 0.]
+[-30.450113],"(0, array([0.5143629], dtype=float32), 0, 52)","[array(4, dtype=int32), array([1.4856372], dtype=float32), array(20, dtype=int32)]"
+,"(2, array([0.84134406], dtype=float32), 0, 14)",[0. 0. 0.]
+[-36.077946],"(6, array([2.2433121], dtype=float32), 0, 6)","[array(2, dtype=int32), array([0.24331212], dtype=float32), array(26, dtype=int32)]"
+,"(4, array([2.0386443], dtype=float32), 1, 60)",[0. 0. 0.]
+[-13.083149],"(3, array([0.9189031], dtype=float32), 1, 45)","[array(1, dtype=int32), array([1.0810969], dtype=float32), array(13, dtype=int32)]"
+,"(5, array([1.9459355], dtype=float32), 0, 38)",[0. 0. 0.]
+[-31.086992],"(6, array([0.81631947], dtype=float32), 1, 63)","[array(2, dtype=int32), array([1.1836805], dtype=float32), array(31, dtype=int32)]"
+,"(2, array([1.5651608], dtype=float32), 2, 36)",[0. 0. 0.]
+[-12.566856],"(5, array([0.73954374], dtype=float32), 2, 30)","[array(1, dtype=int32), array([1.2604563], dtype=float32), array(2, dtype=int32)]"
+,"(5, array([0.609331], dtype=float32), 2, 1)",[0. 0. 0.]
+[-21.18034],"(6, array([2.0034783], dtype=float32), 0, 21)","[array(2, dtype=int32), array([0.00347829], dtype=float32), array(11, dtype=int32)]"
+,"(7, array([0.5103734], dtype=float32), 2, 34)",[0. 0. 0.]
+[-36.000034],"(4, array([2.0428226], dtype=float32), 0, 58)","[array(0, dtype=int32), array([0.0428226], dtype=float32), array(26, dtype=int32)]"
+,"(5, array([0.7128888], dtype=float32), 1, 11)",[0. 0. 0.]
+[-39.086575],"(2, array([0.9857025], dtype=float32), 0, 3)","[array(2, dtype=int32), array([1.0142975], dtype=float32), array(29, dtype=int32)]"
+,"(0, array([2.2542121], dtype=float32), 0, 3)",[0. 0. 0.]
+[-35.02001],"(5, array([1.9701965], dtype=float32), 0, 7)","[array(1, dtype=int32), array([0.02980351], dtype=float32), array(25, dtype=int32)]"
+,"(4, array([1.7422347], dtype=float32), 1, 48)",[0. 0. 0.]
+[-28.451807],"(0, array([1.3150035], dtype=float32), 2, 50)","[array(4, dtype=int32), array([0.6849965], dtype=float32), array(18, dtype=int32)]"
+,"(3, array([0.53192], dtype=float32), 2, 20)",[0. 0. 0.]
+[-9.219678],"(2, array([2.0496747], dtype=float32), 1, 23)","[array(2, dtype=int32), array([0.04967475], dtype=float32), array(9, dtype=int32)]"
+,"(4, array([1.7120378], dtype=float32), 1, 54)",[0. 0. 0.]
+[-3.0882857],"(2, array([0.76003665], dtype=float32), 1, 30)","[array(2, dtype=int32), array([1.2399633], dtype=float32), array(2, dtype=int32)]"
+,"(4, array([0.7502401], dtype=float32), 1, 22)",[0. 0. 0.]
+[-17.16168],"(3, array([0.8643706], dtype=float32), 0, 25)","[array(1, dtype=int32), array([1.1356294], dtype=float32), array(7, dtype=int32)]"
+,"(6, array([2.0839415], dtype=float32), 1, 53)",[0. 0. 0.]
+[-35.198223],"(7, array([1.025084], dtype=float32), 2, 7)","[array(3, dtype=int32), array([0.974916], dtype=float32), array(25, dtype=int32)]"
+,"(5, array([1.1459155], dtype=float32), 1, 39)",[0. 0. 0.]
+[-13.415322],"(3, array([0.7098741], dtype=float32), 2, 29)","[array(1, dtype=int32), array([1.2901258], dtype=float32), array(3, dtype=int32)]"
+,"(6, array([0.9197528], dtype=float32), 2, 56)",[0. 0. 0.]
+[-30.00018],"(4, array([1.9154302], dtype=float32), 0, 52)","[array(0, dtype=int32), array([0.08456981], dtype=float32), array(20, dtype=int32)]"
+,"(4, array([1.021647], dtype=float32), 0, 7)",[0. 0. 0.]
+[-2.0395598],"(2, array([1.6002448], dtype=float32), 1, 32)","[array(2, dtype=int32), array([0.39975524], dtype=float32), array(0, dtype=int32)]"
+,"(2, array([2.2036746], dtype=float32), 2, 38)",[0. 0. 0.]
+[-20.403543],"(0, array([1.4481329], dtype=float32), 1, 12)","[array(4, dtype=int32), array([0.5518671], dtype=float32), array(20, dtype=int32)]"
+,"(6, array([1.7045681], dtype=float32), 0, 39)",[0. 0. 0.]
+[-35.18045],"(1, array([2.234941], dtype=float32), 0, 7)","[array(3, dtype=int32), array([0.234941], dtype=float32), array(25, dtype=int32)]"
+,"(3, array([1.695725], dtype=float32), 0, 25)",[0. 0. 0.]
+[-32.094856],"(2, array([1.5726941], dtype=float32), 0, 54)","[array(2, dtype=int32), array([0.42730594], dtype=float32), array(22, dtype=int32)]"
+,"(7, array([2.0598798], dtype=float32), 1, 58)",[0. 0. 0.]
+[-12.684088],"(0, array([1.0586752], dtype=float32), 1, 44)","[array(4, dtype=int32), array([0.94132483], dtype=float32), array(12, dtype=int32)]"
+,"(5, array([1.7210122], dtype=float32), 0, 50)",[0. 0. 0.]
+[-4.0007143],"(4, array([2.0756052], dtype=float32), 1, 28)","[array(0, dtype=int32), array([0.07560515], dtype=float32), array(4, dtype=int32)]"
+,"(5, array([1.3095633], dtype=float32), 1, 8)",[0. 0. 0.]
+[-20.062311],"(3, array([0.7767504], dtype=float32), 1, 12)","[array(1, dtype=int32), array([1.2232497], dtype=float32), array(20, dtype=int32)]"
+,"(2, array([1.9631339], dtype=float32), 2, 37)",[0. 0. 0.]
+[-5.1722207],"(4, array([0.676419], dtype=float32), 1, 27)","[array(0, dtype=int32), array([1.323581], dtype=float32), array(5, dtype=int32)]"
+,"(5, array([1.2215768], dtype=float32), 2, 36)",[0. 0. 0.]
+[-17.624022],"(1, array([2.3545606], dtype=float32), 0, 39)","[array(3, dtype=int32), array([0.3545606], dtype=float32), array(7, dtype=int32)]"
+,"(1, array([1.6084944], dtype=float32), 1, 51)",[0. 0. 0.]
+[-42.06246],"(6, array([2.0363686], dtype=float32), 0, 0)","[array(2, dtype=int32), array([0.03636861], dtype=float32), array(32, dtype=int32)]"
+,"(3, array([0.94038105], dtype=float32), 0, 21)",[0. 0. 0.]
+[-6.840564],"(1, array([0.66085446], dtype=float32), 1, 26)","[array(3, dtype=int32), array([1.3391455], dtype=float32), array(6, dtype=int32)]"
+,"(2, array([1.2470648], dtype=float32), 2, 16)",[0. 0. 0.]
+[-2.5053608],"(2, array([0.8700298], dtype=float32), 1, 31)","[array(2, dtype=int32), array([1.1299702], dtype=float32), array(1, dtype=int32)]"
+,"(2, array([1.1585666], dtype=float32), 1, 39)",[0. 0. 0.]
+[-34.024956],"(5, array([2.4454472], dtype=float32), 2, 56)","[array(1, dtype=int32), array([0.4454472], dtype=float32), array(24, dtype=int32)]"
+,"(3, array([1.2798485], dtype=float32), 1, 3)",[0. 0. 0.]
+[-31.095556],"(2, array([2.1499026], dtype=float32), 2, 11)","[array(2, dtype=int32), array([0.14990258], dtype=float32), array(21, dtype=int32)]"
+,"(4, array([1.6971108], dtype=float32), 2, 39)",[0. 0. 0.]
+[-24.331245],"(0, array([1.9023451], dtype=float32), 1, 56)","[array(4, dtype=int32), array([0.09765494], dtype=float32), array(24, dtype=int32)]"
+,"(3, array([1.986019], dtype=float32), 2, 60)",[0. 0. 0.]
+[-28.00022],"(4, array([2.0888429], dtype=float32), 0, 14)","[array(0, dtype=int32), array([0.08884287], dtype=float32), array(18, dtype=int32)]"
+,"(4, array([2.3408873], dtype=float32), 0, 38)",[0. 0. 0.]
+[-17.263218],"(1, array([1.8632503], dtype=float32), 1, 15)","[array(3, dtype=int32), array([0.13674974], dtype=float32), array(17, dtype=int32)]"
+,"(2, array([2.2359004], dtype=float32), 1, 4)",[0. 0. 0.]
+[-18.575766],"(7, array([1.262597], dtype=float32), 2, 24)","[array(3, dtype=int32), array([0.73740304], dtype=float32), array(8, dtype=int32)]"
+,"(0, array([0.58172905], dtype=float32), 1, 55)",[0. 0. 0.]
+[-14.472857],"(0, array([2.0803297], dtype=float32), 2, 30)","[array(4, dtype=int32), array([0.08032966], dtype=float32), array(2, dtype=int32)]"
+,"(1, array([2.386325], dtype=float32), 0, 9)",[0. 0. 0.]
+[-38.195312],"(1, array([0.59440255], dtype=float32), 0, 4)","[array(3, dtype=int32), array([1.4055974], dtype=float32), array(28, dtype=int32)]"
+,"(6, array([0.91410375], dtype=float32), 1, 55)",[0. 0. 0.]
+[-41.00145],"(4, array([1.6999356], dtype=float32), 2, 63)","[array(0, dtype=int32), array([0.30006444], dtype=float32), array(31, dtype=int32)]"
+,"(2, array([1.5749264], dtype=float32), 1, 19)",[0. 0. 0.]
+[-27.46428],"(0, array([2.0324063], dtype=float32), 0, 15)","[array(4, dtype=int32), array([0.03240633], dtype=float32), array(17, dtype=int32)]"
+,"(6, array([2.4234674], dtype=float32), 2, 18)",[0. 0. 0.]
+[-12.000842],"(4, array([2.1421747], dtype=float32), 1, 20)","[array(0, dtype=int32), array([0.14217472], dtype=float32), array(12, dtype=int32)]"
+,"(7, array([0.87638044], dtype=float32), 2, 63)",[0. 0. 0.]
+[-15.52987],"(0, array([2.4205573], dtype=float32), 1, 17)","[array(4, dtype=int32), array([0.42055726], dtype=float32), array(15, dtype=int32)]"
+,"(1, array([1.9477752], dtype=float32), 0, 35)",[0. 0. 0.]
+[-5.113562],"(4, array([0.9283101], dtype=float32), 1, 27)","[array(0, dtype=int32), array([1.0716898], dtype=float32), array(5, dtype=int32)]"
+,"(5, array([1.0730987], dtype=float32), 2, 20)",[0. 0. 0.]
+[-16.281256],"(1, array([1.7183992], dtype=float32), 1, 48)","[array(3, dtype=int32), array([0.28160083], dtype=float32), array(16, dtype=int32)]"
+,"(5, array([1.6328756], dtype=float32), 2, 3)",[0. 0. 0.]
+[-29.026737],"(3, array([1.8705809], dtype=float32), 0, 51)","[array(1, dtype=int32), array([0.12941909], dtype=float32), array(19, dtype=int32)]"
+,"(1, array([1.324688], dtype=float32), 0, 24)",[0. 0. 0.]
+[-15.010318],"(1, array([1.6786171], dtype=float32), 0, 36)","[array(3, dtype=int32), array([0.32138288], dtype=float32), array(4, dtype=int32)]"
+,"(2, array([1.8795936], dtype=float32), 2, 27)",[0. 0. 0.]
+[-26.278927],"(7, array([1.9410372], dtype=float32), 2, 48)","[array(3, dtype=int32), array([0.05896282], dtype=float32), array(16, dtype=int32)]"
+,"(4, array([1.7665824], dtype=float32), 0, 25)",[0. 0. 0.]
+[-13.620218],"(7, array([2.325539], dtype=float32), 0, 30)","[array(3, dtype=int32), array([0.3255391], dtype=float32), array(2, dtype=int32)]"
+,"(0, array([1.4751664], dtype=float32), 1, 35)",[0. 0. 0.]
+[-15.297191],"(7, array([2.0635066], dtype=float32), 1, 47)","[array(3, dtype=int32), array([0.0635066], dtype=float32), array(15, dtype=int32)]"
+,"(3, array([1.7018286], dtype=float32), 2, 48)",[0. 0. 0.]
+[-27.174706],"(2, array([0.59625083], dtype=float32), 0, 49)","[array(2, dtype=int32), array([1.4037492], dtype=float32), array(17, dtype=int32)]"
+,"(5, array([1.2582783], dtype=float32), 1, 46)",[0. 0. 0.]
+[-38.01786],"(3, array([2.0187378], dtype=float32), 0, 4)","[array(1, dtype=int32), array([0.01873779], dtype=float32), array(28, dtype=int32)]"
+,"(3, array([0.9790816], dtype=float32), 0, 57)",[0. 0. 0.]
+[-25.024815],"(5, array([1.5087237], dtype=float32), 1, 7)","[array(1, dtype=int32), array([0.49127626], dtype=float32), array(25, dtype=int32)]"
+,"(5, array([2.221025], dtype=float32), 2, 15)",[0. 0. 0.]
+[-31.24655],"(1, array([0.8101024], dtype=float32), 0, 53)","[array(3, dtype=int32), array([1.1898975], dtype=float32), array(21, dtype=int32)]"
+,"(4, array([2.467915], dtype=float32), 1, 46)",[0. 0. 0.]
+[-33.348618],"(0, array([2.3974514], dtype=float32), 2, 55)","[array(4, dtype=int32), array([0.3974514], dtype=float32), array(23, dtype=int32)]"
+,"(3, array([1.4458729], dtype=float32), 1, 12)",[0. 0. 0.]
+[-12.125603],"(4, array([1.2801489], dtype=float32), 2, 30)","[array(0, dtype=int32), array([0.71985114], dtype=float32), array(2, dtype=int32)]"
+,"(7, array([0.87371314], dtype=float32), 1, 15)",[0. 0. 0.]
+[-9.593773],"(7, array([0.57154924], dtype=float32), 1, 23)","[array(3, dtype=int32), array([1.4284508], dtype=float32), array(9, dtype=int32)]"
+,"(6, array([1.7544096], dtype=float32), 1, 57)",[0. 0. 0.]
+[-15.0391245],"(4, array([1.3732806], dtype=float32), 0, 37)","[array(0, dtype=int32), array([0.62671936], dtype=float32), array(5, dtype=int32)]"
+,"(2, array([1.2638514], dtype=float32), 1, 48)",[0. 0. 0.]
+[-40.022392],"(3, array([1.413407], dtype=float32), 2, 62)","[array(1, dtype=int32), array([0.58659303], dtype=float32), array(30, dtype=int32)]"
+,"(1, array([2.0138028], dtype=float32), 1, 30)",[0. 0. 0.]
+[-32.024277],"(3, array([2.2624362], dtype=float32), 2, 54)","[array(1, dtype=int32), array([0.26243615], dtype=float32), array(22, dtype=int32)]"
+,"(3, array([1.4935281], dtype=float32), 2, 28)",[0. 0. 0.]
+[-22.44007],"(1, array([0.6751153], dtype=float32), 2, 20)","[array(3, dtype=int32), array([1.3248847], dtype=float32), array(12, dtype=int32)]"
+,"(3, array([1.346996], dtype=float32), 0, 41)",[0. 0. 0.]
+[-22.376755],"(7, array([1.5709848], dtype=float32), 0, 20)","[array(3, dtype=int32), array([0.42901516], dtype=float32), array(12, dtype=int32)]"
+,"(3, array([0.8954648], dtype=float32), 0, 32)",[0. 0. 0.]
+[-24.085876],"(3, array([0.8117537], dtype=float32), 0, 46)","[array(1, dtype=int32), array([1.1882463], dtype=float32), array(14, dtype=int32)]"
+,"(1, array([1.3447708], dtype=float32), 2, 49)",[0. 0. 0.]
+[-14.491745],"(6, array([1.5807401], dtype=float32), 2, 28)","[array(2, dtype=int32), array([0.4192599], dtype=float32), array(4, dtype=int32)]"
+,"(0, array([1.9440018], dtype=float32), 2, 10)",[0. 0. 0.]
+[-39.04889],"(5, array([0.6443135], dtype=float32), 0, 61)","[array(1, dtype=int32), array([1.3556864], dtype=float32), array(29, dtype=int32)]"
+,"(5, array([1.402042], dtype=float32), 0, 60)",[0. 0. 0.]
+[-32.38485],"(0, array([0.9600118], dtype=float32), 0, 10)","[array(4, dtype=int32), array([1.0399883], dtype=float32), array(22, dtype=int32)]"
+,"(1, array([1.4435326], dtype=float32), 0, 42)",[0. 0. 0.]
+[-18.947018],"(0, array([2.2216518], dtype=float32), 0, 24)","[array(4, dtype=int32), array([0.22165179], dtype=float32), array(8, dtype=int32)]"
+,"(4, array([1.654711], dtype=float32), 1, 3)",[0. 0. 0.]
+[-14.142141],"(5, array([1.6033466], dtype=float32), 2, 36)","[array(1, dtype=int32), array([0.3966534], dtype=float32), array(4, dtype=int32)]"
+,"(1, array([1.9147376], dtype=float32), 1, 26)",[0. 0. 0.]
+[-19.065716],"(5, array([2.4326723], dtype=float32), 2, 23)","[array(1, dtype=int32), array([0.43267226], dtype=float32), array(9, dtype=int32)]"
+,"(4, array([0.5780688], dtype=float32), 1, 39)",[0. 0. 0.]
+[-8.200484],"(0, array([0.5006851], dtype=float32), 1, 25)","[array(4, dtype=int32), array([1.4993149], dtype=float32), array(7, dtype=int32)]"
+,"(1, array([1.3747244], dtype=float32), 1, 22)",[0. 0. 0.]
+[-15.8564625],"(1, array([1.4539694], dtype=float32), 2, 27)","[array(3, dtype=int32), array([0.54603064], dtype=float32), array(5, dtype=int32)]"
+,"(1, array([0.83984107], dtype=float32), 1, 16)",[0. 0. 0.]
+[-21.02828],"(3, array([2.4342597], dtype=float32), 1, 53)","[array(1, dtype=int32), array([0.43425965], dtype=float32), array(21, dtype=int32)]"
+,"(6, array([1.09132], dtype=float32), 0, 9)",[0. 0. 0.]
+[-25.076317],"(3, array([0.8618803], dtype=float32), 0, 17)","[array(1, dtype=int32), array([1.1381197], dtype=float32), array(15, dtype=int32)]"
+,"(7, array([0.8277271], dtype=float32), 0, 36)",[0. 0. 0.]
+[-16.100542],"(5, array([2.4654226], dtype=float32), 0, 38)","[array(1, dtype=int32), array([0.46542263], dtype=float32), array(6, dtype=int32)]"
+,"(1, array([1.4239917], dtype=float32), 2, 56)",[0. 0. 0.]
+[-9.526479],"(1, array([1.1317875], dtype=float32), 1, 41)","[array(3, dtype=int32), array([0.86821246], dtype=float32), array(9, dtype=int32)]"
+,"(3, array([2.0495331], dtype=float32), 0, 26)",[0. 0. 0.]
+[-17.21548],"(0, array([2.2513225], dtype=float32), 2, 38)","[array(4, dtype=int32), array([0.2513225], dtype=float32), array(6, dtype=int32)]"
+,"(7, array([1.7744787], dtype=float32), 1, 63)",[0. 0. 0.]
+[-22.004614],"(4, array([2.450637], dtype=float32), 1, 10)","[array(0, dtype=int32), array([0.4506371], dtype=float32), array(22, dtype=int32)]"
+,"(1, array([2.005711], dtype=float32), 0, 16)",[0. 0. 0.]
+[-22.199524],"(2, array([1.0898294], dtype=float32), 0, 20)","[array(2, dtype=int32), array([0.91017056], dtype=float32), array(12, dtype=int32)]"
+,"(2, array([2.3914416], dtype=float32), 2, 6)",[0. 0. 0.]
+[-34.224457],"(1, array([0.6492955], dtype=float32), 0, 56)","[array(3, dtype=int32), array([1.3507044], dtype=float32), array(24, dtype=int32)]"
+,"(1, array([1.1589421], dtype=float32), 0, 61)",[0. 0. 0.]
+[-33.090034],"(6, array([1.6131433], dtype=float32), 0, 55)","[array(2, dtype=int32), array([0.38685668], dtype=float32), array(23, dtype=int32)]"
+,"(7, array([2.3348777], dtype=float32), 2, 30)",[0. 0. 0.]
+[-25.036394],"(5, array([2.3051999], dtype=float32), 0, 17)","[array(1, dtype=int32), array([0.30519986], dtype=float32), array(15, dtype=int32)]"
+,"(3, array([1.0347767], dtype=float32), 2, 15)",[0. 0. 0.]
+[-19.03387],"(5, array([1.4630992], dtype=float32), 1, 51)","[array(1, dtype=int32), array([0.53690076], dtype=float32), array(19, dtype=int32)]"
+,"(3, array([1.7884593], dtype=float32), 2, 17)",[0. 0. 0.]
+[-18.562016],"(1, array([1.4449139], dtype=float32), 0, 24)","[array(3, dtype=int32), array([0.55508614], dtype=float32), array(8, dtype=int32)]"
+,"(0, array([1.5340468], dtype=float32), 1, 33)",[0. 0. 0.]
+[-34.36475],"(0, array([0.7189554], dtype=float32), 0, 8)","[array(4, dtype=int32), array([1.2810446], dtype=float32), array(24, dtype=int32)]"
+,"(0, array([1.4993681], dtype=float32), 1, 47)",[0. 0. 0.]
+[-25.135395],"(2, array([1.7167661], dtype=float32), 0, 17)","[array(2, dtype=int32), array([0.28323388], dtype=float32), array(15, dtype=int32)]"
+,"(0, array([1.4775674], dtype=float32), 0, 3)",[0. 0. 0.]
+[-32.36197],"(0, array([1.7598718], dtype=float32), 0, 54)","[array(4, dtype=int32), array([0.24012816], dtype=float32), array(22, dtype=int32)]"
+,"(2, array([1.9380518], dtype=float32), 1, 4)",[0. 0. 0.]
+[-40.266304],"(0, array([2.2215939], dtype=float32), 0, 62)","[array(4, dtype=int32), array([0.22159386], dtype=float32), array(30, dtype=int32)]"
+,"(7, array([0.87806827], dtype=float32), 1, 43)",[0. 0. 0.]
+[-37.175133],"(7, array([1.3015295], dtype=float32), 2, 5)","[array(3, dtype=int32), array([0.6984705], dtype=float32), array(27, dtype=int32)]"
+,"(6, array([1.2988936], dtype=float32), 1, 55)",[0. 0. 0.]
+[-19.307898],"(6, array([0.7205602], dtype=float32), 2, 41)","[array(2, dtype=int32), array([1.2794398], dtype=float32), array(9, dtype=int32)]"
+,"(1, array([2.1662369], dtype=float32), 1, 45)",[0. 0. 0.]
+[-19.231958],"(6, array([1.5214001], dtype=float32), 0, 41)","[array(2, dtype=int32), array([0.4785999], dtype=float32), array(9, dtype=int32)]"
+,"(1, array([1.6522969], dtype=float32), 0, 2)",[0. 0. 0.]
+[-13.371584],"(7, array([1.1059893], dtype=float32), 1, 45)","[array(3, dtype=int32), array([0.89401066], dtype=float32), array(13, dtype=int32)]"
+,"(4, array([0.7363865], dtype=float32), 0, 17)",[0. 0. 0.]
+[-26.545433],"(0, array([0.6766012], dtype=float32), 2, 16)","[array(4, dtype=int32), array([1.3233988], dtype=float32), array(16, dtype=int32)]"
+,"(2, array([1.6176014], dtype=float32), 1, 23)",[0. 0. 0.]
+[-15.872631],"(7, array([1.3015753], dtype=float32), 0, 27)","[array(3, dtype=int32), array([0.6984247], dtype=float32), array(5, dtype=int32)]"
+,"(6, array([1.9299225], dtype=float32), 1, 21)",[0. 0. 0.]
+[-27.08415],"(2, array([1.2575787], dtype=float32), 1, 5)","[array(2, dtype=int32), array([0.74242127], dtype=float32), array(27, dtype=int32)]"
+,"(6, array([1.4867984], dtype=float32), 1, 46)",[0. 0. 0.]
+[-13.183611],"(7, array([1.6320596], dtype=float32), 0, 31)","[array(3, dtype=int32), array([0.36794043], dtype=float32), array(1, dtype=int32)]"
+,"(7, array([0.753557], dtype=float32), 2, 26)",[0. 0. 0.]
+[-35.032997],"(3, array([1.1932224], dtype=float32), 0, 57)","[array(1, dtype=int32), array([0.8067776], dtype=float32), array(25, dtype=int32)]"
+,"(7, array([2.3921456], dtype=float32), 2, 15)",[0. 0. 0.]
+[-37.075787],"(2, array([2.313505], dtype=float32), 0, 5)","[array(2, dtype=int32), array([0.31350493], dtype=float32), array(27, dtype=int32)]"
+,"(2, array([2.4003038], dtype=float32), 2, 24)",[0. 0. 0.]
+[-32.230103],"(7, array([0.91484714], dtype=float32), 2, 10)","[array(3, dtype=int32), array([1.0851529], dtype=float32), array(22, dtype=int32)]"
+,"(0, array([1.9323206], dtype=float32), 0, 21)",[0. 0. 0.]
+[-36.08591],"(6, array([1.3109783], dtype=float32), 0, 6)","[array(2, dtype=int32), array([0.6890217], dtype=float32), array(26, dtype=int32)]"
+,"(5, array([1.4073892], dtype=float32), 2, 45)",[0. 0. 0.]
+[-30.017515],"(3, array([1.7735944], dtype=float32), 1, 2)","[array(1, dtype=int32), array([0.22640562], dtype=float32), array(30, dtype=int32)]"
+,"(3, array([1.9561551], dtype=float32), 1, 22)",[0. 0. 0.]
+[-12.237475],"(3, array([1.9206506], dtype=float32), 2, 30)","[array(1, dtype=int32), array([0.0793494], dtype=float32), array(2, dtype=int32)]"
+,"(2, array([1.0407652], dtype=float32), 1, 51)",[0. 0. 0.]
+[-17.117254],"(2, array([2.0201766], dtype=float32), 1, 49)","[array(2, dtype=int32), array([0.02017665], dtype=float32), array(17, dtype=int32)]"
+,"(0, array([2.1983352], dtype=float32), 0, 57)",[0. 0. 0.]
+[-41.064674],"(6, array([2.1185057], dtype=float32), 0, 63)","[array(2, dtype=int32), array([0.11850572], dtype=float32), array(31, dtype=int32)]"
+,"(6, array([0.93170166], dtype=float32), 1, 53)",[0. 0. 0.]
+[-41.14512],"(7, array([1.8642915], dtype=float32), 0, 63)","[array(3, dtype=int32), array([0.13570845], dtype=float32), array(31, dtype=int32)]"
+,"(2, array([2.057841], dtype=float32), 0, 6)",[0. 0. 0.]
+[-42.087288],"(6, array([0.7374317], dtype=float32), 2, 0)","[array(2, dtype=int32), array([1.2625682], dtype=float32), array(32, dtype=int32)]"
+,"(2, array([2.402711], dtype=float32), 2, 17)",[0. 0. 0.]
+[-11.727837],"(0, array([1.2636828], dtype=float32), 1, 43)","[array(4, dtype=int32), array([0.73631716], dtype=float32), array(11, dtype=int32)]"
+,"(6, array([1.7114295], dtype=float32), 0, 59)",[0. 0. 0.]
+[-5.1252456],"(7, array([0.87388206], dtype=float32), 1, 28)","[array(3, dtype=int32), array([1.126118], dtype=float32), array(4, dtype=int32)]"
+,"(2, array([0.7694777], dtype=float32), 1, 20)",[0. 0. 0.]
+[-22.382853],"(1, array([1.4211745], dtype=float32), 2, 20)","[array(3, dtype=int32), array([0.5788255], dtype=float32), array(12, dtype=int32)]"
+,"(7, array([1.136598], dtype=float32), 0, 25)",[0. 0. 0.]
+[-41.147797],"(1, array([2.4304945], dtype=float32), 0, 63)","[array(3, dtype=int32), array([0.43049455], dtype=float32), array(31, dtype=int32)]"
+,"(1, array([1.578693], dtype=float32), 0, 2)",[0. 0. 0.]
+[-24.192879],"(1, array([1.456537], dtype=float32), 1, 8)","[array(3, dtype=int32), array([0.543463], dtype=float32), array(24, dtype=int32)]"
+,"(3, array([1.3904581], dtype=float32), 0, 26)",[0. 0. 0.]
+[-6.7388515],"(7, array([1.3580362], dtype=float32), 1, 26)","[array(3, dtype=int32), array([0.64196384], dtype=float32), array(6, dtype=int32)]"
+,"(7, array([1.1906451], dtype=float32), 0, 4)",[0. 0. 0.]
+[-24.084013],"(3, array([0.8340557], dtype=float32), 0, 46)","[array(1, dtype=int32), array([1.1659443], dtype=float32), array(14, dtype=int32)]"
+,"(2, array([2.248136], dtype=float32), 2, 26)",[0. 0. 0.]
+[-12.042507],"(3, array([1.8517871], dtype=float32), 1, 20)","[array(1, dtype=int32), array([0.14821291], dtype=float32), array(12, dtype=int32)]"
+,"(6, array([1.4783076], dtype=float32), 0, 43)",[0. 0. 0.]
+[-15.111177],"(5, array([2.3523376], dtype=float32), 2, 37)","[array(1, dtype=int32), array([0.3523376], dtype=float32), array(5, dtype=int32)]"
+,"(4, array([0.90500206], dtype=float32), 1, 12)",[0. 0. 0.]
+[-28.185165],"(7, array([0.8153121], dtype=float32), 1, 4)","[array(3, dtype=int32), array([1.1846879], dtype=float32), array(28, dtype=int32)]"
+,"(6, array([2.1091013], dtype=float32), 0, 16)",[0. 0. 0.]
+[-24.317822],"(7, array([1.9949332], dtype=float32), 0, 18)","[array(3, dtype=int32), array([0.00506675], dtype=float32), array(14, dtype=int32)]"
+,"(2, array([0.80601066], dtype=float32), 1, 55)",[0. 0. 0.]
+[-21.051758],"(5, array([1.6240203], dtype=float32), 0, 43)","[array(1, dtype=int32), array([0.37597966], dtype=float32), array(11, dtype=int32)]"
+,"(0, array([1.8518332], dtype=float32), 2, 56)",[0. 0. 0.]
+[-38.1643],"(7, array([1.5228646], dtype=float32), 2, 4)","[array(3, dtype=int32), array([0.47713542], dtype=float32), array(28, dtype=int32)]"
+,"(1, array([2.1089427], dtype=float32), 1, 34)",[0. 0. 0.]
+[-13.615349],"(2, array([1.7340231], dtype=float32), 2, 29)","[array(2, dtype=int32), array([0.2659769], dtype=float32), array(3, dtype=int32)]"
+,"(6, array([1.509571], dtype=float32), 1, 26)",[0. 0. 0.]
+[-5.000324],"(0, array([1.9431015], dtype=float32), 1, 35)","[array(4, dtype=int32), array([0.05689847], dtype=float32), array(3, dtype=int32)]"
+,"(5, array([2.086844], dtype=float32), 0, 55)",[0. 0. 0.]
+[-20.770454],"(0, array([2.0521529], dtype=float32), 2, 42)","[array(4, dtype=int32), array([0.05215287], dtype=float32), array(10, dtype=int32)]"
+,"(2, array([0.60134727], dtype=float32), 2, 51)",[0. 0. 0.]
+[-4.320704],"(7, array([1.1823907], dtype=float32), 1, 35)","[array(3, dtype=int32), array([0.8176093], dtype=float32), array(3, dtype=int32)]"
+,"(0, array([1.740904], dtype=float32), 1, 40)",[0. 0. 0.]
+[-13.617932],"(6, array([1.7009422], dtype=float32), 2, 29)","[array(2, dtype=int32), array([0.29905784], dtype=float32), array(3, dtype=int32)]"
+,"(2, array([1.5518681], dtype=float32), 0, 61)",[0. 0. 0.]
+[-3.6211915],"(6, array([2.3361955], dtype=float32), 1, 35)","[array(2, dtype=int32), array([0.33619547], dtype=float32), array(3, dtype=int32)]"
+,"(6, array([1.0215424], dtype=float32), 1, 44)",[0. 0. 0.]
+[-8.127209],"(3, array([0.97456235], dtype=float32), 1, 40)","[array(1, dtype=int32), array([1.0254376], dtype=float32), array(8, dtype=int32)]"
+,"(4, array([2.0579085], dtype=float32), 1, 21)",[0. 0. 0.]
+[-29.03326],"(5, array([1.0355446], dtype=float32), 1, 3)","[array(1, dtype=int32), array([0.96445537], dtype=float32), array(29, dtype=int32)]"
+,"(1, array([1.7863146], dtype=float32), 2, 19)",[0. 0. 0.]
+[-34.362206],"(0, array([0.7683535], dtype=float32), 0, 56)","[array(4, dtype=int32), array([1.2316465], dtype=float32), array(24, dtype=int32)]"
+,"(5, array([1.094816], dtype=float32), 0, 55)",[0. 0. 0.]
+[-30.40226],"(0, array([1.4977648], dtype=float32), 2, 12)","[array(4, dtype=int32), array([0.5022352], dtype=float32), array(20, dtype=int32)]"
+,"(4, array([2.1645753], dtype=float32), 2, 57)",[0. 0. 0.]
+[-34.024303],"(3, array([2.408849], dtype=float32), 0, 8)","[array(1, dtype=int32), array([0.408849], dtype=float32), array(24, dtype=int32)]"
+,"(5, array([2.4637015], dtype=float32), 2, 20)",[0. 0. 0.]
+[-30.08847],"(6, array([0.85281897], dtype=float32), 1, 2)","[array(2, dtype=int32), array([1.147181], dtype=float32), array(30, dtype=int32)]"
+,"(0, array([1.0454736], dtype=float32), 0, 11)",[0. 0. 0.]
+[-15.103098],"(5, array([2.2039716], dtype=float32), 0, 37)","[array(1, dtype=int32), array([0.20397162], dtype=float32), array(5, dtype=int32)]"
+,"(6, array([1.9831334], dtype=float32), 0, 62)",[0. 0. 0.]
+[-39.27536],"(0, array([1.7842007], dtype=float32), 0, 61)","[array(4, dtype=int32), array([0.21579933], dtype=float32), array(29, dtype=int32)]"
+,"(3, array([2.474836], dtype=float32), 1, 60)",[0. 0. 0.]
+[-37.07493],"(2, array([1.7723364], dtype=float32), 2, 59)","[array(2, dtype=int32), array([0.22766364], dtype=float32), array(27, dtype=int32)]"
+,"(4, array([1.4552532], dtype=float32), 0, 9)",[0. 0. 0.]
+[-12.008896],"(6, array([1.811154], dtype=float32), 0, 32)","[array(2, dtype=int32), array([0.18884599], dtype=float32), array(0, dtype=int32)]"
+,"(6, array([0.5787361], dtype=float32), 0, 24)",[0. 0. 0.]
+[-29.001657],"(4, array([2.2509465], dtype=float32), 0, 13)","[array(0, dtype=int32), array([0.25094652], dtype=float32), array(19, dtype=int32)]"
+,"(1, array([1.9004021], dtype=float32), 0, 11)",[0. 0. 0.]
+[-32.205627],"(1, array([1.7001189], dtype=float32), 2, 54)","[array(3, dtype=int32), array([0.2998811], dtype=float32), array(22, dtype=int32)]"
+,"(5, array([0.78632337], dtype=float32), 1, 3)",[0. 0. 0.]
+[-13.612112],"(1, array([2.2176101], dtype=float32), 0, 34)","[array(3, dtype=int32), array([0.21761012], dtype=float32), array(2, dtype=int32)]"
+,"(6, array([1.7735741], dtype=float32), 1, 16)",[0. 0. 0.]
+[-16.378319],"(2, array([1.1735997], dtype=float32), 0, 26)","[array(2, dtype=int32), array([0.8264003], dtype=float32), array(6, dtype=int32)]"
+,"(0, array([0.81063426], dtype=float32), 1, 14)",[0. 0. 0.]
+[-27.029387],"(5, array([2.00299], dtype=float32), 0, 15)","[array(1, dtype=int32), array([0.00299001], dtype=float32), array(17, dtype=int32)]"
+,"(6, array([2.2748973], dtype=float32), 0, 61)",[0. 0. 0.]
+[-20.855503],"(0, array([0.64281046], dtype=float32), 2, 22)","[array(4, dtype=int32), array([1.3571895], dtype=float32), array(10, dtype=int32)]"
+,"(1, array([0.93845534], dtype=float32), 0, 43)",[0. 0. 0.]
+[-35.015663],"(4, array([1.1148555], dtype=float32), 2, 57)","[array(0, dtype=int32), array([0.8851445], dtype=float32), array(25, dtype=int32)]"
+,"(3, array([2.1090078], dtype=float32), 1, 34)",[0. 0. 0.]
+[-32.024223],"(5, array([1.74208], dtype=float32), 2, 10)","[array(1, dtype=int32), array([0.25792003], dtype=float32), array(22, dtype=int32)]"
+,"(5, array([0.8284905], dtype=float32), 1, 36)",[0. 0. 0.]
+[-9.056301],"(5, array([1.871191], dtype=float32), 1, 23)","[array(1, dtype=int32), array([0.12880898], dtype=float32), array(9, dtype=int32)]"
+,"(1, array([1.3175023], dtype=float32), 2, 22)",[0. 0. 0.]
+[-39.089844],"(6, array([0.8958605], dtype=float32), 0, 3)","[array(2, dtype=int32), array([1.1041396], dtype=float32), array(29, dtype=int32)]"
+,"(1, array([1.4606116], dtype=float32), 1, 49)",[0. 0. 0.]
+[-6.2555394],"(3, array([0.53994125], dtype=float32), 1, 38)","[array(1, dtype=int32), array([1.4600587], dtype=float32), array(6, dtype=int32)]"
+,"(2, array([0.6005788], dtype=float32), 1, 52)",[0. 0. 0.]
+[-21.224756],"(1, array([1.2998194], dtype=float32), 1, 11)","[array(3, dtype=int32), array([0.70018065], dtype=float32), array(21, dtype=int32)]"
+,"(7, array([0.89372504], dtype=float32), 1, 57)",[0. 0. 0.]
+[-12.656686],"(0, array([1.5621682], dtype=float32), 1, 20)","[array(4, dtype=int32), array([0.43783176], dtype=float32), array(12, dtype=int32)]"
+,"(5, array([2.012486], dtype=float32), 1, 46)",[0. 0. 0.]
+[-27.000412],"(4, array([1.8816123], dtype=float32), 2, 15)","[array(0, dtype=int32), array([0.1183877], dtype=float32), array(17, dtype=int32)]"
+,"(2, array([1.4736099], dtype=float32), 0, 15)",[0. 0. 0.]
+[-30.001293],"(4, array([1.7725466], dtype=float32), 2, 12)","[array(0, dtype=int32), array([0.22745335], dtype=float32), array(20, dtype=int32)]"
+,"(6, array([0.80306435], dtype=float32), 0, 4)",[0. 0. 0.]
+[-13.72683],"(2, array([1.0569972], dtype=float32), 0, 29)","[array(2, dtype=int32), array([0.9430028], dtype=float32), array(3, dtype=int32)]"
+,"(6, array([1.9024042], dtype=float32), 0, 2)",[0. 0. 0.]
+[-26.02176],"(4, array([0.93602], dtype=float32), 1, 58)","[array(0, dtype=int32), array([1.06398], dtype=float32), array(26, dtype=int32)]"
+,"(6, array([1.3864464], dtype=float32), 0, 23)",[0. 0. 0.]
+[-41.257866],"(0, array([1.767417], dtype=float32), 0, 63)","[array(4, dtype=int32), array([0.23258305], dtype=float32), array(31, dtype=int32)]"
+,"(5, array([1.7186977], dtype=float32), 1, 59)",[0. 0. 0.]
+[-25.035437],"(3, array([2.253696], dtype=float32), 2, 17)","[array(1, dtype=int32), array([0.25369596], dtype=float32), array(15, dtype=int32)]"
+,"(2, array([2.1454215], dtype=float32), 0, 26)",[0. 0. 0.]
+[-34.02121],"(5, array([1.8637334], dtype=float32), 0, 56)","[array(1, dtype=int32), array([0.13626659], dtype=float32), array(24, dtype=int32)]"
+,"(4, array([2.0599885], dtype=float32), 2, 53)",[0. 0. 0.]
+[-6.4549775],"(2, array([0.70897794], dtype=float32), 1, 26)","[array(2, dtype=int32), array([1.2910221], dtype=float32), array(6, dtype=int32)]"
+,"(4, array([0.7504622], dtype=float32), 0, 32)",[0. 0. 0.]
+[-24.063145],"(5, array([0.57350254], dtype=float32), 1, 56)","[array(1, dtype=int32), array([1.4264975], dtype=float32), array(24, dtype=int32)]"
+,"(6, array([2.270446], dtype=float32), 2, 32)",[0. 0. 0.]
+[-39.00374],"(4, array([1.5344796], dtype=float32), 2, 3)","[array(0, dtype=int32), array([0.46552038], dtype=float32), array(29, dtype=int32)]"
+,"(2, array([2.428415], dtype=float32), 0, 22)",[0. 0. 0.]
+[-30.153551],"(2, array([0.5283856], dtype=float32), 2, 12)","[array(2, dtype=int32), array([1.4716144], dtype=float32), array(20, dtype=int32)]"
+,"(3, array([1.6506317], dtype=float32), 0, 10)",[0. 0. 0.]
+[-17.00048],"(4, array([1.9179677], dtype=float32), 0, 39)","[array(0, dtype=int32), array([0.08203232], dtype=float32), array(7, dtype=int32)]"
+,"(7, array([1.2770126], dtype=float32), 0, 33)",[0. 0. 0.]
+[-21.218636],"(7, array([1.5198733], dtype=float32), 1, 11)","[array(3, dtype=int32), array([0.48012674], dtype=float32), array(21, dtype=int32)]"
+,"(5, array([0.9760306], dtype=float32), 0, 6)",[0. 0. 0.]
+[-1.0030316],"(3, array([1.9220742], dtype=float32), 1, 32)","[array(1, dtype=int32), array([0.0779258], dtype=float32), array(0, dtype=int32)]"
+,"(0, array([2.3328435], dtype=float32), 0, 61)",[0. 0. 0.]
+[-16.119171],"(5, array([1.3334838], dtype=float32), 0, 38)","[array(1, dtype=int32), array([0.6665162], dtype=float32), array(6, dtype=int32)]"
+,"(1, array([1.6647097], dtype=float32), 0, 8)",[0. 0. 0.]
+[-27.265703],"(1, array([2.3232925], dtype=float32), 2, 49)","[array(3, dtype=int32), array([0.3232925], dtype=float32), array(17, dtype=int32)]"
+,"(2, array([1.9209381], dtype=float32), 2, 33)",[0. 0. 0.]
+[-4.3555512],"(5, array([0.5961393], dtype=float32), 1, 36)","[array(1, dtype=int32), array([1.4038607], dtype=float32), array(4, dtype=int32)]"
+,"(7, array([0.5841319], dtype=float32), 2, 26)",[0. 0. 0.]
+[-22.203608],"(7, array([2.0120795], dtype=float32), 1, 10)","[array(3, dtype=int32), array([0.01207948], dtype=float32), array(22, dtype=int32)]"
+,"(4, array([0.88302875], dtype=float32), 2, 59)",[0. 0. 0.]
+[-28.001165],"(4, array([1.7444283], dtype=float32), 1, 60)","[array(0, dtype=int32), array([0.25557172], dtype=float32), array(28, dtype=int32)]"
+,"(7, array([1.3305984], dtype=float32), 1, 25)",[0. 0. 0.]
+[-24.166122],"(6, array([1.1759562], dtype=float32), 2, 18)","[array(2, dtype=int32), array([0.82404375], dtype=float32), array(14, dtype=int32)]"
+,"(5, array([1.7510148], dtype=float32), 2, 52)",[0. 0. 0.]
+[-18.03831],"(5, array([1.3830782], dtype=float32), 1, 50)","[array(1, dtype=int32), array([0.6169218], dtype=float32), array(18, dtype=int32)]"
+,"(3, array([2.254559], dtype=float32), 1, 8)",[0. 0. 0.]
+[-16.853651],"(7, array([0.5955302], dtype=float32), 0, 26)","[array(3, dtype=int32), array([1.4044697], dtype=float32), array(6, dtype=int32)]"
+,"(2, array([0.78701377], dtype=float32), 1, 4)",[0. 0. 0.]
+[-27.19678],"(7, array([0.7097202], dtype=float32), 1, 59)","[array(3, dtype=int32), array([1.2902799], dtype=float32), array(27, dtype=int32)]"
+,"(1, array([1.1237011], dtype=float32), 0, 60)",[0. 0. 0.]
+[-29.017782],"(3, array([2.1780553], dtype=float32), 1, 61)","[array(1, dtype=int32), array([0.17805529], dtype=float32), array(29, dtype=int32)]"
+,"(4, array([0.6200573], dtype=float32), 0, 1)",[0. 0. 0.]
+[-40.157],"(7, array([1.3330872], dtype=float32), 2, 62)","[array(3, dtype=int32), array([0.6669128], dtype=float32), array(30, dtype=int32)]"
+,"(7, array([0.62539953], dtype=float32), 2, 58)",[0. 0. 0.]
+[-23.241297],"(1, array([0.53103644], dtype=float32), 1, 55)","[array(3, dtype=int32), array([1.4689636], dtype=float32), array(23, dtype=int32)]"
+,"(0, array([2.1386209], dtype=float32), 0, 53)",[0. 0. 0.]
+[-20.03019],"(4, array([0.9006735], dtype=float32), 1, 52)","[array(0, dtype=int32), array([1.0993265], dtype=float32), array(20, dtype=int32)]"
+,"(2, array([0.8394365], dtype=float32), 1, 52)",[0. 0. 0.]
+[-39.019264],"(4, array([0.9427905], dtype=float32), 0, 61)","[array(0, dtype=int32), array([1.0572095], dtype=float32), array(29, dtype=int32)]"
+,"(3, array([2.0074687], dtype=float32), 2, 40)",[0. 0. 0.]
+[-35.08854],"(6, array([1.3406909], dtype=float32), 2, 7)","[array(2, dtype=int32), array([0.65930915], dtype=float32), array(25, dtype=int32)]"
+,"(6, array([2.4681587], dtype=float32), 2, 42)",[0. 0. 0.]
+[-21.466957],"(7, array([0.7788816], dtype=float32), 0, 43)","[array(3, dtype=int32), array([1.2211185], dtype=float32), array(11, dtype=int32)]"
+,"(3, array([0.50636214], dtype=float32), 1, 39)",[0. 0. 0.]
+[-27.086752],"(3, array([0.60103834], dtype=float32), 0, 15)","[array(1, dtype=int32), array([1.3989617], dtype=float32), array(17, dtype=int32)]"
+,"(3, array([0.90977913], dtype=float32), 0, 36)",[0. 0. 0.]
+[-17.13737],"(3, array([1.0294104], dtype=float32), 2, 25)","[array(1, dtype=int32), array([0.97058964], dtype=float32), array(7, dtype=int32)]"
+,"(4, array([1.385386], dtype=float32), 0, 40)",[0. 0. 0.]
+[-33.197075],"(1, array([1.6769997], dtype=float32), 2, 9)","[array(3, dtype=int32), array([0.3230003], dtype=float32), array(23, dtype=int32)]"
+,"(3, array([1.4809027], dtype=float32), 2, 44)",[0. 0. 0.]
+[-26.501957],"(0, array([1.4391189], dtype=float32), 0, 16)","[array(4, dtype=int32), array([0.56088114], dtype=float32), array(16, dtype=int32)]"
+,"(3, array([1.8399265], dtype=float32), 0, 58)",[0. 0. 0.]
+[-31.12801],"(6, array([0.8198395], dtype=float32), 0, 53)","[array(2, dtype=int32), array([1.1801605], dtype=float32), array(21, dtype=int32)]"
+,"(3, array([1.4666637], dtype=float32), 0, 12)",[0. 0. 0.]
+[-8.178753],"(0, array([0.6244996], dtype=float32), 1, 39)","[array(4, dtype=int32), array([1.3755004], dtype=float32), array(7, dtype=int32)]"
+,"(2, array([1.410776], dtype=float32), 2, 8)",[0. 0. 0.]
+[-15.071703],"(7, array([1.1501936], dtype=float32), 2, 28)","[array(3, dtype=int32), array([0.8498064], dtype=float32), array(4, dtype=int32)]"
+,"(3, array([2.0602758], dtype=float32), 2, 38)",[0. 0. 0.]
+[-19.105534],"(6, array([1.8537391], dtype=float32), 1, 51)","[array(2, dtype=int32), array([0.14626086], dtype=float32), array(19, dtype=int32)]"
+,"(6, array([1.220299], dtype=float32), 0, 30)",[0. 0. 0.]
+[-8.593319],"(1, array([1.0806869], dtype=float32), 1, 40)","[array(3, dtype=int32), array([0.9193131], dtype=float32), array(8, dtype=int32)]"
+,"(4, array([0.69267625], dtype=float32), 1, 12)",[0. 0. 0.]
+[-14.005357],"(0, array([2.2070875], dtype=float32), 0, 32)","[array(4, dtype=int32), array([0.20708752], dtype=float32), array(0, dtype=int32)]"
+,"(6, array([2.0004432], dtype=float32), 2, 23)",[0. 0. 0.]
+[-16.716513],"(1, array([1.6660177], dtype=float32), 2, 26)","[array(3, dtype=int32), array([0.33398235], dtype=float32), array(6, dtype=int32)]"
+,"(2, array([1.9153899], dtype=float32), 0, 63)",[0. 0. 0.]
+[-15.026682],"(4, array([1.104912], dtype=float32), 1, 47)","[array(0, dtype=int32), array([0.89508796], dtype=float32), array(15, dtype=int32)]"
+,"(3, array([2.0381947], dtype=float32), 0, 35)",[0. 0. 0.]
+[-34.22639],"(7, array([0.6150827], dtype=float32), 2, 56)","[array(3, dtype=int32), array([1.3849173], dtype=float32), array(24, dtype=int32)]"
+,"(7, array([1.2113967], dtype=float32), 0, 5)",[0. 0. 0.]
+[-15.131013],"(5, array([1.4279054], dtype=float32), 0, 37)","[array(1, dtype=int32), array([0.57209456], dtype=float32), array(5, dtype=int32)]"
+,"(5, array([1.5816467], dtype=float32), 1, 51)",[0. 0. 0.]
+[-20.299461],"(2, array([0.5581612], dtype=float32), 2, 42)","[array(2, dtype=int32), array([1.4418387], dtype=float32), array(10, dtype=int32)]"
+,"(6, array([1.1966567], dtype=float32), 0, 60)",[0. 0. 0.]
+[-25.052122],"(4, array([0.7484496], dtype=float32), 2, 17)","[array(0, dtype=int32), array([1.2515504], dtype=float32), array(15, dtype=int32)]"
+,"(7, array([0.5115185], dtype=float32), 0, 50)",[0. 0. 0.]
+[-17.278713],"(0, array([1.0102171], dtype=float32), 2, 26)","[array(4, dtype=int32), array([0.9897829], dtype=float32), array(6, dtype=int32)]"
+,"(4, array([1.4981856], dtype=float32), 1, 46)",[0. 0. 0.]
+[-42.021442],"(4, array([0.82835585], dtype=float32), 0, 0)","[array(0, dtype=int32), array([1.1716442], dtype=float32), array(32, dtype=int32)]"
+,"(3, array([2.4695153], dtype=float32), 1, 26)",[0. 0. 0.]
+[-31.043854],"(5, array([0.6882046], dtype=float32), 1, 1)","[array(1, dtype=int32), array([1.3117955], dtype=float32), array(31, dtype=int32)]"
