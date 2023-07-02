@@ -3,13 +3,20 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ArchGym's documentation!
+Welcome to ArchGym!
 ===================================
+
+Architecture Gym (ArchGym) is a systematic and standardized framework for ML-driven research
+tackling architectural design space exploration. The framework is built with the ability to be 
+easily extended to support brand-new search algorithms and architecture simulators via a 
+standardized interface.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+.. note::
+   This project is under active development. 
 
 
 Indices and tables
