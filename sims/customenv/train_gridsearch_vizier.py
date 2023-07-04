@@ -25,11 +25,11 @@ from vizier.service import pyvizier as vz
 from vizier.service import vizier_server
 from vizier.service import vizier_service_pb2_grpc
 
-flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
+# flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
 flags.DEFINE_integer('num_steps', 100, 'Number of training steps.')
 flags.DEFINE_integer('num_episodes', 2, 'Number of training episodes.')
 flags.DEFINE_string('traject_dir', 
-                    'random_walker_trajectories', 
+                    'grid_search_trajectories', 
             'Directory to save the dataset.')
 flags.DEFINE_bool('use_envlogger', False, 'Use envlogger to log the data.')  
 flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
@@ -48,7 +48,7 @@ def log_fitness_to_csv(filename, fitness_dict):
 
 def wrap_in_envlogger(env, envlogger_dir):
     metadata = {
-        'agent_type': 'RandomWalker',
+        'agent_type': 'GridSearch',
         'num_steps': FLAGS.num_steps,
         'env_type': type(env).__name__,
     }
@@ -91,7 +91,7 @@ def main(_):
 
 
     study_config = vz.StudyConfig.from_problem(problem)
-    study_config.algorithm = vz.Algorithm.RANDOM_SEARCH
+    study_config.algorithm = vz.Algorithm.GRID_SEARCH
     # RandomDesigner(search_space=problem.search_space)
 
     port = portpicker.pick_unused_port()
@@ -116,7 +116,7 @@ def main(_):
     exp_name = "_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
 
     # append logs to base path
-    log_path = os.path.join(FLAGS.summary_dir, 'random_walker_logs', FLAGS.reward_formulation, exp_name)
+    log_path = os.path.join(FLAGS.summary_dir, 'grid_search_logs', FLAGS.reward_formulation, exp_name)
 
     # get the current working directory and append the exp name
     traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
@@ -145,7 +145,7 @@ def main(_):
             fitness_hist['action'] = action
             fitness_hist['obs'] = obs
             log_fitness_to_csv(log_path, fitness_hist)
-            print(obs)
+            print("Observation: ",obs)
             final_measurement = vz.Measurement({'energy': obs[0], 'area': obs[1], 'latency': obs[2]})
             suggestion.complete(final_measurement)
 

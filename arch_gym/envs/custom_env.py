@@ -38,8 +38,8 @@ class CustomEnv(gym.Env):
 
         observation = np.array([self.energy, self.area, self.latency])
         ideal_values = np.array([4, 2.0, 1, 32])
-        print(action)
-        print(ideal_values)
+        # print(action)
+        # print(ideal_values)
         reward = -np.linalg.norm(action - ideal_values)
 
         done = True
