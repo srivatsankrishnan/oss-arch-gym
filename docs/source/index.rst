@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ArchGym's documentation!
+Welcome to ArchGym!
 ===================================
 
 An OpenAI Gym Interface for Computer Architecture Research
@@ -18,6 +18,9 @@ standardized interface.
    :caption: Contents:
 
    modules
+.. note::
+   This project is under active development. 
+
 
 Indices and tables
 ==================
