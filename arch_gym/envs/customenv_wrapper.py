@@ -31,13 +31,14 @@ print(os.sys.path)
 from arch_gym.envs.custom_gym import ExampleEnv
 
 class CustomEnvWrapper(dm_env.Environment):
-  """Environment wrapper for OpenAI Gym environments."""
+  """Environment wrapper for OpenAI Gym environments. It wraps the environment into the deepmind envlogger interface.
+  """
 
   # Note: we don't inherit from base.EnvironmentWrapper because that class
   # assumes that the wrapped environment is a dm_env.Environment.
 
   def __init__(self, environment: gym.Env):
-    
+    """Constructor method."""
     self._environment = environment
     self._reset_next_step = True
     self._last_info = None
@@ -57,31 +58,6 @@ class CustomEnvWrapper(dm_env.Environment):
     # Reset the diagnostic information.
     self._last_info = None
     return dm_env.restart(observation)
-
-  def check_action_ranges(self, action: types.NestedArray):
-    """Checks that the action is within the action space."""
-    dummy_reward = 0
-    if(action[0]<0 or action[0]>3):
-      dummy_reward += -100
-    elif(action[1]<0 or action[1]>2):
-      dummy_reward += -100
-    elif(action[2]<0 or action[2]>2):
-      dummy_reward += -100
-    elif(action[3]<2 or action[3]>128):
-      dummy_reward += -100
-    elif(action[4]<0 or action[4]>1):
-      dummy_reward += -100
-    elif(action[5]<0 or action[5]>1):
-      dummy_reward += -100
-    elif(action[6]<2 or action[6]>128):
-      dummy_reward += -100
-    elif(action[7]<2 or action[7]>128):
-      dummy_reward += -100
-    elif(action[8]<0 or action[8]>2):
-      dummy_reward += -100
-    elif(action[9]<2 or action[9]>128):
-      dummy_reward += -100
-    return dummy_reward
 
   def step(self, action: types.NestedArray) -> dm_env.TimeStep:
     """Steps the environment."""
@@ -119,14 +95,20 @@ class CustomEnvWrapper(dm_env.Environment):
 
   def get_info(self) -> Optional[Dict[str, Any]]:
     """Returns the last info returned from env.step(action).
+    
     Returns:
       info: dictionary of diagnostic information from the last environment step
+    Return Type: dict
     """
     return self._last_info
 
   @property
-  def environment(self) -> gym.Env:
-    """Returns the wrapped environment."""
+  def environment(self) -> gym.Env: 
+    """Returns the wrapped environment.
+    
+    Returns:
+      environment: the wrapped environment
+    """
     return self._environment
 
   def __getattr__(self, name: str):
@@ -136,6 +118,7 @@ class CustomEnvWrapper(dm_env.Environment):
     return getattr(self._environment, name)
 
   def close(self):
+    """Closes the environment."""
     self._environment.close()
 
 
@@ -145,9 +128,11 @@ def _convert_to_spec(space: gym.Space,
   Box, MultiBinary and MultiDiscrete Gym spaces are converted to BoundedArray
   specs. Discrete OpenAI spaces are converted to DiscreteArray specs. Tuple and
   Dict spaces are recursively converted to tuples and dictionaries of specs.
+
   Args:
     space: The Gym space to convert.
     name: Optional name to apply to all return spec(s).
+
   Returns:
     A dm_env spec or nested structure of specs, corresponding to the input
     space.
@@ -195,9 +180,16 @@ def make_custom_env(seed: int = 12234,
                      max_steps: int = 100,
                      reward_formulation: str = 'power',
                      ) -> dm_env.Environment:
-  """Returns DRAMSys environment."""
+  """Returns the custom environment.
+  
+  Args:
+    seed: seed for the environment
+    max_steps: maximum number of steps in an episode
+    reward_formulation: formulation of the reward function
+
+  Returns:
+    environment: the custom environment
+  """
   environment = CustomEnvWrapper(ExampleEnv())
   environment = wrappers.SinglePrecisionWrapper(environment)
-  # if(arch_gym_configs.rl_agent):
-  #   environment = wrappers.CanonicalSpecWrapper(environment, clip=True)
   return environment
