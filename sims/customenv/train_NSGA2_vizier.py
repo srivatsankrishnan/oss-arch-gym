@@ -10,6 +10,7 @@ from absl import app
 from absl import logging
 
 os.sys.path.insert(0, os.path.abspath('../../'))
+
 # from configs import arch_gym_configs
 # from arch_gym.envs.envHelpers import helpers
 
@@ -37,14 +38,22 @@ flags.DEFINE_string('reward_formulation', 'power', 'Which reward formulation to 
 FLAGS = flags.FLAGS
 
 def log_fitness_to_csv(filename, fitness_dict):
-        df = pd.DataFrame([fitness_dict['reward']])
-        csvfile = os.path.join(filename, "fitness.csv")
-        df.to_csv(csvfile, index=False, header=False, mode='a')
+    """Wraps the environment in envlogger
 
-        # append to csv
-        df = pd.DataFrame([fitness_dict])
-        csvfile = os.path.join(filename, "trajectory.csv")
-        df.to_csv(csvfile, index=False, header=False, mode='a')
+    Args:
+        env (gym.Env): gym environment
+        envlogger_dir (str): path to the directory where the data will be logged
+    """
+
+        
+    df = pd.DataFrame([fitness_dict['reward']])
+    csvfile = os.path.join(filename, "fitness.csv")
+    df.to_csv(csvfile, index=False, header=False, mode='a')
+
+    # append to csv
+    df = pd.DataFrame([fitness_dict])
+    csvfile = os.path.join(filename, "trajectory.csv")
+    df.to_csv(csvfile, index=False, header=False, mode='a')
 
 def wrap_in_envlogger(env, envlogger_dir):
     metadata = {
