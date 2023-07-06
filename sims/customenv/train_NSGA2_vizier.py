@@ -130,25 +130,25 @@ def main(_):
             os.makedirs(traject_dir)
     env = wrap_in_envlogger(env, traject_dir)
 
-    for i in range(flags.FLAGS.num_episodes):
-        suggestions = study.suggest(count=flags.FLAGS.num_steps)
-        for suggestion in suggestions:
-            num_cores = float(suggestion.parameters['num_cores'])
-            freq = float(suggestion.parameters['freq'])
-            mem_type_dict = {'SRAM':0, 'DRAM':1, 'Hybrid':2}
-            mem_type = float(mem_type_dict[suggestion.parameters['mem_type']])
-            mem_size = float(suggestion.parameters['mem_size'])
-            action = {"num_cores":num_cores, "freq": freq, "mem_type":mem_type, "mem_size": mem_size}
-            print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
-            obs, reward, done, info = (env.step(action))
-            fitness_hist['reward'] = reward
-            fitness_hist['action'] = action
-            fitness_hist['obs'] = obs
-            log_fitness_to_csv(log_path, fitness_hist)
-            print("Observation: ",obs)
-            final_measurement = vz.Measurement({'energy': obs[0], 'area': obs[1], 'latency': obs[2]})
-            suggestion.complete(final_measurement)
-        print("Episode {} ended".format(i+1))
+    # for i in range(flags.FLAGS.num_episodes):
+    suggestions = study.suggest(count=flags.FLAGS.num_steps)
+    for suggestion in suggestions:
+        num_cores = float(suggestion.parameters['num_cores'])
+        freq = float(suggestion.parameters['freq'])
+        mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
+        mem_type = float(mem_type_dict[suggestion.parameters['mem_type']])
+        mem_size = float(suggestion.parameters['mem_size'])
+        action = {"num_cores":num_cores, "freq": freq, "mem_type":mem_type, "mem_size": mem_size}
+        print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
+        obs, reward, done, info = (env.step(action))
+        fitness_hist['reward'] = reward
+        fitness_hist['action'] = action
+        fitness_hist['obs'] = obs
+        log_fitness_to_csv(log_path, fitness_hist)
+        print("Observation: ",obs)
+        final_measurement = vz.Measurement({'energy': obs[0], 'area': obs[1], 'latency': obs[2]})
+        suggestion.complete(final_measurement)
+    # print("Episode {} ended".format(i+1))
 
 
     for optimal_trial in study.optimal_trials():

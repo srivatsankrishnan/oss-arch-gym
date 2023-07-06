@@ -26,10 +26,10 @@ from vizier.service import vizier_server
 from vizier.service import vizier_service_pb2_grpc
 
 # flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
-flags.DEFINE_integer('num_steps', 100, 'Number of training steps.')
+flags.DEFINE_integer('num_steps', 50, 'Number of training steps.')
 flags.DEFINE_integer('num_episodes', 2, 'Number of training episodes.')
 flags.DEFINE_string('traject_dir', 
-                    'grid_search_trajectories', 
+                    'EMUKIT_trajectories', 
             'Directory to save the dataset.')
 flags.DEFINE_bool('use_envlogger', False, 'Use envlogger to log the data.')  
 flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
@@ -48,7 +48,7 @@ def log_fitness_to_csv(filename, fitness_dict):
 
 def wrap_in_envlogger(env, envlogger_dir):
     metadata = {
-        'agent_type': 'GridSearch',
+        'agent_type': 'EMUKIT_GP_EI',
         'num_steps': FLAGS.num_steps,
         'env_type': type(env).__name__,
     }
@@ -78,20 +78,11 @@ def main(_):
 
     problem.metric_information.append(
         vz.MetricInformation(
-            name='energy', goal=vz.ObjectiveMetricGoal.MINIMIZE))
-
-    problem.metric_information.append(
-        vz.MetricInformation(
-            name='area', goal=vz.ObjectiveMetricGoal.MINIMIZE))
-
-    problem.metric_information.append(
-        vz.MetricInformation(
-            name='latency', goal=vz.ObjectiveMetricGoal.MINIMIZE))
-
+            name='Reward', goal=vz.ObjectiveMetricGoal.MAXIMIZE))
 
 
     study_config = vz.StudyConfig.from_problem(problem)
-    study_config.algorithm = vz.Algorithm.GRID_SEARCH
+    study_config.algorithm = vz.Algorithm.EMUKIT_GP_EI
     # RandomDesigner(search_space=problem.search_space)
 
     port = portpicker.pick_unused_port()
@@ -116,7 +107,7 @@ def main(_):
     exp_name = "_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
 
     # append logs to base path
-    log_path = os.path.join(FLAGS.summary_dir, 'grid_search_logs', FLAGS.reward_formulation, exp_name)
+    log_path = os.path.join(FLAGS.summary_dir, 'EMUKIT_logs', FLAGS.reward_formulation, exp_name)
 
     # get the current working directory and append the exp name
     traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
@@ -130,24 +121,25 @@ def main(_):
             os.makedirs(traject_dir)
     env = wrap_in_envlogger(env, traject_dir)
 
-    for i in range(flags.FLAGS.num_episodes):
-        suggestions = study.suggest(count=flags.FLAGS.num_steps)
-        for suggestion in suggestions:
-            num_cores = float(suggestion.parameters['num_cores'])
-            freq = float(suggestion.parameters['freq'])
-            mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
-            mem_type = float(mem_type_dict[suggestion.parameters['mem_type']])
-            mem_size = float(suggestion.parameters['mem_size'])
-            action = {"num_cores":num_cores, "freq": freq, "mem_type":mem_type, "mem_size": mem_size}
-            print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
-            obs, reward, done, info = (env.step(action))
-            fitness_hist['reward'] = reward
-            fitness_hist['action'] = action
-            fitness_hist['obs'] = obs
-            log_fitness_to_csv(log_path, fitness_hist)
-            print("Observation: ",obs)
-            final_measurement = vz.Measurement({'energy': obs[0], 'area': obs[1], 'latency': obs[2]})
-            suggestion.complete(final_measurement)
+    # for i in range(flags.FLAGS.num_episodes):
+    suggestions = study.suggest(count=flags.FLAGS.num_steps)
+    for suggestion in suggestions:
+        num_cores = float(suggestion.parameters['num_cores'])
+        freq = float(suggestion.parameters['freq'])
+        mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
+        mem_type = float(mem_type_dict[suggestion.parameters['mem_type']])
+        mem_size = float(suggestion.parameters['mem_size'])
+        action = {"num_cores":num_cores, "freq": freq, "mem_type":mem_type, "mem_size": mem_size}
+        print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
+        obs, reward, done, info = (env.step(action))
+        fitness_hist['reward'] = reward
+        fitness_hist['action'] = action
+        fitness_hist['obs'] = obs
+        log_fitness_to_csv(log_path, fitness_hist)
+        print("Observation: ",obs)
+        final_measurement = vz.Measurement({"Reward": reward})
+        suggestion.complete(final_measurement)
+    # print("Episode {} ended".format(i+1))
 
 
     for optimal_trial in study.optimal_trials():

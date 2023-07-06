@@ -135,7 +135,7 @@ def main(_):
         for suggestion in suggestions:
             num_cores = float(suggestion.parameters['num_cores'])
             freq = float(suggestion.parameters['freq'])
-            mem_type_dict = {'SRAM':0, 'DRAM':1, 'Hybrid':2}
+            mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
             mem_type = float(mem_type_dict[suggestion.parameters['mem_type']])
             mem_size = float(suggestion.parameters['mem_size'])
             action = {"num_cores":num_cores, "freq": freq, "mem_type":mem_type, "mem_size": mem_size}

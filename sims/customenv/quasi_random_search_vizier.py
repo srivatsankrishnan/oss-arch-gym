@@ -1,17 +1,18 @@
 from concurrent import futures
 import grpc
 import portpicker
-
+import os 
+import sys
 from vizier.service import clients
 from vizier.service import pyvizier as vz
 from vizier.service import vizier_server
 from vizier.service import vizier_service_pb2_grpc
 
 #from dse_framework import dse
+os.sys.path.insert(0, os.path.abspath('../../'))
+from arch_gym.envs.custom_env_2 import SimpleArch
 
-from gym_env import SimpleArch  
-
-NUM_TRIALS = 1000
+NUM_TRIALS = 4
 
 problem = vz.ProblemStatement()
 
