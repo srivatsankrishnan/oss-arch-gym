@@ -11,7 +11,7 @@ Welcome to OSS-Vizier's documentation!
    :caption: Contents:
 
    intro 
-   train_randomsearch_vizier
+   modules
 
 Indices and tables
 ==================

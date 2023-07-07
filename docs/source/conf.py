@@ -7,9 +7,9 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../sims'))
+sys.path.insert(0, os.path.abspath('../../sims/CustomEnv'))
 sys.path.insert(0, os.path.abspath('../../arch_gym'))
-sys.path.insert(1, os.path.abspath('../../arch_gym/envs'))
+sys.path.insert(0, os.path.abspath('../../arch_gym/envs'))
 
 
 project = 'OSS-Vizier'
@@ -19,7 +19,8 @@ author = '-'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = ["sphinx.ext.todo", "sphinx.ext.viewcode", "sphinx.ext.napoleon", 'sphinx.ext.autodoc']
+
 
 templates_path = ['_templates']
 exclude_patterns = []
