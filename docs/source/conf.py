@@ -7,10 +7,10 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../sims/CustomEnv'))
+sys.path.insert(0, os.path.abspath('../../sims/customenv'))
 sys.path.insert(0, os.path.abspath('../../arch_gym'))
 sys.path.insert(0, os.path.abspath('../../arch_gym/envs'))
-
+sys.path.insert(0, os.path.abspath('../..'))
 
 project = 'OSS-Vizier'
 copyright = '2023, -'
