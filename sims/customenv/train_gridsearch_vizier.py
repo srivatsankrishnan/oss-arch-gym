@@ -37,16 +37,28 @@ flags.DEFINE_string('reward_formulation', 'power', 'Which reward formulation to 
 FLAGS = flags.FLAGS
 
 def log_fitness_to_csv(filename, fitness_dict):
-        df = pd.DataFrame([fitness_dict['reward']])
-        csvfile = os.path.join(filename, "fitness.csv")
-        df.to_csv(csvfile, index=False, header=False, mode='a')
+    """Logs fitness history to csv file
 
-        # append to csv
-        df = pd.DataFrame([fitness_dict])
-        csvfile = os.path.join(filename, "trajectory.csv")
-        df.to_csv(csvfile, index=False, header=False, mode='a')
+    Args:
+        filename (str): path to the csv file
+        fitness_dict (dict): dictionary containing the fitness history
+    """
+    df = pd.DataFrame([fitness_dict['reward']])
+    csvfile = os.path.join(filename, "fitness.csv")
+    df.to_csv(csvfile, index=False, header=False, mode='a')
+
+    # append to csv
+    df = pd.DataFrame([fitness_dict])
+    csvfile = os.path.join(filename, "trajectory.csv")
+    df.to_csv(csvfile, index=False, header=False, mode='a')
 
 def wrap_in_envlogger(env, envlogger_dir):
+    """Wraps the environment in envlogger
+
+    Args:
+        env (gym.Env): gym environment
+        envlogger_dir (str): path to the directory where the data will be logged
+    """
     metadata = {
         'agent_type': 'GridSearch',
         'num_steps': FLAGS.num_steps,
@@ -66,6 +78,8 @@ def wrap_in_envlogger(env, envlogger_dir):
 
 
 def main(_):
+    """Trains the custom environment using random actions for a given number of steps and episodes 
+    """
 
     env = CustomEnv()
     observation = env.reset()
