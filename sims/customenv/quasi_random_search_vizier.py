@@ -8,11 +8,28 @@ from vizier.service import pyvizier as vz
 from vizier.service import vizier_server
 from vizier.service import vizier_service_pb2_grpc
 
+<<<<<<< HEAD
+#from dse_framework import dse 
+
+#setting the path so as to import the custom environment
+import os
+os.sys.path.insert(0, os.path.abspath('../../'))
+from arch_gym.envs.custom_env_2 import SimpleArch
+
+#setting a flag for no. of trials
+from absl import flags
+import sys
+flags.DEFINE_integer('num_steps', 1000, 'Number of training steps')
+flags.FLAGS(sys.argv)
+NUM_TRIALS = flags.FLAGS.num_steps
+
+=======
 #from dse_framework import dse
 os.sys.path.insert(0, os.path.abspath('../../'))
 from arch_gym.envs.custom_env_2 import SimpleArch
 
 NUM_TRIALS = 4
+>>>>>>> 25a86cd3d84a9f4b6ddf439274af20225aba17b1
 
 problem = vz.ProblemStatement()
 
