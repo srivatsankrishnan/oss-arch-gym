@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """Wraps an OpenAI Gym environment to be used as a dm_env environment."""
-import sys
+import sys, os
 from typing import Any, Dict, List, Optional
 
 from acme import specs
@@ -25,8 +25,8 @@ from gym import spaces
 import numpy as np
 import tree
 
-from AstraSimEnv import AstraSimEnv
-from envHelpers import helpers
+os.sys.path.insert(0, os.path.abspath('../../'))
+from arch_gym.envs.AstraSimEnv import AstraSimEnv
 
 # dm = deepmind 
 class AstraSimEnvWrapper(dm_env.Environment):
@@ -41,7 +41,6 @@ class AstraSimEnvWrapper(dm_env.Environment):
     self._environment = environment
     self._reset_next_step = True
     self._last_info = None
-    self.helper = helpers()
     self.env_wrapper_sel = env_wrapper_sel
 
     # set useful counter

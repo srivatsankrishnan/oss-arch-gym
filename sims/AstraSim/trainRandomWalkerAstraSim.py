@@ -8,10 +8,7 @@ from absl import logging
 os.sys.path.insert(0, os.path.abspath('../../'))
 os.sys.path.insert(0, os.path.abspath('../../arch_gym'))
 
-from configs import arch_gym_configs
-
-from arch_gym.envs.envHelpers import helpers
-from arch_gym.envs import AstraSimWrapper, AstraSimEnv
+from arch_gym.envs import AstraSimWrapper
 import envlogger
 import numpy as np
 import pandas as pd
@@ -216,8 +213,6 @@ def main(_):
 
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
     # env = AstraSimEnv.AstraSimEnv(rl_form='random_walker')
-
-    astrasim_helper = helpers()
 
     # experiment name 
     exp_name = str(FLAGS.workload)+"_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)

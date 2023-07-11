@@ -1,48 +1,48 @@
 {
     "topology-name": "Hierarchical",
     "topologies-per-dim": [
-        "Switch",
-        "Switch"
+        "Ring",
+        "Ring"
     ],
     "dimension-type": [
-        "P",
-        "P"
+        "N",
+        "N"
     ],
     "dimensions-count": 2,
     "units-count": [
-        8,
-        8
+        4,
+        3
     ],
     "link-latency": [
-        434,
-        452
+        114,
+        292
     ],
     "link-bandwidth": [
-        51.6,
-        194.5
+        110.5,
+        50.5
     ],
     "nic-latency": [
         0,
         0
     ],
     "router-latency": [
-        1,
-        4
+        6,
+        9
     ],
     "hbm-latency": [
-        135,
-        228
+        277,
+        258
     ],
     "hbm-bandwidth": [
-        225,
-        244
+        458,
+        260
     ],
     "hbm-scale": [
-        0,
+        1,
         0
     ],
     "links-count": [
-        1,
-        1
+        2,
+        2
     ]
 }
