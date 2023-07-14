@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 
 
-
+from vizier._src.algorithms.designers import grid
 from arch_gym.envs.custom_env import CustomEnv
 from vizier.service import clients
 from vizier.service import pyvizier as vz
@@ -92,21 +92,14 @@ def main(_):
 
     problem.metric_information.append(
         vz.MetricInformation(
-            name='energy', goal=vz.ObjectiveMetricGoal.MINIMIZE))
+            name='Reward', goal=vz.ObjectiveMetricGoal.MINIMIZE))
 
-    problem.metric_information.append(
-        vz.MetricInformation(
-            name='area', goal=vz.ObjectiveMetricGoal.MINIMIZE))
-
-    problem.metric_information.append(
-        vz.MetricInformation(
-            name='latency', goal=vz.ObjectiveMetricGoal.MINIMIZE))
-
-
-
+    
     study_config = vz.StudyConfig.from_problem(problem)
     study_config.algorithm = vz.Algorithm.GRID_SEARCH
-    # RandomDesigner(search_space=problem.search_space)
+
+    
+    
 
     port = portpicker.pick_unused_port()
     address = f'localhost:{port}'
@@ -160,7 +153,7 @@ def main(_):
             fitness_hist['obs'] = obs
             log_fitness_to_csv(log_path, fitness_hist)
             print("Observation: ",obs)
-            final_measurement = vz.Measurement({'energy': obs[0], 'area': obs[1], 'latency': obs[2]})
+            final_measurement = vz.Measurement({'Reward': reward})
             suggestion.complete(final_measurement)
 
 

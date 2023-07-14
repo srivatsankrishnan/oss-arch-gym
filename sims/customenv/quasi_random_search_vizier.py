@@ -135,7 +135,7 @@ def main(_):
 
     #SETTING CUSTOM HYPERPARAMETERS, by importing the algorithm's class:
 
-    #mydesigner = random.RandomDesigner(problem.search_space, seed=110)  #use this for RANDOM SEARCH
+    # mydesigner = random.RandomDesigner(problem.search_space, seed=10)  #use this for RANDOM SEARCH
     #mydesigner = emukit.EmukitDesigner(problem, num_random_samples=10)  #use this for EMUKIT
     #mydesigner = grid.GridSearchDesigner(problem.search_space)  #use this for GRID SEARCH
 

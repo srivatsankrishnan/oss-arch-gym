@@ -11,7 +11,7 @@ class CustomEnv(gym.Env):
         super(CustomEnv, self).__init__()
         self.observation_space = spaces.Dict({"energy": spaces.Box(0, 1, (1,)), "area": spaces.Box(0, 1, (1,)), "latency": spaces.Box(0, 1, (1,))})
         
-        self.action_space = spaces.Dict({"num_cores": spaces.Discrete(10), "freq": spaces.Box(low = 0.5, high = 3, dtype = float),
+        self.action_space = spaces.Dict({"num_cores": spaces.Discrete(15), "freq": spaces.Box(low = 0.5, high = 3, dtype = float),
         "mem_type": spaces.Discrete(3), "mem_size": spaces.Discrete(65)})
         # mem_type_list = ['DRAM', 'SRAM', 'Hybrid']
 
