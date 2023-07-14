@@ -9,20 +9,16 @@ import dse_framework
 file = open('CFU_log', 'r')
 action = file.read().split()
 
-i = 0
-for a in action:
-    action[i] = int(a)
-    i += 1
+action = [int(a) for a in action]
 
 file.close()
 
+#Move into CFU-Playground symbiflow directory to update the F4PGA install directory 
+os.chdir('../../sims/CFU-Playground/env/symbiflow')
+os.environ["F4PGA_INSTALL_DIR"] = os.getcwd()
 
-#dse_module = __import__('...sims.CFU-Playground.proj.dse_template.dse_framework')
-#from ...sims.CFU-Playground.proj.dse_template.dse_framework import dse
-#dse_module = importlib.import_module('...sims.CFU-Playground.proj.dse_template.dse_framework', package='oss_arch_gym')
-
-#Move into dse_template directory to ensure smooth running
-os.chdir('../../sims/CFU-Playground/proj/dse_template')
+#Move to dse_framework directory
+os.chdir('../../proj/dse_template')
 
 Branch_predict_types = ['None', 'Static', 'Dynamic', 'Dynamic Target']
 
