@@ -20,7 +20,7 @@ os.environ["F4PGA_INSTALL_DIR"] = os.getcwd()
 #Move to dse_framework directory
 os.chdir('../../proj/dse_template')
 
-Branch_predict_types = ['None', 'Static', 'Dynamic', 'Dynamic Target']
+Branch_predict_types = ['none', 'static', 'dynamic', 'dynamic_target']
 
 cycles, cells = dse_framework.dse(
     "mcycle",
