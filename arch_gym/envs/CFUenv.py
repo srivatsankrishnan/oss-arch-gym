@@ -45,9 +45,19 @@ class SimpleArch(Env):
         file = open('CFU_log', 'w')
         s = ''
         for a in action:
+            # changed things from space to comma separated
             s += str(a) + ' '
         file.write(s)
         file.close()
+
+        envlog_file = open('Env_logfile','a')
+        s = ''
+        for a in action:
+            # changed things from space to comma separated
+            s += str(a) + ','
+        # writing the action into the envlog file
+        envlog_file.write(s)
+        envlog_file.close()
 
         #Calling dse function through another script, in the symbiflow environment
         subprocess.run(['. ../../sims/CFU-Playground/env/conda/bin/activate cfu-symbiflow && python CFU_run.py'], shell = True, executable='/bin/bash')
@@ -63,6 +73,12 @@ class SimpleArch(Env):
         output = output.split()
         observation = [float(output[0]), int(output[1])]
         reward = self.calculate_reward(observation)
+
+        envlog_file = open('Env_logfile','a')
+        # writing the reward into the envlog file and changing to next line
+        envlog_file.write(str(reward)+"\n")
+        envlog_file.close()
+
         return observation, reward, True, {}
     
     def calculate_reward(self, obs):

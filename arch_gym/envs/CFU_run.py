@@ -7,11 +7,9 @@ import dse_framework
 
 #Get params from file
 file = open('CFU_log', 'r')
+
 action = file.read().split()
-
 action = [int(a) for a in action]
-
-file.close()
 
 #Move into CFU-Playground symbiflow directory to update the F4PGA install directory 
 os.chdir('../../sims/CFU-Playground/env/symbiflow')
@@ -41,6 +39,10 @@ cycles, cells = dse_framework.dse(
 #Back into envs directory to write results
 os.chdir('../../../../arch_gym/envs')
 
-file = open('CFU_log', 'w')
+envlog_file = open('Env_logfile','a')
+# writing cells and cycles into the env log
+envlog_file.write(str(cells)+','+str(cycles)+',')
+envlog_file.close()
+
 file.write(str(cycles) + ' ' + str(cells))
 file.close()
