@@ -1,0 +1,12 @@
+#/bin/sh
+
+#install cfu-playground submodule
+if [ $1  == 'cfu' ]; then
+    git submodule update --init sims/CFU-Playground
+
+    cd sims/CFU-Playground
+
+    ./scripts/setup
+    ./scripts/setup_vexriscv_build.sh
+    make install-sf
+fi
