@@ -775,6 +775,104 @@ class helpers():
 
         return act_decoded
 
+    
+    def action_decoder_ga_astraSim(self, act_encoded):
+        act_decoded = {"network": {}, "system": {}}
+        # Network decoding
+        topologyName_mapper = {0:"Hierarchical"}
+        topologiesPerDim_mapper = {0:"Ring", 1:"FullyConnected", 2:"Switch"}
+        dimensionType_mapper = {0:"N", 1:"P", 2:"T"}
+
+        # System decoding
+        schedulePolicy_mapper = {0: "LIFO", 1: "FIFO"}
+        implementation_mapper = {0: "Ring", 1: "direct", 2: "doubleBinaryTree", 3: "oneRing", 4: "oneDirect"}
+        collectiveOptimization_mapper = {0: "baseline", 1: "localBWAware"}
+
+        # Link Counts: 
+        links_count = {"Ring": 2, "FullyConnected": 7, "Switch": 1}
+        print(f"act_encoded: {act_encoded}")
+
+        # hardcoded, except link count
+        act_decoded["network"]["topology-name"] = "Hierarchical"
+        act_decoded["network"]["nic-latency"] = [0, 0, 0]
+        act_decoded["network"]["dimensions-count"] = 3
+        act_decoded["system"]["active-chunks-per-dimension"] = 1
+
+
+        # NETWORK: 0-2) topologies per dim, 3-5) dimension type
+        act_decoded["network"]["topologies-per-dim"] = [topologiesPerDim_mapper[int(act_encoded[0])], 
+                                topologiesPerDim_mapper[int(act_encoded[1])], topologiesPerDim_mapper[int(act_encoded[2])]]
+        act_decoded["network"]["dimension-type"] = [dimensionType_mapper[int(act_encoded[3])], dimensionType_mapper[int(act_encoded[4])], dimensionType_mapper[int(act_encoded[5])]]
+
+        # 6-8) unitsCount, 9-11) linkLatency
+        act_decoded["network"]["units-count"] = [int(act_encoded[6]), int(act_encoded[7]), int(act_encoded[8])]
+        act_decoded["network"]["link-latency"] = [int(act_encoded[9]), int(act_encoded[10]), int(act_encoded[11])]
+
+        # Links Count
+        act_decoded["network"]["links-count"] = [int(links_count[act_decoded["network"]["topologies-per-dim"][i]])
+                        for i in range(act_decoded["network"]["dimensions-count"])]
+
+        # 12-14) linkBandwidth, 15-17) routerLatency
+        act_decoded["network"]["link-bandwidth"] = [int(act_encoded[12]), int(act_encoded[13]), int(act_encoded[14])]
+        act_decoded["network"]["router-latency"] = [int(act_encoded[15]), int(act_encoded[16]), int(act_encoded[17])]
+
+        # 18-20) hbmLatency, 21-23) hbmBandwidth, 24-26) hbmScale
+        act_decoded["network"]["hbm-latency"] = [int(act_encoded[18]), int(act_encoded[19]), int(act_encoded[20])]
+        act_decoded["network"]["hbm-bandwidth"] = [int(act_encoded[21]), int(act_encoded[22]), int(act_encoded[23])]
+        act_decoded["network"]["hbm-scale"] = [int(act_encoded[24]), int(act_encoded[25]), int(act_encoded[26])]
+
+        # SYSTEM: 27) schedulingPolicy, 28) endpointDelay
+        act_decoded["system"]["scheduling-policy"] = schedulePolicy_mapper[int(act_encoded[27])]
+        act_decoded["system"]["endpoint-delay"] = int(act_encoded[28])
+        
+        # 29) preferredDatasetSplits, 30) boostMode
+        act_decoded["system"]["preferred-dataset-splits"] = int(act_encoded[29])
+        act_decoded["system"]["boost-mode"] = int(act_encoded[30])
+
+        # 31-33) allReduceImplementation
+        act_decoded["system"]["all-reduce-implementation"] = implementation_mapper[int(act_encoded[31])] + "_" + implementation_mapper[int(act_encoded[32])] + "_" + implementation_mapper[int(act_encoded[33])]
+        # 34-36) allGatherImplementation
+        act_decoded["system"]["all-gather-implementation"] = implementation_mapper[int(act_encoded[34])] + "_" + implementation_mapper[int(act_encoded[35])] + "_" + implementation_mapper[int(act_encoded[36])]
+        # 37-39) reduceScatterImplementation
+        act_decoded["system"]["reduce-scatter-implementation1"] = implementation_mapper[int(act_encoded[37])] + "_" + implementation_mapper[int(act_encoded[38])] + "_" + implementation_mapper[int(act_encoded[39])]
+        # 40-42) allToAllImplementation
+        act_decoded["system"]["all-to-all-implementation"] = implementation_mapper[int(act_encoded[40])] + "_" + implementation_mapper[int(act_encoded[41])] + "_" + implementation_mapper[int(act_encoded[42])]
+        # 43) collectiveOptimization
+        act_decoded["system"]["collective-optimization"] = collectiveOptimization_mapper[int(act_encoded[43])]
+
+        return act_decoded
+
+        # action_dict = {"system": {}, "network": {}}
+        # action_dict["network"]["topology-name"] = "Hierarchical"
+        # action_dict["network"]["topologies-per-dim"] = ["Ring", "Ring", "Ring"]
+        # action_dict["network"]["dimension-type"] = ["N", "N", "N"]
+        # # DIMENSION COUNT MUST BE SET TO 3 FOR NOW
+        # action_dict["network"]["dimensions-count"] = 3  
+        # action_dict["network"]["units-count"] = [4, 4, 4]
+        # action_dict["network"]["link-latency"] = [1, 1, 1]
+        # action_dict["network"]["link-bandwidth"] = [32, 16, 16]
+        # action_dict["network"]["nic-latency"] = [0, 0, 0]
+        # action_dict["network"]["router-latency"] = [0, 0, 0]
+        # action_dict["network"]["hbm-latency"] = [500, 500, 500]
+        # action_dict["network"]["hbm-bandwidth"] = [370, 370, 370]
+        # action_dict["network"]["hbm-scale"] = [0, 0, 0]
+        # action_dict["network"]["links-count"] = [2, 2, 2]
+
+        # # system attributes
+        # action_dict["system"]["scheduling-policy"] = "LIFO"
+        # action_dict["system"]["endpoint-delay"] = 1
+        # action_dict["system"]["active-chunks-per-dimension"] = 1
+        # action_dict["system"]["preferred-dataset-splits"] = 4
+        # action_dict["system"]["boost-mode"] = 0
+      
+        # action_dict["system"]["all-reduce-implementation"] = "ring_ring_ring"
+        # action_dict["system"]["all-gather-implementation"] = "ring_ring_ring"
+        # action_dict["system"]["reduce-scatter-implementation"] = "ring_ring_ring"
+        # action_dict["system"]["all-to-all-implementation"] = "ring_ring_ring"
+        # action_dict["system"]["collective-optimization"] = "baseline"
+
+        # return action_dict
+
 
     def random_walk(self):
         '''

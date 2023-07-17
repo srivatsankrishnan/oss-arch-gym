@@ -14,11 +14,6 @@ proj_root_path = os.path.join(settings_dir_path, '..', '..')
 
 sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
 
-# print("!!!!!!!!!!!!!!!!!!!!!!!!!")
-# print(settings_file_path)
-# print(settings_dir_path)
-# print(proj_root_path)
-
 # astra-sim environment
 class AstraSimEnv(gym.Env):
     def __init__(self, rl_form="random_walker", max_steps=5, num_agents=1, reward_formulation="None", reward_scaling=1):
@@ -47,15 +42,18 @@ class AstraSimEnv(gym.Env):
         self.info = {}
 
         self.exe_path = os.path.join(sim_path, "run_general.sh")
-        self.network_config = os.path.join(sim_path, "general_network.json")
+        # self.network_config = os.path.join(sim_path, "general_network.json")
         self.system_config = os.path.join(sim_path, "general_system.txt")
-        self.workload_config = os.path.join(sim_path, "general_workload.txt")
+
+        # V1 networks, systems, and workloads folder
+        self.networks_folder = os.path.join(sim_path, "astrasim-archgym/dse/archgen_v1_knobs/templates/network")
+        self.workloads_folder = os.path.join(sim_path, "astrasim-archgym/themis/inputs/workload")
+
+        self.network_config = os.path.join(self.networks_folder, "3d_fc_ring_switch.json")
+        self.workload_config = os.path.join(sim_path, "realworld_workloads/transformer_1t_fused_only_t.txt")
+
 
         print("_____________________*****************************_____________________")
-        print(self.exe_path)
-        print(self.network_config)
-        print(self.system_config)
-        print(self.workload_config)
 
         self.reset()
 
@@ -116,7 +114,24 @@ class AstraSimEnv(gym.Env):
         return 1 / (sum ** 0.5)
 
     # give it one action: one set of parameters from json file
-    def step(self, action):
+    def step(self, action_dict):
+
+        # write the three config files
+        # with open(self.network_config, "w") as outfile:
+        #     outfile.write(json.dumps(action_dict['network'], indent=4))
+        if "path" in action_dict["network"]:
+            self.network_config = action_dict["network"]["path"]
+
+        if "path" in action_dict["workload"]:
+            self.workload_config = action_dict["workload"]["path"]
+
+        # load knobs
+        print("system_config")
+        print(action_dict["system"])
+        with open(self.system_config, 'w') as file:
+            for key, value in action_dict["system"].items():
+                file.write(f'{key}: {value}\n')
+
         # the action is actually the parsed parameter files
         print("Step: " + str(self.counter))
         if (self.counter == self.max_steps):
@@ -127,12 +142,13 @@ class AstraSimEnv(gym.Env):
             self.counter += 1
 
         # start subrpocess to run the simulation
-        exe_final = self.exe_path
-        network_config = self.network_config
-        system_config = self.system_config
-        workload_config = self.workload_config
-        process = subprocess.Popen([exe_final, network_config, system_config, workload_config],
-                                   stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # $1: network, $2: system, $3: workload
+        print("Running simulation...")
+        process = subprocess.Popen([self.exe_path, 
+                                    self.network_config, 
+                                    self.system_config, 
+                                    self.workload_config],
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         # get the output
         out, err = process.communicate()
