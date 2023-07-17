@@ -13,6 +13,7 @@ from arch_gym.envs.TimeloopEnv import TimeloopEnv
 from arch_gym.envs.timeloop_acme_wrapper import make_timeloop_env
 from arch_gym.envs.dramsys_wrapper import make_dramsys_env
 from arch_gym.envs.maestero_wrapper import make_maestro_env
+from arch_gym.envs.AstraSimWrapper import make_astraSim_env
 from arch_gym.envs.SniperEnv import SniperEnv
 from arch_gym.envs.DRAMEnv import DRAMEnv
 from arch_gym.envs.envHelpers import helpers
@@ -139,6 +140,43 @@ class BaseBackend(ABC):
     @abstractmethod
     def free_gpu(self):
         """Frees GPU memory."""
+
+
+class AstraSimBackend(BaseBackend):
+    
+    def __init__(self, dataset=None, optimizer=None, exp_name=None, traject_dir=None,
+                    log_dir=None, reward_formulation=None, use_envlogger=False):
+        super().__init__(dataset, optimizer)
+        self.exp_name = exp_name
+        self.traject_dir = traject_dir
+        self.log_dir = log_dir
+        self.reward_formulation = reward_formulation
+        self.use_envlogger = use_envlogger
+
+    def generate_model(self, path):
+        return DummyAstraSim(path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger)
+
+    def reuse_model(self, old_model, new_model_path, distance):
+        return DummyAstraSim(new_model_path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger)
+
+    def train_model(self, model):
+        return model
+
+    def fully_train_model(self, model, epochs, augment):
+        return model
+
+    def evaluate_model(self, model):
+        value = model.fit(self.dataset.x_train)
+        return (value, value)
+
+    def save_model(self, model, path):
+        return
+
+    def load_model(self, path):
+        return
+
+    def free_gpu(self):
+        return
 
 
 class DRAMSysBackend(BaseBackend):
@@ -298,6 +336,149 @@ class DummySniper():
         # for now, just return the runtime
 
         return obs[0]
+    
+
+class DummyAstraSim():
+    """Dummy placeholder for DRAMSys to do POC"""
+    def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger):
+        self.env = SniperEnv()
+        self.helper = helpers()
+        self.fitness_hist = {}
+
+        self.traject_dir = traject_dir
+        self.log_dir = log_dir
+        self.exp_name = exp_name
+        self.reward_formulation = reward_formulation
+        self.use_envlogger = use_envlogger
+
+        self.settings_file_path = os.path.realpath(__file__)
+        self.settings_dir_path = os.path.dirname(self.settings_file_path)
+        self.proj_root_path = os.path.join(self.settings_dir_path, '..', '..', '..')
+
+        self.astrasim_archgym = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim-archgym")
+        self.knobs_spec = os.path.join(self.astrasim_archgym, "dse/archgen_v1_knobs/archgen_v1_knobs_spec.py")
+
+        systems_folder = os.path.join(self.astrasim_archgym, "themis/inputs/system")
+        self.system_file = os.path.join(systems_folder, "3d_fc_ring_switch_baseline.txt")
+
+        # SET UP ACTION DICT
+        self.action_dict = {"network": {}, "workload": {}}
+        self.action_dict["network"]['path'] = "3d_fc_ring_switch.json"
+        self.action_dict["workload"]['path'] = "gnmt_fp16_fused.txt"
+
+        # PARSE SYSTEM FILE
+        self.parse_system(self.system_file, self.action_dict)
+
+        for node in path:
+            system_knob, network_knob = self.parse_knobs(self.knobs_spec)
+            dicts = [(system_knob, 'system'), (network_knob, 'network')]
+            if hasattr(node, "topologyName"):
+                nodes_dict = {
+                    "scheduling-policy": node.schedulingPolicy,
+                    "active-chunks-per-dimension": node.activeChunksPerDimension,
+                    "preferred-dataset-splits": node.preferredDatasetSplits,
+                    "collective-optimization": node.collectiveOptimization,
+                    "intra-dimension-scheduling": node.intraDimensionScheduling,
+                    "inter-dimension-scheduling": node.interDimensionScheduling,
+                }
+                for dict_type, dict_name in dicts:
+                    for knob in dict_type.keys():
+                        self.action_dict[dict_name][knob] = nodes_dict[knob]
+    
+
+    def parse_knobs(self, knobs_spec):
+        SYSTEM_KNOBS = {}
+        NETWORK_KNOBS = {}
+
+        with open(knobs_spec, 'r') as file:
+            file_contents = file.read()
+            parsed_dicts = {}
+
+            # Evaluate the file contents and store the dictionaries in the parsed_dicts dictionary
+            exec(file_contents, parsed_dicts)
+
+            # Access the dictionaries
+            SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
+            NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
+        
+        return SYSTEM_KNOBS, NETWORK_KNOBS  
+
+
+    def parse_system(self, system_file, action_dict):
+        # parse system_file (above is the content) into dict
+        action_dict['system'] = {}
+        with open(system_file, 'r') as file:
+            lines = file.readlines()
+
+            for line in lines:
+                key, value = line.strip().split(': ')
+                action_dict['system'][key] = value
+
+
+    # Fit function = step function
+    # Environment already calculates reward so don't need calc_reward
+    def wrap_in_envlogger(self, env, envlogger_dir, use_envlogger):
+        metadata = {
+            'agent_type': 'ACO',
+            'env_type': type(env).__name__,
+        }
+        if use_envlogger == True:
+            logging.info('Wrapping environment with EnvironmentLogger...')
+            env = envlogger.EnvLogger(env,
+                                    data_directory=envlogger_dir,
+                                    max_episodes_per_file=1000,
+                                    metadata=metadata)
+            logging.info('Done wrapping environment with EnvironmentLogger.')
+            return env
+        else:
+            print("Not using envlogger")
+            return env
+    
+    def fit(self, X, y=None):
+        '''
+        This is the function that is called by the optimizer. ACO by defaul tries to minimize the fitness function.
+        If you have a fitness function that you want to maximize, you can simply return the negative of the fitness function.
+        '''
+
+        env_wrapper = make_astraSim_env(reward_formulation = self.reward_formulation, rl_form = "aco")
+
+        if self.use_envlogger:
+            # check if trajectory directory exists
+            if not os.path.exists(self.traject_dir):
+                os.makedirs(self.traject_dir)
+        
+        # check if log directory exists
+        if not os.path.exists(self.log_dir):
+            os.makedirs(self.log_dir)
+        
+        env = self.wrap_in_envlogger(env_wrapper, self.traject_dir, self.use_envlogger)
+        env.reset()
+        
+        step_type, reward, discount, info = env.step(self.action_dict)
+        
+        self.fitness_hist['reward'] = reward
+        self.fitness_hist['action_dict'] = self.action_dict
+        self.fitness_hist['obs'] = info
+
+        print("Reward: ", reward)
+        print("Action Dict: ", self.action_dict)
+        print("Info: ", info)
+        
+        self.log_fitness_to_csv()
+        return -1 * reward
+
+
+    def log_fitness_to_csv(self):
+        df_traj = pd.DataFrame([self.fitness_hist])
+        filename = os.path.join(self.log_dir, self.exp_name + "_traj.csv")
+        df_traj.to_csv(filename,
+                  index=False, header=False, mode='a')
+        
+        df_rewards = pd.DataFrame([self.fitness_hist['reward']])
+        filename = os.path.join(self.log_dir, self.exp_name + "_rewards.csv")
+        df_rewards.to_csv(filename,
+                  index=False, header=False, mode='a')
+
 
 
 class DummyDRAMSys():
@@ -351,7 +532,7 @@ class DummyDRAMSys():
             'agent_type': 'RandomWalker',
             'env_type': type(env).__name__,
         }
-        if use_envlogger == 'True':
+        if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
                                     data_directory=envlogger_dir,
@@ -557,7 +738,7 @@ class DummyMaestro():
             'agent_type': 'ACO',
             'env_type': type(env).__name__,
         }
-        if use_envlogger == 'True':
+        if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
                                     data_directory=envlogger_dir,
@@ -744,7 +925,7 @@ class DummyTimeloop():
             'agent_type': 'ACO',
             'env_type': type(env).__name__,
         }
-        if use_envlogger == 'True':
+        if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
                                     data_directory=envlogger_dir,
@@ -971,7 +1152,7 @@ class DummyFARSI():
             'agent_type': 'ACO',
             'env_type': type(env).__name__,
         }
-        if use_envlogger == 'True':
+        if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
                                     data_directory=envlogger_dir,

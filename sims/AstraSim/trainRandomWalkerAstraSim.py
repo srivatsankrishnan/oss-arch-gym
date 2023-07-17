@@ -1,5 +1,6 @@
 import os
 import sys
+import pickle
 
 from absl import flags
 from absl import app
@@ -31,9 +32,6 @@ FLAGS = flags.FLAGS
 
 
 def write_network(dimension):
-    def dim_helper(dim, val):
-        return [val for _ in range(dim)]
-
     def rand_dim_helper(dim, vals):
         return [random.choice(vals) for _ in range(dim)]
 
@@ -49,21 +47,21 @@ def write_network(dimension):
         "topology-name": random.choice(["Hierarchical"]),
         "topologies-per-dim": rand_dim_helper(dimension, ["Ring", "FullyConnected", "Switch"]),
         # NEED TO CHECK HOW RANDOM DIM TYPE CAN BE
-        "dimension-type": dim_helper(dimension, random.choice(["N", "P"])),
+        # "dimension-type": rand_dim_helper(dimension, ["T", "N", "P"]),
+        "dimension-type": rand_dim_helper(dimension, ["N"]),
+        # "dimensions-count": (int, 1, 5, 2),
         "dimensions-count": dimension,
-        "units-count": rand_num_helper(dimension, 2, 8),
-        "link-latency": rand_num_helper(dimension, 1, 500),
-        "link-bandwidth": rand_float_helper(dimension, 12.0, 250.0),
+        "units-count": rand_num_helper(dimension, 2, 1024),
+        "links-count": rand_num_helper(dimension, 1, 10),
+        "link-latency": rand_num_helper(dimension, 1, 1000),
+        "link-bandwidth": rand_float_helper(dimension, 0.00001, 100000),
         # SHOULD THIS BE ONLY ZEROS?
-        "nic-latency": rand_num_helper(dimension, 0, 0),
-        "router-latency": rand_num_helper(dimension, 0, 10),
-        "hbm-latency": rand_num_helper(dimension, 1, 500),
-        "hbm-bandwidth": rand_num_helper(dimension, 1, 500),
-        "hbm-scale": rand_num_helper(dimension, 0, 1),
+        "nic-latency": rand_num_helper(dimension, 0, 1000),
+        "router-latency": rand_num_helper(dimension, 0, 1000),
+        "hbm-latency": rand_num_helper(dimension, 1, 1),
+        "hbm-bandwidth": rand_num_helper(dimension, 1, 1),
+        "hbm-scale": rand_num_helper(dimension, 0, 0),
     }
-
-    network["links-count"] = [links_count[network["topologies-per-dim"][i]]
-                                for i in range(dimension)]
 
     return network
 
@@ -80,16 +78,19 @@ def write_system(dimension):
 
         system = {
             "scheduling-policy": random.choice(["LIFO", "FIFO"]),
-            "endpoint-delay": random.randint(1, 10),
-            "active-chunks-per-dimension": 1,
+            "endpoint-delay": random.randint(1, 1000),
+            "active-chunks-per-dimension": random.randint(1, 32),
             # whenever dataset splits is high, it takes a long time to run
-            "preferred-dataset-splits": random.randint(1, 32),
-            "boost-mode": random.randint(0, 1),
-            "all-reduce-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
-            "all-gather-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
-            "reduce-scatter-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
-            "all-to-all-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
-            "collective-optimization": random.choice(["baseline", "localBWAware"])
+            "preferred-dataset-splits": random.randint(16, 1024),
+            "boost-mode": 1,
+            "all-reduce-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect", "hierarchicalRing", "halvingDoubling", "oneHalvingDoubling"])),
+            "all-gather-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect", "hierarchicalRing", "halvingDoubling", "oneHalvingDoubling"])),
+            "reduce-scatter-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect", "hierarchicalRing", "halvingDoubling", "oneHalvingDoubling"])),
+            "all-to-all-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect", "hierarchicalRing", "halvingDoubling", "oneHalvingDoubling"])),
+            
+            "collective-optimization": random.choice(["baseline", "localBWAware"]),
+            "intra-dimension-scheduling": random.choice(["FIFO", "SCF"]),
+            "inter-dimension-scheduling": random.choice(["baseline", "themis"])
         }
         return system
 
@@ -160,13 +161,79 @@ def write_workload():
     return {"value": value}
 
 
-def generate_random_actions(dimension):
-    action = {}
-    action['network'] = write_network(dimension)
-    action['system'] = write_system(dimension)
-    # action['workload'] = write_workload()
+# parses the network file
+# def parse_network(network_file):
+#     with open(network_file) as f:
+#         network = json.load(f)
+#     return network
+
+
+# systems: parse from file into json into generate_random_actions
+"""
+system_file content: 
+scheduling-policy: LIFO
+endpoint-delay: 1
+active-chunks-per-dimension: 1
+preferred-dataset-splits: 64
+boost-mode: 1
+all-reduce-implementation: direct_ring_halvingDoubling
+all-gather-implementation: direct_ring_halvingDoubling
+reduce-scatter-implementation: direct_ring_halvingDoubling
+all-to-all-implementation: direct_direct_direct
+collective-optimization: localBWAware
+intra-dimension-scheduling: FIFO
+inter-dimension-scheduling: baseline
+"""
+def parse_system(system_file, action_dict):
+    # parse system_file (above is the content) into dict
+    action_dict['system'] = {}
+    with open(system_file, 'r') as file:
+        lines = file.readlines()
+
+        for line in lines:
+            key, value = line.strip().split(': ')
+            action_dict['system'][key] = value
+
+        
+
+
+# def parse_workload(workload_file):
     
-    return action
+    
+
+# parses knobs that we want to experiment with
+def parse_knobs(knobs_spec):
+    SYSTEM_KNOBS = {}
+    NETWORK_KNOBS = {}
+
+    with open(knobs_spec, 'r') as file:
+        file_contents = file.read()
+        parsed_dicts = {}
+
+        # Evaluate the file contents and store the dictionaries in the parsed_dicts dictionary
+        exec(file_contents, parsed_dicts)
+
+        # Access the dictionaries
+        SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
+        NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
+    
+    return SYSTEM_KNOBS, NETWORK_KNOBS
+    
+
+
+# action_type = specify 'network' or 'system
+# new_params = parsed knobs from experiment file
+def generate_random_actions(action_dict, system_knob, network_knob):
+    dicts = [(system_knob, 'system'), (network_knob, 'network')]
+    for dict_type, dict_name in dicts:
+        for knob in dict_type.keys():
+            if isinstance(dict_type[knob], set):
+                action_dict[dict_name][knob] = random.choice(list(dict_type[knob]))
+            else:
+                action_dict[dict_name][knob] = random.randint(dict_type[knob][1], dict_type[knob][2])
+    
+    return action_dict
+
 
 def log_results_to_csv(filename, fitness_dict):
         df = pd.DataFrame([fitness_dict['reward']])
@@ -206,10 +273,26 @@ def main(_):
     settings_dir_path = os.path.dirname(settings_file_path)
     proj_root_path = os.path.abspath(settings_dir_path)
 
+    astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
+
+    # TODO: V1 SPEC:
+    archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
+    knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+    networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
+    systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
+    workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
+
+    # DEFINE NETWORK AND SYSTEM AND WORKLOAD
+    network_file = "3d_fc_ring_switch.json"
+    system_file = os.path.join(systems_folder, "3d_fc_ring_switch_baseline.txt")
+    workload_file = "gnmt_fp16_fused.txt"
+    
+
     exe_path = os.path.join(proj_root_path, "run_general.sh")
     network_config = os.path.join(proj_root_path, "general_network.json")
     system_config = os.path.join(proj_root_path, "general_system.txt")
     workload_config = os.path.join(proj_root_path, "general_workload.txt")
+
 
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
     # env = AstraSimEnv.AstraSimEnv(rl_form='random_walker')
@@ -229,43 +312,50 @@ def main(_):
     env = wrap_in_envlogger(env, traject_dir)
 
     # get the dimension of the network
+    # the dimension is now defined in the template
     dimension = random.randint(2, 3)
 
     start = time.time()
 
     step_results = {}
+       
+    # INITIATE action dict
+    action_dict = {}
+
+    # TODO: load network and workloads
+    action_dict['network'] = {"path": network_file}
+    action_dict['workload'] = {"path": workload_file}
+    
+    # TODO: parse system 
+    parse_system(system_file, action_dict)
+
+    # TODO: parse knobs (all variables to change in action_dict)
+    system_knob, network_knob = parse_knobs(knobs_spec)
 
     for i in range(FLAGS.num_episodes):
         logging.info('Episode %r', i)
 
+        # every step of the current training
         for step in range(FLAGS.num_steps):
-            # generate random actions
-            action = generate_random_actions(dimension)
-
-            # write the three config files
-            with open("general_network.json", "w") as outfile:
-                outfile.write(json.dumps(action['network'], indent=4))
-
-            with open("general_system.txt", 'w') as file:
-                for key, value in action["system"].items():
-                    file.write(f'{key}: {value}\n')
+            # pass into generate_random_actions(dimension, knobs)
+            action_dict = generate_random_actions(action_dict, system_knob, network_knob)
 
             # with open("general_workload.txt", 'w') as file:
             #     file.write(action["workload"]["value"])
 
             # step_result wrapped in TimeStep object
-            step_result = env.step({})
+            step_result = env.step(action_dict)
             step_type, reward, discount, observation = step_result
             
             step_results['reward'] = [reward]
-            step_results['action'] = action
+            step_results['action'] = action_dict
             step_results['obs'] = observation
             
             log_results_to_csv(log_path, step_results)
 
     end = time.time()
 
-    print("Total Time taken: ", end - start)
+    print("Total Time Taken: ", end - start)
     print("Total Useful Steps: ", env.useful_counter)
 
 
