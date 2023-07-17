@@ -182,7 +182,7 @@ def _convert_to_spec(space: gym.Space,
   else:
     raise ValueError('Unexpected gym space: {}'.format(space))
 
-def make_astraSim_env(seed: int = 12234,
+def make_astraSim_env(seed: int = 12345,
                     rl_form = 'macme',
                     reward_formulation = 'power',
                     reward_scaling = 'false',
