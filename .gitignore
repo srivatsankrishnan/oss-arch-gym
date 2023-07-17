@@ -194,3 +194,5 @@ sims/AstraSim/random_walker_trajectories
 
 # Output logs
 sims/CustomEnv/random_walker_logs
+sims/AstraSim/random_walker_logs
+sims/AstraSim/random_walker_trajectories
