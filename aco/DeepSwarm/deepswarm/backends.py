@@ -351,75 +351,69 @@ class DummyAstraSim():
         self.reward_formulation = reward_formulation
         self.use_envlogger = use_envlogger
 
-        self.action_dict = {"system": {}, "network": {}}
-        self.action_dict["network"]["topology-name"] = "Hierarchical"
-        self.action_dict["network"]["topologies-per-dim"] = ["Ring", "Ring", "Ring"]
-        self.action_dict["network"]["dimension-type"] = ["N", "N", "N"]
-        # DIMENSION COUNT MUST BE SET TO 3 FOR NOW
-        self.action_dict["network"]["dimensions-count"] = 3  
-        self.action_dict["network"]["units-count"] = [4, 4, 4]
-        self.action_dict["network"]["link-latency"] = [1, 1, 1]
-        self.action_dict["network"]["link-bandwidth"] = [32, 16, 16]
-        self.action_dict["network"]["nic-latency"] = [0, 0, 0]
-        self.action_dict["network"]["router-latency"] = [0, 0, 0]
-        self.action_dict["network"]["hbm-latency"] = [500, 500, 500]
-        self.action_dict["network"]["hbm-bandwidth"] = [370, 370, 370]
-        self.action_dict["network"]["hbm-scale"] = [0, 0, 0]
-        self.action_dict["network"]["links-count"] = [2, 2, 2]
+        self.settings_file_path = os.path.realpath(__file__)
+        self.settings_dir_path = os.path.dirname(self.settings_file_path)
+        self.proj_root_path = os.path.join(self.settings_dir_path, '..', '..', '..')
 
-        # system attributes
-        self.action_dict["system"]["scheduling-policy"] = "LIFO"
-        self.action_dict["system"]["endpoint-delay"] = 1
-        self.action_dict["system"]["active-chunks-per-dimension"] = 1
-        self.action_dict["system"]["preferred-dataset-splits"] = 4
-        self.action_dict["system"]["boost-mode"] = 0
-      
-        self.action_dict["system"]["all-reduce-implementation"] = "ring_ring_ring"
-        self.action_dict["system"]["all-gather-implementation"] = "ring_ring_ring"
-        self.action_dict["system"]["reduce-scatter-implementation"] = "ring_ring_ring"
-        self.action_dict["system"]["all-to-all-implementation"] = "ring_ring_ring"
-        self.action_dict["system"]["collective-optimization"] = "baseline"
+        self.astrasim_archgym = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim-archgym")
+        self.knobs_spec = os.path.join(self.astrasim_archgym, "dse/archgen_v1_knobs/archgen_v1_knobs_spec.py")
 
-        self.links_count = {"Ring": 2, "FullyConnected": 7, "Switch": 1}
+        systems_folder = os.path.join(self.astrasim_archgym, "themis/inputs/system")
+        self.system_file = os.path.join(systems_folder, "3d_fc_ring_switch_baseline.txt")
+
+        # SET UP ACTION DICT
+        self.action_dict = {"network": {}, "workload": {}}
+        self.action_dict["network"]['path'] = "3d_fc_ring_switch.json"
+        self.action_dict["workload"]['path'] = "gnmt_fp16_fused.txt"
+
+        # PARSE SYSTEM FILE
+        self.parse_system(self.system_file, self.action_dict)
 
         for node in path:
-            if hasattr(node, "topology-name"):
-
-                self.action_dict["network"]["topology-name"] = node.topologyName
-                self.action_dict["network"]["topologies-per-dim"] = [node.topologiesPerDim1, node.topologiesPerDim2, node.topologiesPerDim3]
-                self.action_dict["network"]["dimension-type"] = [node.dimensionType, node.dimensionType, node.dimensionType]
-                # ADD CHECK HERE FOR DIMENSION COUNT
-                self.action_dict["network"]["dimensions-count"] = node.dimensionsCount
-                self.action_dict["network"]["units-count"] = [node.unitsCount1, node.unitsCount2, node.unitsCount3]
-
-                self.action_dict["network"]["link-latency"] = [node.linkLatency1, node.linkLatency2, node.linkLatency3]
-                self.action_dict["network"]["linkBandwidth1"] = [node.linkBandwidth1, node.linkBandwidth2, node.linkBandwidth3]
-                self.action_dict["network"]["nic-latency"] = [node.nicLatency1, node.nicLatency2, node.nicLatency3]
-                self.action_dict["network"]["router-latency"] = [node.routerLatency1, node.routerLatency2, node.routerLatency3]
-                self.action_dict["network"]["hbm-latency"] = [node.hbmLatency1, node.hbmLatency2, node.hbmLatency3]
-                self.action_dict["network"]["hbm-bandwidth"] = [node.hbmBandwidth1, node.hbmBandwidth2, node.hbmBandwidth3]
-                self.action_dict["network"]["hbm-scale"] = [node.hbmScale1, node.hbmScale2, node.hbmScale3]
-                
-                # Need to map links-count to topology
-                self.action_dict["network"]["links-count"] = [self.links_count[self.action_dict["network"]["topologies-per-dim"][i]]
-                                for i in range(self.action_dict["network"]["dimensions-count"])]
-
-                # system attributes
-                self.action_dict["system"]["scheduling-policy"] = node.schedulingPolicy
-                self.action_dict["system"]["endpoint-delay"] = node.endpointDelay
-                self.action_dict["system"]["active-chunks-per-dimension"] = node.activeChunksPerDimension
-                self.action_dict["system"]["preferred-dataset-splits"] = node.preferredDatasetSplits
-                self.action_dict["system"]["boost-mode"] = node.boostMode
-
-                self.action_dict["system"]["all-reduce-implementation"] = f"{node.allReduceImplementation1}_{node.allReduceImplementation2}_{node.allReduceImplementation3}"
-                self.action_dict["system"]["all-gather-implementation"] = f"{node.allGatherImplementation1}_{node.allGatherImplementation2}_{node.allGatherImplementation3}"
-                self.action_dict["system"]["reduce-scatter-implementation"] = f"{node.reduceScatterImplementation1}_{node.reduceScatterImplementation2}_{node.reduceScatterImplementation3}"
-                self.action_dict["system"]["all-to-all-implementation"] = f"{node.allToAllImplementation1}_{node.allToAllImplementation2}_{node.allToAllImplementation3}"
-
-                self.action_dict["system"]["collective-optimization"] = node.collectiveOptimization
+            system_knob, network_knob = self.parse_knobs(self.knobs_spec)
+            dicts = [(system_knob, 'system'), (network_knob, 'network')]
+            if hasattr(node, "topologyName"):
+                nodes_dict = {
+                    "scheduling-policy": node.schedulingPolicy,
+                    "active-chunks-per-dimension": node.activeChunksPerDimension,
+                    "preferred-dataset-splits": node.preferredDatasetSplits,
+                    "collective-optimization": node.collectiveOptimization,
+                    "intra-dimension-scheduling": node.intraDimensionScheduling,
+                    "inter-dimension-scheduling": node.interDimensionScheduling,
+                }
+                for dict_type, dict_name in dicts:
+                    for knob in dict_type.keys():
+                        self.action_dict[dict_name][knob] = nodes_dict[knob]
     
-    
-    # ADD ENVLOGGER STUFF (SEE BELOW)
+
+    def parse_knobs(self, knobs_spec):
+        SYSTEM_KNOBS = {}
+        NETWORK_KNOBS = {}
+
+        with open(knobs_spec, 'r') as file:
+            file_contents = file.read()
+            parsed_dicts = {}
+
+            # Evaluate the file contents and store the dictionaries in the parsed_dicts dictionary
+            exec(file_contents, parsed_dicts)
+
+            # Access the dictionaries
+            SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
+            NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
+        
+        return SYSTEM_KNOBS, NETWORK_KNOBS  
+
+
+    def parse_system(self, system_file, action_dict):
+        # parse system_file (above is the content) into dict
+        action_dict['system'] = {}
+        with open(system_file, 'r') as file:
+            lines = file.readlines()
+
+            for line in lines:
+                key, value = line.strip().split(': ')
+                action_dict['system'][key] = value
+
 
     # Fit function = step function
     # Environment already calculates reward so don't need calc_reward
