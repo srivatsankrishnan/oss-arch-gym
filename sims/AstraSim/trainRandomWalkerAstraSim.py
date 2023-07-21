@@ -254,7 +254,7 @@ def main(_):
             #     file.write(action["workload"]["value"])
 
             # step_result wrapped in TimeStep object
-            step_result = env.step({})
+            step_result = env.step(action)
             step_type, reward, discount, observation = step_result
             
             step_results['reward'] = [reward]
