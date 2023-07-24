@@ -189,3 +189,12 @@ saves/
 # Astra-sim and results
 sims/AstraSim/astra-sim
 sims/AstraSim/results
+
+#training script logs customenv
+sims/customenv/grid_search_logs
+sims/customenv/EMUKIT_logs
+sims/customenv/random_search_logs
+sims/customenv/NSGA2_logs
+sims/customenv/random_walker_logs
+sims/customenv/random_walker_trajectories
+

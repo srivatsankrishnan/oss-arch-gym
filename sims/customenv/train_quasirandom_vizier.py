@@ -12,7 +12,8 @@ from absl import logging
 os.sys.path.insert(0, os.path.abspath('../../'))
 # from configs import arch_gym_configs
 # from arch_gym.envs.envHelpers import helpers
-
+print(os.sys.path)
+from arch_gym.envs import customenv_wrapper
 import envlogger
 import numpy as np
 import pandas as pd
@@ -27,7 +28,7 @@ from vizier.service import vizier_service_pb2_grpc
 
 # flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
 flags.DEFINE_integer('num_steps', 50, 'Number of training steps.')
-flags.DEFINE_integer('num_episodes', 2, 'Number of training episodes.')
+flags.DEFINE_integer('num_episodes', 1, 'Number of training episodes.')
 flags.DEFINE_string('traject_dir', 
                     'quasi_random_trajectories', 
             'Directory to save the dataset.')
@@ -81,10 +82,10 @@ def wrap_in_envlogger(env, envlogger_dir):
 
 
 def main(_):
-    """Trains the custom environment using random actions for a given number of steps and episodes 
+    """Trains the custom environment usreward_formulationing random actions for a given number of steps and episodes 
     """
 
-    env = CustomEnv()
+    env = customenv_wrapper.make_custom_env(max_steps=FLAGS.num_steps)
     observation = env.reset()
     fitness_hist = {}
     problem = vz.ProblemStatement()
@@ -148,7 +149,9 @@ def main(_):
 
     
     suggestions = quasi_random_designer.suggest(count=flags.FLAGS.num_steps)
+    count = 0
     for suggestion in suggestions:
+        count += 1
         num_cores = str(suggestion.parameters['num_cores'])
         freq = str(suggestion.parameters['freq'])
         mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
@@ -158,7 +161,13 @@ def main(_):
         action = {"num_cores":float(num_cores), "freq": float(freq), "mem_type":float(mem_type), "mem_size": float(mem_size)}
         
         print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
-        obs, reward, done, info = (env.step(action))
+        obsrew = env.step(action)
+        print("OBSREW IS: --------------------->", obsrew)
+        done, reward, info, obs = obsrew
+        if count == FLAGS.num_steps:
+            done = True
+        print("train", obs)
+        print("train rew", reward)
         fitness_hist['reward'] = reward
         fitness_hist['action'] = action
         fitness_hist['obs'] = obs
@@ -167,7 +176,7 @@ def main(_):
         final_measurement = vz.Measurement({'Reward': reward})
         suggestion = suggestion.to_trial()
         suggestion.complete(final_measurement)
-    
+        
 
 
 if __name__ == '__main__':

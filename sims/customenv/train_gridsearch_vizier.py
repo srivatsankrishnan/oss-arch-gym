@@ -137,6 +137,7 @@ def main(_):
             os.makedirs(traject_dir)
     env = wrap_in_envlogger(env, traject_dir)
 
+    count = 0
     for i in range(flags.FLAGS.num_episodes):
         suggestions = study.suggest(count=flags.FLAGS.num_steps)
         for suggestion in suggestions:
@@ -152,6 +153,8 @@ def main(_):
             fitness_hist['action'] = action
             fitness_hist['obs'] = obs
             log_fitness_to_csv(log_path, fitness_hist)
+            count += 1
+            print("count",count)
             print("Observation: ",obs)
             final_measurement = vz.Measurement({'Reward': reward})
             suggestion.complete(final_measurement)

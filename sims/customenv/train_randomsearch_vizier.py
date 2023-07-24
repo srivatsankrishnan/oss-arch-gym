@@ -141,6 +141,9 @@ def main(_):
             os.makedirs(traject_dir)
     env = wrap_in_envlogger(env, traject_dir)
 
+    # """
+    # This loop runs for num_steps * num_episodes iterations. 
+    # """
     for i in range(FLAGS.num_episodes):
         suggestions = random_designer.suggest(count=FLAGS.num_steps)
         for suggestion in suggestions:
