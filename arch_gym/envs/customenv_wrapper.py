@@ -13,9 +13,9 @@
 # limitations under the License.
 
 """Wraps an OpenAI Gym environment to be used as a dm_env environment."""
-import sys, os
-from typing import Any, Dict, List, Optional
 
+from typing import Any, Dict, List, Optional
+import acme
 from acme import specs
 from acme import types
 from acme import wrappers
@@ -25,33 +25,31 @@ from gym import spaces
 import numpy as np
 import tree
 
+import os
 os.sys.path.insert(0, os.path.abspath('../../'))
-from arch_gym.envs.AstraSimEnv import AstraSimEnv
+print(os.sys.path)
+from arch_gym.envs.custom_gym import ExampleEnv
 
-# dm = deepmind 
-class AstraSimEnvWrapper(dm_env.Environment):
-  """Environment wrapper for OpenAI Gym environments."""
+class CustomEnvWrapper(dm_env.Environment):
+  """Environment wrapper for OpenAI Gym environments. It wraps the environment into the deepmind envlogger interface.
+  """
 
   # Note: we don't inherit from base.EnvironmentWrapper because that class
   # assumes that the wrapped environment is a dm_env.Environment.
 
-  def __init__(self, environment: gym.Env,
-               env_wrapper_sel: str= 'macme'):
-
+  def __init__(self, environment: gym.Env):
+    """Constructor method."""
     self._environment = environment
     self._reset_next_step = True
     self._last_info = None
-    self.env_wrapper_sel = env_wrapper_sel
-
-    # set useful counter
-    self.useful_counter = 0
 
     # Convert action and observation specs.
     obs_space = self._environment.observation_space
     act_space = self._environment.action_space
     self._observation_spec = _convert_to_spec(obs_space, name='observation')
     self._action_spec = _convert_to_spec(act_space, name='action')
-
+    print("action spec: ", self._action_spec)
+    print("observation spec: ", self._observation_spec)
 
   def reset(self) -> dm_env.TimeStep:
     """Resets the episode."""
@@ -59,24 +57,16 @@ class AstraSimEnvWrapper(dm_env.Environment):
     observation = self._environment.reset()
     # Reset the diagnostic information.
     self._last_info = None
-    self.useful_counter = 0
     return dm_env.restart(observation)
 
-  
   def step(self, action: types.NestedArray) -> dm_env.TimeStep:
     """Steps the environment."""
     if self._reset_next_step:
       return self.reset()
-    if(self.env_wrapper_sel=='macme' or self.env_wrapper_sel=='macme_continuous'):
-      agents_action  = []
-      for each_agent_action in action:
-        agents_action.append(each_agent_action.item())
-      observation, reward, done, info, state = self._environment.step(agents_action)
-    else:
-      observation, reward, done, info, state = self._environment.step(action)
+    
+    observation, reward, done, info = self._environment.step(action)
     self._reset_next_step = done
     self._last_info = info
-    self.useful_counter = info['useful_counter']
 
     # Convert the type of the reward based on the spec, respecting the scalar or
     # array property.
@@ -101,21 +91,24 @@ class AstraSimEnvWrapper(dm_env.Environment):
     return self._action_spec
 
   def reward_spec(self):
-    if self.env_wrapper_sel == 'macme' or self.env_wrapper_sel == 'macme_continuous':
-      return [specs.Array(shape=(), dtype=float, name='reward')] * self._environment.num_agents
-    else:
-      return specs.Array(shape=(), dtype=float, name='reward')
+    return specs.Array(shape=(), dtype=float, name='reward')
 
   def get_info(self) -> Optional[Dict[str, Any]]:
     """Returns the last info returned from env.step(action).
+    
     Returns:
       info: dictionary of diagnostic information from the last environment step
+    Return Type: dict
     """
     return self._last_info
 
   @property
-  def environment(self) -> gym.Env:
-    """Returns the wrapped environment."""
+  def environment(self) -> gym.Env: 
+    """Returns the wrapped environment.
+    
+    Returns:
+      environment: the wrapped environment
+    """
     return self._environment
 
   def __getattr__(self, name: str):
@@ -125,6 +118,7 @@ class AstraSimEnvWrapper(dm_env.Environment):
     return getattr(self._environment, name)
 
   def close(self):
+    """Closes the environment."""
     self._environment.close()
 
 
@@ -134,9 +128,11 @@ def _convert_to_spec(space: gym.Space,
   Box, MultiBinary and MultiDiscrete Gym spaces are converted to BoundedArray
   specs. Discrete OpenAI spaces are converted to DiscreteArray specs. Tuple and
   Dict spaces are recursively converted to tuples and dictionaries of specs.
+
   Args:
     space: The Gym space to convert.
     name: Optional name to apply to all return spec(s).
+
   Returns:
     A dm_env spec or nested structure of specs, corresponding to the input
     space.
@@ -176,36 +172,24 @@ def _convert_to_spec(space: gym.Space,
         key: _convert_to_spec(value, key)
         for key, value in space.spaces.items()
     }
-  elif isinstance(space, list):
-    return [_convert_to_spec(s, name) for s in space]
 
   else:
     raise ValueError('Unexpected gym space: {}'.format(space))
 
-def make_astraSim_env(seed: int = 12345,
-                    rl_form = 'macme',
-                    reward_formulation = 'power',
-                    reward_scaling = 'false',
-                    max_steps: int = 100,
-                    num_agents: int = 10) -> dm_env.Environment:
-  """Returns DRAMSys environment."""
-  print("[DEBUG][Seed]", seed)
-  print("[DEBUG][RL Form]", rl_form)
-  print("[DEBUG][Max Steps]", max_steps)
-  print("[DEBUG][Num Agents]", num_agents)
-  print("[DEBUG][Reward Formulation]", reward_formulation)
-  print("[DEBUG][Reward Scaling]", reward_scaling)
-  environment = AstraSimEnvWrapper(
-    AstraSimEnv(
-      rl_form = rl_form,
-      max_steps = max_steps,
-      num_agents = num_agents,
-      reward_formulation = reward_formulation,
-      reward_scaling = reward_scaling
-    ),
-    env_wrapper_sel = rl_form
-  )
+def make_custom_env(seed: int = 12234,
+                     max_steps: int = 100,
+                     reward_formulation: str = 'power',
+                     ) -> dm_env.Environment:
+  """Returns the custom environment.
+  
+  Args:
+    seed: seed for the environment
+    max_steps: maximum number of steps in an episode
+    reward_formulation: formulation of the reward function
+
+  Returns:
+    environment: the custom environment
+  """
+  environment = CustomEnvWrapper(ExampleEnv())
   environment = wrappers.SinglePrecisionWrapper(environment)
-  if(rl_form == 'sa' or rl_form == 'tdm'):
-    environment = wrappers.CanonicalSpecWrapper(environment, clip=True)
   return environment
