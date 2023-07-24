@@ -72,6 +72,27 @@ def wrap_in_envlogger(env, envlogger_dir):
         return env
 
 def AstraSim_optimization_function(p):
+    settings_file_path = os.path.realpath(__file__)
+    settings_dir_path = os.path.dirname(settings_file_path)
+    proj_root_path = os.path.abspath(settings_dir_path)
+
+    astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
+
+    # TODO: V1 SPEC:
+    archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
+    knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+    networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
+    systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
+    workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
+
+    # DEFINE NETWORK AND SYSTEM AND WORKLOAD
+    network_file = "3d_fc_ring_switch.json"
+    system_file = os.path.join(systems_folder, "3d_fc_ring_switch_baseline.txt")
+    workload_file = "gnmt_fp16_fused.txt"
+
+    # parse knobs
+    system_knob, network_knob = parse_knobs(knobs_spec)
+
     
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
     fitness_hist = {}
@@ -93,7 +114,21 @@ def AstraSim_optimization_function(p):
     env.reset()
 
     # decode the actions
-    action_dict = astraSim_helper.action_decoder_ga_astraSim(p)
+
+    action_dict = {}
+    action_dict['network'] = {"path": network_file}
+    action_dict['workload'] = {"path": workload_file}
+    
+    # parse system
+    parse_system(system_file, action_dict)
+
+
+    action_dict_decoded = astraSim_helper.action_decoder_ga_astraSim(p)
+    
+    # change all variables decoded into action_dict
+    for sect in action_dict_decoded:
+        for key in action_dict_decoded[sect]:
+            action_dict[sect][key] = action_dict_decoded[sect][key]
 
     # take a step
     step_type, reward, discount, info = env.step(action_dict)
@@ -115,25 +150,62 @@ def AstraSim_optimization_function(p):
     
     
     return -1 * reward
+
+
+def parse_system(system_file, action_dict):
+    # parse system_file (above is the content) into dict
+    action_dict['system'] = {}
+    with open(system_file, 'r') as file:
+        lines = file.readlines()
+
+        for line in lines:
+            key, value = line.strip().split(': ')
+            action_dict['system'][key] = value
+
+
+# parses knobs that we want to experiment with
+def parse_knobs(knobs_spec):
+    SYSTEM_KNOBS = {}
+    NETWORK_KNOBS = {}
+
+    with open(knobs_spec, 'r') as file:
+        file_contents = file.read()
+        parsed_dicts = {}
+
+        # Evaluate the file contents and store the dictionaries in the parsed_dicts dictionary
+        exec(file_contents, parsed_dicts)
+
+        # Access the dictionaries
+        SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
+        NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
     
+    return SYSTEM_KNOBS, NETWORK_KNOBS
+
 
 def main(_):
-
+    
+    
     workload = FLAGS.workload
     layer_id = FLAGS.layer_id
 
-    # encoding format: bounds have same order as default_astrasim.yaml
-    # hard code dimension count to 3
+    # encoding format: bounds have same order as modified parameters file
     ga = GA(
         func=AstraSim_optimization_function,
-        n_dim=44, 
+        n_dim=4, 
         size_pop=FLAGS.num_agents,
         max_iter=FLAGS.num_steps,
         prob_mut=FLAGS.prob_mutation,
-        lb=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ub=[2, 2, 2, 2, 2, 2, 8, 8, 8, 500, 500, 500, 250, 250, 250, 10, 10, 10, 500, 500, 500, 500, 500, 500, 1, 1, 1, 1, 10, 32, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1],
-        precision=[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        lb=[0, 0, 0, 0], 
+        ub=[1, 1, 1, 1],
+        precision=[1, 1, 1, 1],
     )
+
+    """
+    "scheduling-policy": {"FIFO", "LIFO"},
+    "collective-optimization": {"localBWAware", "baseline"},
+    "intra-dimension-scheduling": {"FIFO", "SCF"},
+    "inter-dimension-scheduling": {"baseline", "themis"}
+    """
     
     best_x, best_y = ga.run()
     
