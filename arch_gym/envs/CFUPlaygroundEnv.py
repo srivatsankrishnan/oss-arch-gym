@@ -11,6 +11,7 @@ class SimpleArch(Env):
 
         self.rewardType = reward_type
         self.target_val = target_vals
+        self.no_steps=0
 
         # define the observation space: cycles, cells
         self.observation_shape = (2,)
@@ -30,9 +31,9 @@ class SimpleArch(Env):
             spaces.Discrete(2)
         ))
 
-    # No point in our application to have this function, really
+    
     def reset(self):
-        self.energy = 0.0; self.area = 0.0; self.latency = 0.0
+        self.no_steps=0
 
     # How many options for csr Plugin config?
     def step(self, action):
@@ -60,8 +61,10 @@ class SimpleArch(Env):
         envlog_file.close()
 
         #Calling dse function through another script, in the symbiflow environment
-        subprocess.run(['. ../../sims/CFU-Playground/env/conda/bin/activate cfu-symbiflow && python CFU_run.py'], shell = True, executable='/bin/bash')
+        #subprocess.run(['. ../../sims/CFU-Playground/env/conda/bin/activate cfu-symbiflow && python CFU_run.py'], shell = True, executable='/bin/bash')
+         runCFUPlaygroundEnv()
 
+        
         #Read output from the script
         file = open('CFU_log', 'r')
         output = file.read()
@@ -81,19 +84,23 @@ class SimpleArch(Env):
 
         return observation, reward, True, {}
     
-    def calculate_reward(self, obs):
+   def calculate_reward(self, obs):
 
         reward = 1e-3
         if(self.rewardType == 'cells'):
             reward = max(((obs[0] - self.target_val[0])/self.target_val[0]), 0)
-        elif (self.reward_formulation == 'cycles'):
+        elif (self.rewardType == 'cycles'):
             reward = max(((obs[1] - self.target_val[1])/self.target_val[1]), 0)
-
+        elif (self.rewardType == "both"):
+            reward_cells = max(((obs[0] - self.target_val[0])/self.target_val[0]), 0)
+            reward_cycles = max(((obs[1] - self.target_val[1])/self.target_val[1]), 0)
+            reward = reward_cells*reward_cycles   
         # assuming the algo gives error when reward is 0.
         if (reward == 0):
             reward = 1e-5
 
         return reward
-
-    def render(self, mode='human'):
-        print('Hi')
+        
+def runCFUPlaygroundEnv():
+    subprocess.run(['. ../../sims/CFU-Playground/env/conda/bin/activate cfu-symbiflow && python CFU_run.py'], shell = True, executable='/bin/bash')
+    return 
