@@ -8,8 +8,8 @@ import dse_framework
 #Get params from file
 file = open('CFU_log', 'r')
 
-action = file.read().split()
-action = [int(a) for a in action]
+action = file.read().split(',')
+file.close()
 
 #Move into CFU-Playground symbiflow directory to update the F4PGA install directory 
 os.chdir('../../sims/CFU-Playground/env/symbiflow')
@@ -18,31 +18,23 @@ os.environ["F4PGA_INSTALL_DIR"] = os.getcwd()
 #Move to dse_framework directory
 os.chdir('../../proj/dse_template')
 
-Branch_predict_types = ['none', 'static', 'dynamic', 'dynamic_target']
-
 cycles, cells = dse_framework.dse(
-    "mcycle",
-    True if action[0] == 1 else False,           # Bypass
-    #True if action[1] == 2 else False           # CFU_enable 
-    False,           # CFU_enable (currently set to false)
-    0 if action[2] == 0 else (1<<(4+action[2])), # Data cache size
-    True if action[3] == 1 else False,           # Hardware Divider
-    0 if action[4] == 0 else (1<<(4+action[4])), # Instruction cache size
-    True if action[5] == 1 else False,           # Hardware Multiplier
-    Branch_predict_types[action[6]],             # Branch predictor
-    True if action[7] == 1 else False,           # Safe mode
-    True if action[8] == 1 else False,           # Single Cycle Shifter
-    True if action[9] == 1 else False,           # Single Cycle Multiplier
-    "digilent_arty"
+    action[0],
+    int(action[1]),
+    int(action[2]),
+    int(action[3]),
+    int(action[4]),
+    int(action[5]),
+    int(action[6]),
+    action[7],
+    int(action[8]),
+    int(action[9]),
+    int(action[10]),
+    action[11]
 )
 
 #Back into envs directory to write results
 os.chdir('../../../../arch_gym/envs')
-
-envlog_file = open('Env_logfile','a')
-# writing cells and cycles into the env log
-envlog_file.write(str(cells)+','+str(cycles)+',')
-envlog_file.close()
-
+file = open('CFU_log', 'w')
 file.write(str(cycles) + ' ' + str(cells))
 file.close()

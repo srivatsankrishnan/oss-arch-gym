@@ -6,12 +6,22 @@ import subprocess
 import os
 
 class SimpleArch(Env):
-    def __init__(self, reward_type, target_vals):
+    def __init__(self, target_vals, reward_type = 'both', max_steps = 5, log_type = 'number', workload = 'mcycle', target = 'digilent_arty'):
         super(SimpleArch, self).__init__()
 
         self.rewardType = reward_type
         self.target_val = target_vals
         self.no_steps=0
+        self.max_steps = max_steps
+        self.log_type = log_type
+        self.workload = workload
+        self.target = target
+        self.Branch_predict_types = ['none', 'static', 'dynamic', 'dynamic_target']
+
+        # clearing the file of its previous content and writing the column names.
+        file = open('Env_logfile','w')
+        file.write("Iteration Number, Action, Cycles, Cells, Reward\n")
+        file.close()
 
         # define the observation space: cycles, cells
         self.observation_shape = (2,)
@@ -31,7 +41,6 @@ class SimpleArch(Env):
             spaces.Discrete(2)
         ))
 
-    
     def reset(self):
         self.no_steps=0
 
@@ -39,68 +48,101 @@ class SimpleArch(Env):
     def step(self, action):
 
         #ensure that relative paths work
-        Caller_wd = os.getcwd()        
+        Caller_wd = os.getcwd()
         os.chdir(os.path.dirname(__file__))
 
-        # store input to a text file, to be used by the dse script
-        file = open('CFU_log', 'w')
-        s = ''
-        for a in action:
-            # changed things from space to comma separated
-            s += str(a) + ' '
-        file.write(s)
-        file.close()
+        #Update observations
+        self.observation = self.runCFUPlaygroundEnv(action)
 
-        envlog_file = open('Env_logfile','a')
-        s = ''
-        for a in action:
-            # changed things from space to comma separated
-            s += str(a) + ','
-        # writing the action into the envlog file
-        envlog_file.write(s)
-        envlog_file.close()
-
-        #Calling dse function through another script, in the symbiflow environment
-        #subprocess.run(['. ../../sims/CFU-Playground/env/conda/bin/activate cfu-symbiflow && python CFU_run.py'], shell = True, executable='/bin/bash')
-         runCFUPlaygroundEnv()
-
-        
-        #Read output from the script
-        file = open('CFU_log', 'r')
-        output = file.read()
-        file.close()
+        #Calculate reward based on observations
+        self.reward = self.calculate_reward()
 
         #Go bath to the original directory
         os.chdir(Caller_wd)
 
-        output = output.split()
-        observation = [float(output[0]), int(output[1])]
-        reward = self.calculate_reward(observation)
+        self.no_steps += 1
+        complete = False
+        if (self.no_steps == self.max_steps):
+            complete = True
+            print("Max steps reached")
 
-        envlog_file = open('Env_logfile','a')
-        # writing the reward into the envlog file and changing to next line
-        envlog_file.write(str(reward)+"\n")
-        envlog_file.close()
+        self.CFUEnvLog()
 
-        return observation, reward, True, {}
+        return self.observation, self.reward, complete, {}
     
-   def calculate_reward(self, obs):
+    def calculate_reward(self):
 
         reward = 1e-3
         if(self.rewardType == 'cells'):
-            reward = max(((obs[0] - self.target_val[0])/self.target_val[0]), 0)
+            reward = max(((self.observation[0] - self.target_val[0])/self.target_val[0]), 0)
+
         elif (self.rewardType == 'cycles'):
-            reward = max(((obs[1] - self.target_val[1])/self.target_val[1]), 0)
+            reward = max(((self.observation[1] - self.target_val[1])/self.target_val[1]), 0)
+
         elif (self.rewardType == "both"):
-            reward_cells = max(((obs[0] - self.target_val[0])/self.target_val[0]), 0)
-            reward_cycles = max(((obs[1] - self.target_val[1])/self.target_val[1]), 0)
-            reward = reward_cells*reward_cycles   
+            reward_cells = max(((self.observation[0] - self.target_val[0])/self.target_val[0]), 0)
+            reward_cycles = max(((self.observation[1] - self.target_val[1])/self.target_val[1]), 0)
+            reward = reward_cells*reward_cycles
+
         # assuming the algo gives error when reward is 0.
         if (reward == 0):
             reward = 1e-5
 
         return reward
         
-def runCFUPlaygroundEnv():
-    subprocess.run(['. ../../sims/CFU-Playground/env/conda/bin/activate cfu-symbiflow && python CFU_run.py'], shell = True, executable='/bin/bash')
-    return 
+    def runCFUPlaygroundEnv(self, action):
+
+        # update action string to pass to subprocess
+        self.action = self.workload
+        
+        self.action += ',' + str(action[0])         # Bypass
+        #self.action += ',' + str(action[1])        # CFU_enable 
+        self.action += ',0'                         # CFU_enable (currently set to false)
+        self.action += ',' + ('0' if action[2] == 0 else str(1<<(4+action[2])))
+                                                    # Data cache size
+        self.action += ',' + str(action[3])         # Hardware Divider
+        self.action += ',' + ('0' if action[4] == 0 else str(1<<(4+action[4])))
+                                                    # Instruction cache size
+        self.action += ',' + str(action[5])         # Hardware Multiplier
+        self.action += ',' + self.Branch_predict_types[action[6]]
+                                                    # Branch predictor
+        self.action += ',' + str(action[7])         # Safe mode
+        self.action += ',' + str(action[8])         # Single Cycle Shifter
+        self.action += ',' + str(action[9])         # Single Cycle Multiplier
+        self.action += ',' + self.target
+
+        #Update communication file
+        file = open('CFU_log', 'w')
+        file.write(self.action)
+        file.close()
+
+        subprocess.run(['. ../../sims/CFU-Playground/env/conda/bin/activate cfu-symbiflow && python CFUPlaygroundWrapper.py'], shell = True, executable='/bin/bash')
+
+        #update action to be stored in the format required by logger
+        if (self.log_type == 'number'):
+            action = [str[a] for a in action]
+            self.action = self.workload + ',' + ','.join(action) + ',' + self.target
+        
+        #Read output from the script
+        file = open('CFU_log', 'r')
+        output = file.read()
+        file.close()
+
+        output = output.split()
+        return [float(output[0]), int(output[1])]
+
+    def CFUEnvLog(self):
+
+        envlog_file = open('Env_logfile','a')
+
+        #writing the iteration number into the log file
+        envlog_file.write(str(self.no_steps)+',')
+
+        #writing the action
+        envlog_file.write(self.action+',')
+
+        # writing cycles and cells.
+        envlog_file.write(str(self.observation[0])+','+str(self.observation[1])+',')
+        # writing reward
+        envlog_file.write(str(self.reward)+"\n")        
+        envlog_file.close()
