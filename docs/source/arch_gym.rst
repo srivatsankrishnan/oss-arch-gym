@@ -1,5 +1,5 @@
-sims package
-============
+arch\_gym package
+=================
 
 Subpackages
 -----------
@@ -7,13 +7,12 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   sims.CustomEnv
-   sims.customenv
+   arch_gym.envs
 
 Module contents
 ---------------
 
-.. automodule:: sims
+.. automodule:: arch_gym
    :members:
    :undoc-members:
    :show-inheritance:
