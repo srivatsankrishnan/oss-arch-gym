@@ -19,7 +19,7 @@ import pandas as pd
 
 
 from vizier._src.algorithms.designers import grid
-from arch_gym.envs.custom_env import CustomEnv
+from arch_gym.envs import customenv_wrapper
 from vizier.service import clients
 from vizier.service import pyvizier as vz
 from vizier.service import vizier_server
@@ -81,8 +81,7 @@ def main(_):
     """Trains the custom environment using random actions for a given number of steps and episodes 
     """
 
-    env = CustomEnv()
-    observation = env.reset()
+    env = customenv_wrapper.make_custom_env(max_steps=FLAGS.num_steps)
     fitness_hist = {}
     problem = vz.ProblemStatement()
     problem.search_space.select_root().add_int_param(name='num_cores', min_value = 1, max_value = 12)
@@ -138,26 +137,31 @@ def main(_):
     env = wrap_in_envlogger(env, traject_dir)
 
     count = 0
-    for i in range(flags.FLAGS.num_episodes):
-        suggestions = study.suggest(count=flags.FLAGS.num_steps)
-        for suggestion in suggestions:
-            num_cores = float(suggestion.parameters['num_cores'])
-            freq = float(suggestion.parameters['freq'])
-            mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
-            mem_type = float(mem_type_dict[suggestion.parameters['mem_type']])
-            mem_size = float(suggestion.parameters['mem_size'])
-            action = {"num_cores":num_cores, "freq": freq, "mem_type":mem_type, "mem_size": mem_size}
-            print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
-            obs, reward, done, info = (env.step(action))
-            fitness_hist['reward'] = reward
-            fitness_hist['action'] = action
-            fitness_hist['obs'] = obs
-            log_fitness_to_csv(log_path, fitness_hist)
-            count += 1
-            print("count",count)
-            print("Observation: ",obs)
-            final_measurement = vz.Measurement({'Reward': reward})
-            suggestion.complete(final_measurement)
+    env.reset()
+    suggestions = study.suggest(count=flags.FLAGS.num_steps)
+    for suggestion in suggestions:
+        count += 1
+        num_cores = float(suggestion.parameters['num_cores'])
+        freq = float(suggestion.parameters['freq'])
+        mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
+        mem_type = float(mem_type_dict[suggestion.parameters['mem_type']])
+        mem_size = float(suggestion.parameters['mem_size'])
+        action = {"num_cores":num_cores, "freq": freq, "mem_type":mem_type, "mem_size": mem_size}
+        print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
+        done, reward, info, obs = (env.step(action))
+        fitness_hist['reward'] = reward
+        fitness_hist['action'] = action
+        fitness_hist['obs'] = obs
+
+        if count == FLAGS.num_steps:
+            done = True
+
+        log_fitness_to_csv(log_path, fitness_hist)
+        
+        print("count",count)
+        print("Observation: ",obs)
+        final_measurement = vz.Measurement({'Reward': reward})
+        suggestion.complete(final_measurement)
 
 
     for optimal_trial in study.optimal_trials():

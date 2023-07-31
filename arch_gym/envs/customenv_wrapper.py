@@ -55,9 +55,12 @@ class CustomEnvWrapper(dm_env.Environment):
     """Resets the episode."""
     self._reset_next_step = False
     observation = self._environment.reset()
+    print("-----Wrapper observation-----", observation)
     # Reset the diagnostic information.
     self._last_info = None
-    return dm_env.restart(observation)
+    a = dm_env.restart(observation)
+    print("dm_env.restart(observation)",a)
+    return a
 
   def step(self, action: types.NestedArray) -> dm_env.TimeStep:
     """Steps the environment."""

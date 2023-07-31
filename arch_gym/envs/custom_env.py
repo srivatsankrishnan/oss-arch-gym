@@ -17,9 +17,9 @@ class CustomEnv(gym.Env):
 
         self.max_steps = max_steps
         self.counter = 0
-        self.energy = 0
-        self.area = 0
-        self.latency = 0
+        self.energy = 10
+        self.area = 15
+        self.latency = 12
         self.initial_state = np.array([self.energy, self.area, self.latency])
         self.observation = None
         self.done = False

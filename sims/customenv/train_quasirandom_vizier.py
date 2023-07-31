@@ -86,7 +86,7 @@ def main(_):
     """
 
     env = customenv_wrapper.make_custom_env(max_steps=FLAGS.num_steps)
-    observation = env.reset()
+   
     fitness_hist = {}
     problem = vz.ProblemStatement()
     problem.search_space.select_root().add_int_param(name='num_cores', min_value = 1, max_value = 12)
@@ -150,6 +150,7 @@ def main(_):
     
     suggestions = quasi_random_designer.suggest(count=flags.FLAGS.num_steps)
     count = 0
+    env.reset()
     for suggestion in suggestions:
         count += 1
         num_cores = str(suggestion.parameters['num_cores'])

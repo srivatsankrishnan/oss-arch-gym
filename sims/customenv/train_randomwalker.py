@@ -92,10 +92,10 @@ def main(_):
             action = env.action_space.sample()
             print(action)
 
-            _, reward, c, info = env.step(action)
+            done, reward, info, obs = env.step(action)
             fitness_hist['reward'] = reward
             fitness_hist['action'] = action
-            fitness_hist['obs'] = info
+            fitness_hist['obs'] = obs
             log_fitness_to_csv(log_path, fitness_hist)
     
 
