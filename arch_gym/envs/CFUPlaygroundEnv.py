@@ -5,9 +5,9 @@ from gym import Env, spaces
 import subprocess
 import os
 
-class CFU_PlaygroundEnv(Env):
+class CFUPlaygroundEnv(Env):
     def __init__(self, target_vals, reward_type = 'both', max_steps = 5, log_type = 'number', target = 'digilent_arty'):
-        super(CFU_PlaygroundEnv, self).__init__()
+        super(CFUPlaygroundEnv, self).__init__()
 
         self.rewardType = reward_type
         self.target_val = target_vals

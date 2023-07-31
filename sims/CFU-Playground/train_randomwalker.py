@@ -2,13 +2,13 @@ from absl import flags, app
 import sys
 
 sys.path.append('../../arch_gym/envs')
-from CFUPlaygroundEnv import CFU_PlaygroundEnv
+from CFUPlaygroundEnv import CFUPlaygroundEnv
 
 flags.DEFINE_integer('num_steps', 10, 'Number of training steps.')
 FLAGS = flags.FLAGS
 
 def main(_):
-    env = CFU_PlaygroundEnv('cells', [1000, 1000], max_steps=FLAGS.num_steps)
+    env = CFUPlaygroundEnv('cells', [1000, 1000], max_steps=FLAGS.num_steps)
     env.reset()
     for _ in range(FLAGS.num_steps):
         print("________________________________________________________\n",
