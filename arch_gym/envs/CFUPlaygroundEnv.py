@@ -5,18 +5,18 @@ from gym import Env, spaces
 import subprocess
 import os
 
-class SimpleArch(Env):
-    def __init__(self, target_vals, reward_type = 'both', max_steps = 5, log_type = 'number', workload = 'mcycle', target = 'digilent_arty'):
-        super(SimpleArch, self).__init__()
+class CFU_PlaygroundEnv(Env):
+    def __init__(self, target_vals, reward_type = 'both', max_steps = 5, log_type = 'number', target = 'digilent_arty'):
+        super(CFU_PlaygroundEnv, self).__init__()
 
         self.rewardType = reward_type
         self.target_val = target_vals
         self.no_steps=0
         self.max_steps = max_steps
         self.log_type = log_type
-        self.workload = workload
         self.target = target
         self.Branch_predict_types = ['none', 'static', 'dynamic', 'dynamic_target']
+        self.action = ""
 
         # clearing the file of its previous content and writing the column names.
         file = open('Env_logfile','w')
@@ -92,10 +92,8 @@ class SimpleArch(Env):
         
     def runCFUPlaygroundEnv(self, action):
 
-        # update action string to pass to subprocess
-        self.action = self.workload
-        
-        self.action += ',' + str(action[0])         # Bypass
+        # update action string to pass to subprocess        
+        self.action = str(action[0])         # Bypass
         #self.action += ',' + str(action[1])        # CFU_enable 
         self.action += ',0'                         # CFU_enable (currently set to false)
         self.action += ',' + ('0' if action[2] == 0 else str(1<<(4+action[2])))
@@ -116,12 +114,12 @@ class SimpleArch(Env):
         file.write(self.action)
         file.close()
 
-        subprocess.run(['. ../../sims/CFU-Playground/env/conda/bin/activate cfu-symbiflow && python CFUPlaygroundWrapper.py'], shell = True, executable='/bin/bash')
+        subprocess.run(['. ../../sims/CFU-Playground/CFU-Playground/env/conda/bin/activate cfu-symbiflow && python CFUPlaygroundWrapper.py'], shell = True, executable='/bin/bash')
 
         #update action to be stored in the format required by logger
         if (self.log_type == 'number'):
-            action = [str[a] for a in action]
-            self.action = self.workload + ',' + ','.join(action) + ',' + self.target
+            action = [str(a) for a in action]
+            self.action = ','.join(action) + ',' + self.target
         
         #Read output from the script
         file = open('CFU_log', 'r')

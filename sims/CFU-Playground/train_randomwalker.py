@@ -1,12 +1,14 @@
 from absl import flags, app
-import numpy as np
-from CFUPlaygroundEnv import SimpleArch  
+import sys
+
+sys.path.append('../../arch_gym/envs')
+from CFUPlaygroundEnv import CFU_PlaygroundEnv
 
 flags.DEFINE_integer('num_steps', 10, 'Number of training steps.')
 FLAGS = flags.FLAGS
 
 def main(_):
-    env = SimpleArch('cells', [1000, 1000], max_steps=FLAGS.num_steps)
+    env = CFU_PlaygroundEnv('cells', [1000, 1000], max_steps=FLAGS.num_steps)
     env.reset()
     for _ in range(FLAGS.num_steps):
         print("________________________________________________________\n",
@@ -19,6 +21,7 @@ def main(_):
               "________________________________________________________\n",
               "________________________________________________________\n")
         action = env.action_space.sample()
+        #action = (0, 0, 2, 1 ,9, 0, 2, 0 ,1, 0)
         
         obs, reward, done, info = env.step(action)
 

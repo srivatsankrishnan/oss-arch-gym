@@ -4,12 +4,12 @@ We suggest using the installation script : ```./install_sim.sh cfu```, or you ca
 
 - In the oss-arch-gym directory, run 
 ```sh
-git submodule update --init sims/CFU-Playground
+git submodule update --init sims/CFU-Playground/CFU-Playground
 ```
 
 - Move into the CFU Playrgoud directory:
 ```sh 
-cd sims/CFU-Playground
+cd sims/CFU-Playground/CFU-Playground
 ```
 - Run the following from this location:
 ```sh
