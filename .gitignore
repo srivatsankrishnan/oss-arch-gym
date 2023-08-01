@@ -191,6 +191,11 @@ sims/AstraSim/astra-sim
 sims/AstraSim/results
 sims/AstraSim/random_walker_logs
 sims/AstraSim/random_walker_trajectories
+sims/AstraSim/general_network.json
+sims/AstraSim/general_system.txt
 
 # Output logs
 sims/CustomEnv/random_walker_logs
+
+#.pyc files
+arch_gym/envs/__pycache__/__init__.cpython-39.pyc
