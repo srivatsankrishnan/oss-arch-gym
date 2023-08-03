@@ -7,7 +7,6 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   sims.CustomEnv
    sims.customenv
 
 Module contents
