@@ -159,9 +159,7 @@ def main(_):
             os.makedirs(traject_dir)
     env = wrap_in_envlogger(env, traject_dir)
 
-    # """
-    # This loop runs for num_steps * num_episodes iterations. 
-    # """
+   
     env.reset()
     
     count = 0
