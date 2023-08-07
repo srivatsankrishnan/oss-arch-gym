@@ -20,16 +20,16 @@ os.chdir('../../proj/dse_template')
 
 cycles, cells = dse_framework.dse(
     "mcycle",
-    bool(action[0]),
-    bool(action[1]),
+    False if action[0] == '0' else True,
+    False if action[1] == '0' else True,
     int(action[2]),
-    bool(action[3]),
+    False if action[3] == '0' else True,
     int(action[4]),
-    bool(action[5]),
+    False if action[5] == '0' else True,
     action[6],
-    bool(action[7]),
-    bool(action[8]),
-    bool(action[9]),
+    False if action[7] == '0' else True,
+    False if action[8] == '0' else True,
+    False if action[9] == '0' else True,
     action[10]
 )
 

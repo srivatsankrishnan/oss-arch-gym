@@ -7,6 +7,6 @@ if [ $1  == 'cfu' ]; then
     cd sims/CFU-Playground/CFU-Playground
 
     ./scripts/setup
-    ./scripts/setup_vexriscv_build.sh
     make install-sf
+    ./scripts/setup_vexriscv_build.sh
 fi
