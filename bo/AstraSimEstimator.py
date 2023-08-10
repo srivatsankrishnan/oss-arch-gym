@@ -63,7 +63,7 @@ class AstraSimEstimator(BaseEstimator):
         self.exp_name = exp_name
         self.traject_dir = traject_dir
         self.fitness_hist = []
-        self.exp_log_dir = os.path.join(os.getcwd(),"logs")
+        self.exp_log_dir = os.path.join(os.getcwd(), "bo_logs")
         self.reward_formulation = 'power'
         
         print("[Experiment]: ", self.exp_name)
