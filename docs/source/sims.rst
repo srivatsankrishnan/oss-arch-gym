@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   sims.AstraSim
    sims.customenv
 
 Module contents

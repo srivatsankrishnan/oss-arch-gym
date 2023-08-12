@@ -4,22 +4,6 @@ sims.customenv package
 Submodules
 ----------
 
-sims.customenv.quasi\_random\_search\_vizier module
----------------------------------------------------
-
-.. automodule:: sims.customenv.quasi_random_search_vizier
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-sims.customenv.supported\_algo module
--------------------------------------
-
-.. automodule:: sims.customenv.supported_algo
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 sims.customenv.train\_EMUKIT\_GP\_vizier module
 -----------------------------------------------
 
