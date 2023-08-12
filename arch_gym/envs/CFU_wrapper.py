@@ -13,12 +13,12 @@
 # limitations under the License.
 
 """Wraps an OpenAI Gym environment to be used as a dm_env environment."""
-import sys
 from typing import Any, Dict, List, Optional
 
 from acme import specs
 from acme import types
 from acme import wrappers
+
 import dm_env
 import gym
 from gym import spaces
@@ -26,7 +26,6 @@ import numpy as np
 import tree
 
 from CFUPlaygroundEnv import CFUPlaygroundEnv
-from envHelpers import helpers
 
 class CFUPlaygroundWrapper(dm_env.Environment):
     # """Environment wrapper for OpenAI Gym environments."""
@@ -37,7 +36,6 @@ class CFUPlaygroundWrapper(dm_env.Environment):
         self._environment = environment
         self._reset_next_step = True
         self._last_info = None
-        self.helper = helpers()
         self.env_wrapper_sel = env_wrapper_sel
 
         # set useful counter
@@ -171,22 +169,19 @@ def _convert_to_spec(space: gym.Space,
         raise ValueError('Unexpected gym space: {}'.format(space))
     
 
-def make_cfuplaygroundEnv(target_vals, rl_form, reward_type = 'both', max_steps = 5, log_type = 'number', workload = 'mcycle', target = 'digilent_arty')-> dm_env.Environment:
-    #"""Returns DRAMSys environment."""
+def make_cfuplaygroundEnv(target_vals, rl_form, max_steps, reward_type = 'both', log_type = 'number', target = 'digilent_arty')-> dm_env.Environment:
     print("[DEBUG][Target Value]", target_vals)
     print("[DEBUG][RL Form]", rl_form)
     print("[DEBUG][Reward Type]", reward_type)
     print("[DEBUG][Max Steps]", max_steps)
     print("[DEBUG][Log Type]", log_type)
-    print("[DEBUG][Workload]", workload)
     print("[DEBUG][Target]", target)
     environment = CFUPlaygroundWrapper(
         CFUPlaygroundEnv(
              target_vals =target_vals , 
              reward_type= reward_type, 
-             max_steps=max_steps, 
+             max_steps=max_steps,
              log_type=log_type, 
-             workload=workload, 
              target=target
     ),
         env_wrapper_sel=rl_form

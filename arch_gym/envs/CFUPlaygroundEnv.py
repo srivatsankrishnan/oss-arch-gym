@@ -6,12 +6,12 @@ import subprocess
 import os
 
 class CFUPlaygroundEnv(Env):
-    def __init__(self, target_vals, reward_type = 'both', max_steps = 5, log_type = 'number', target = 'digilent_arty'):
+    def __init__(self, target_vals, max_steps, reward_type = 'both', log_type = 'string', target = 'digilent_arty'):
         super(CFUPlaygroundEnv, self).__init__()
 
         self.rewardType = reward_type
         self.target_val = target_vals
-        self.no_steps=0
+        self.no_steps = 0
         self.max_steps = max_steps
         self.log_type = log_type
         self.target = target
@@ -25,8 +25,8 @@ class CFUPlaygroundEnv(Env):
 
         # define the observation space: cycles, cells
         self.observation_shape = (2,)
-        self.observation_space = spaces.Box(low=0, high=sys.maxsize, shape=self.observation_shape, dtype=np.int32)
-        
+        self.observation_space = spaces.Box(low=0, high=1e12, shape=self.observation_shape)
+
         # define the action space
         self.action_space = spaces.Tuple((
             spaces.Discrete(2),     
@@ -43,8 +43,8 @@ class CFUPlaygroundEnv(Env):
 
     def reset(self):
         self.no_steps=0
+        return
 
-    # How many options for csr Plugin config?
     def step(self, action):
 
         #ensure that relative paths work
@@ -68,18 +68,22 @@ class CFUPlaygroundEnv(Env):
 
         self.CFUEnvLog()
 
-        return self.observation, self.reward, complete, {}
+        #currently assuming all iterations returned properly
+        return self.observation, self.reward, complete, {"useful_counter": self.no_steps}
     
     def calculate_reward(self):
 
         reward = 1e-3
         if(self.rewardType == 'cells'):
+            print('Reward Type: cells')
             reward = max(((self.observation[0] - self.target_val[0])/self.target_val[0]), 0)
 
         elif (self.rewardType == 'cycles'):
+            print('Reward type: cycles')
             reward = max(((self.observation[1] - self.target_val[1])/self.target_val[1]), 0)
 
-        elif (self.rewardType == "both"):
+        elif (self.rewardType == 'both'):
+            print('Reward type: both')
             reward_cells = max(((self.observation[0] - self.target_val[0])/self.target_val[0]), 0)
             reward_cycles = max(((self.observation[1] - self.target_val[1])/self.target_val[1]), 0)
             reward = reward_cells*reward_cycles
@@ -127,7 +131,10 @@ class CFUPlaygroundEnv(Env):
         file.close()
 
         output = output.split()
-        return [float(output[0]), int(output[1])]
+        try:
+            return [np.float64(output[0]), np.int32(output[1])]
+        except:
+            return [1000.0, 1000]
 
     def CFUEnvLog(self):
 
