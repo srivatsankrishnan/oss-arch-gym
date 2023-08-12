@@ -3,5 +3,5 @@ build:
   os: "ubuntu-20.04"
   tools:
     python: "3.9"
-    conda:
-      environment: environment.yml
+conda:
+  environment: environment.yml
