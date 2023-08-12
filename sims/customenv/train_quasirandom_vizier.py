@@ -12,7 +12,8 @@ from absl import logging
 os.sys.path.insert(0, os.path.abspath('../../'))
 # from configs import arch_gym_configs
 # from arch_gym.envs.envHelpers import helpers
-
+print(os.sys.path)
+from arch_gym.envs import customenv_wrapper
 import envlogger
 import numpy as np
 import pandas as pd
@@ -26,14 +27,14 @@ from vizier.service import vizier_server
 from vizier.service import vizier_service_pb2_grpc
 
 # flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
-flags.DEFINE_integer('num_steps', 50, 'Number of training steps.')
-flags.DEFINE_integer('num_episodes', 2, 'Number of training episodes.')
-flags.DEFINE_string('traject_dir', 
+flags.DEFINE_integer('num_steps_qr', 50, 'Number of training steps.')
+flags.DEFINE_integer('num_episodes_qr', 1, 'Number of training episodes.')
+flags.DEFINE_string('traject_dir_qr', 
                     'quasi_random_trajectories', 
             'Directory to save the dataset.')
-flags.DEFINE_bool('use_envlogger', False, 'Use envlogger to log the data.')  
-flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
-flags.DEFINE_string('reward_formulation', 'power', 'Which reward formulation to use?')
+flags.DEFINE_bool('use_envlogger_qr', False, 'Use envlogger to log the data.')  
+flags.DEFINE_string('summary_dir_qr', '.', 'Directory to save the summary.')
+flags.DEFINE_string('reward_formulation_qr', 'power', 'Which reward formulation to use?')
 flags.DEFINE_integer('skip_points', 0, 'hyperparameter1 for quasi_random')
 flags.DEFINE_integer('num_points_generated', 0, 'hyperparameter2 for quasi_random')
 flags.DEFINE_bool('scramble', False, 'hyperparameter3 for quasi_random')
@@ -64,10 +65,10 @@ def wrap_in_envlogger(env, envlogger_dir):
     """
     metadata = {
         'agent_type': 'QUASI_RANDOM_EI',
-        'num_steps': FLAGS.num_steps,
+        'num_steps': FLAGS.num_steps_qr,
         'env_type': type(env).__name__,
     }
-    if FLAGS.use_envlogger:
+    if FLAGS.use_envlogger_qr:
         logging.info('Wrapping environment with EnvironmentLogger...')
         env = envlogger.EnvLogger(env,
                                   data_directory=envlogger_dir,
@@ -81,11 +82,11 @@ def wrap_in_envlogger(env, envlogger_dir):
 
 
 def main(_):
-    """Trains the custom environment using random actions for a given number of steps and episodes 
+    """Trains the custom environment usreward_formulationing random actions for a given number of steps and episodes 
     """
 
-    env = CustomEnv()
-    observation = env.reset()
+    env = customenv_wrapper.make_custom_env(max_steps=FLAGS.num_steps_qr)
+   
     fitness_hist = {}
     problem = vz.ProblemStatement()
     problem.search_space.select_root().add_int_param(name='num_cores', min_value = 1, max_value = 12)
@@ -129,13 +130,13 @@ def main(_):
         study_config, owner='owner', study_id='example_study_id')
 
      # experiment name 
-    exp_name = "_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
+    exp_name = "_num_steps_" + str(FLAGS.num_steps_qr) + "_num_episodes_" + str(FLAGS.num_episodes_qr)
 
     # append logs to base path
-    log_path = os.path.join(FLAGS.summary_dir, 'quasi_random_logs', FLAGS.reward_formulation, exp_name)
+    log_path = os.path.join(FLAGS.summary_dir_qr, 'quasi_random_logs', FLAGS.reward_formulation_qr, exp_name)
 
     # get the current working directory and append the exp name
-    traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
+    traject_dir = os.path.join(FLAGS.summary_dir_qr, FLAGS.traject_dir_qr, FLAGS.reward_formulation_qr, exp_name)
 
     # check if log_path exists else create it
     if not os.path.exists(log_path):
@@ -147,8 +148,11 @@ def main(_):
     env = wrap_in_envlogger(env, traject_dir)
 
     
-    suggestions = quasi_random_designer.suggest(count=flags.FLAGS.num_steps)
+    suggestions = quasi_random_designer.suggest(count=flags.FLAGS.num_steps_qr)
+    count = 0
+    env.reset()
     for suggestion in suggestions:
+        count += 1
         num_cores = str(suggestion.parameters['num_cores'])
         freq = str(suggestion.parameters['freq'])
         mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
@@ -158,7 +162,13 @@ def main(_):
         action = {"num_cores":float(num_cores), "freq": float(freq), "mem_type":float(mem_type), "mem_size": float(mem_size)}
         
         print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
-        obs, reward, done, info = (env.step(action))
+        obsrew = env.step(action)
+        print("OBSREW IS: --------------------->", obsrew)
+        done, reward, info, obs = obsrew
+        if count == FLAGS.num_steps_qr:
+            done = True
+        print("train", obs)
+        print("train rew", reward)
         fitness_hist['reward'] = reward
         fitness_hist['action'] = action
         fitness_hist['obs'] = obs
@@ -167,7 +177,7 @@ def main(_):
         final_measurement = vz.Measurement({'Reward': reward})
         suggestion = suggestion.to_trial()
         suggestion.complete(final_measurement)
-    
+        
 
 
 if __name__ == '__main__':

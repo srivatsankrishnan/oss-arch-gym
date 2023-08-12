@@ -32,6 +32,9 @@ class SimpleArch(Env):
         return np.array([self.energy, self.area, self.latency], dtype=np.float32)
     
     def step(self, action):
+        """
+        Step function for the environment
+        """
         # Extract the action values
         num_cores, freq, mem_type, mem_size = action
 

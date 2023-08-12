@@ -19,21 +19,21 @@ import pandas as pd
 
 
 from vizier._src.algorithms.designers.random import RandomDesigner
-from arch_gym.envs.custom_env import CustomEnv
+from arch_gym.envs import customenv_wrapper
 from vizier.service import clients
 from vizier.service import pyvizier as vz
 from vizier.service import vizier_server
 from vizier.service import vizier_service_pb2_grpc
 
-flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
-flags.DEFINE_integer('num_steps', 100, 'Number of training steps.')
-flags.DEFINE_integer('num_episodes', 2, 'Number of training episodes.')
-flags.DEFINE_string('traject_dir', 
+flags.DEFINE_string('workload_rs', 'stream.stl', 'Which DRAMSys workload to run?')
+flags.DEFINE_integer('num_steps_rs', 100, 'Number of training steps.')
+flags.DEFINE_integer('num_episodes_rs', 2, 'Number of training episodes.')
+flags.DEFINE_string('traject_dir_rs', 
                     'random_search_trajectories', 
             'Directory to save the dataset.')
-flags.DEFINE_bool('use_envlogger', False, 'Use envlogger to log the data.')  
-flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
-flags.DEFINE_string('reward_formulation', 'power', 'Which reward formulation to use?')
+flags.DEFINE_bool('use_envlogger_rs', False, 'Use envlogger to log the data.')  
+flags.DEFINE_string('summary_dir_rs', '.', 'Directory to save the summary.')
+flags.DEFINE_string('reward_formulation_rs', 'power', 'Which reward formulation to use?')
 flags.DEFINE_integer('seed', 110, 'random_search_hyperparameter')
 FLAGS = flags.FLAGS
 
@@ -62,10 +62,10 @@ def wrap_in_envlogger(env, envlogger_dir):
     """
     metadata = {
         'agent_type': 'RandomSearch',
-        'num_steps': FLAGS.num_steps,
+        'num_steps': FLAGS.num_steps_rs,
         'env_type': type(env).__name__,
     }
-    if FLAGS.use_envlogger:
+    if FLAGS.use_envlogger_rs:
         logging.info('Wrapping environment with EnvironmentLogger...')
         env = envlogger.EnvLogger(env,
                                   data_directory=envlogger_dir,
@@ -82,8 +82,7 @@ def main(_):
     """Trains the custom environment using random actions for a given number of steps and episodes 
     """
 
-    env = CustomEnv()
-    observation = env.reset()
+    env = customenv_wrapper.make_custom_env(max_steps=FLAGS.num_steps_rs)
     fitness_hist = {}
     problem = vz.ProblemStatement()
     problem.search_space.select_root().add_int_param(name='num_cores', min_value = 1, max_value = 12)
@@ -124,45 +123,54 @@ def main(_):
         study_config, owner='owner', study_id='example_study_id')
 
      # experiment name 
-    exp_name = "_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
+    exp_name = "_num_steps_" + str(FLAGS.num_steps_rs) + "_num_episodes_" + str(FLAGS.num_episodes_rs)
 
     # append logs to base path
-    log_path = os.path.join(FLAGS.summary_dir, 'random_search_logs', FLAGS.reward_formulation, exp_name)
+    log_path = os.path.join(FLAGS.summary_dir_rs, 'random_search_logs', FLAGS.reward_formulation_rs, exp_name)
 
     # get the current working directory and append the exp name
-    traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
+    traject_dir = os.path.join(FLAGS.summary_dir_rs, FLAGS.traject_dir_rs, FLAGS.reward_formulation_rs, exp_name)
 
     # check if log_path exists else create it
     if not os.path.exists(log_path):
         os.makedirs(log_path)
 
-    if FLAGS.use_envlogger:
+    if FLAGS.use_envlogger_rs:
         if not os.path.exists(traject_dir):
             os.makedirs(traject_dir)
     env = wrap_in_envlogger(env, traject_dir)
 
-    for i in range(FLAGS.num_episodes):
-        suggestions = random_designer.suggest(count=FLAGS.num_steps)
-        for suggestion in suggestions:
-            
-            num_cores = str(suggestion.parameters['num_cores'])
-            freq = str(suggestion.parameters['freq'])
-            mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
-            mem_type = str(mem_type_dict[str(suggestion.parameters['mem_type'])])
-            mem_size = str(suggestion.parameters['mem_size'])
-            
-            action = {"num_cores":float(num_cores), "freq": float(freq), "mem_type":float(mem_type), "mem_size": float(mem_size)}
-            
-            print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
-            obs, reward, done, info = (env.step(action))
-            fitness_hist['reward'] = reward
-            fitness_hist['action'] = action
-            fitness_hist['obs'] = obs
-            log_fitness_to_csv(log_path, fitness_hist)
-            print("Observation: ",obs)
-            final_measurement = vz.Measurement({'Reward': reward})
-            suggestion = suggestion.to_trial()
-            suggestion.complete(final_measurement)
+    # """
+    # This loop runs for num_steps * num_episodes iterations. 
+    # """
+    env.reset()
+    
+    count = 0
+    suggestions = random_designer.suggest(count=FLAGS.num_steps_rs)
+    
+    for suggestion in suggestions:
+        count += 1
+        num_cores = str(suggestion.parameters['num_cores'])
+        freq = str(suggestion.parameters['freq'])
+        mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
+        mem_type = str(mem_type_dict[str(suggestion.parameters['mem_type'])])
+        mem_size = str(suggestion.parameters['mem_size'])
+        
+        action = {"num_cores":float(num_cores), "freq": float(freq), "mem_type":float(mem_type), "mem_size": float(mem_size)}
+        
+        print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
+        done, reward, info, obs = (env.step(action))
+        fitness_hist['reward'] = reward
+        fitness_hist['action'] = action
+        fitness_hist['obs'] = obs
+        if count == FLAGS.num_steps_rs:
+            done = True
+
+        log_fitness_to_csv(log_path, fitness_hist)
+        print("Observation: ",obs)
+        final_measurement = vz.Measurement({'Reward': reward})
+        suggestion = suggestion.to_trial()
+        suggestion.complete(final_measurement)
            
 
 

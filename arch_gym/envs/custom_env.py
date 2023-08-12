@@ -25,6 +25,9 @@ class CustomEnv(gym.Env):
         return self.initial_state
 
     def step(self, action):
+        """
+        Step function for the environment
+        """
         num_cores = action['num_cores']
         freq = action['freq']
         mem_type = action['mem_type']

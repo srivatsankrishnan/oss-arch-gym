@@ -20,23 +20,23 @@ import pandas as pd
 
 
 from vizier._src.algorithms.evolution.nsga2 import NSGA2Survival, create_nsga2
-from arch_gym.envs.custom_env import CustomEnv
+from arch_gym.envs import customenv_wrapper
 from vizier.service import clients
 from vizier.service import pyvizier as vz
 from vizier.service import vizier_server
 from vizier.service import vizier_service_pb2_grpc
 
 # flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
-flags.DEFINE_integer('num_steps', 50, 'Number of training steps.')
-flags.DEFINE_integer('num_episodes', 2, 'Number of training episodes.')
-flags.DEFINE_string('traject_dir', 
+flags.DEFINE_integer('num_steps_NSGA', 50, 'Number of training steps.')
+flags.DEFINE_integer('num_episodes_NSGA', 2, 'Number of training episodes.')
+flags.DEFINE_string('traject_dir_NSGA', 
                     'NSGA2_trajectories', 
             'Directory to save the dataset.')
-flags.DEFINE_bool('use_envlogger', False, 'Use envlogger to log the data.')  
-flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
-flags.DEFINE_string('reward_formulation', 'power', 'Which reward formulation to use?')
-flags.DEFINE_integer('population_size', 100, 'hyperparameter1 for NSGA2')
-flags.DEFINE_integer('eviction_limit', 3, 'hyperparameter2 for NSGA2')
+flags.DEFINE_bool('use_envlogger_NSGA', False, 'Use envlogger to log the data.')  
+flags.DEFINE_string('summary_dir_NSGA', '.', 'Directory to save the summary.')
+flags.DEFINE_string('reward_formulation_NSGA', 'power', 'Which reward formulation to use?')
+flags.DEFINE_integer('population_size_NSGA', 100, 'hyperparameter1 for NSGA2')
+flags.DEFINE_integer('eviction_limit_NSGA', 3, 'hyperparameter2 for NSGA2')
 
 FLAGS = flags.FLAGS
 
@@ -67,10 +67,10 @@ def wrap_in_envlogger(env, envlogger_dir):
     """
     metadata = {
         'agent_type': 'NSGA2',
-        'num_steps': FLAGS.num_steps,
+        'num_steps': FLAGS.num_steps_NSGA,
         'env_type': type(env).__name__,
     }
-    if FLAGS.use_envlogger:
+    if FLAGS.use_envlogger_NSGA:
         logging.info('Wrapping environment with EnvironmentLogger...')
         env = envlogger.EnvLogger(env,
                                   data_directory=envlogger_dir,
@@ -87,8 +87,7 @@ def main(_):
     """Trains the custom environment using random actions for a given number of steps and episodes 
     """
 
-    env = CustomEnv()
-    observation = env.reset()
+    env = customenv_wrapper.make_custom_env(max_steps=FLAGS.num_steps_NSGA)
     fitness_hist = {}
     problem = vz.ProblemStatement()
     problem.search_space.select_root().add_int_param(name='num_cores', min_value = 1, max_value = 12)
@@ -105,8 +104,8 @@ def main(_):
     study_config = vz.StudyConfig.from_problem(problem)
     # study_config.algorithm = vz.Algorithm.NSGA2
 
-    # nsga2_evolution = NSGA2Survival(target_size = FLAGS.target_size, eviction_limit= FLAGS.eviction_limit)
-    nsga2_designer = create_nsga2(problem, population_size = FLAGS.population_size, eviction_limit= FLAGS.eviction_limit )
+    # nsga2_evolution = NSGA2Survival(target_size = FLAGS.target_size, eviction_limit= FLAGS.eviction_limit_NSGA)
+    nsga2_designer = create_nsga2(problem, population_size = FLAGS.population_size_NSGA, eviction_limit= FLAGS.eviction_limit_NSGA )
     port = portpicker.pick_unused_port()
     address = f'localhost:{port}'
 
@@ -126,27 +125,30 @@ def main(_):
         study_config, owner='owner', study_id='example_study_id')
 
      # experiment name 
-    exp_name = "_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
+    exp_name = "_num_steps_" + str(FLAGS.num_steps_NSGA) + "_num_episodes_" + str(FLAGS.num_episodes_NSGA)
 
     # append logs to base path
-    log_path = os.path.join(FLAGS.summary_dir, 'NSGA2_logs', FLAGS.reward_formulation, exp_name)
+    log_path = os.path.join(FLAGS.summary_dir_NSGA, 'NSGA2_logs', FLAGS.reward_formulation_NSGA, exp_name)
 
     # get the current working directory and append the exp name
-    traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
+    traject_dir = os.path.join(FLAGS.summary_dir_NSGA, FLAGS.traject_dir_NSGA, FLAGS.reward_formulation_NSGA, exp_name)
 
     # check if log_path exists else create it
     if not os.path.exists(log_path):
         os.makedirs(log_path)
 
-    if FLAGS.use_envlogger:
+    if FLAGS.use_envlogger_NSGA:
         if not os.path.exists(traject_dir):
             os.makedirs(traject_dir)
     env = wrap_in_envlogger(env, traject_dir)
 
-    # for i in range(flags.FLAGS.num_episodes):
+    # for i in range(flags.FLAGS.num_episodes_NSGA):
     max_reward = float('-inf')
-    suggestions = nsga2_designer.suggest(count=flags.FLAGS.num_steps)
+    env.reset()
+    count = 0
+    suggestions = nsga2_designer.suggest(count=flags.FLAGS.num_steps_NSGA)
     for suggestion in suggestions:
+        count += 1
         num_cores = str(suggestion.parameters['num_cores'])
         freq = str(suggestion.parameters['freq'])
         mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
@@ -156,10 +158,12 @@ def main(_):
         action = {"num_cores":float(num_cores), "freq": float(freq), "mem_type":float(mem_type), "mem_size": float(mem_size)}
         
         print("Suggested Parameters for num_cores, freq, mem_type, mem_size are :", num_cores, freq, mem_type, mem_size)
-        obs, reward, done, info = (env.step(action))
+        done, reward, info, obs = (env.step(action))
         fitness_hist['reward'] = reward
         fitness_hist['action'] = action
         fitness_hist['obs'] = obs
+        if count == FLAGS.num_steps_NSGA:
+            done = True
         log_fitness_to_csv(log_path, fitness_hist)
         print("Observation: ",obs)
         
