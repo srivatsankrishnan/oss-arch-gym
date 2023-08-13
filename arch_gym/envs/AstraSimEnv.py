@@ -18,7 +18,7 @@ sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
 class AstraSimEnv(gym.Env):
     def __init__(self, rl_form="random_walker", max_steps=5, num_agents=1, reward_formulation="None", reward_scaling=1):
         # action space = set of all possible actions. Space.sample() returns a random action
-        self.action_space = gym.spaces.Discrete(2)
+        self.action_space = gym.spaces.Discrete(16)
         # observation space =  set of all possible observations
         self.observation_space = gym.spaces.Discrete(1)
 
@@ -107,9 +107,9 @@ class AstraSimEnv(gym.Env):
     def calculate_reward(self, observations):
         print("Calculating reward...")
         print(observations)
-        sum = 0
+        sum = 1.0
         for obs in observations:
-            sum += ((float(obs[0]) - 1) ** 2)
+            sum += ((float(obs) - 1) ** 2)
             print(sum)
         return 1 / (sum ** 0.5)
 
@@ -119,6 +119,7 @@ class AstraSimEnv(gym.Env):
         # write the three config files
         # with open(self.network_config, "w") as outfile:
         #     outfile.write(json.dumps(action_dict['network'], indent=4))
+        print(action_dict)
         if "path" in action_dict["network"]:
             self.network_config = action_dict["network"]["path"]
 
@@ -178,17 +179,17 @@ class AstraSimEnv(gym.Env):
              len(detailed) == 0 or len(end_to_end) == 0 or
              len(sample_all_reduce_dimension_utilization) == 0)):
             # set reward to be extremely negative
-            reward = -100000
+            reward = float("-inf")
             print("reward: ", reward)
             return [[], reward, self.done, {"useful_counter": self.useful_counter}, self.state]
         else:
             # only recording the first line because apparently they are all the same? TODO
             self.observations = [
                 backend_end_to_end["CommsTime"][0],
-                end_to_end["fwd compute"][0],
-                end_to_end["wg compute"][0],
-                end_to_end["ig compute"][0],
-                end_to_end["total exposed comm"][0]
+                # end_to_end["fwd compute"][0],
+                # end_to_end["wg compute"][0],
+                # end_to_end["ig compute"][0],
+                # end_to_end["total exposed comm"][0]
             ]
             reward = self.calculate_reward(self.observations)
             print("reward: ", reward)

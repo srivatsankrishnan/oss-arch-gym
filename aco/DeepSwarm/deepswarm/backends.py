@@ -364,7 +364,7 @@ class DummyAstraSim():
         # SET UP ACTION DICT
         self.action_dict = {"network": {}, "workload": {}}
         self.action_dict["network"]['path'] = "3d_fc_ring_switch.json"
-        self.action_dict["workload"]['path'] = "gnmt_fp16_fused.txt"
+        self.action_dict["workload"]['path'] = "all_reduce/allreduce_0.65.txt"
 
         # PARSE SYSTEM FILE
         self.parse_system(self.system_file, self.action_dict)
