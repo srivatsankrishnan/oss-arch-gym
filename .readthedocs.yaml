@@ -3,3 +3,5 @@ build:
   os: "ubuntu-20.04"
   tools:
     python: "mambaforge-22.9"
+  conda:
+  environment: environment.yml
