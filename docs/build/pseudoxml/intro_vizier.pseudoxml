@@ -1,0 +1,50 @@
+<document source="/home/shreyas/Documents/HUVJR/oss-arch-gym/docs/source/intro_vizier.rst" xmlns:c="https://www.sphinx-doc.org/" xmlns:changeset="https://www.sphinx-doc.org/" xmlns:citation="https://www.sphinx-doc.org/" xmlns:cpp="https://www.sphinx-doc.org/" xmlns:index="https://www.sphinx-doc.org/" xmlns:js="https://www.sphinx-doc.org/" xmlns:math="https://www.sphinx-doc.org/" xmlns:py="https://www.sphinx-doc.org/" xmlns:rst="https://www.sphinx-doc.org/" xmlns:std="https://www.sphinx-doc.org/" xmlns:todo="https://www.sphinx-doc.org/">
+    <section ids="introduction" names="introduction">
+        <title>
+            Introduction
+        <paragraph>
+            Open Source (OSS) Vizier is a Python-based interface for blackbox optimization and research, based on Google’s original internal Vizier, one of the first hyperparameter tuning services designed to work at scale.
+    <section ids="objective" names="objective">
+        <title>
+            Objective
+        <paragraph>
+            We introduce ArchGym, an open-source gymnasium and easy-to-extend framework that connects a diverse range of search algorithms to
+            architecture simulators. The results suggest that with an unlimited number of samples, ML algorithms are equally favorable to meet the user-defined target specification
+            if its hyperparameters are tuned thoroughly; no one solution is necessarily better than another. We show how using a same structure of code for different algirthms,
+            we can train the agent to generate optimal parameters just by varying the name of the algorithm.
+    <section ids="supported-algorithms" names="supported\ algorithms">
+        <title>
+            Supported Algorithms
+        <paragraph>
+            The following algorithms are currently supported the vizier version:
+        <enumerated_list enumtype="arabic" prefix="" suffix=".">
+            <list_item>
+                <paragraph>
+                    Random Search (
+                    <literal>
+                        RANDOM_SEARCH
+                    ): Flat Search Spaces.
+            <list_item>
+                <paragraph>
+                    Quasi-Random Search (
+                    <literal>
+                        QUASI_RANDOM_SEARCH
+                    ): Flat Search Spaces.
+            <list_item>
+                <paragraph>
+                    Grid Search (
+                    <literal>
+                        GRID_SEARCH
+                    ): Flat Search Spaces.
+            <list_item>
+                <paragraph>
+                    Emukit Bayesian Optimization (
+                    <literal>
+                        EMUKIT_GP_EI
+                    ): Flat Search Spaces.
+            <list_item>
+                <paragraph>
+                    NSGA2 (
+                    <literal>
+                        NSGA2
+                    ) : Flat Search Spaces.

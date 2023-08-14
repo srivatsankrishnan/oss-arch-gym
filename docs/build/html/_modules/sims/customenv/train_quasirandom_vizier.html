@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sims.customenv.train_quasirandom_vizier &mdash; ArchGym 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ArchGym
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro_vizier.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro_vizier.html#objective">Objective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro_vizier.html#supported-algorithms">Supported Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../customenv.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../customenv.html#example">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../customenv.html#supported-algorithms">Supported Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules_arch_gym.html">arch_gym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules_sims.html">sims</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ArchGym</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sims.customenv.train_quasirandom_vizier</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sims.customenv.train_quasirandom_vizier</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">concurrent</span> <span class="kn">import</span> <span class="n">futures</span>
+<span class="kn">import</span> <span class="nn">grpc</span>
+<span class="kn">import</span> <span class="nn">portpicker</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="kn">from</span> <span class="nn">absl</span> <span class="kn">import</span> <span class="n">flags</span>
+<span class="kn">from</span> <span class="nn">absl</span> <span class="kn">import</span> <span class="n">app</span>
+<span class="kn">from</span> <span class="nn">absl</span> <span class="kn">import</span> <span class="n">logging</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">))</span>
+<span class="c1"># from configs import arch_gym_configs</span>
+<span class="c1"># from arch_gym.envs.envHelpers import helpers</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">arch_gym.envs</span> <span class="kn">import</span> <span class="n">customenv_wrapper</span>
+<span class="kn">import</span> <span class="nn">envlogger</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">vizier._src.algorithms.designers</span> <span class="kn">import</span> <span class="n">quasi_random</span>
+<span class="kn">from</span> <span class="nn">vizier._src.algorithms.designers.quasi_random</span> <span class="kn">import</span> <span class="n">QuasiRandomDesigner</span>
+<span class="kn">from</span> <span class="nn">arch_gym.envs.custom_env</span> <span class="kn">import</span> <span class="n">CustomEnv</span>
+<span class="kn">from</span> <span class="nn">vizier.service</span> <span class="kn">import</span> <span class="n">clients</span>
+<span class="kn">from</span> <span class="nn">vizier.service</span> <span class="kn">import</span> <span class="n">pyvizier</span> <span class="k">as</span> <span class="n">vz</span>
+<span class="kn">from</span> <span class="nn">vizier.service</span> <span class="kn">import</span> <span class="n">vizier_server</span>
+<span class="kn">from</span> <span class="nn">vizier.service</span> <span class="kn">import</span> <span class="n">vizier_service_pb2_grpc</span>
+
+<span class="c1"># flags.DEFINE_string(&#39;workload&#39;, &#39;stream.stl&#39;, &#39;Which DRAMSys workload to run?&#39;)</span>
+<span class="n">flags</span><span class="o">.</span><span class="n">DEFINE_integer</span><span class="p">(</span><span class="s1">&#39;num_steps_qr&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;Number of training steps.&#39;</span><span class="p">)</span>
+<span class="n">flags</span><span class="o">.</span><span class="n">DEFINE_integer</span><span class="p">(</span><span class="s1">&#39;num_episodes_qr&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Number of training episodes.&#39;</span><span class="p">)</span>
+<span class="n">flags</span><span class="o">.</span><span class="n">DEFINE_string</span><span class="p">(</span><span class="s1">&#39;traject_dir_qr&#39;</span><span class="p">,</span> 
+                    <span class="s1">&#39;quasi_random_trajectories&#39;</span><span class="p">,</span> 
+            <span class="s1">&#39;Directory to save the dataset.&#39;</span><span class="p">)</span>
+<span class="n">flags</span><span class="o">.</span><span class="n">DEFINE_bool</span><span class="p">(</span><span class="s1">&#39;use_envlogger_qr&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;Use envlogger to log the data.&#39;</span><span class="p">)</span>  
+<span class="n">flags</span><span class="o">.</span><span class="n">DEFINE_string</span><span class="p">(</span><span class="s1">&#39;summary_dir_qr&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;Directory to save the summary.&#39;</span><span class="p">)</span>
+<span class="n">flags</span><span class="o">.</span><span class="n">DEFINE_string</span><span class="p">(</span><span class="s1">&#39;reward_formulation_qr&#39;</span><span class="p">,</span> <span class="s1">&#39;power&#39;</span><span class="p">,</span> <span class="s1">&#39;Which reward formulation to use?&#39;</span><span class="p">)</span>
+<span class="n">flags</span><span class="o">.</span><span class="n">DEFINE_integer</span><span class="p">(</span><span class="s1">&#39;skip_points&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;hyperparameter1 for quasi_random&#39;</span><span class="p">)</span>
+<span class="n">flags</span><span class="o">.</span><span class="n">DEFINE_integer</span><span class="p">(</span><span class="s1">&#39;num_points_generated&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;hyperparameter2 for quasi_random&#39;</span><span class="p">)</span>
+<span class="n">flags</span><span class="o">.</span><span class="n">DEFINE_bool</span><span class="p">(</span><span class="s1">&#39;scramble&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;hyperparameter3 for quasi_random&#39;</span><span class="p">)</span>
+<span class="n">FLAGS</span> <span class="o">=</span> <span class="n">flags</span><span class="o">.</span><span class="n">FLAGS</span>
+
+<div class="viewcode-block" id="log_fitness_to_csv"><a class="viewcode-back" href="../../../sims.customenv.html#sims.customenv.train_quasirandom_vizier.log_fitness_to_csv">[docs]</a><span class="k">def</span> <span class="nf">log_fitness_to_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">fitness_dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Logs fitness history to csv file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filename (str): path to the csv file</span>
+<span class="sd">        fitness_dict (dict): dictionary containing the fitness history</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">fitness_dict</span><span class="p">[</span><span class="s1">&#39;reward&#39;</span><span class="p">]])</span>
+    <span class="n">csvfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;fitness.csv&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+
+    <span class="c1"># append to csv</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">fitness_dict</span><span class="p">])</span>
+    <span class="n">csvfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;trajectory.csv&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="wrap_in_envlogger"><a class="viewcode-back" href="../../../sims.customenv.html#sims.customenv.train_quasirandom_vizier.wrap_in_envlogger">[docs]</a><span class="k">def</span> <span class="nf">wrap_in_envlogger</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">envlogger_dir</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wraps the environment in envlogger</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        env (gym.Env): gym environment</span>
+<span class="sd">        envlogger_dir (str): path to the directory where the data will be logged</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">metadata</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;agent_type&#39;</span><span class="p">:</span> <span class="s1">&#39;QUASI_RANDOM_EI&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;num_steps&#39;</span><span class="p">:</span> <span class="n">FLAGS</span><span class="o">.</span><span class="n">num_steps_qr</span><span class="p">,</span>
+        <span class="s1">&#39;env_type&#39;</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="n">env</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">FLAGS</span><span class="o">.</span><span class="n">use_envlogger_qr</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Wrapping environment with EnvironmentLogger...&#39;</span><span class="p">)</span>
+        <span class="n">env</span> <span class="o">=</span> <span class="n">envlogger</span><span class="o">.</span><span class="n">EnvLogger</span><span class="p">(</span><span class="n">env</span><span class="p">,</span>
+                                  <span class="n">data_directory</span><span class="o">=</span><span class="n">envlogger_dir</span><span class="p">,</span>
+                                  <span class="n">max_episodes_per_file</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                                  <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Done wrapping environment with EnvironmentLogger.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">env</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">env</span></div>
+
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../sims.customenv.html#sims.customenv.train_quasirandom_vizier.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Trains the custom environment usreward_formulationing random actions for a given number of steps and episodes </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">env</span> <span class="o">=</span> <span class="n">customenv_wrapper</span><span class="o">.</span><span class="n">make_custom_env</span><span class="p">(</span><span class="n">max_steps</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">num_steps_qr</span><span class="p">)</span>
+   
+    <span class="n">fitness_hist</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">problem</span> <span class="o">=</span> <span class="n">vz</span><span class="o">.</span><span class="n">ProblemStatement</span><span class="p">()</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">search_space</span><span class="o">.</span><span class="n">select_root</span><span class="p">()</span><span class="o">.</span><span class="n">add_int_param</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;num_cores&#39;</span><span class="p">,</span> <span class="n">min_value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">max_value</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">search_space</span><span class="o">.</span><span class="n">select_root</span><span class="p">()</span><span class="o">.</span><span class="n">add_float_param</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;freq&#39;</span><span class="p">,</span> <span class="n">min_value</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">max_value</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">search_space</span><span class="o">.</span><span class="n">select_root</span><span class="p">()</span><span class="o">.</span><span class="n">add_categorical_param</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;mem_type&#39;</span><span class="p">,</span> <span class="n">feasible_values</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;DRAM&#39;</span><span class="p">,</span> <span class="s1">&#39;SRAM&#39;</span><span class="p">,</span> <span class="s1">&#39;Hybrid&#39;</span><span class="p">])</span>
+    <span class="n">problem</span><span class="o">.</span><span class="n">search_space</span><span class="o">.</span><span class="n">select_root</span><span class="p">()</span><span class="o">.</span><span class="n">add_discrete_param</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;mem_size&#39;</span><span class="p">,</span> <span class="n">feasible_values</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">])</span>
+
+    <span class="n">problem</span><span class="o">.</span><span class="n">metric_information</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">vz</span><span class="o">.</span><span class="n">MetricInformation</span><span class="p">(</span>
+            <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Reward&#39;</span><span class="p">,</span> <span class="n">goal</span><span class="o">=</span><span class="n">vz</span><span class="o">.</span><span class="n">ObjectiveMetricGoal</span><span class="o">.</span><span class="n">MAXIMIZE</span><span class="p">))</span>
+
+
+    <span class="n">study_config</span> <span class="o">=</span> <span class="n">vz</span><span class="o">.</span><span class="n">StudyConfig</span><span class="o">.</span><span class="n">from_problem</span><span class="p">(</span><span class="n">problem</span><span class="p">)</span>
+    <span class="c1"># study_config.algorithm = vz.Algorithm.QUASI_RANDOM</span>
+    <span class="n">quasi_random_designer</span> <span class="o">=</span> <span class="n">QuasiRandomDesigner</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">search_space</span><span class="p">)</span>
+    <span class="n">quasi_random_designer</span><span class="o">.</span><span class="n">_halton_generator</span> <span class="o">=</span> <span class="n">quasi_random</span><span class="o">.</span><span class="n">_HaltonSequence</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">search_space</span><span class="o">.</span><span class="n">parameters</span><span class="p">),</span><span class="n">skip_points</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">skip_points</span><span class="p">,</span>
+                                                                <span class="n">num_points_generated</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">num_points_generated</span><span class="p">,</span><span class="n">scramble</span><span class="o">=</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">scramble</span><span class="p">)</span>
+
+
+
+    
+    
+    
+
+    <span class="n">port</span> <span class="o">=</span> <span class="n">portpicker</span><span class="o">.</span><span class="n">pick_unused_port</span><span class="p">()</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;localhost:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span>
+
+    <span class="c1"># Setup server.</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">server</span><span class="p">(</span><span class="n">futures</span><span class="o">.</span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">100</span><span class="p">))</span>
+
+    <span class="c1"># Setup Vizier Service.</span>
+    <span class="n">servicer</span> <span class="o">=</span> <span class="n">vizier_server</span><span class="o">.</span><span class="n">VizierService</span><span class="p">()</span>
+    <span class="n">vizier_service_pb2_grpc</span><span class="o">.</span><span class="n">add_VizierServiceServicer_to_server</span><span class="p">(</span><span class="n">servicer</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">add_secure_port</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">grpc</span><span class="o">.</span><span class="n">local_server_credentials</span><span class="p">())</span>
+
+    <span class="c1"># Start the server.</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="n">clients</span><span class="o">.</span><span class="n">environment_variables</span><span class="o">.</span><span class="n">service_endpoint</span> <span class="o">=</span> <span class="n">address</span>  <span class="c1"># Server address.</span>
+    <span class="n">study</span> <span class="o">=</span> <span class="n">clients</span><span class="o">.</span><span class="n">Study</span><span class="o">.</span><span class="n">from_study_config</span><span class="p">(</span>
+        <span class="n">study_config</span><span class="p">,</span> <span class="n">owner</span><span class="o">=</span><span class="s1">&#39;owner&#39;</span><span class="p">,</span> <span class="n">study_id</span><span class="o">=</span><span class="s1">&#39;example_study_id&#39;</span><span class="p">)</span>
+
+     <span class="c1"># experiment name </span>
+    <span class="n">exp_name</span> <span class="o">=</span> <span class="s2">&quot;_num_steps_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">num_steps_qr</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;_num_episodes_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">num_episodes_qr</span><span class="p">)</span>
+
+    <span class="c1"># append logs to base path</span>
+    <span class="n">log_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">summary_dir_qr</span><span class="p">,</span> <span class="s1">&#39;quasi_random_logs&#39;</span><span class="p">,</span> <span class="n">FLAGS</span><span class="o">.</span><span class="n">reward_formulation_qr</span><span class="p">,</span> <span class="n">exp_name</span><span class="p">)</span>
+
+    <span class="c1"># get the current working directory and append the exp name</span>
+    <span class="n">traject_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">summary_dir_qr</span><span class="p">,</span> <span class="n">FLAGS</span><span class="o">.</span><span class="n">traject_dir_qr</span><span class="p">,</span> <span class="n">FLAGS</span><span class="o">.</span><span class="n">reward_formulation_qr</span><span class="p">,</span> <span class="n">exp_name</span><span class="p">)</span>
+
+    <span class="c1"># check if log_path exists else create it</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">log_path</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">log_path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">FLAGS</span><span class="o">.</span><span class="n">use_envlogger</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">traject_dir</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">traject_dir</span><span class="p">)</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">wrap_in_envlogger</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">traject_dir</span><span class="p">)</span>
+
+    
+    <span class="n">suggestions</span> <span class="o">=</span> <span class="n">quasi_random_designer</span><span class="o">.</span><span class="n">suggest</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="n">flags</span><span class="o">.</span><span class="n">FLAGS</span><span class="o">.</span><span class="n">num_steps_qr</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">suggestion</span> <span class="ow">in</span> <span class="n">suggestions</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">num_cores</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">suggestion</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;num_cores&#39;</span><span class="p">])</span>
+        <span class="n">freq</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">suggestion</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;freq&#39;</span><span class="p">])</span>
+        <span class="n">mem_type_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;DRAM&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;SRAM&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Hybrid&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span>
+        <span class="n">mem_type</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">mem_type_dict</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">suggestion</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;mem_type&#39;</span><span class="p">])])</span>
+        <span class="n">mem_size</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">suggestion</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;mem_size&#39;</span><span class="p">])</span>
+        
+        <span class="n">action</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;num_cores&quot;</span><span class="p">:</span><span class="nb">float</span><span class="p">(</span><span class="n">num_cores</span><span class="p">),</span> <span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">freq</span><span class="p">),</span> <span class="s2">&quot;mem_type&quot;</span><span class="p">:</span><span class="nb">float</span><span class="p">(</span><span class="n">mem_type</span><span class="p">),</span> <span class="s2">&quot;mem_size&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">mem_size</span><span class="p">)}</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Suggested Parameters for num_cores, freq, mem_type, mem_size are :&quot;</span><span class="p">,</span> <span class="n">num_cores</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="n">mem_type</span><span class="p">,</span> <span class="n">mem_size</span><span class="p">)</span>
+        <span class="n">obsrew</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;OBSREW IS: ---------------------&gt;&quot;</span><span class="p">,</span> <span class="n">obsrew</span><span class="p">)</span>
+        <span class="n">done</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">obs</span> <span class="o">=</span> <span class="n">obsrew</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="n">FLAGS</span><span class="o">.</span><span class="n">num_steps_qr</span><span class="p">:</span>
+            <span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="n">obs</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;train rew&quot;</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span>
+        <span class="n">fitness_hist</span><span class="p">[</span><span class="s1">&#39;reward&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">reward</span>
+        <span class="n">fitness_hist</span><span class="p">[</span><span class="s1">&#39;action&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">action</span>
+        <span class="n">fitness_hist</span><span class="p">[</span><span class="s1">&#39;obs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">obs</span>
+        <span class="n">log_fitness_to_csv</span><span class="p">(</span><span class="n">log_path</span><span class="p">,</span> <span class="n">fitness_hist</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Observation: &quot;</span><span class="p">,</span><span class="n">obs</span><span class="p">)</span>
+        <span class="n">final_measurement</span> <span class="o">=</span> <span class="n">vz</span><span class="o">.</span><span class="n">Measurement</span><span class="p">({</span><span class="s1">&#39;Reward&#39;</span><span class="p">:</span> <span class="n">reward</span><span class="p">})</span>
+        <span class="n">suggestion</span> <span class="o">=</span> <span class="n">suggestion</span><span class="o">.</span><span class="n">to_trial</span><span class="p">()</span>
+        <span class="n">suggestion</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span><span class="n">final_measurement</span><span class="p">)</span></div>
+        
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+   <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, --.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

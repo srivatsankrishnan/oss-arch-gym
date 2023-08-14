@@ -1,0 +1,138 @@
+<document source="/home/shreyas/Documents/HUVJR/oss-arch-gym/docs/source/sims.AstraSim.rst" xmlns:c="https://www.sphinx-doc.org/" xmlns:changeset="https://www.sphinx-doc.org/" xmlns:citation="https://www.sphinx-doc.org/" xmlns:cpp="https://www.sphinx-doc.org/" xmlns:index="https://www.sphinx-doc.org/" xmlns:js="https://www.sphinx-doc.org/" xmlns:math="https://www.sphinx-doc.org/" xmlns:py="https://www.sphinx-doc.org/" xmlns:rst="https://www.sphinx-doc.org/" xmlns:std="https://www.sphinx-doc.org/" xmlns:todo="https://www.sphinx-doc.org/">
+    <section ids="sims-astrasim-package" names="sims.astrasim\ package">
+        <title>
+            sims.AstraSim package
+        <section ids="submodules" names="submodules">
+            <title>
+                Submodules
+        <section ids="module-sims.AstraSim.restructure sims-astrasim-restructure-module" names="sims.astrasim.restructure\ module">
+            <title>
+                sims.AstraSim.restructure module
+            <index entries="['pair',\ 'module;\ sims.AstraSim.restructure',\ 'module-sims.AstraSim.restructure',\ '',\ None]">
+            <index entries="['single',\ 'merge_columns()\ (in\ module\ sims.AstraSim.restructure)',\ 'sims.AstraSim.restructure.merge_columns',\ '',\ None]">
+            <desc classes="py function" desctype="function" domain="py" nocontentsentry="False" noindex="False" noindexentry="False" objtype="function">
+                <desc_signature _toc_name="merge_columns()" _toc_parts="sims.AstraSim.restructure merge_columns" class="" classes="sig sig-object py sig sig-object" fullname="merge_columns" ids="sims.AstraSim.restructure.merge_columns" module="sims.AstraSim.restructure">
+                    <desc_addname classes="sig-prename descclassname sig-prename descclassname" xml:space="preserve">
+                        sims.AstraSim.restructure.
+                    <desc_name classes="sig-name descname sig-name descname" xml:space="preserve">
+                        merge_columns
+                    <desc_parameterlist xml:space="preserve">
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                file1_path
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                file2_path
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                output_file_path
+                <desc_content>
+            <index entries="['single',\ 'read_csv_column()\ (in\ module\ sims.AstraSim.restructure)',\ 'sims.AstraSim.restructure.read_csv_column',\ '',\ None]">
+            <desc classes="py function" desctype="function" domain="py" nocontentsentry="False" noindex="False" noindexentry="False" objtype="function">
+                <desc_signature _toc_name="read_csv_column()" _toc_parts="sims.AstraSim.restructure read_csv_column" class="" classes="sig sig-object py sig sig-object" fullname="read_csv_column" ids="sims.AstraSim.restructure.read_csv_column" module="sims.AstraSim.restructure">
+                    <desc_addname classes="sig-prename descclassname sig-prename descclassname" xml:space="preserve">
+                        sims.AstraSim.restructure.
+                    <desc_name classes="sig-name descname sig-name descname" xml:space="preserve">
+                        read_csv_column
+                    <desc_parameterlist xml:space="preserve">
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                file_path
+                <desc_content>
+                    <paragraph>
+                        Reads a CSV file and returns a list of the values in the first column.
+        <section ids="module-sims.AstraSim.trainRandomWalkerAstraSim sims-astrasim-trainrandomwalkerastrasim-module" names="sims.astrasim.trainrandomwalkerastrasim\ module">
+            <title>
+                sims.AstraSim.trainRandomWalkerAstraSim module
+            <index entries="['pair',\ 'module;\ sims.AstraSim.trainRandomWalkerAstraSim',\ 'module-sims.AstraSim.trainRandomWalkerAstraSim',\ '',\ None]">
+            <index entries="['single',\ 'generate_random_actions()\ (in\ module\ sims.AstraSim.trainRandomWalkerAstraSim)',\ 'sims.AstraSim.trainRandomWalkerAstraSim.generate_random_actions',\ '',\ None]">
+            <desc classes="py function" desctype="function" domain="py" nocontentsentry="False" noindex="False" noindexentry="False" objtype="function">
+                <desc_signature _toc_name="generate_random_actions()" _toc_parts="sims.AstraSim.trainRandomWalkerAstraSim generate_random_actions" class="" classes="sig sig-object py sig sig-object" fullname="generate_random_actions" ids="sims.AstraSim.trainRandomWalkerAstraSim.generate_random_actions" module="sims.AstraSim.trainRandomWalkerAstraSim">
+                    <desc_addname classes="sig-prename descclassname sig-prename descclassname" xml:space="preserve">
+                        sims.AstraSim.trainRandomWalkerAstraSim.
+                    <desc_name classes="sig-name descname sig-name descname" xml:space="preserve">
+                        generate_random_actions
+                    <desc_parameterlist xml:space="preserve">
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                dimension
+                <desc_content>
+            <index entries="['single',\ 'log_results_to_csv()\ (in\ module\ sims.AstraSim.trainRandomWalkerAstraSim)',\ 'sims.AstraSim.trainRandomWalkerAstraSim.log_results_to_csv',\ '',\ None]">
+            <desc classes="py function" desctype="function" domain="py" nocontentsentry="False" noindex="False" noindexentry="False" objtype="function">
+                <desc_signature _toc_name="log_results_to_csv()" _toc_parts="sims.AstraSim.trainRandomWalkerAstraSim log_results_to_csv" class="" classes="sig sig-object py sig sig-object" fullname="log_results_to_csv" ids="sims.AstraSim.trainRandomWalkerAstraSim.log_results_to_csv" module="sims.AstraSim.trainRandomWalkerAstraSim">
+                    <desc_addname classes="sig-prename descclassname sig-prename descclassname" xml:space="preserve">
+                        sims.AstraSim.trainRandomWalkerAstraSim.
+                    <desc_name classes="sig-name descname sig-name descname" xml:space="preserve">
+                        log_results_to_csv
+                    <desc_parameterlist xml:space="preserve">
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                filename
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                fitness_dict
+                <desc_content>
+            <index entries="['single',\ 'main()\ (in\ module\ sims.AstraSim.trainRandomWalkerAstraSim)',\ 'sims.AstraSim.trainRandomWalkerAstraSim.main',\ '',\ None]">
+            <desc classes="py function" desctype="function" domain="py" nocontentsentry="False" noindex="False" noindexentry="False" objtype="function">
+                <desc_signature _toc_name="main()" _toc_parts="sims.AstraSim.trainRandomWalkerAstraSim main" class="" classes="sig sig-object py sig sig-object" fullname="main" ids="sims.AstraSim.trainRandomWalkerAstraSim.main" module="sims.AstraSim.trainRandomWalkerAstraSim">
+                    <desc_addname classes="sig-prename descclassname sig-prename descclassname" xml:space="preserve">
+                        sims.AstraSim.trainRandomWalkerAstraSim.
+                    <desc_name classes="sig-name descname sig-name descname" xml:space="preserve">
+                        main
+                    <desc_parameterlist xml:space="preserve">
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                _
+                <desc_content>
+            <index entries="['single',\ 'wrap_in_envlogger()\ (in\ module\ sims.AstraSim.trainRandomWalkerAstraSim)',\ 'sims.AstraSim.trainRandomWalkerAstraSim.wrap_in_envlogger',\ '',\ None]">
+            <desc classes="py function" desctype="function" domain="py" nocontentsentry="False" noindex="False" noindexentry="False" objtype="function">
+                <desc_signature _toc_name="wrap_in_envlogger()" _toc_parts="sims.AstraSim.trainRandomWalkerAstraSim wrap_in_envlogger" class="" classes="sig sig-object py sig sig-object" fullname="wrap_in_envlogger" ids="sims.AstraSim.trainRandomWalkerAstraSim.wrap_in_envlogger" module="sims.AstraSim.trainRandomWalkerAstraSim">
+                    <desc_addname classes="sig-prename descclassname sig-prename descclassname" xml:space="preserve">
+                        sims.AstraSim.trainRandomWalkerAstraSim.
+                    <desc_name classes="sig-name descname sig-name descname" xml:space="preserve">
+                        wrap_in_envlogger
+                    <desc_parameterlist xml:space="preserve">
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                env
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                envlogger_dir
+                <desc_content>
+            <index entries="['single',\ 'write_network()\ (in\ module\ sims.AstraSim.trainRandomWalkerAstraSim)',\ 'sims.AstraSim.trainRandomWalkerAstraSim.write_network',\ '',\ None]">
+            <desc classes="py function" desctype="function" domain="py" nocontentsentry="False" noindex="False" noindexentry="False" objtype="function">
+                <desc_signature _toc_name="write_network()" _toc_parts="sims.AstraSim.trainRandomWalkerAstraSim write_network" class="" classes="sig sig-object py sig sig-object" fullname="write_network" ids="sims.AstraSim.trainRandomWalkerAstraSim.write_network" module="sims.AstraSim.trainRandomWalkerAstraSim">
+                    <desc_addname classes="sig-prename descclassname sig-prename descclassname" xml:space="preserve">
+                        sims.AstraSim.trainRandomWalkerAstraSim.
+                    <desc_name classes="sig-name descname sig-name descname" xml:space="preserve">
+                        write_network
+                    <desc_parameterlist xml:space="preserve">
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                dimension
+                <desc_content>
+            <index entries="['single',\ 'write_system()\ (in\ module\ sims.AstraSim.trainRandomWalkerAstraSim)',\ 'sims.AstraSim.trainRandomWalkerAstraSim.write_system',\ '',\ None]">
+            <desc classes="py function" desctype="function" domain="py" nocontentsentry="False" noindex="False" noindexentry="False" objtype="function">
+                <desc_signature _toc_name="write_system()" _toc_parts="sims.AstraSim.trainRandomWalkerAstraSim write_system" class="" classes="sig sig-object py sig sig-object" fullname="write_system" ids="sims.AstraSim.trainRandomWalkerAstraSim.write_system" module="sims.AstraSim.trainRandomWalkerAstraSim">
+                    <desc_addname classes="sig-prename descclassname sig-prename descclassname" xml:space="preserve">
+                        sims.AstraSim.trainRandomWalkerAstraSim.
+                    <desc_name classes="sig-name descname sig-name descname" xml:space="preserve">
+                        write_system
+                    <desc_parameterlist xml:space="preserve">
+                        <desc_parameter xml:space="preserve">
+                            <desc_sig_name classes="n n">
+                                dimension
+                <desc_content>
+            <index entries="['single',\ 'write_workload()\ (in\ module\ sims.AstraSim.trainRandomWalkerAstraSim)',\ 'sims.AstraSim.trainRandomWalkerAstraSim.write_workload',\ '',\ None]">
+            <desc classes="py function" desctype="function" domain="py" nocontentsentry="False" noindex="False" noindexentry="False" objtype="function">
+                <desc_signature _toc_name="write_workload()" _toc_parts="sims.AstraSim.trainRandomWalkerAstraSim write_workload" class="" classes="sig sig-object py sig sig-object" fullname="write_workload" ids="sims.AstraSim.trainRandomWalkerAstraSim.write_workload" module="sims.AstraSim.trainRandomWalkerAstraSim">
+                    <desc_addname classes="sig-prename descclassname sig-prename descclassname" xml:space="preserve">
+                        sims.AstraSim.trainRandomWalkerAstraSim.
+                    <desc_name classes="sig-name descname sig-name descname" xml:space="preserve">
+                        write_workload
+                    <desc_parameterlist xml:space="preserve">
+                <desc_content>
+        <section ids="module-sims.AstraSim module-contents" names="module\ contents">
+            <title>
+                Module contents
+            <index entries="['pair',\ 'module;\ sims.AstraSim',\ 'module-sims.AstraSim',\ '',\ None]">

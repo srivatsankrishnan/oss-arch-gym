@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>arch_gym.envs.AstraSimEnv &mdash; ArchGym 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ArchGym
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro_vizier.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro_vizier.html#objective">Objective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro_vizier.html#supported-algorithms">Supported Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../customenv.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../customenv.html#example">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../customenv.html#supported-algorithms">Supported Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules_arch_gym.html">arch_gym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules_sims.html">sims</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ArchGym</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">arch_gym.envs.AstraSimEnv</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for arch_gym.envs.AstraSimEnv</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">gym</span>
+<span class="kn">from</span> <span class="nn">gym.utils</span> <span class="kn">import</span> <span class="n">seeding</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">settings_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+<span class="n">settings_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">settings_file_path</span><span class="p">)</span>
+<span class="n">proj_root_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings_dir_path</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">)</span>
+
+<span class="n">sim_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">proj_root_path</span><span class="p">,</span> <span class="s2">&quot;sims&quot;</span><span class="p">,</span> <span class="s2">&quot;AstraSim&quot;</span><span class="p">)</span>
+
+<span class="c1"># astra-sim environment</span>
+<div class="viewcode-block" id="AstraSimEnv"><a class="viewcode-back" href="../../../arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv">[docs]</a><span class="k">class</span> <span class="nc">AstraSimEnv</span><span class="p">(</span><span class="n">gym</span><span class="o">.</span><span class="n">Env</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rl_form</span><span class="o">=</span><span class="s2">&quot;random_walker&quot;</span><span class="p">,</span> <span class="n">max_steps</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_agents</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">reward_formulation</span><span class="o">=</span><span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="n">reward_scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1"># action space = set of all possible actions. Space.sample() returns a random action</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_space</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">spaces</span><span class="o">.</span><span class="n">Discrete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># observation space =  set of all possible observations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observation_space</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">spaces</span><span class="o">.</span><span class="n">Discrete</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># set parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_steps</span> <span class="o">=</span> <span class="n">max_steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">useful_counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rl_form</span> <span class="o">=</span> <span class="n">rl_form</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_agents</span> <span class="o">=</span> <span class="n">num_agents</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_formulation</span> <span class="o">=</span> <span class="n">reward_formulation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reward_scaling</span> <span class="o">=</span> <span class="n">reward_scaling</span>
+
+        <span class="c1"># goal of the agent is to find the average</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">goal</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_positions</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># set the reward, state, done, and info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">exe_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sim_path</span><span class="p">,</span> <span class="s2">&quot;run_general.sh&quot;</span><span class="p">)</span>
+        <span class="c1"># self.network_config = os.path.join(sim_path, &quot;general_network.json&quot;)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">system_config</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sim_path</span><span class="p">,</span> <span class="s2">&quot;general_system.txt&quot;</span><span class="p">)</span>
+
+        <span class="c1"># V1 networks, systems, and workloads folder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">networks_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sim_path</span><span class="p">,</span> <span class="s2">&quot;astrasim-archgym/dse/archgen_v1_knobs/templates/network&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">workloads_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sim_path</span><span class="p">,</span> <span class="s2">&quot;astrasim-archgym/themis/inputs/workload&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">network_config</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">networks_folder</span><span class="p">,</span> <span class="s2">&quot;3d_fc_ring_switch.json&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">workload_config</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sim_path</span><span class="p">,</span> <span class="s2">&quot;realworld_workloads/transformer_1t_fused_only_t.txt&quot;</span><span class="p">)</span>
+
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;_____________________*****************************_____________________&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+    <span class="c1"># reset function</span>
+
+<div class="viewcode-block" id="AstraSimEnv.reset"><a class="viewcode-back" href="../../../arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.reset">[docs]</a>    <span class="k">def</span> <span class="nf">reset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># get results folder path</span>
+        <span class="n">results_folder_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sim_path</span><span class="p">,</span> <span class="s2">&quot;results&quot;</span><span class="p">,</span> <span class="s2">&quot;run_general&quot;</span><span class="p">)</span>
+
+        <span class="c1"># # find wildcard csv and m files</span>
+        <span class="n">csv_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">results_folder_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.csv&#39;</span><span class="p">)]</span>
+
+        <span class="c1"># # remove the files</span>
+        <span class="k">for</span> <span class="n">csv_files</span> <span class="ow">in</span> <span class="n">csv_files</span><span class="p">:</span>
+            <span class="n">csv_files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results_folder_path</span><span class="p">,</span> <span class="n">csv_files</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">csv_files</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">csv_files</span><span class="p">)</span>
+        <span class="k">return</span></div>
+
+    <span class="c1"># parses a result csv file and stores it in a dictionary</span>
+<div class="viewcode-block" id="AstraSimEnv.parse_result"><a class="viewcode-back" href="../../../arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.parse_result">[docs]</a>    <span class="k">def</span> <span class="nf">parse_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">header</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">header</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result_dict</span><span class="p">:</span>
+                            <span class="n">result_dict</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="n">header</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                            <span class="n">result_dict</span><span class="p">[</span><span class="n">header</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">header</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">result_dict</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error parsing file: &quot;</span> <span class="o">+</span> <span class="n">file_name</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{}</span></div>
+
+    <span class="c1"># randomize the network config</span>
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;position: </span><span class="si">{:2d}</span><span class="s2"> reward: </span><span class="si">{:2d}</span><span class="s2"> info: </span><span class="si">{}</span><span class="s2">&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reward</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">))</span>
+
+<div class="viewcode-block" id="AstraSimEnv.seed"><a class="viewcode-back" href="../../../arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.seed">[docs]</a>    <span class="k">def</span> <span class="nf">seed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">np_random</span><span class="p">,</span> <span class="n">seed</span> <span class="o">=</span> <span class="n">seeding</span><span class="o">.</span><span class="n">np_random</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">seed</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="AstraSimEnv.close"><a class="viewcode-back" href="../../../arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+    <span class="c1"># reward only looks at first value of fw, ig, and wg compute</span>
+<div class="viewcode-block" id="AstraSimEnv.calculate_reward"><a class="viewcode-back" href="../../../arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.calculate_reward">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_reward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observations</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Calculating reward...&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">observations</span><span class="p">)</span>
+        <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">obs</span> <span class="ow">in</span> <span class="n">observations</span><span class="p">:</span>
+            <span class="nb">sum</span> <span class="o">+=</span> <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="n">obs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="nb">sum</span> <span class="o">**</span> <span class="mf">0.5</span><span class="p">)</span></div>
+
+    <span class="c1"># give it one action: one set of parameters from json file</span>
+<div class="viewcode-block" id="AstraSimEnv.step"><a class="viewcode-back" href="../../../arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.step">[docs]</a>    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_dict</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Step function for the environment</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># write the three config files</span>
+        <span class="c1"># with open(self.network_config, &quot;w&quot;) as outfile:</span>
+        <span class="c1">#     outfile.write(json.dumps(action_dict[&#39;network&#39;], indent=4))</span>
+        <span class="k">if</span> <span class="s2">&quot;path&quot;</span> <span class="ow">in</span> <span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">network_config</span> <span class="o">=</span> <span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;network&quot;</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="s2">&quot;path&quot;</span> <span class="ow">in</span> <span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;workload&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">workload_config</span> <span class="o">=</span> <span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;workload&quot;</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+
+        <span class="c1"># load knobs</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;system_config&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;system&quot;</span><span class="p">])</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system_config</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">action_dict</span><span class="p">[</span><span class="s2">&quot;system&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="c1"># the action is actually the parsed parameter files</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Step: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_steps</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">done</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Maximum steps reached&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="c1"># start subrpocess to run the simulation</span>
+        <span class="c1"># $1: network, $2: system, $3: workload</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running simulation...&quot;</span><span class="p">)</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">exe_path</span><span class="p">,</span> 
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">network_config</span><span class="p">,</span> 
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">system_config</span><span class="p">,</span> 
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">workload_config</span><span class="p">],</span>
+                                    <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+
+        <span class="c1"># get the output</span>
+        <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+        <span class="n">outstream</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------------------------------------------------------------&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">outstream</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------------------------------------------------------------&quot;</span><span class="p">)</span>
+
+        <span class="c1"># backend_dim_info.csv</span>
+        <span class="n">backend_dim_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_result</span><span class="p">(</span><span class="n">sim_path</span> <span class="o">+</span> 
+            <span class="s1">&#39;/results/run_general/backend_dim_info.csv&#39;</span><span class="p">)</span>
+        <span class="c1"># backend_end_to_end.csv</span>
+        <span class="n">backend_end_to_end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_result</span><span class="p">(</span><span class="n">sim_path</span> <span class="o">+</span> 
+            <span class="s1">&#39;/results/run_general/backend_end_to_end.csv&#39;</span><span class="p">)</span>
+        <span class="c1"># detailed.csv</span>
+        <span class="n">detailed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_result</span><span class="p">(</span><span class="n">sim_path</span> <span class="o">+</span>
+            <span class="s1">&#39;/results/run_general/detailed.csv&#39;</span><span class="p">)</span>
+        <span class="c1"># EndToEnd.csv</span>
+        <span class="n">end_to_end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_result</span><span class="p">(</span><span class="n">sim_path</span> <span class="o">+</span>
+            <span class="s1">&#39;/results/run_general/EndToEnd.csv&#39;</span><span class="p">)</span>
+        <span class="c1"># sample_all_reduce_dimension_utilization.csv</span>
+        <span class="n">sample_all_reduce_dimension_utilization</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_result</span><span class="p">(</span><span class="n">sim_path</span> <span class="o">+</span>
+            <span class="s1">&#39;/results/run_general/sample_all_reduce_dimension_utilization.csv&#39;</span><span class="p">)</span>
+
+        <span class="c1"># test if the csv files exist (if they don&#39;t, the config files are invalid)</span>
+        <span class="k">if</span> <span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">backend_dim_info</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">backend_end_to_end</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span>
+             <span class="nb">len</span><span class="p">(</span><span class="n">detailed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">end_to_end</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span>
+             <span class="nb">len</span><span class="p">(</span><span class="n">sample_all_reduce_dimension_utilization</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)):</span>
+            <span class="c1"># set reward to be extremely negative</span>
+            <span class="n">reward</span> <span class="o">=</span> <span class="o">-</span><span class="mi">100000</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reward: &quot;</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">[[],</span> <span class="n">reward</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">done</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;useful_counter&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">useful_counter</span><span class="p">},</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># only recording the first line because apparently they are all the same? TODO</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">observations</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">backend_end_to_end</span><span class="p">[</span><span class="s2">&quot;CommsTime&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">end_to_end</span><span class="p">[</span><span class="s2">&quot;fwd compute&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">end_to_end</span><span class="p">[</span><span class="s2">&quot;wg compute&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">end_to_end</span><span class="p">[</span><span class="s2">&quot;ig compute&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">end_to_end</span><span class="p">[</span><span class="s2">&quot;total exposed comm&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">]</span>
+            <span class="n">reward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_reward</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">observations</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reward: &quot;</span><span class="p">,</span> <span class="n">reward</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;observations: &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">observations</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">useful_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">observations</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">done</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;useful_counter&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">useful_counter</span><span class="p">},</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">]</span></div></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Testing AstraSimEnv&quot;</span><span class="p">)</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">AstraSimEnv</span><span class="p">(</span><span class="n">rl_form</span><span class="o">=</span><span class="s1">&#39;random_walker&#39;</span><span class="p">,</span> 
+                      <span class="n">max_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> 
+                      <span class="n">num_agents</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+                      <span class="n">reward_formulation</span><span class="o">=</span><span class="s1">&#39;reward_formulation_1&#39;</span><span class="p">,</span> 
+                      <span class="n">reward_scaling</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+
+
+
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Everytime rest happens: </span>
+<span class="sd">    - zero out the observation</span>
+
+<span class="sd">    3/24: </span>
+<span class="sd">    Communication Time (unit: microseconds)</span>
+<span class="sd">    Time breakdowns (forward pass, weight gradient, input gradient)</span>
+<span class="sd">    Exposed communication</span>
+
+
+<span class="sd">    3/31: </span>
+<span class="sd">    Catch errors by giving it high negative reward. This way we can test the range. </span>
+<span class="sd">    </span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, --.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,215 @@
+<document source="/home/shreyas/Documents/HUVJR/oss-arch-gym/docs/source/sims.rst" xmlns:c="https://www.sphinx-doc.org/" xmlns:changeset="https://www.sphinx-doc.org/" xmlns:citation="https://www.sphinx-doc.org/" xmlns:cpp="https://www.sphinx-doc.org/" xmlns:index="https://www.sphinx-doc.org/" xmlns:js="https://www.sphinx-doc.org/" xmlns:math="https://www.sphinx-doc.org/" xmlns:py="https://www.sphinx-doc.org/" xmlns:rst="https://www.sphinx-doc.org/" xmlns:std="https://www.sphinx-doc.org/" xmlns:todo="https://www.sphinx-doc.org/">
+    <section ids="sims-package" names="sims\ package">
+        <title>
+            sims package
+        <section ids="subpackages" names="subpackages">
+            <title>
+                Subpackages
+            <compound classes="toctree-wrapper">
+                <compact_paragraph toctree="True">
+                    <bullet_list>
+                        <list_item classes="toctree-l1">
+                            <compact_paragraph classes="toctree-l1">
+                                <reference anchorname="" internal="True" refuri="sims.AstraSim">
+                                    sims.AstraSim package
+                            <bullet_list>
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#submodules" internal="True" refuri="sims.AstraSim#submodules">
+                                            Submodules
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#module-sims.AstraSim.restructure" internal="True" refuri="sims.AstraSim#module-sims.AstraSim.restructure">
+                                            sims.AstraSim.restructure module
+                                    <bullet_list>
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.AstraSim.restructure.merge_columns" internal="True" refuri="sims.AstraSim#sims.AstraSim.restructure.merge_columns">
+                                                    <literal>
+                                                        merge_columns()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.AstraSim.restructure.read_csv_column" internal="True" refuri="sims.AstraSim#sims.AstraSim.restructure.read_csv_column">
+                                                    <literal>
+                                                        read_csv_column()
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#module-sims.AstraSim.trainRandomWalkerAstraSim" internal="True" refuri="sims.AstraSim#module-sims.AstraSim.trainRandomWalkerAstraSim">
+                                            sims.AstraSim.trainRandomWalkerAstraSim module
+                                    <bullet_list>
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.AstraSim.trainRandomWalkerAstraSim.generate_random_actions" internal="True" refuri="sims.AstraSim#sims.AstraSim.trainRandomWalkerAstraSim.generate_random_actions">
+                                                    <literal>
+                                                        generate_random_actions()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.AstraSim.trainRandomWalkerAstraSim.log_results_to_csv" internal="True" refuri="sims.AstraSim#sims.AstraSim.trainRandomWalkerAstraSim.log_results_to_csv">
+                                                    <literal>
+                                                        log_results_to_csv()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.AstraSim.trainRandomWalkerAstraSim.main" internal="True" refuri="sims.AstraSim#sims.AstraSim.trainRandomWalkerAstraSim.main">
+                                                    <literal>
+                                                        main()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.AstraSim.trainRandomWalkerAstraSim.wrap_in_envlogger" internal="True" refuri="sims.AstraSim#sims.AstraSim.trainRandomWalkerAstraSim.wrap_in_envlogger">
+                                                    <literal>
+                                                        wrap_in_envlogger()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.AstraSim.trainRandomWalkerAstraSim.write_network" internal="True" refuri="sims.AstraSim#sims.AstraSim.trainRandomWalkerAstraSim.write_network">
+                                                    <literal>
+                                                        write_network()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.AstraSim.trainRandomWalkerAstraSim.write_system" internal="True" refuri="sims.AstraSim#sims.AstraSim.trainRandomWalkerAstraSim.write_system">
+                                                    <literal>
+                                                        write_system()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.AstraSim.trainRandomWalkerAstraSim.write_workload" internal="True" refuri="sims.AstraSim#sims.AstraSim.trainRandomWalkerAstraSim.write_workload">
+                                                    <literal>
+                                                        write_workload()
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#module-sims.AstraSim" internal="True" refuri="sims.AstraSim#module-sims.AstraSim">
+                                            Module contents
+                        <list_item classes="toctree-l1">
+                            <compact_paragraph classes="toctree-l1">
+                                <reference anchorname="" internal="True" refuri="sims.customenv">
+                                    sims.customenv package
+                            <bullet_list>
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#submodules" internal="True" refuri="sims.customenv#submodules">
+                                            Submodules
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#module-sims.customenv.train_EMUKIT_GP_vizier" internal="True" refuri="sims.customenv#module-sims.customenv.train_EMUKIT_GP_vizier">
+                                            sims.customenv.train_EMUKIT_GP_vizier module
+                                    <bullet_list>
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_EMUKIT_GP_vizier.log_fitness_to_csv" internal="True" refuri="sims.customenv#sims.customenv.train_EMUKIT_GP_vizier.log_fitness_to_csv">
+                                                    <literal>
+                                                        log_fitness_to_csv()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_EMUKIT_GP_vizier.main" internal="True" refuri="sims.customenv#sims.customenv.train_EMUKIT_GP_vizier.main">
+                                                    <literal>
+                                                        main()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_EMUKIT_GP_vizier.wrap_in_envlogger" internal="True" refuri="sims.customenv#sims.customenv.train_EMUKIT_GP_vizier.wrap_in_envlogger">
+                                                    <literal>
+                                                        wrap_in_envlogger()
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#module-sims.customenv.train_NSGA2_vizier" internal="True" refuri="sims.customenv#module-sims.customenv.train_NSGA2_vizier">
+                                            sims.customenv.train_NSGA2_vizier module
+                                    <bullet_list>
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_NSGA2_vizier.log_fitness_to_csv" internal="True" refuri="sims.customenv#sims.customenv.train_NSGA2_vizier.log_fitness_to_csv">
+                                                    <literal>
+                                                        log_fitness_to_csv()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_NSGA2_vizier.main" internal="True" refuri="sims.customenv#sims.customenv.train_NSGA2_vizier.main">
+                                                    <literal>
+                                                        main()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_NSGA2_vizier.wrap_in_envlogger" internal="True" refuri="sims.customenv#sims.customenv.train_NSGA2_vizier.wrap_in_envlogger">
+                                                    <literal>
+                                                        wrap_in_envlogger()
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#module-sims.customenv.train_gridsearch_vizier" internal="True" refuri="sims.customenv#module-sims.customenv.train_gridsearch_vizier">
+                                            sims.customenv.train_gridsearch_vizier module
+                                    <bullet_list>
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_gridsearch_vizier.log_fitness_to_csv" internal="True" refuri="sims.customenv#sims.customenv.train_gridsearch_vizier.log_fitness_to_csv">
+                                                    <literal>
+                                                        log_fitness_to_csv()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_gridsearch_vizier.main" internal="True" refuri="sims.customenv#sims.customenv.train_gridsearch_vizier.main">
+                                                    <literal>
+                                                        main()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_gridsearch_vizier.wrap_in_envlogger" internal="True" refuri="sims.customenv#sims.customenv.train_gridsearch_vizier.wrap_in_envlogger">
+                                                    <literal>
+                                                        wrap_in_envlogger()
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#module-sims.customenv.train_quasirandom_vizier" internal="True" refuri="sims.customenv#module-sims.customenv.train_quasirandom_vizier">
+                                            sims.customenv.train_quasirandom_vizier module
+                                    <bullet_list>
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_quasirandom_vizier.log_fitness_to_csv" internal="True" refuri="sims.customenv#sims.customenv.train_quasirandom_vizier.log_fitness_to_csv">
+                                                    <literal>
+                                                        log_fitness_to_csv()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_quasirandom_vizier.main" internal="True" refuri="sims.customenv#sims.customenv.train_quasirandom_vizier.main">
+                                                    <literal>
+                                                        main()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_quasirandom_vizier.wrap_in_envlogger" internal="True" refuri="sims.customenv#sims.customenv.train_quasirandom_vizier.wrap_in_envlogger">
+                                                    <literal>
+                                                        wrap_in_envlogger()
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#module-sims.customenv.train_randomsearch_vizier" internal="True" refuri="sims.customenv#module-sims.customenv.train_randomsearch_vizier">
+                                            sims.customenv.train_randomsearch_vizier module
+                                    <bullet_list>
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_randomsearch_vizier.log_fitness_to_csv" internal="True" refuri="sims.customenv#sims.customenv.train_randomsearch_vizier.log_fitness_to_csv">
+                                                    <literal>
+                                                        log_fitness_to_csv()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_randomsearch_vizier.main" internal="True" refuri="sims.customenv#sims.customenv.train_randomsearch_vizier.main">
+                                                    <literal>
+                                                        main()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_randomsearch_vizier.wrap_in_envlogger" internal="True" refuri="sims.customenv#sims.customenv.train_randomsearch_vizier.wrap_in_envlogger">
+                                                    <literal>
+                                                        wrap_in_envlogger()
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#module-sims.customenv.train_randomwalker" internal="True" refuri="sims.customenv#module-sims.customenv.train_randomwalker">
+                                            sims.customenv.train_randomwalker module
+                                    <bullet_list>
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_randomwalker.log_fitness_to_csv" internal="True" refuri="sims.customenv#sims.customenv.train_randomwalker.log_fitness_to_csv">
+                                                    <literal>
+                                                        log_fitness_to_csv()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_randomwalker.main" internal="True" refuri="sims.customenv#sims.customenv.train_randomwalker.main">
+                                                    <literal>
+                                                        main()
+                                        <list_item classes="toctree-l3">
+                                            <compact_paragraph classes="toctree-l3" skip_section_number="True">
+                                                <reference anchorname="#sims.customenv.train_randomwalker.wrap_in_envlogger" internal="True" refuri="sims.customenv#sims.customenv.train_randomwalker.wrap_in_envlogger">
+                                                    <literal>
+                                                        wrap_in_envlogger()
+                                <list_item classes="toctree-l2">
+                                    <compact_paragraph classes="toctree-l2">
+                                        <reference anchorname="#module-sims.customenv" internal="True" refuri="sims.customenv#module-sims.customenv">
+                                            Module contents
+        <section ids="module-sims module-contents" names="module\ contents">
+            <title>
+                Module contents
+            <index entries="['pair',\ 'module;\ sims',\ 'module-sims',\ '',\ None]">

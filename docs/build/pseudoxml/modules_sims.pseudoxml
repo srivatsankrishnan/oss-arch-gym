@@ -1,0 +1,79 @@
+<document source="/home/shreyas/Documents/HUVJR/oss-arch-gym/docs/source/modules_sims.rst" xmlns:c="https://www.sphinx-doc.org/" xmlns:changeset="https://www.sphinx-doc.org/" xmlns:citation="https://www.sphinx-doc.org/" xmlns:cpp="https://www.sphinx-doc.org/" xmlns:index="https://www.sphinx-doc.org/" xmlns:js="https://www.sphinx-doc.org/" xmlns:math="https://www.sphinx-doc.org/" xmlns:py="https://www.sphinx-doc.org/" xmlns:rst="https://www.sphinx-doc.org/" xmlns:std="https://www.sphinx-doc.org/" xmlns:todo="https://www.sphinx-doc.org/">
+    <section ids="sims" names="sims">
+        <title>
+            sims
+        <compound classes="toctree-wrapper">
+            <compact_paragraph toctree="True">
+                <bullet_list>
+                    <list_item classes="toctree-l1">
+                        <compact_paragraph classes="toctree-l1">
+                            <reference anchorname="" internal="True" refuri="sims">
+                                sims package
+                        <bullet_list>
+                            <list_item classes="toctree-l2">
+                                <compact_paragraph classes="toctree-l2">
+                                    <reference anchorname="#subpackages" internal="True" refuri="sims#subpackages">
+                                        Subpackages
+                                <bullet_list>
+                                    <list_item classes="toctree-l3">
+                                        <compact_paragraph classes="toctree-l3">
+                                            <reference anchorname="" internal="True" refuri="sims.AstraSim">
+                                                sims.AstraSim package
+                                        <bullet_list>
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#submodules" internal="True" refuri="sims.AstraSim#submodules">
+                                                        Submodules
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#module-sims.AstraSim.restructure" internal="True" refuri="sims.AstraSim#module-sims.AstraSim.restructure">
+                                                        sims.AstraSim.restructure module
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#module-sims.AstraSim.trainRandomWalkerAstraSim" internal="True" refuri="sims.AstraSim#module-sims.AstraSim.trainRandomWalkerAstraSim">
+                                                        sims.AstraSim.trainRandomWalkerAstraSim module
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#module-sims.AstraSim" internal="True" refuri="sims.AstraSim#module-sims.AstraSim">
+                                                        Module contents
+                                    <list_item classes="toctree-l3">
+                                        <compact_paragraph classes="toctree-l3">
+                                            <reference anchorname="" internal="True" refuri="sims.customenv">
+                                                sims.customenv package
+                                        <bullet_list>
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#submodules" internal="True" refuri="sims.customenv#submodules">
+                                                        Submodules
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#module-sims.customenv.train_EMUKIT_GP_vizier" internal="True" refuri="sims.customenv#module-sims.customenv.train_EMUKIT_GP_vizier">
+                                                        sims.customenv.train_EMUKIT_GP_vizier module
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#module-sims.customenv.train_NSGA2_vizier" internal="True" refuri="sims.customenv#module-sims.customenv.train_NSGA2_vizier">
+                                                        sims.customenv.train_NSGA2_vizier module
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#module-sims.customenv.train_gridsearch_vizier" internal="True" refuri="sims.customenv#module-sims.customenv.train_gridsearch_vizier">
+                                                        sims.customenv.train_gridsearch_vizier module
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#module-sims.customenv.train_quasirandom_vizier" internal="True" refuri="sims.customenv#module-sims.customenv.train_quasirandom_vizier">
+                                                        sims.customenv.train_quasirandom_vizier module
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#module-sims.customenv.train_randomsearch_vizier" internal="True" refuri="sims.customenv#module-sims.customenv.train_randomsearch_vizier">
+                                                        sims.customenv.train_randomsearch_vizier module
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#module-sims.customenv.train_randomwalker" internal="True" refuri="sims.customenv#module-sims.customenv.train_randomwalker">
+                                                        sims.customenv.train_randomwalker module
+                                            <list_item classes="toctree-l4">
+                                                <compact_paragraph classes="toctree-l4">
+                                                    <reference anchorname="#module-sims.customenv" internal="True" refuri="sims.customenv#module-sims.customenv">
+                                                        Module contents
+                            <list_item classes="toctree-l2">
+                                <compact_paragraph classes="toctree-l2">
+                                    <reference anchorname="#module-sims" internal="True" refuri="sims#module-sims">
+                                        Module contents

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; ArchGym 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="arch_gym" href="modules_arch_gym.html" />
+    <link rel="prev" title="Introduction" href="intro_vizier.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ArchGym
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro_vizier.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro_vizier.html#objective">Objective</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro_vizier.html#supported-algorithms">Supported Algorithms</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#supported-algorithms">Supported Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules_arch_gym.html">arch_gym</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules_sims.html">sims</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ArchGym</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/customenv.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
+<p>Custom Environment - While, gym environment is primarily designed for applying reinforcement learning algorithms, we show how we can generalize that interface to use it to apply any ML algorithms.
+We show how different ways in which various machine learning techniques have been applied to design specialized hardware.
+Recreating these results and overcoming the challenges of getting to work with complex architecture simulators, its sheer slowness increases the barrier of entry for ML-aided design.
+Hence, ArchGym tries to lower this barrier by advocating for a general interface through which we can apply ML-aided design while being agnostic to type of ML algorithm or the simulator type.</p>
+</section>
+<section id="example">
+<h1>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h1>
+<p>Let’s say we have a hypothetical architecture which has four parameters, namely, number of cores (<code class="docutils literal notranslate"><span class="pre">num_cores</span></code>, type integer), frequency (<code class="docutils literal notranslate"><span class="pre">freq</span></code>, type float), memory type (<code class="docutils literal notranslate"><span class="pre">mem_type</span></code>, {DRAM, SRAM, Hybrid})
+and memory size (<code class="docutils literal notranslate"><span class="pre">mem_size</span></code>, type integer).
+We want to use the algorithms available in OSS-Vizier to find the optimal values of these parameters.
+The file <code class="docutils literal notranslate"><span class="pre">custom_env.py</span></code> shows this particular customised environment.
+There are bunch of algorithms which vizier supports :</p>
+</section>
+<section id="supported-algorithms">
+<h1>Supported Algorithms<a class="headerlink" href="#supported-algorithms" title="Permalink to this heading"></a></h1>
+<p>The following algorithms are currently supported the vizier version:</p>
+<ol class="arabic simple">
+<li><p>Random Search (<code class="docutils literal notranslate"><span class="pre">RANDOM_SEARCH</span></code>): Flat Search Spaces.</p></li>
+<li><p>Quasi-Random Search (<code class="docutils literal notranslate"><span class="pre">QUASI_RANDOM_SEARCH</span></code>): Flat Search Spaces.</p></li>
+<li><p>Grid Search (<code class="docutils literal notranslate"><span class="pre">GRID_SEARCH</span></code>): Flat Search Spaces.</p></li>
+<li><p>Emukit Bayesian Optimization (<code class="docutils literal notranslate"><span class="pre">EMUKIT_GP_EI</span></code>): Flat Search Spaces.</p></li>
+<li><p>NSGA2 (<code class="docutils literal notranslate"><span class="pre">NSGA2</span></code>) : Flat Search Spaces.</p></li>
+</ol>
+<p>For example, if we want to use <code class="docutils literal notranslate"><span class="pre">RANDOM_SEARCH</span></code> algorithm, we can use <code class="docutils literal notranslate"><span class="pre">train_randomsearch_vizier.py</span></code> file. The structure of this code, Detailed description can be found here (add hyperlink for this module)
+If you wish to use any other of the supported algorithms, simply change line <code class="docutils literal notranslate"><span class="pre">study_config.algorithm</span> <span class="pre">=</span> <span class="pre">vz.Algorithm.RANDOM_SEARCH</span></code> to <code class="docutils literal notranslate"><span class="pre">study_config.algorithm</span> <span class="pre">=</span> <span class="pre">vz.Algorithm.&lt;ALGORITHM_NAME&gt;</span></code>. Also, make sure to change the names of directories in the following places :
+<code class="docutils literal notranslate"><span class="pre">flags.DEFINE_string('traject_dir',</span>&#160; <span class="pre">'&lt;algo_name&gt;_trajectories',</span>&#160; <span class="pre">'Directory</span> <span class="pre">to</span> <span class="pre">save</span> <span class="pre">the</span> <span class="pre">dataset.')</span></code>,
+<code class="docutils literal notranslate"><span class="pre">log_path</span> <span class="pre">=</span> <span class="pre">os.path.join(FLAGS.summary_dir,</span> <span class="pre">'&lt;algo_name&gt;_logs',</span> <span class="pre">FLAGS.reward_formulation,</span> <span class="pre">exp_name)</span></code>. This is done to ensure that the data logs in the respective algorithm directory only
+and does not override other algorithms’ data log.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="intro_vizier.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules_arch_gym.html" class="btn btn-neutral float-right" title="arch_gym" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, --.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
