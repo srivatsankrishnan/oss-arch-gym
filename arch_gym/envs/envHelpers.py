@@ -25,7 +25,7 @@ class helpers():
     def __init__(self):
         self.mem_control_basepath = arch_gym_configs.dram_mem_controller_config
         self.sniper_basepath = arch_gym_configs.sniper_config
-        self.timeloop_param_obj = TimeloopConfigParams(arch_gym_configs.timeloop_parameters)
+        #self.timeloop_param_obj = TimeloopConfigParams(arch_gym_configs.timeloop_parameters)
     
     def action_mapper(self, action, param):
         """
