@@ -29,8 +29,8 @@ import os
 os.sys.path.insert(0, os.path.abspath('../../'))
 print(os.sys.path)
 from configs import arch_gym_configs 
-from DRAMEnv import DRAMEnv
-from FARSIEnv import FARSISimEnv
+from arch_gym.envs.DRAMEnv import DRAMEnv
+from arch_gym.envs.FARSIEnv import FARSISimEnv
 from envHelpers import helpers
 class FARSISimEnvWrapper(dm_env.Environment):
   """Environment wrapper for OpenAI Gym environments."""
