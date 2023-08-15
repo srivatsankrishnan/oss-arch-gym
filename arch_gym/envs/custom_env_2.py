@@ -1,14 +1,21 @@
-from absl import flags, app
-import gym 
+#from absl import flags, app
 import numpy as np
 from gym import Env, spaces
 
 
 class SimpleArch(Env):
-    def __init__(self):
+    def __init__(self, max_steps=10):
         super(SimpleArch, self).__init__()
         
-        self.energy = 0.0; self.area = 0.0; self.latency = 0.0
+        #setting initial values
+        self.energy = 0.0
+        self.area = 0.0
+        self.latency = 0.0
+
+        self.max_steps = max_steps
+        self.counter = 0
+        self.observation = None
+        self.done = False
         
         
         # set ideal architecture parameters
@@ -33,7 +40,12 @@ class SimpleArch(Env):
     
     def step(self, action):
         # Extract the action values
-        num_cores, freq, mem_type, mem_size = action
+        num_cores = action['num_cores']
+        freq = action['freq']
+        mem_type = action['mem_type']
+        mem_size = action['mem_size'] 
+
+        action = np.array([num_cores, freq, mem_type, mem_size])
 
         # Compute the new state based on the action
         # these state values may be calculated using any random formulae for now
@@ -45,29 +57,33 @@ class SimpleArch(Env):
         # Compute the negative of Euclidean distance as the reward
         reward = -np.linalg.norm(self.ideal - action)
 
+        if (self.counter >= self.max_steps):
+            self.done = True
+            print("Maximum steps reached")
+            self.reset()
+        else:
+            self.counter += 1
+
 
         # Update the observation
-        observation = [self.energy, self.area, self.latency]
-
-        # Set done to True since we have a simple environment with a single episode
-        done = True
+        observation = np.array([self.energy, self.area, self.latency])
 
         # Return the new observation, reward, done flag, and additional information (empty dict in this case)
-        return observation, reward, done, {}
+        return observation, reward, self.done, {}
 
     def render(self, mode='human'):
         print (f'Energy: {self.energy}, Area: {self.area}, Latency: {self.latency}')
 
 
 
-def main(_):
-    env = SimpleArch()
-    env.reset()
-    action = env.action_space.sample()
-    print (f'Action: {action}')
-    env.render()
-    obs, reward, done, info = env.step(action)
-    print(reward)
+#def main(_):
+    #env = SimpleArch()
+    #env.reset()
+    #action = env.action_space.sample()
+    #print (f'Action: {action}')
+    #env.render()
+    #obs, reward, done, info = env.step(action)
+    #print(reward)
 
-if __name__ == '__main__':
-    app.run(main)
+#if __name__ == '__main__':
+    #app.run(main)
