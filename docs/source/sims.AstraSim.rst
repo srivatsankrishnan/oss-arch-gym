@@ -1,29 +1,26 @@
-sims.AstraSim package
-=====================
+AstraSim
+========
 
-Submodules
-----------
-
-sims.AstraSim.restructure module
---------------------------------
+Restructure
+-----------
 
 .. automodule:: sims.AstraSim.restructure
    :members:
    :undoc-members:
    :show-inheritance:
 
-sims.AstraSim.trainRandomWalkerAstraSim module
-----------------------------------------------
+Random Walker
+-------------
 
 .. automodule:: sims.AstraSim.trainRandomWalkerAstraSim
    :members:
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
+.. Module contents
+.. ---------------
 
-.. automodule:: sims.AstraSim
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. .. automodule:: sims.AstraSim
+..    :members:
+..    :undoc-members:
+..    :show-inheritance:

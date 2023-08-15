@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sims.customenv package &mdash; ArchGym 0.1.0 documentation</title>
+  <title>Custom Environment &mdash; ArchGym 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="sims.AstraSim package" href="sims.AstraSim.html" /> 
+    <link rel="prev" title="AstraSim" href="sims.AstraSim.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,21 +43,18 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro_vizier.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro_vizier.html#objective">Objective</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro_vizier.html#supported-algorithms">Supported Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customenv.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customenv.html#example">Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customenv.html#supported-algorithms">Supported Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules_arch_gym.html">arch_gym</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules_sims.html">sims</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="sims.html">sims package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="sims.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html">sims.AstraSim package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">sims.customenv package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation for Ubuntu VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="source_code.html">Source Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="modules_arch_gym.html">Environments for Architecture Simulators</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="modules_sims.html">Training Scripts for Architecture Simulators</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="sims.html">Training Scripts</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html">AstraSim</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Custom Environment</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="sims.html#module-sims">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -78,9 +75,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules_sims.html">sims</a></li>
-          <li class="breadcrumb-item"><a href="sims.html">sims package</a></li>
-      <li class="breadcrumb-item active">sims.customenv package</li>
+          <li class="breadcrumb-item"><a href="source_code.html">Source Code</a></li>
+          <li class="breadcrumb-item"><a href="modules_sims.html">Training Scripts for Architecture Simulators</a></li>
+          <li class="breadcrumb-item"><a href="sims.html">Training Scripts</a></li>
+      <li class="breadcrumb-item active">Custom Environment</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/sims.customenv.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,13 +88,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="sims-customenv-package">
-<h1>sims.customenv package<a class="headerlink" href="#sims-customenv-package" title="Permalink to this heading"></a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
-</section>
+  <section id="custom-environment">
+<h1>Custom Environment<a class="headerlink" href="#custom-environment" title="Permalink to this heading"></a></h1>
 <section id="module-sims.customenv.train_EMUKIT_GP_vizier">
-<span id="sims-customenv-train-emukit-gp-vizier-module"></span><h2>sims.customenv.train_EMUKIT_GP_vizier module<a class="headerlink" href="#module-sims.customenv.train_EMUKIT_GP_vizier" title="Permalink to this heading"></a></h2>
+<span id="emukit-gp"></span><h2>EMUKIT_GP<a class="headerlink" href="#module-sims.customenv.train_EMUKIT_GP_vizier" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sims.customenv.train_EMUKIT_GP_vizier.log_fitness_to_csv">
 <span class="sig-prename descclassname"><span class="pre">sims.customenv.train_EMUKIT_GP_vizier.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_EMUKIT_GP_vizier.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_EMUKIT_GP_vizier.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
@@ -133,7 +128,7 @@
 
 </section>
 <section id="module-sims.customenv.train_NSGA2_vizier">
-<span id="sims-customenv-train-nsga2-vizier-module"></span><h2>sims.customenv.train_NSGA2_vizier module<a class="headerlink" href="#module-sims.customenv.train_NSGA2_vizier" title="Permalink to this heading"></a></h2>
+<span id="nsga2"></span><h2>NSGA2<a class="headerlink" href="#module-sims.customenv.train_NSGA2_vizier" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sims.customenv.train_NSGA2_vizier.log_fitness_to_csv">
 <span class="sig-prename descclassname"><span class="pre">sims.customenv.train_NSGA2_vizier.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_NSGA2_vizier.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_NSGA2_vizier.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
@@ -170,7 +165,7 @@
 
 </section>
 <section id="module-sims.customenv.train_gridsearch_vizier">
-<span id="sims-customenv-train-gridsearch-vizier-module"></span><h2>sims.customenv.train_gridsearch_vizier module<a class="headerlink" href="#module-sims.customenv.train_gridsearch_vizier" title="Permalink to this heading"></a></h2>
+<span id="grid-search"></span><h2>Grid Search<a class="headerlink" href="#module-sims.customenv.train_gridsearch_vizier" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sims.customenv.train_gridsearch_vizier.log_fitness_to_csv">
 <span class="sig-prename descclassname"><span class="pre">sims.customenv.train_gridsearch_vizier.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_gridsearch_vizier.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_gridsearch_vizier.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
@@ -207,7 +202,7 @@
 
 </section>
 <section id="module-sims.customenv.train_quasirandom_vizier">
-<span id="sims-customenv-train-quasirandom-vizier-module"></span><h2>sims.customenv.train_quasirandom_vizier module<a class="headerlink" href="#module-sims.customenv.train_quasirandom_vizier" title="Permalink to this heading"></a></h2>
+<span id="quasi-random-search"></span><h2>Quasi-Random Search<a class="headerlink" href="#module-sims.customenv.train_quasirandom_vizier" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sims.customenv.train_quasirandom_vizier.log_fitness_to_csv">
 <span class="sig-prename descclassname"><span class="pre">sims.customenv.train_quasirandom_vizier.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_quasirandom_vizier.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_quasirandom_vizier.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
@@ -244,7 +239,7 @@
 
 </section>
 <section id="module-sims.customenv.train_randomsearch_vizier">
-<span id="sims-customenv-train-randomsearch-vizier-module"></span><h2>sims.customenv.train_randomsearch_vizier module<a class="headerlink" href="#module-sims.customenv.train_randomsearch_vizier" title="Permalink to this heading"></a></h2>
+<span id="random-search"></span><h2>Random Search<a class="headerlink" href="#module-sims.customenv.train_randomsearch_vizier" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sims.customenv.train_randomsearch_vizier.log_fitness_to_csv">
 <span class="sig-prename descclassname"><span class="pre">sims.customenv.train_randomsearch_vizier.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_randomsearch_vizier.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_randomsearch_vizier.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
@@ -281,7 +276,7 @@
 
 </section>
 <section id="module-sims.customenv.train_randomwalker">
-<span id="sims-customenv-train-randomwalker-module"></span><h2>sims.customenv.train_randomwalker module<a class="headerlink" href="#module-sims.customenv.train_randomwalker" title="Permalink to this heading"></a></h2>
+<span id="random-walker"></span><h2>Random Walker<a class="headerlink" href="#module-sims.customenv.train_randomwalker" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="sims.customenv.train_randomwalker.log_fitness_to_csv">
 <span class="sig-prename descclassname"><span class="pre">sims.customenv.train_randomwalker.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_randomwalker.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_randomwalker.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
@@ -325,7 +320,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="sims.AstraSim.html" class="btn btn-neutral float-left" title="sims.AstraSim package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sims.AstraSim.html" class="btn btn-neutral float-left" title="AstraSim" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

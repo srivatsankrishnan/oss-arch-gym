@@ -1,18 +1,14 @@
-arch\_gym package
-=================
-
-Subpackages
------------
-
+Environment
+===========
 .. toctree::
    :maxdepth: 4
 
    arch_gym.envs
 
-Module contents
----------------
+.. Module contents
+.. ---------------
 
-.. automodule:: arch_gym
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. .. automodule:: arch_gym
+..    :members:
+..    :undoc-members:
+..    :show-inheritance:

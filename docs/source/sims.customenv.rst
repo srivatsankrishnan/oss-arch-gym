@@ -1,61 +1,58 @@
-sims.customenv package
-======================
+Custom Environment
+==================
 
-Submodules
-----------
-
-sims.customenv.train\_EMUKIT\_GP\_vizier module
------------------------------------------------
+EMUKIT_GP
+---------
 
 .. automodule:: sims.customenv.train_EMUKIT_GP_vizier
    :members:
    :undoc-members:
    :show-inheritance:
 
-sims.customenv.train\_NSGA2\_vizier module
-------------------------------------------
+NSGA2
+-----
 
 .. automodule:: sims.customenv.train_NSGA2_vizier
    :members:
    :undoc-members:
    :show-inheritance:
 
-sims.customenv.train\_gridsearch\_vizier module
------------------------------------------------
+Grid Search
+-----------
 
 .. automodule:: sims.customenv.train_gridsearch_vizier
    :members:
    :undoc-members:
    :show-inheritance:
 
-sims.customenv.train\_quasirandom\_vizier module
-------------------------------------------------
+Quasi-Random Search
+-------------------
 
 .. automodule:: sims.customenv.train_quasirandom_vizier
    :members:
    :undoc-members:
    :show-inheritance:
 
-sims.customenv.train\_randomsearch\_vizier module
--------------------------------------------------
+Random Search
+-------------
 
 .. automodule:: sims.customenv.train_randomsearch_vizier
    :members:
    :undoc-members:
    :show-inheritance:
 
-sims.customenv.train\_randomwalker module
------------------------------------------
+Random Walker
+-------------
 
 .. automodule:: sims.customenv.train_randomwalker
    :members:
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
+.. Module contents
+.. ---------------
 
-.. automodule:: sims.customenv
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. .. automodule:: sims.customenv
+..    :members:
+..    :undoc-members:
+..    :show-inheritance:

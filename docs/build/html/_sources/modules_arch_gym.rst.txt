@@ -1,5 +1,5 @@
-arch_gym
-========
+Environments for Architecture Simulators
+========================================
 
 .. toctree::
    :maxdepth: 4

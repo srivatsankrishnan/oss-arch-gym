@@ -1,8 +1,5 @@
-sims package
-============
-
-Subpackages
------------
+Training Scripts
+================
 
 .. toctree::
    :maxdepth: 4
@@ -10,10 +7,10 @@ Subpackages
    sims.AstraSim
    sims.customenv
 
-Module contents
----------------
+.. Module contents
+.. ---------------
 
-.. automodule:: sims
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. .. automodule:: sims
+..    :members:
+..    :undoc-members:
+..    :show-inheritance:

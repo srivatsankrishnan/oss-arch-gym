@@ -10,10 +10,11 @@ Welcome to ArchGym's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   intro_vizier
-   customenv
-   modules_arch_gym
-   modules_sims
+   intro
+   installation
+   environments
+   agents
+   source_code
 
 Indices and tables
 ==================

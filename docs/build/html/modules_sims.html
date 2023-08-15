@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>sims &mdash; ArchGym 0.1.0 documentation</title>
+  <title>Training Scripts for Architecture Simulators &mdash; ArchGym 0.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="sims package" href="sims.html" />
-    <link rel="prev" title="arch_gym.envs package" href="arch_gym.envs.html" /> 
+    <link rel="next" title="Training Scripts" href="sims.html" />
+    <link rel="prev" title="Environments" href="arch_gym.envs.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,15 +44,16 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="intro_vizier.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro_vizier.html#objective">Objective</a></li>
-<li class="toctree-l1"><a class="reference internal" href="intro_vizier.html#supported-algorithms">Supported Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customenv.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customenv.html#example">Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customenv.html#supported-algorithms">Supported Algorithms</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules_arch_gym.html">arch_gym</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">sims</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="sims.html">sims package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation for Ubuntu VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="source_code.html">Source Code</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="modules_arch_gym.html">Environments for Architecture Simulators</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Training Scripts for Architecture Simulators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sims.html">Training Scripts</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -71,7 +72,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">sims</li>
+          <li class="breadcrumb-item"><a href="source_code.html">Source Code</a></li>
+      <li class="breadcrumb-item active">Training Scripts for Architecture Simulators</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/modules_sims.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -81,33 +83,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="sims">
-<h1>sims<a class="headerlink" href="#sims" title="Permalink to this heading"></a></h1>
+  <section id="training-scripts-for-architecture-simulators">
+<h1>Training Scripts for Architecture Simulators<a class="headerlink" href="#training-scripts-for-architecture-simulators" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="sims.html">sims package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="sims.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="sims.AstraSim.html">sims.AstraSim package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#module-sims.AstraSim.restructure">sims.AstraSim.restructure module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#module-sims.AstraSim.trainRandomWalkerAstraSim">sims.AstraSim.trainRandomWalkerAstraSim module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#module-sims.AstraSim">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sims.html">Training Scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sims.AstraSim.html">AstraSim</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sims.AstraSim.html#module-sims.AstraSim.restructure">Restructure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#sims.AstraSim.restructure.merge_columns"><code class="docutils literal notranslate"><span class="pre">merge_columns()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#sims.AstraSim.restructure.read_csv_column"><code class="docutils literal notranslate"><span class="pre">read_csv_column()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="sims.customenv.html">sims.customenv package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_EMUKIT_GP_vizier">sims.customenv.train_EMUKIT_GP_vizier module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_NSGA2_vizier">sims.customenv.train_NSGA2_vizier module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_gridsearch_vizier">sims.customenv.train_gridsearch_vizier module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_quasirandom_vizier">sims.customenv.train_quasirandom_vizier module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_randomsearch_vizier">sims.customenv.train_randomsearch_vizier module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_randomwalker">sims.customenv.train_randomwalker module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#module-sims.customenv">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sims.AstraSim.html#module-sims.AstraSim.trainRandomWalkerAstraSim">Random Walker</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#sims.AstraSim.trainRandomWalkerAstraSim.generate_random_actions"><code class="docutils literal notranslate"><span class="pre">generate_random_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#sims.AstraSim.trainRandomWalkerAstraSim.log_results_to_csv"><code class="docutils literal notranslate"><span class="pre">log_results_to_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#sims.AstraSim.trainRandomWalkerAstraSim.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#sims.AstraSim.trainRandomWalkerAstraSim.wrap_in_envlogger"><code class="docutils literal notranslate"><span class="pre">wrap_in_envlogger()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#sims.AstraSim.trainRandomWalkerAstraSim.write_network"><code class="docutils literal notranslate"><span class="pre">write_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#sims.AstraSim.trainRandomWalkerAstraSim.write_system"><code class="docutils literal notranslate"><span class="pre">write_system()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.AstraSim.html#sims.AstraSim.trainRandomWalkerAstraSim.write_workload"><code class="docutils literal notranslate"><span class="pre">write_workload()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="sims.AstraSim.html#module-sims.AstraSim">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="sims.html#module-sims">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sims.customenv.html">Custom Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_EMUKIT_GP_vizier">EMUKIT_GP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_EMUKIT_GP_vizier.log_fitness_to_csv"><code class="docutils literal notranslate"><span class="pre">log_fitness_to_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_EMUKIT_GP_vizier.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_EMUKIT_GP_vizier.wrap_in_envlogger"><code class="docutils literal notranslate"><span class="pre">wrap_in_envlogger()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_NSGA2_vizier">NSGA2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_NSGA2_vizier.log_fitness_to_csv"><code class="docutils literal notranslate"><span class="pre">log_fitness_to_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_NSGA2_vizier.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_NSGA2_vizier.wrap_in_envlogger"><code class="docutils literal notranslate"><span class="pre">wrap_in_envlogger()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_gridsearch_vizier">Grid Search</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_gridsearch_vizier.log_fitness_to_csv"><code class="docutils literal notranslate"><span class="pre">log_fitness_to_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_gridsearch_vizier.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_gridsearch_vizier.wrap_in_envlogger"><code class="docutils literal notranslate"><span class="pre">wrap_in_envlogger()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_quasirandom_vizier">Quasi-Random Search</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_quasirandom_vizier.log_fitness_to_csv"><code class="docutils literal notranslate"><span class="pre">log_fitness_to_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_quasirandom_vizier.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_quasirandom_vizier.wrap_in_envlogger"><code class="docutils literal notranslate"><span class="pre">wrap_in_envlogger()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_randomsearch_vizier">Random Search</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_randomsearch_vizier.log_fitness_to_csv"><code class="docutils literal notranslate"><span class="pre">log_fitness_to_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_randomsearch_vizier.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_randomsearch_vizier.wrap_in_envlogger"><code class="docutils literal notranslate"><span class="pre">wrap_in_envlogger()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sims.customenv.html#module-sims.customenv.train_randomwalker">Random Walker</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_randomwalker.log_fitness_to_csv"><code class="docutils literal notranslate"><span class="pre">log_fitness_to_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_randomwalker.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="sims.customenv.html#sims.customenv.train_randomwalker.wrap_in_envlogger"><code class="docutils literal notranslate"><span class="pre">wrap_in_envlogger()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sims.customenv.html#module-sims.customenv">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -118,8 +157,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="arch_gym.envs.html" class="btn btn-neutral float-left" title="arch_gym.envs package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="sims.html" class="btn btn-neutral float-right" title="sims package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="arch_gym.envs.html" class="btn btn-neutral float-left" title="Environments" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sims.html" class="btn btn-neutral float-right" title="Training Scripts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -1,8 +1,5 @@
-arch\_gym.envs package
-======================
-
-Submodules
-----------
+Environments
+============
 
 arch\_gym.envs.AstraSimEnv module
 ---------------------------------
