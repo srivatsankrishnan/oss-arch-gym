@@ -8,3 +8,4 @@ sympy
 plotly
 scons
 myst_parser
+portpicker
