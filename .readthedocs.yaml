@@ -1,6 +1,6 @@
 version: 2
 conda:
-  environment: docs/environment.yml
+  environment: environment_old.yml
 build:
   os: "ubuntu-20.04"
   tools:
