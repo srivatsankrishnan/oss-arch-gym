@@ -27,12 +27,11 @@ import tree
 
 import os
 os.sys.path.insert(0, os.path.abspath('../../'))
-print(os.sys.path)
-from configs import arch_gym_configs 
-from arch_gym.envs.DRAMEnv import DRAMEnv
-from arch_gym.envs.FARSIEnv import FARSISimEnv
-from envHelpers import helpers
-class FARSISimEnvWrapper(dm_env.Environment):
+# print(os.sys.path)
+# from configs import arch_gym_configs 
+from arch_gym.envs.custom_env import CustomEnv
+# from envHelpers import helpers
+class CustomEnvWrapper(dm_env.Environment):
   """Environment wrapper for OpenAI Gym environments."""
 
   # Note: we don't inherit from base.EnvironmentWrapper because that class
@@ -43,53 +42,34 @@ class FARSISimEnvWrapper(dm_env.Environment):
     self._environment = environment
     self._reset_next_step = True
     self._last_info = None
-    self.helper = helpers()
+    # self.helper = helpers()
 
     # Convert action and observation specs.
     obs_space = self._environment.observation_space
     act_space = self._environment.action_space
     self._observation_spec = _convert_to_spec(obs_space, name='observation')
     self._action_spec = _convert_to_spec(act_space, name='action')
+    print("wrapper", environment.observation)
 
   def reset(self) -> dm_env.TimeStep:
     """Resets the episode."""
     self._reset_next_step = False
     observation = self._environment.reset()
+    print("-----Wrapper observation-----", observation)
     # Reset the diagnostic information.
     self._last_info = None
-    return dm_env.restart(observation)
+    a = dm_env.restart(observation)
+    print("dm_env.restart(observation)",a)
+    return a
 
-  def check_action_ranges(self, action: types.NestedArray):
-    """Checks that the action is within the action space."""
-    dummy_reward = 0
-    if(action[0]<0 or action[0]>3):
-      dummy_reward += -100
-    elif(action[1]<0 or action[1]>2):
-      dummy_reward += -100
-    elif(action[2]<0 or action[2]>2):
-      dummy_reward += -100
-    elif(action[3]<2 or action[3]>128):
-      dummy_reward += -100
-    elif(action[4]<0 or action[4]>1):
-      dummy_reward += -100
-    elif(action[5]<0 or action[5]>1):
-      dummy_reward += -100
-    elif(action[6]<2 or action[6]>128):
-      dummy_reward += -100
-    elif(action[7]<2 or action[7]>128):
-      dummy_reward += -100
-    elif(action[8]<0 or action[8]>2):
-      dummy_reward += -100
-    elif(action[9]<2 or action[9]>128):
-      dummy_reward += -100
-    return dummy_reward
-
-  def step(self, action): # types.NestedArray) -> dm_env.TimeStep:
+  def step(self, action: types.NestedArray) -> dm_env.TimeStep:
     """Steps the environment."""
     if self._reset_next_step:
       return self.reset()
-    
+
     observation, reward, done, info = self._environment.step(action)
+    print("wrapper step", observation)
+    print("wrapper step rew", reward)
     self._reset_next_step = done
     self._last_info = info
 
@@ -192,20 +172,13 @@ def _convert_to_spec(space: gym.Space,
   else:
     raise ValueError('Unexpected gym space: {}'.format(space))
 
-def make_FARSI_sim_env(seed: int = 12234,
+def make_custom_env(seed: int = 12234,
+                     max_steps: int = 100,
                      reward_formulation: str = 'power',
-                     workload: str = 'audio_decoder',
-                     rl_form = None,
-                     rl_algo = None,
-                     max_steps = 2,
-                     num_agents = 1,
-                     reward_scaling = 'false'
                      ) -> dm_env.Environment:
-
-  """Returns FARSI environment."""
-  environment = FARSISimEnvWrapper(FARSISimEnv(
-    reward_formulation = reward_formulation, workload = workload, rl_form=rl_form, rl_algo=rl_algo, max_steps=max_steps, num_agents=num_agents, reward_scaling=reward_scaling))
+  """Returns DRAMSys environment."""
+  environment = CustomEnvWrapper(CustomEnv(max_steps=max_steps))
   environment = wrappers.SinglePrecisionWrapper(environment)
-  if(arch_gym_configs.rl_agent):
-    environment = wrappers.CanonicalSpecWrapper(environment, clip=True)
+#   if(arch_gym_configs.rl_agent):
+#     environment = wrappers.CanonicalSpecWrapper(environment, clip=True)
   return environment

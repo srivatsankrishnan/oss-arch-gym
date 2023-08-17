@@ -1,16 +1,1 @@
-{
-    "mcconfig": {
-        "PagePolicy": "Open", 
-        "Scheduler": "Fifo", 
-        "SchedulerBuffer": "Bankwise",
-        "RequestBufferSize": 8, 
-        "CmdMux": "Oldest", 
-        "RespQueue": "Fifo", 
-        "RefreshPolicy": "AllBank", 
-        "RefreshMaxPostponed": 8, 
-        "RefreshMaxPulledin": 8, 
-        "PowerDownPolicy": "NoPowerDown",
-        "Arbiter": "Simple",
-        "MaxActiveTransactions": 128
-    }
-}
+{"mcconfig": {"PagePolicy": "Open", "Scheduler": "Fifo", "SchedulerBuffer": "Bankwise", "RequestBufferSize": 1, "CmdMux": "Oldest", "RespQueue": "Fifo", "RefreshPolicy": "NoRefresh", "RefreshMaxPostponed": 1, "RefreshMaxPulledin": 1, "PowerDownPolicy": "NoPowerDown", "Arbiter": "Simple", "MaxActiveTransactions": 1}}
