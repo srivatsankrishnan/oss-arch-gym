@@ -54,7 +54,7 @@ def wrap_in_envlogger(env, envlogger_dir):
 def main(_):
     env = dramsys_wrapper.make_dramsys_env()
     
-    dram_helper = helpers()
+    # dram_helper = helpers()
     
     fitness_hist = {}
 

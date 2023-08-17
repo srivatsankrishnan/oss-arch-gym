@@ -776,6 +776,35 @@ class helpers():
 
         return act_decoded
 
+    
+    def action_decoder_ga_astraSim(self, act_encoded):
+        """
+        "scheduling-policy": {"FIFO", "LIFO"},
+        "collective-optimization": {"localBWAware", "baseline"},
+        "intra-dimension-scheduling": {"FIFO", "SCF"},
+        "inter-dimension-scheduling": {"baseline", "themis"}
+        """
+        act_decoded = {"network": {}, "system": {}}
+        # Network decoding
+        topologyName_mapper = {0:"Hierarchical"}
+        topologiesPerDim_mapper = {0:"Ring", 1:"FullyConnected", 2:"Switch"}
+        dimensionType_mapper = {0:"N", 1:"P", 2:"T"}
+
+        # System decoding
+        implementation_mapper = {0: "Ring", 1: "direct", 2: "doubleBinaryTree", 3: "oneRing", 4: "oneDirect"}
+        schedulePolicy_mapper = {0: "LIFO", 1: "FIFO"}
+        collectiveOptimization_mapper = {0: "baseline", 1: "localBWAware"}
+        intraDimension_mapper = {0: "FIFO", 1: "SCF"}
+        interDimension_mapper = {0: "baseline", 1: "themis"}
+
+        # Modified system parameters
+        act_decoded["system"]["scheduling-policy"] = schedulePolicy_mapper[int(act_encoded[0])]
+        act_decoded["system"]["collective-optimization"] = collectiveOptimization_mapper[int(act_encoded[1])]
+        act_decoded["system"]["intra-dimension-scheduling"] = intraDimension_mapper[int(act_encoded[2])]
+        act_decoded["system"]["inter-dimension-scheduling"] = interDimension_mapper[int(act_encoded[3])]
+
+        return act_decoded
+
 
     def random_walk(self):
         '''

@@ -1,0 +1,9 @@
+tensorboard >= 2.3
+tensorflow >= 2.3
+atoma
+scikit-optimize
+envlogger
+absl-py
+sympy
+plotly
+scons

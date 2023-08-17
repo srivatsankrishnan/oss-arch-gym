@@ -27,3 +27,4 @@ keras==2.8.0
 numpy==1.22.4
 trfl
 dm-reverb==0.7.2
+dm-reverb==0.7.2
