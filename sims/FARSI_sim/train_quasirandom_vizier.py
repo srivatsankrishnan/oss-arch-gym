@@ -6,10 +6,10 @@ from absl import app
 from absl import logging
 
 os.sys.path.insert(0, os.path.abspath('../../'))
-#from configs import arch_gym_configs
-#from arch_gym.envs.envHelpers import helpers
+from configs import arch_gym_configs
+from arch_gym.envs.envHelpers import helpers
 #from arch_gym.envs import dramsys_wrapper
-from arch_gym.envs import customenv_wrapper_2
+from arch_gym.envs import FARSI_sim_wrapper
 import envlogger
 
 import numpy as np
@@ -42,14 +42,14 @@ from vizier._src.algorithms.designers import quasi_random
 #from absl.testing import absltest
 
 os.sys.path.insert(0, os.path.abspath('../../'))
-from arch_gym.envs.custom_env_2 import SimpleArch
+from arch_gym.envs.FARSI_sim_env import DRAMEnv
 
 
-flags.DEFINE_string('workload', 'custom_env_workload', 'Which DRAMSys workload to run?')
-flags.DEFINE_integer('num_steps', 1000, 'Number of training steps.')
+flags.DEFINE_string('workload', 'edge_detection', 'Which workload to run?')
+flags.DEFINE_integer('num_steps', 500, 'Number of training steps.')
 flags.DEFINE_integer('num_episodes', 1, 'Number of training episodes.')
 flags.DEFINE_string('traject_dir', 
-                    'quasi_random_trajectories', 'Directory to save the dataset.')
+                    'quasi_random_FARSIsim_trajectories', 'Directory to save the dataset.')
 flags.DEFINE_bool('use_envlogger', False, 'Use envlogger to log the data.') 
 flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
 flags.DEFINE_string('reward_formulation', 'power', 'Which reward formulation to use?')
@@ -86,7 +86,7 @@ def wrap_in_envlogger(env, envlogger_dir):
     """     
     
     metadata = {
-        'agent_type': 'QUASI_RANDOM_EI',
+        'agent_type': 'QUASI_RANDOM_FARSIsim_EI',
         'num_steps': FLAGS.num_steps,
         'env_type': type(env).__name__,
     }
@@ -103,19 +103,14 @@ def wrap_in_envlogger(env, envlogger_dir):
 
 
 def main(_):
-    """Trains the custom environment using random actions for a given number of steps and episodes 
-    """
-    env = customenv_wrapper_2.make_custom_env(max_steps=FLAGS.num_steps)   #importing custom env here
-
-    #dram_helper = helpers()                          
-    
-    fitness_hist = {}
-                                                      
+    """We use quasi random search algorithm on the action parameter space of FARSI simulator environment
+        for a given number of steps and episodes, to find out the optimal actions to be taken.
+    """                                                      
     # experiment name 
     exp_name = str(FLAGS.workload)+"_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
 
     # append logs to base path
-    log_path = os.path.join(FLAGS.summary_dir, 'quasi_random_logs', FLAGS.reward_formulation, exp_name)
+    log_path = os.path.join(FLAGS.summary_dir, 'quasi_random__FARSI_sim_logs', FLAGS.reward_formulation, exp_name)
 
     # get the current working directory and append the exp name
     traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
@@ -127,16 +122,38 @@ def main(_):
     if FLAGS.use_envlogger:                      
         if not os.path.exists(traject_dir):
             os.makedirs(traject_dir)
-    env = wrap_in_envlogger(env, traject_dir)
 
+    env = FARSI_sim_wrapper.make_FARSI_sim_env(reward_formulation = FLAGS.reward_formulation, 
+                                               workload=FLAGS.workload,      
+                                               max_steps=FLAGS.num_steps)   #importing FARSI env here
+    env = wrap_in_envlogger(env, traject_dir)
+    FARSI_sim_helper = helpers()
+    design_space_mode = "limited"  # ["limited", "comprehensive"]
+    SOC_design_space = FARSI_sim_helper.gen_SOC_design_space(env, design_space_mode)
+    encoding_dictionary = FARSI_sim_helper.gen_SOC_encoding(env, SOC_design_space)  
+
+    #print("\n", encoding_dictionary.keys(), "\n")
+    #print("\n", encoding_dictionary["encoding_flattened_ub"], "\n")              
+
+    fitness_hist = {}
 
     problem = vz.ProblemStatement()
+    
+    #To print the lower and upper bounds of the parameter names:
+    #param_names = ["pe_allocation","mem_allocation","bus_allocation",
+                       #"pe_to_bus_connection","bus_to_bus_connection","bus_to_mem_connection",
+                       #"task_to_pe_mapping","task_to_mem_mapping"]
+    #for i in range(len(param_names)):
+        #print("hola")
+        #print(encoding_dictionary[param_names[i]+"_lb"])
+        #print(encoding_dictionary[param_names[i]+"_ub"])
 
-    problem.search_space.select_root().add_int_param(name = 'num_cores', min_value=0, max_value=10)
-    problem.search_space.select_root().add_float_param(name = 'freq', min_value=0, max_value=5)
-    problem.search_space.select_root().add_categorical_param(name='mem_type', feasible_values =['DRAM', 'SRAM', 'Hybrid'])
-    problem.search_space.select_root().add_discrete_param(name = 'mem_size', feasible_values = [0,16,32,64,128,256])
-
+    #Adding all parameters to the vizier problem space, in accordance with their lower boundaries (lb) and upper boundaries (ub)
+    #The parameters are named as param_0, param_1, param_2, etc.
+    for i in range(len(encoding_dictionary["encoding_flattened_lb"])):
+        problem.search_space.select_root().add_int_param(name = "param_"+str(i+1), 
+                                                         min_value = encoding_dictionary["encoding_flattened_lb"][i], 
+                                                         max_value = encoding_dictionary["encoding_flattened_ub"][i])
 
     # Our goal is to maximize reward, and thus find the set of action values which correspond to the maximum reward
     #problem.metric_information.append(
@@ -145,15 +162,12 @@ def main(_):
     
 
     #study_config = vz.StudyConfig.from_problem(problem)
-    #a = study_config.search_space
-    #print(a)
-
-    #SETTING THE ALGORITHM
+    #SETTING THE ALGORITHM for study_config
     #study_config.algorithm = vz.Algorithm.QUASI_RANDOM_SEARCH
     
     #SETTING CUSTOM HYPERPARAMETERS, by importing the algorithm's class:
-    #mydesigner = random.RandomDesigner(problem.search_space, seed=110)  #use this for RANDOM SEARCH
-    #mydesigner = emukit.EmukitDesigner(problem, num_random_samples=10)  #use this for EMUKIT
+    #mydesigner = random.RandomDesigner(problem.search_space, seed=11)  #use this for RANDOM SEARCH
+    #mydesigner = emukit.EmukitDesigner(problem, num_random_samples=50)  #use this for EMUKIT
     #mydesigner = grid.GridSearchDesigner(problem.search_space)  #use this for GRID SEARCH
     mydesigner = quasi_random.QuasiRandomDesigner(problem.search_space)  #use this for QUASI RANDOM SEARCH
     # setting the hyperparameters for quasi_random:
@@ -162,7 +176,6 @@ def main(_):
                                                                 num_points_generated=FLAGS.num_points_generated,
                                                                 scramble=FLAGS.scramble)
 
-    #print(type(mydesigner))
 
 
     port = portpicker.pick_unused_port()
@@ -181,55 +194,66 @@ def main(_):
 
     clients.environment_variables.service_endpoint = address  # Server address.
     #study = clients.Study.from_study_config(study_config, owner='owner', study_id='example_study_id')
-
     #suggestions = study.suggest(count=FLAGS.num_steps)
-    suggestions = mydesigner.suggest(count=FLAGS.num_steps)
+
+    suggestions = mydesigner.suggest(count=FLAGS.num_steps)   # suggested parameters from mydesigner
 
     max_reward = float('-inf')
+
     env.reset()
 
     for i in range(FLAGS.num_episodes):
 
         logging.info('Episode %r', i)
         count = 1
-        for suggestion in suggestions:                
-
-            num_cores = str(suggestion.parameters['num_cores'])
-            freq = str(suggestion.parameters['freq'])
-            mem_type_dict = {'DRAM':0, 'SRAM':1, 'Hybrid':2}
-            mem_type = str(mem_type_dict[str(suggestion.parameters['mem_type'])])
-            mem_size = str(suggestion.parameters['mem_size'])
-
+        for suggestion in suggestions:  
 
             print("\n")
             print(count)
-            print('Suggested Parameters (num_cores, freq, mem_type, mem_size):', num_cores, freq, mem_type, mem_size)
 
+            #print("\n","Suggested parameters are: ",suggestion.parameters,"\n")   
 
+            suggested_params = []
+            for i in range(len(suggestion.parameters)):
+                suggested_params.append(int(str(suggestion.parameters['param_'+str(i+1)])))
+
+            #check_system = True
             # generate action based on the suggested parameters
-            action = {"num_cores":float(num_cores), "freq": float(freq), "mem_type":float(mem_type), "mem_size": float(mem_size)}
-            #for alternative method to convert action values into float datatype, see earlier commits (earlier version of this file)
-            print (f'Action: {action}')
+            #action_encoded = FARSI_sim_helper.random_walk_FARSI_array_style(env, encoding_dictionary, check_system) ##random actions 
+            action_encoded = suggested_params
+            print (f'Action (suggested parameters): {action_encoded}')
 
             # decode the actions                              
-            #action_dict = dram_helper.action_decoder_ga(action)
-            #_, reward, c, info = env.step(action_dict)
+            # serialize to convert to string/dictionary
+            action_dict= FARSI_sim_helper.action_decoder_FARSI(action_encoded, encoding_dictionary)  
+            #See the function action_decoder_FARSI() in envHelpers.py to see how action_encoded is decoded
+            #print (f'Action: {action_dict}')
 
-            #obs, reward, done, info = env.step(action)
-            print("\n")
-            obsrew = env.step(action)
-            print(obsrew)
+
+            #action_first_8_pairs = dict(list(action.items())[0: 8])
+            action_dict_for_logging={}
+            for key in action_dict.keys():
+                if "encoding" not in key:
+                    action_dict_for_logging[key] = action_dict[key]
+            
+            print (f'Action_dict_for_logging (suggested parameters): {action_dict_for_logging}',"\n")
+
+            obsrew = env.step(action_dict)
+            print("The step function returns: ", obsrew)
             step_type, reward, discount, obs = obsrew
 
-            env.render()  #prints the observation which is (energy, area, latency)
             print(f'Reward: {reward}')
+            # See the step() function in arch_gym/envs/FARSIEnv.py for details about the observation and reward being printed here.
 
-            # loop added to store max reward and corresponding action:
+            # Loop added to store max reward and corresponding action:
+            if reward is None:
+                reward = float('-inf')   # since some error gets thrown when reward is none (happens very rarely)
             if reward > max_reward:
+                trial_no = count
                 max_reward = reward
-                best_action = action
+                best_action = action_dict_for_logging
 
-            #final_measurement = vz.Measurement({'Reward': reward})
+            #final_measurement = vz.Measurement({'Reward': reward})   #vizier is asked to keep track of Reward, so as to maximise it
 
             #print(type(suggestion))
             #convert the type from TrialSuggestion to Trial:
@@ -237,18 +261,17 @@ def main(_):
             #suggestion.complete(final_measurement)
             count += 1
 
-            fitness_hist['obs'] = obs
+            #fitness_hist["obs"] = [metric.item() for metric in obs]
+            fitness_hist["obs"] = obs
             fitness_hist['reward'] = reward
-            fitness_hist['action'] = action
+            fitness_hist['action'] = action_dict_for_logging
 
             log_fitness_to_csv(log_path, fitness_hist)
 
 
         # custom loop to print the actions corresponding to max reward.   
-        print("\n", "OPTIMAL ACTION AND CORRESPONDING REWARD ARE: ", "\n", "Best Action: ",
-               best_action, "\n", "Max reward: ", max_reward)
+        print("\n", "OPTIMAL ACTION, CORRESPONDING REWARD and TRIAL NO. ARE: ", "\n", "Best Action: ",
+               best_action, "\n", "Max reward: ", max_reward, "\n", "Trial no.: ", trial_no)
     
 if __name__ == '__main__':
    app.run(main)
-
-## why are the rewards in "wrapper step rew" and "Reward:"" slightly different?

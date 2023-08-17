@@ -31,7 +31,7 @@ import random
 class DRAMEnv(gym.Env):
     def __init__(self,
                 reward_formulation = "power",
-                cost_model = "proxy_model"):
+                cost_model = "simulator"):
         # Todo: Change the values if we normalize the observation space
         self.observation_space = gym.spaces.Box(low=0, high=1e10, shape=(1,3))
         self.action_space = gym.spaces.Box(low=0, high=8, shape=(10,))
@@ -138,6 +138,7 @@ class DRAMEnv(gym.Env):
         Step method takes action as input and outputs observation
         rewards
         '''
+        print("Action Dict",action_dict)
         self.steps += 1
         done = False
 
@@ -189,6 +190,7 @@ class DRAMEnv(gym.Env):
 # For testing
 
 if __name__ == "__main__":
+    print("Hey")
     
     dramObj = DRAMEnv(cost_model="proxy_model")
     helpers = helpers()

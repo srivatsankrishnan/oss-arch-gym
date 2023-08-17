@@ -64,15 +64,9 @@ class CustomEnvWrapper(dm_env.Environment):
 
   def step(self, action: types.NestedArray) -> dm_env.TimeStep:
     """Steps the environment."""
-    print(" ________------------____________-------------Entered wrapper step_--------------")
     if self._reset_next_step:
-      print("------------------------------------------Reset true hai-------------------------------")
       return self.reset()
-    else:
-      print("------------------------------------------Reset true nahi hai-------------------------------")
 
-    
-    
     observation, reward, done, info = self._environment.step(action)
     print("wrapper step", observation)
     print("wrapper step rew", reward)
