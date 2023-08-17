@@ -169,7 +169,7 @@ def _convert_to_spec(space: gym.Space,
         raise ValueError('Unexpected gym space: {}'.format(space))
     
 
-def make_cfuplaygroundEnv(target_vals, rl_form, max_steps, reward_type = 'both', log_type = 'number', target = 'digilent_arty')-> dm_env.Environment:
+def make_cfuplaygroundEnv(target_vals, rl_form, max_steps, reward_type = 'both', log_type = 'number', target = 'digilent_arty', workload = 'pdti8')-> dm_env.Environment:
     print("[DEBUG][Target Value]", target_vals)
     print("[DEBUG][RL Form]", rl_form)
     print("[DEBUG][Reward Type]", reward_type)
@@ -178,11 +178,12 @@ def make_cfuplaygroundEnv(target_vals, rl_form, max_steps, reward_type = 'both',
     print("[DEBUG][Target]", target)
     environment = CFUPlaygroundWrapper(
         CFUPlaygroundEnv(
-             target_vals =target_vals , 
-             reward_type= reward_type, 
-             max_steps=max_steps,
-             log_type=log_type, 
-             target=target
+            target_vals =target_vals , 
+            reward_type= reward_type, 
+            max_steps=max_steps,
+            log_type=log_type, 
+            target=target,
+            workload = workload
     ),
         env_wrapper_sel=rl_form
     )

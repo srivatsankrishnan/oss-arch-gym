@@ -1,3 +1,5 @@
+# !! This file now assumes that the cwd is sims/CFU_Playground.
+
 import sys
 import numpy as np
 
@@ -6,13 +8,14 @@ import subprocess
 import os
 
 class CFUPlaygroundEnv(Env):
-    def __init__(self, target_vals, max_steps, reward_type = 'both', log_type = 'string', target = 'digilent_arty'):
+    def __init__(self, target_vals, max_steps, workload, reward_type = 'both', log_type = 'string', target = 'digilent_arty'):
         super(CFUPlaygroundEnv, self).__init__()
 
         self.rewardType = reward_type
         self.target_val = target_vals
         self.no_steps = 0
         self.max_steps = max_steps
+        self.workload = workload
         self.log_type = log_type
         self.target = target
         self.Branch_predict_types = ['none', 'static', 'dynamic', 'dynamic_target']
@@ -48,8 +51,8 @@ class CFUPlaygroundEnv(Env):
     def step(self, action):
 
         #ensure that relative paths work
-        Caller_wd = os.getcwd()
-        os.chdir(os.path.dirname(__file__))
+        #Caller_wd = os.getcwd()
+        #os.chdir(os.path.dirname(__file__))
 
         #Update observations
         self.observation = self.runCFUPlaygroundEnv(action)
@@ -58,7 +61,7 @@ class CFUPlaygroundEnv(Env):
         self.reward = self.calculate_reward()
 
         #Go bath to the original directory
-        os.chdir(Caller_wd)
+        #os.chdir(Caller_wd)
 
         self.no_steps += 1
         complete = False
@@ -112,18 +115,19 @@ class CFUPlaygroundEnv(Env):
         self.action += ',' + str(action[8])         # Single Cycle Shifter
         self.action += ',' + str(action[9])         # Single Cycle Multiplier
         self.action += ',' + self.target
+        self.action += ',' + self.workload
 
         #Update communication file
         file = open('CFU_log', 'w')
         file.write(self.action)
         file.close()
 
-        subprocess.run(['. ../../sims/CFU-Playground/CFU-Playground/env/conda/bin/activate cfu-symbiflow && python CFUPlaygroundWrapper.py'], shell = True, executable='/bin/bash')
+        subprocess.run(['. ./CFU-Playground/env/conda/bin/activate cfu-symbiflow && python run_CFU.py'], shell = True, executable='/bin/bash')
 
         #update action to be stored in the format required by logger
         if (self.log_type == 'number'):
             action = [str(a) for a in action]
-            self.action = ','.join(action) + ',' + self.target
+            self.action = ','.join(action) + ',' + self.target + ',' + self.workload
         
         #Read output from the script
         file = open('CFU_log', 'r')

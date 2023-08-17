@@ -2,7 +2,7 @@ import os
 
 #Add dse_template to the path to allow calling dse
 import sys
-sys.path.append('../../sims/CFU-Playground/CFU-Playground/proj/dse_template')
+sys.path.append('./CFU-Playground/proj/dse_template')
 import dse_framework
 
 #Get params from file
@@ -12,7 +12,7 @@ action = file.read().split(',')
 file.close()
 
 #Move into CFU-Playground symbiflow directory to update the F4PGA install directory 
-os.chdir('../../sims/CFU-Playground/CFU-Playground/env/symbiflow')
+os.chdir('./CFU-Playground/env/symbiflow')
 os.environ["F4PGA_INSTALL_DIR"] = os.getcwd()
 
 #Move to dse_framework directory
@@ -30,11 +30,12 @@ cycles, cells = dse_framework.dse(
     False if action[7] == '0' else True,
     False if action[8] == '0' else True,
     False if action[9] == '0' else True,
-    action[10]
+    action[10],
+    action[11]
 )
 
 #Back into envs directory to write results
-os.chdir('../../../../../arch_gym/envs')
+os.chdir('../../..')
 file = open('CFU_log', 'w')
 file.write(str(cycles) + ' ' + str(cells))
 file.close()
