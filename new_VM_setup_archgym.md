@@ -6,9 +6,9 @@ Follow the below instruction to setup a remote access of virtual machine and pef
 ## Initializing and Starting VM
 1. Generating the ssh public and private key using : `ssh-keygen -t rsa -b 2048 -C [USERNAME]`
 2. Get the ssh access from adminstrator
-3. Open terminal and run :`ssh -i <PATH_TO_PRIVATE_KEY> <USERNAME@IP_ADDRESS>` . Example : `ssh -i C:\Users\yashc\.ssh/id_rsa yashc@34.83.98.10`
-4.  Open VS code and download Remote-SSH extension by microsoft
-5.  Press F1 select Remote-SSH: Connect to Host...use the same `USERNAME@IP_ADDRESS` as in step 2
+3. Open terminal and run :`ssh -i <PATH_TO_PRIVATE_KEY> <USERNAME@IP_ADDRESS>`
+4. Open VS code and download Remote-SSH extension by microsoft
+5. Press F1 select Remote-SSH: Connect to Host...use the same `USERNAME@IP_ADDRESS` as in step 2
 6. New VS Code window will be opened and If VS Code cannot automatically detect the type of server you are connecting to, you will be asked to select the type manually. 
 
 ## Installing Conda
@@ -53,10 +53,10 @@ Come out of vizier directory in terminal using `cd ..`
 1. `cd oss-arch-gym/acme`
 2. `pip install .[jax,tf,testing,envs]`
 3. `which python`
-	Output eg : `/home/yashc/anaconda3/envs/arch-gym/bin/python`
-	Replace `bin/python` with `lib` and copy it : `/home/yashc/anaconda3/envs/arch-gym/lib`
+	Output eg : `/home/<USERNAME>/anaconda3/envs/arch-gym/bin/python`
+	Replace `bin/python` with `lib` and copy it : `/home/<USERNAME>/anaconda3/envs/arch-gym/lib`
 ####  In VS Code
-1. Go to .bashrc file inside your username folder ( for me its yashc)
+1. Go to .bashrc file inside your username folder
 2. Paste this in last : 	`export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/<USERNAME>/anaconda3/envs/arch-gym/lib/"`
 
 #### In terminal
