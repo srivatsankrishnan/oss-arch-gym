@@ -8,7 +8,7 @@ sys.path.append('../../arch_gym/envs')
 import CFUPlayground_wrapper
 
 flags.DEFINE_string('workload', 'micro_speech', 'workload the processor is being optimized for')
-flags.DEFINE_integer('num_steps', 10, 'Number of training steps.')
+flags.DEFINE_integer('num_steps', 1, 'Number of training steps.')
 flags.DEFINE_bool('use_envlogger', True, 'Use envlogger to log the data.') 
 flags.DEFINE_string('traject_dir', 'random_walker_trajectories', 'Directory to save the dataset.')
 flags.DEFINE_string('summary_dir', ".", 'Directory to save the dataset.')
@@ -34,7 +34,7 @@ def wrap_in_envlogger(env,envlogger_dir):
 def main(_):
    env = CFUPlayground_wrapper.make_cfuplaygroundEnv(target_vals = [1000, 1000],rl_form='random_walker', reward_type = FLAGS.reward_formulation, max_steps = FLAGS.num_steps, workload = FLAGS.workload)
    # experiment name 
-   exp_name = "_num_steps_" + str(FLAGS.num_steps) + "_workload_" + FLAGS.workload
+   exp_name =  FLAGS.workload + "_num_steps_" + str(FLAGS.num_steps) + "_reward_type+" + FLAGS.reward_formulation
    # append logs to base path
    log_path = os.path.join(FLAGS.summary_dir, 'random_walker_logs', FLAGS.reward_formulation, exp_name)
     # get the current working directory and append the exp name
