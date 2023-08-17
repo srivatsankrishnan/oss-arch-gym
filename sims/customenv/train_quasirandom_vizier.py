@@ -1,44 +1,44 @@
-from concurrent import futures
-import grpc
-import portpicker
-import sys
-import os
+# from concurrent import futures
+# import grpc
+# import portpicker
+# import sys
+# import os
 
 
-from absl import flags
-from absl import app
-from absl import logging
+# from absl import flags
+# from absl import app
+# from absl import logging
 
-os.sys.path.insert(0, os.path.abspath('../../'))
-# from configs import arch_gym_configs
-# from arch_gym.envs.envHelpers import helpers
-print(os.sys.path)
-from arch_gym.envs import customenv_wrapper
-import envlogger
-import numpy as np
-import pandas as pd
+# os.sys.path.insert(0, os.path.abspath('../../'))
+# # from configs import arch_gym_configs
+# # from arch_gym.envs.envHelpers import helpers
+# print(os.sys.path)
+# from arch_gym.envs import customenv_wrapper
+# import envlogger
+# import numpy as np
+# import pandas as pd
 
-from vizier._src.algorithms.designers import quasi_random
-from vizier._src.algorithms.designers.quasi_random import QuasiRandomDesigner
-from arch_gym.envs.custom_env import CustomEnv
-from vizier.service import clients
-from vizier.service import pyvizier as vz
-from vizier.service import vizier_server
-from vizier.service import vizier_service_pb2_grpc
+# from vizier._src.algorithms.designers import quasi_random
+# from vizier._src.algorithms.designers.quasi_random import QuasiRandomDesigner
+# from arch_gym.envs.custom_env import CustomEnv
+# from vizier.service import clients
+# from vizier.service import pyvizier as vz
+# from vizier.service import vizier_server
+# from vizier.service import vizier_service_pb2_grpc
 
 # flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
-flags.DEFINE_integer('num_steps_qr', 50, 'Number of training steps.')
-flags.DEFINE_integer('num_episodes_qr', 1, 'Number of training episodes.')
-flags.DEFINE_string('traject_dir_qr', 
-                    'quasi_random_trajectories', 
-            'Directory to save the dataset.')
-flags.DEFINE_bool('use_envlogger_qr', False, 'Use envlogger to log the data.')  
-flags.DEFINE_string('summary_dir_qr', '.', 'Directory to save the summary.')
-flags.DEFINE_string('reward_formulation_qr', 'power', 'Which reward formulation to use?')
-flags.DEFINE_integer('skip_points', 0, 'hyperparameter1 for quasi_random')
-flags.DEFINE_integer('num_points_generated', 0, 'hyperparameter2 for quasi_random')
-flags.DEFINE_bool('scramble', False, 'hyperparameter3 for quasi_random')
-FLAGS = flags.FLAGS
+# flags.DEFINE_integer('num_steps_qr', 50, 'Number of training steps.')
+# flags.DEFINE_integer('num_episodes_qr', 1, 'Number of training episodes.')
+# flags.DEFINE_string('traject_dir_qr', 
+#                     'quasi_random_trajectories', 
+#             'Directory to save the dataset.')
+# flags.DEFINE_bool('use_envlogger_qr', False, 'Use envlogger to log the data.')  
+# flags.DEFINE_string('summary_dir_qr', '.', 'Directory to save the summary.')
+# flags.DEFINE_string('reward_formulation_qr', 'power', 'Which reward formulation to use?')
+# flags.DEFINE_integer('skip_points', 0, 'hyperparameter1 for quasi_random')
+# flags.DEFINE_integer('num_points_generated', 0, 'hyperparameter2 for quasi_random')
+# flags.DEFINE_bool('scramble', False, 'hyperparameter3 for quasi_random')
+# FLAGS = flags.FLAGS
 
 def log_fitness_to_csv(filename, fitness_dict):
     """Logs fitness history to csv file
