@@ -7,6 +7,7 @@ import configparser
 import numpy as np
 import yaml
 os.sys.path.insert(0, os.path.abspath('/../../configs'))
+os.sys.path.insert(0, os.path.abspath('/../..'))
 
 #from configs import configs
 from configs import arch_gym_configs
