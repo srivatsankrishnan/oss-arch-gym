@@ -31,18 +31,18 @@ class CFUPlaygroundEnv(Env):
         self.observation_space = spaces.Box(low=0, high=1e12, shape=self.observation_shape)
 
         # define the action space
-        self.action_space = spaces.Tuple((
-            spaces.Discrete(2),     
-            spaces.Discrete(2),     
-            spaces.Discrete(11),
-            spaces.Discrete(2),    
-            spaces.Discrete(11),
-            spaces.Discrete(2),
-            spaces.Discrete(4),
-            spaces.Discrete(2),
-            spaces.Discrete(2),     
-            spaces.Discrete(2)
-        ))
+        self.action_space = spaces.Dict({
+            "Bypass": spaces.Discrete(2),
+            "CFU_enable": spaces.Discrete(2),
+            "Data_cache_size": spaces.Discrete(11),
+            "Hardware_Divider": spaces.Discrete(2),
+            "Instruction_cache_size": spaces.Discrete(11),
+            "Hardware_Multiplier": spaces.Discrete(2),
+            "Branch_predictor_type": spaces.Discrete(4),
+            "Safe_mode_enable": spaces.Discrete(2),
+            "Single_Cycle_Shifter": spaces.Discrete(2),     
+            "Single_Cycle_Multiplier": spaces.Discrete(2)
+        })
 
     def reset(self):
         self.no_steps=0
@@ -100,20 +100,17 @@ class CFUPlaygroundEnv(Env):
     def runCFUPlaygroundEnv(self, action):
 
         # update action string to pass to subprocess        
-        self.action = str(action[0])         # Bypass
-        #self.action += ',' + str(action[1])        # CFU_enable 
-        self.action += ',0'                         # CFU_enable (currently set to false)
-        self.action += ',' + ('0' if action[2] == 0 else str(1<<(4+action[2])))
-                                                    # Data cache size
-        self.action += ',' + str(action[3])         # Hardware Divider
-        self.action += ',' + ('0' if action[4] == 0 else str(1<<(4+action[4])))
-                                                    # Instruction cache size
-        self.action += ',' + str(action[5])         # Hardware Multiplier
-        self.action += ',' + self.Branch_predict_types[action[6]]
-                                                    # Branch predictor
-        self.action += ',' + str(action[7])         # Safe mode
-        self.action += ',' + str(action[8])         # Single Cycle Shifter
-        self.action += ',' + str(action[9])         # Single Cycle Multiplier
+        self.action = str(action["Bypass"])
+        #self.action += ',' + str(action["CFU_enable"])
+        self.action += ',0'      # CFU_enable (currently set to false)
+        self.action += ',' + ('0' if action["Data_cache_size"] == 0 else str(1<<(4+action["Data_cache_size"])))
+        self.action += ',' + str(action["Hardware_Divider"])
+        self.action += ',' + ('0' if action["Instruction_cache_size"] == 0 else str(1<<(4+action["Instruction_cache_size"])))
+        self.action += ',' + str(action["Hardware_Multiplier"])
+        self.action += ',' + self.Branch_predict_types[action["Branch_predictor_type"]]
+        self.action += ',' + str(action["Safe_mode_enable"])
+        self.action += ',' + str(action["Single_Cycle_Shifter"])
+        self.action += ',' + str(action["Single_Cycle_Multiplier"])
         self.action += ',' + self.target
         self.action += ',' + self.workload
 
