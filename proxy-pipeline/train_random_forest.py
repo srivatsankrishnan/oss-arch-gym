@@ -23,6 +23,7 @@ flags.DEFINE_enum('preprocess', 'normalize', ['normalize', 'standardize'], 'Prep
 flags.DEFINE_enum('encode', 'one_hot', ['one_hot', 'label'], 'Encoding method')
 flags.DEFINE_bool('visualize', False, 'enable visualization of the data')
 flags.DEFINE_bool('train', False, 'enable training of the model')
+flags.DEFINE_integer('output_index', 0, 'Index of the output to train the model on')
 
 # Hyperparameters for the model
 flags.DEFINE_integer('n_estimators', 100, 'Number of trees in the forest')
@@ -46,6 +47,7 @@ flags.DEFINE_float('max_samples', None, 'If bootstrap is True, the number of sam
 FLAGS = flags.FLAGS
 
 def preprocess_data(actions, observations, exp_path):
+    observations = observations.to_frame()
     # Categorical features
     categorical_cols = list(set(actions.columns) - set(actions._get_numeric_data().columns))
     categorical_actions = actions[categorical_cols]
@@ -102,7 +104,7 @@ def preprocess_data(actions, observations, exp_path):
         normalized_numerical_features = normalize_feature_transformer.fit_transform(observations)
         observations = pd.DataFrame(normalized_numerical_features, columns=[observations.columns])
         # Save the scaler
-        path = os.path.join(preprocess_data_path, 'normalize_feature_transformer_observations.joblib')
+        path = os.path.join(preprocess_data_path, 'normalize_feature_transformer_observations_{}.joblib'.format(FLAGS.output_index))
         pickle.dump(normalize_feature_transformer, open(path, 'wb'))
     elif FLAGS.preprocess == 'standardize':
         # Standardize numerical features for actions
@@ -118,7 +120,7 @@ def preprocess_data(actions, observations, exp_path):
         standardized_numerical_features = standardize_feature_transformer.fit_transform(observations)
         observations = pd.DataFrame(standardized_numerical_features, columns=[observations.columns])
         # Save the scaler
-        path = os.path.join(preprocess_data_path, 'standardize_feature_transformer_observations.joblib')
+        path = os.path.join(preprocess_data_path, 'standardize_feature_transformer_observations_{}.joblib'.format(FLAGS.output_index))
         pickle.dump(standardize_feature_transformer, open(path, 'wb'))
     else:
         raise ValueError('Preprocessing method not supported')
@@ -187,9 +189,15 @@ def main(_):
 
     actions = pd.read_csv(actions_path)
     observations = pd.read_csv(observations_path)
-    observations = observations.drop(['observation-2', 'observation-3', 'observation-4'], axis = 1)
 
-    X, y = preprocess_data(actions, observations, exp_path)
+    output = observations.copy()
+    if FLAGS.output_index >= output.shape[1]:
+        raise ValueError('Output index is out of range')
+    output = output.iloc[:, FLAGS.output_index]
+
+    observations = observations.loc[:, (observations != observations.iloc[0]).any()]
+
+    X, y = preprocess_data(actions, output, exp_path)
 
     # Visualize the data
     if FLAGS.visualize:
@@ -202,35 +210,50 @@ def main(_):
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=FLAGS.train_size, random_state=FLAGS.seed)
 
         # Define the model
-        rf = RandomForestRegressor(n_estimators=FLAGS.n_estimators, criterion=FLAGS.criterion, max_depth=FLAGS.max_depth,
+        regressor = RandomForestRegressor(n_estimators=FLAGS.n_estimators, criterion=FLAGS.criterion, max_depth=FLAGS.max_depth,
                                 min_samples_split=FLAGS.min_samples_split, min_samples_leaf=FLAGS.min_samples_leaf,
                                 min_weight_fraction_leaf=FLAGS.min_weight_fraction_leaf, max_features=FLAGS.max_features,
-                                max_leaf_nodes=FLAGS.max_leaf_nodes, min_impurity_decrease=FLAGS.min_impurity_decrease,
-                                bootstrap=FLAGS.bootstrap, oob_score=FLAGS.oob_score, n_jobs=FLAGS.n_jobs,
-                                random_state=FLAGS.random_state, verbose=FLAGS.verbose, warm_start=FLAGS.warm_start,
-                                ccp_alpha=FLAGS.ccp_alpha, max_samples=FLAGS.max_samples)
+                                          random_state=FLAGS.random_state, max_leaf_nodes=FLAGS.max_leaf_nodes,
+                                          min_impurity_decrease=FLAGS.min_impurity_decrease, ccp_alpha=FLAGS.ccp_alpha)
         
         # Train the model
-        rf.fit(X_train, y_train)
+        regressor.fit(X_train, y_train)
 
         # Evaluate the model for train dataset
-        y_pred = rf.predict(X_train)
+        y_pred = regressor.predict(X_train)
         mse_train = mse(y_train, y_pred)
         print('MSE on train set: {}'.format(mse_train))
 
         # Evaluate the model for test dataset
-        y_pred = rf.predict(X_test)
+        y_pred = regressor.predict(X_test)
         mse_test = mse(y_test, y_pred)
         print('MSE on test set: {}'.format(mse_test))
 
+        # Visualize the results
+        y_test_series = pd.Series(y_test.reshape(-1))
+        y_pred_series = pd.Series(y_pred.reshape(-1))
+        results_df = pd.DataFrame()
+        results_df['observation-{}'.format(FLAGS.output_index)] = y_test_series
+        results_df['observation-{}-predicted'.format(FLAGS.output_index)] = y_pred_series
+
+        plt.figure(figsize=(8, 6))
+        sns.scatterplot(x='observation-{}'.format(FLAGS.output_index), y='observation-{}-predicted'.format(FLAGS.output_index),
+                        data=results_df)
+        sns.regplot(x='observation-{}'.format(FLAGS.output_index), y='observation-{}-predicted'.format(FLAGS.output_index),
+                        data=results_df, color='orange', scatter=False)
+        plt.savefig(os.path.join(exp_path, 'results_graph_{}.png'.format(FLAGS.output_index)))
+        plt.show(block=False)
+        plt.pause(5)
+        plt.close()
+
         # Save the model
-        path = os.path.join(exp_path, 'model.joblib')
-        pickle.dump(rf, open(path, 'wb'))
+        path = os.path.join(exp_path, 'model_{}.joblib'.format(FLAGS.output_index))
+        pickle.dump(regressor, open(path, 'wb'))
 
-        FLAGS.append_flags_into_file(os.path.join(exp_path, 'flags.txt'))
+        FLAGS.append_flags_into_file(os.path.join(exp_path, 'flags_{}.txt'.format(FLAGS.output_index)))
 
-        loaded_rf = pickle.load(open(path, 'rb'))
-        y_pred = loaded_rf.predict(X_test)
+        loaded_regressor = pickle.load(open(path, 'rb'))
+        y_pred = loaded_regressor.predict(X_test)
         mse_test_load = mse(y_test, y_pred)
 
         # Check if the model is saved correctly

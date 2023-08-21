@@ -24,6 +24,7 @@ flags.DEFINE_enum('preprocess', 'normalize', ['normalize', 'standardize'], 'Prep
 flags.DEFINE_enum('encode', 'one_hot', ['one_hot', 'label'], 'Encoding method')
 flags.DEFINE_bool('visualize', False, 'enable visualization of the data')
 flags.DEFINE_bool('train', False, 'enable training of the model')
+flags.DEFINE_integer('output_index', 0, 'Index of the output to train the model on')
 
 # Hyperparameters for the model
 flags.DEFINE_enum('loss', 'squared_error', ['squared_error', 'absolute_error', 'huber', 'quantile'], 'Loss function')
@@ -51,6 +52,7 @@ flags.DEFINE_float('ccp_alpha', 0.0, 'Complexity parameter used for Minimal Cost
 FLAGS = flags.FLAGS
 
 def preprocess_data(actions, observations, exp_path):
+    observations = observations.to_frame()
     # Categorical features
     categorical_cols = list(set(actions.columns) - set(actions._get_numeric_data().columns))
     categorical_actions = actions[categorical_cols]
@@ -107,7 +109,7 @@ def preprocess_data(actions, observations, exp_path):
         normalized_numerical_features = normalize_feature_transformer.fit_transform(observations)
         observations = pd.DataFrame(normalized_numerical_features, columns=[observations.columns])
         # Save the scaler
-        path = os.path.join(preprocess_data_path, 'normalize_feature_transformer_observations.joblib')
+        path = os.path.join(preprocess_data_path, 'normalize_feature_transformer_observations_{}.joblib'.format(FLAGS.output_index))
         pickle.dump(normalize_feature_transformer, open(path, 'wb'))
     elif FLAGS.preprocess == 'standardize':
         # Standardize numerical features for actions
@@ -123,7 +125,7 @@ def preprocess_data(actions, observations, exp_path):
         standardized_numerical_features = standardize_feature_transformer.fit_transform(observations)
         observations = pd.DataFrame(standardized_numerical_features, columns=[observations.columns])
         # Save the scaler
-        path = os.path.join(preprocess_data_path, 'standardize_feature_transformer_observations.joblib')
+        path = os.path.join(preprocess_data_path, 'standardize_feature_transformer_observations_{}.joblib'.format(FLAGS.output_index))
         pickle.dump(standardize_feature_transformer, open(path, 'wb'))
     else:
         raise ValueError('Preprocessing method not supported')
@@ -186,9 +188,15 @@ def main(_):
 
     actions = pd.read_csv(actions_path)
     observations = pd.read_csv(observations_path)
-    observations = observations.drop(['observation-2', 'observation-3', 'observation-4'], axis = 1)
 
-    X, y = preprocess_data(actions, observations, exp_path)
+    output = observations.copy()
+    if FLAGS.output_index >= output.shape[1]:
+        raise ValueError('Output index is out of range')
+    output = output.iloc[:, FLAGS.output_index]
+
+    observations = observations.loc[:, (observations != observations.iloc[0]).any()]
+
+    X, y = preprocess_data(actions, output, exp_path)
 
     # Visualize the data
     if FLAGS.visualize:
@@ -199,23 +207,9 @@ def main(_):
         print('------Training the model------')
         # Split the data into train and test
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=FLAGS.train_size, random_state=FLAGS.seed)
-        
-        # Define the model
-        regressor0 = GradientBoostingRegressor(loss=FLAGS.loss, learning_rate=FLAGS.learning_rate, n_estimators=FLAGS.n_estimators, 
-                                              subsample=FLAGS.subsample, criterion=FLAGS.criterion, 
-                                              min_samples_split=FLAGS.min_samples_split, min_samples_leaf=FLAGS.min_samples_leaf, 
-                                              min_weight_fraction_leaf=FLAGS.min_weight_fraction_leaf, max_depth=FLAGS.max_depth, 
-                                              min_impurity_decrease=FLAGS.min_impurity_decrease, init=FLAGS.init, 
-                                              random_state=FLAGS.random_state, max_features=FLAGS.max_features, alpha=FLAGS.alpha, 
-                                              verbose=FLAGS.verbose, max_leaf_nodes=FLAGS.max_leaf_nodes, warm_start=FLAGS.warm_start, 
-                                              validation_fraction=FLAGS.validation_fraction, n_iter_no_change=FLAGS.n_iter_no_change, 
-                                              tol=FLAGS.tol, ccp_alpha=FLAGS.ccp_alpha)
-        
-        # Train the model
-        regressor0.fit(X_train, y_train[:, 0])
 
         # Define the model
-        regressor1 = GradientBoostingRegressor(loss=FLAGS.loss, learning_rate=FLAGS.learning_rate, n_estimators=FLAGS.n_estimators, 
+        regressor = GradientBoostingRegressor(loss=FLAGS.loss, learning_rate=FLAGS.learning_rate, n_estimators=FLAGS.n_estimators, 
                                               subsample=FLAGS.subsample, criterion=FLAGS.criterion, 
                                               min_samples_split=FLAGS.min_samples_split, min_samples_leaf=FLAGS.min_samples_leaf, 
                                               min_weight_fraction_leaf=FLAGS.min_weight_fraction_leaf, max_depth=FLAGS.max_depth, 
@@ -226,40 +220,48 @@ def main(_):
                                               tol=FLAGS.tol, ccp_alpha=FLAGS.ccp_alpha)
         
         # Train the model
-        regressor1.fit(X_train, y_train[:, 1])
+        regressor.fit(X_train, y_train)
 
         # Evaluate the model for train dataset
-        y_pred0 = regressor0.predict(X_train)
-        y_pred1 = regressor1.predict(X_train)
-        y_pred = np.concatenate((y_pred0.reshape(-1, 1), y_pred1.reshape(-1, 1)), axis=1)
+        y_pred = regressor.predict(X_train)
         mse_train = mse(y_train, y_pred)
         print('MSE on train set: {}'.format(mse_train))
 
         # Evaluate the model for test dataset
-        y_pred0 = regressor0.predict(X_test)
-        y_pred1 = regressor1.predict(X_test)
-        y_pred = np.concatenate((y_pred0.reshape(-1, 1), y_pred1.reshape(-1, 1)), axis=1)
+        y_pred = regressor.predict(X_test)
         mse_test = mse(y_test, y_pred)
         print('MSE on test set: {}'.format(mse_test))
 
+        # Visualize the results
+        y_test_series = pd.Series(y_test.reshape(-1))
+        y_pred_series = pd.Series(y_pred.reshape(-1))
+        results_df = pd.DataFrame()
+        results_df['observation-{}'.format(FLAGS.output_index)] = y_test_series
+        results_df['observation-{}-predicted'.format(FLAGS.output_index)] = y_pred_series
+
+        plt.figure(figsize=(8, 6))
+        sns.scatterplot(x='observation-{}'.format(FLAGS.output_index), y='observation-{}-predicted'.format(FLAGS.output_index),
+                        data=results_df)
+        sns.regplot(x='observation-{}'.format(FLAGS.output_index), y='observation-{}-predicted'.format(FLAGS.output_index),
+                        data=results_df, color='orange', scatter=False)
+        plt.savefig(os.path.join(exp_path, 'results_graph_{}.png'.format(FLAGS.output_index)))
+        plt.show(block=False)
+        plt.pause(5)
+        plt.close()
+
         # Save the model
-        path0 = os.path.join(exp_path, 'model0.joblib')
-        pickle.dump(regressor0, open(path0, 'wb'))
-        path1 = os.path.join(exp_path, 'model1.joblib')
-        pickle.dump(regressor1, open(path1, 'wb'))
+        path = os.path.join(exp_path, 'model_{}.joblib'.format(FLAGS.output_index))
+        pickle.dump(regressor, open(path, 'wb'))
 
-        FLAGS.append_flags_into_file(os.path.join(exp_path, 'flags.txt'))
+        FLAGS.append_flags_into_file(os.path.join(exp_path, 'flags_{}.txt'.format(FLAGS.output_index)))
 
-        loaded_regressor0 = pickle.load(open(path0, 'rb'))
-        loaded_regressor1 = pickle.load(open(path1, 'rb'))
-        y_pred0 = loaded_regressor0.predict(X_test)
-        y_pred1 = loaded_regressor1.predict(X_test)
-        y_pred = np.concatenate((y_pred0.reshape(-1, 1), y_pred1.reshape(-1, 1)), axis=1)
+        loaded_regressor = pickle.load(open(path, 'rb'))
+        y_pred = loaded_regressor.predict(X_test)
         mse_test_load = mse(y_test, y_pred)
 
         # Check if the model is saved correctly
         if mse_test == mse_test_load:
-            print('Models saved successfully at {} and {}'.format(path0, path1))
+            print('Model saved successfully at {}'.format(path))
         else:
             raise Exception('Model is not saved correctly')
 

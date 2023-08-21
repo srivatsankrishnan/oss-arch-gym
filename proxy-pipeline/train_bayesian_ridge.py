@@ -100,7 +100,7 @@ def preprocess_data(actions, observations, exp_path):
         normalized_numerical_features = normalize_feature_transformer.fit_transform(observations)
         observations = pd.DataFrame(normalized_numerical_features, columns=[observations.columns])
         # Save the scaler
-        path = os.path.join(preprocess_data_path, 'normalize_feature_transformer_observations_col_{}.joblib'.format(FLAGS.output_index))
+        path = os.path.join(preprocess_data_path, 'normalize_feature_transformer_observations_{}.joblib'.format(FLAGS.output_index))
         pickle.dump(normalize_feature_transformer, open(path, 'wb'))
     elif FLAGS.preprocess == 'standardize':
         # Standardize numerical features for actions
@@ -116,7 +116,7 @@ def preprocess_data(actions, observations, exp_path):
         standardized_numerical_features = standardize_feature_transformer.fit_transform(observations)
         observations = pd.DataFrame(standardized_numerical_features, columns=[observations.columns])
         # Save the scaler
-        path = os.path.join(preprocess_data_path, 'standardize_feature_transformer_observations_col_{}.joblib'.format(FLAGS.output_index))
+        path = os.path.join(preprocess_data_path, 'standardize_feature_transformer_observations_{}.joblib'.format(FLAGS.output_index))
         pickle.dump(standardize_feature_transformer, open(path, 'wb'))
     else:
         raise ValueError('Preprocessing method not supported')
