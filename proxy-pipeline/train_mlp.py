@@ -33,7 +33,7 @@ flags.DEFINE_integer('output_index', 0, 'Index of the output to train the model 
 flags.DEFINE_integer('n_hidden_layers', 3, 'Number of hidden layers')
 flags.DEFINE_enum('activation', 'relu', ['relu', 'tanh', 'sigmoid', 'LeakyRelu', 'ELU'], 'Activation function')
 flags.DEFINE_enum('output_activation', 'sigmoid', ['softmax', 'sigmoid'], 'Output activation function')
-flags.DEFINE_enum('loss', 'mse', ['mse', 'l1', 'huber'], 'Loss function')
+flags.DEFINE_enum('loss', 'mse', ['mse', 'l1', 'humber'], 'Loss function')
 flags.DEFINE_enum('optimizer', 'adam', ['adam', 'sgd', 'rmsprop', 'LBFGS'], 'Optimizer')
 flags.DEFINE_integer('n_epochs', 300, 'Number of epochs')
 flags.DEFINE_integer('batch_size', 64, 'Batch size')
@@ -199,7 +199,7 @@ def main(_):
         print('------Training the model------')
         
         X = torch.tensor(X, dtype=torch.float32)
-        y = torch.tensor(y, dtype=torch.float32).reshape()
+        y = torch.tensor(y, dtype=torch.float32).reshape(-1, 1)
         
         # Split the data into train and test
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=FLAGS.train_size, random_state=FLAGS.seed)
@@ -227,7 +227,7 @@ def main(_):
         layers = []
         common_ratio = X.shape[1]**float(1/(FLAGS.n_hidden_layers + 1))
         neurons = X.shape[1]
-        print(neurons)
+        
         for i in range(FLAGS.n_hidden_layers):
             layers.append(nn.Linear(int(neurons), int(neurons/common_ratio)))
             layers.append(activation)
@@ -237,19 +237,50 @@ def main(_):
             
         # Define the model
         regressor = nn.Sequential(*layers)
-        print(regressor)
-        sys.exit()
+
+        if FLAGS.loss == 'mse':
+            loss_fn = nn.MSELoss()
+        elif FLAGS.loss == 'l1':
+            loss_fn = nn.L1Loss()
+        elif FLAGS.loss == 'humber':
+            loss_fn = nn.HumberLoss()
+        else:
+            raise ValueError('Loss function not supported')
         
-        # Train the model
-        regressor.fit(X_train, y_train[:, 0])
+        if FLAGS.optimizer == 'adam':
+            optimizer = optim.Adam(regressor.parameters(), lr=FLAGS.learning_rate)
+        elif FLAGS.optimizer == 'sgd':
+            optimizer = optim.SGD(regressor.parameters(), lr=FLAGS.learning_rate)
+        elif FLAGS.optimizer == 'rmsprop':
+            optimizer = optim.RMSprop(regressor.parameters(), lr=FLAGS.learning_rate)
+        elif FLAGS.optimizer == 'LBFGS':
+            optimizer = optim.LBFGS(regressor.parameters(), lr=FLAGS.learning_rate)
+        else:
+            raise ValueError('Optimizer not supported')
+        
+        for epoch in range(FLAGS.n_epochs):
+            for i in range(0, X_train.shape[0], FLAGS.batch_size):
+                # Forward pass
+                y_pred = regressor(X_train[i:i+FLAGS.batch_size])
+                # Compute loss
+                loss = loss_fn(y_pred, y_train[i:i+FLAGS.batch_size])
+                # Zero gradients
+                optimizer.zero_grad()
+                # Backward pass
+                loss.backward()
+                # Update weights
+                optimizer.step()
+            print('Epoch: {}, Loss: {}'.format(epoch, loss.item()))
 
         # Evaluate the model for train dataset
-        y_pred = regressor.predict(X_train)
+        with torch.no_grad():
+            y_pred = regressor(X_train)
         mse_train = mse(y_train, y_pred)
         print('MSE on train set: {}'.format(mse_train))
 
         # Evaluate the model for test dataset
-        y_pred = regressor.predict(X_test)
+        with torch.no_grad():
+            y_pred = regressor(X_test)
         mse_test = mse(y_test, y_pred)
         print('MSE on test set: {}'.format(mse_test))
 
@@ -276,7 +307,7 @@ def main(_):
         FLAGS.append_flags_into_file(os.path.join(exp_path, 'flags_{}.txt'.format(FLAGS.output_index)))
 
         loaded_regressor = pickle.load(open(path, 'rb'))
-        y_pred = loaded_regressor.predict(X_test)
+        y_pred = loaded_regressor(X_test)
         mse_test_load = mse(y_test, y_pred)
 
         # Check if the model is saved correctly
