@@ -203,6 +203,7 @@ def main(_):
         
         # Split the data into train and test
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=FLAGS.train_size, random_state=FLAGS.seed)
+        X_val, X_test, y_val, y_test = train_test_split(X_test, y_test, train_size=0.5, random_state=FLAGS.seed)
 
         if FLAGS.activation == 'relu':
             activation = nn.ReLU()
@@ -258,20 +259,48 @@ def main(_):
         else:
             raise ValueError('Optimizer not supported')
         
-        for epoch in range(FLAGS.n_epochs):
+        best_loss = np.inf
+        patience = FLAGS.patience
+        best_params = None
+        history_train, history_val = [], []
+        train_loss = 0
+        # Train the model
+        for epoch in range(FLAGS.n_epochs):          
+            # Train the model
+            train_loss = 0
             for i in range(0, X_train.shape[0], FLAGS.batch_size):
                 # Forward pass
                 y_pred = regressor(X_train[i:i+FLAGS.batch_size])
                 # Compute loss
                 loss = loss_fn(y_pred, y_train[i:i+FLAGS.batch_size])
+                train_loss += loss.item()
                 # Zero gradients
                 optimizer.zero_grad()
                 # Backward pass
                 loss.backward()
                 # Update weights
                 optimizer.step()
-            print('Epoch: {}, Loss: {}'.format(epoch, loss.item()))
+            # Evaluate the model validation dataset
+            history_train.append(train_loss/X_train.shape[0])
+            with torch.no_grad():
+                y_pred = regressor(X_val)
+                loss = loss_fn(y_pred, y_val)
+                history_val.append(loss.item())
 
+            # Early stopping
+            if FLAGS.early_stopping:
+                if patience == 0:
+                    print('Early stopping at epoch {}'.format(epoch))
+                    break
+                else:
+                    if best_loss < loss.item():
+                        patience -= 1
+                    else:
+                        best_loss = loss.item()
+                        best_params = regressor.state_dict()
+                        patience = FLAGS.patience
+
+        regressor.load_state_dict(best_params)
         # Evaluate the model for train dataset
         with torch.no_grad():
             y_pred = regressor(X_train)
@@ -283,6 +312,16 @@ def main(_):
             y_pred = regressor(X_test)
         mse_test = mse(y_test, y_pred)
         print('MSE on test set: {}'.format(mse_test))
+
+        # Visualize the loss
+        plt.figure(figsize=(8, 6))
+        plt.plot(history_train, label='train')
+        plt.plot(history_val, label='val')
+        plt.legend()
+        plt.savefig(os.path.join(exp_path, 'loss_graph_{}.png'.format(FLAGS.output_index)))
+        plt.show(block=False)
+        plt.pause(5)
+        plt.close()
 
         # Visualize the results
         y_test_series = pd.Series(y_test.reshape(-1))
@@ -308,7 +347,7 @@ def main(_):
 
         loaded_regressor = pickle.load(open(path, 'rb'))
         y_pred = loaded_regressor(X_test)
-        mse_test_load = mse(y_test, y_pred)
+        mse_test_load = mse(y_test, y_pred.detach().numpy())
 
         # Check if the model is saved correctly
         if mse_test == mse_test_load:
