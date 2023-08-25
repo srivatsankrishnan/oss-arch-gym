@@ -8,9 +8,10 @@ import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
 from scipy import stats
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error as mse
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import ElasticNet
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 
@@ -26,15 +27,17 @@ flags.DEFINE_bool('train', False, 'enable training of the model')
 
 # Hyperparameters for the model
 flags.DEFINE_float('alpha', 1.0, 'Constant that multiplies the penalty terms')
+flags.DEFINE_float('l1_ratio', 0.5, 'The ElasticNet mixing parameter, with 0 <= l1_ratio <= 1')
 flags.DEFINE_bool('fit_intercept', True, 'whether to calculate the intercept for this model')
-flags.DEFINE_bool('precompute', False, 'Whether to use a precomputed Gram matrix to speed up calculations')
-flags.DEFINE_bool('copy_X', True, 'If True, X will be copied; else, it may be overwritten')
+flags.DEFINE_bool('precompute', 'auto', 'Whether to use a precomputed Gram matrix to speed up calculations')
 flags.DEFINE_integer('max_iter', 1000, 'The maximum number of iterations')
-flags.DEFINE_float('tol', 1e-4, 'The tolerance for the optimization')
+flags.DEFINE_bool('copy_X', True, 'If True, X will be copied; else, it may be overwritten')
+flags.DEFINE_float('tol', 0.0001, 'The tolerance for the optimization')
 flags.DEFINE_bool('warm_start', False, 'When set to True, reuse the solution of the previous call to fit as initialization')
 flags.DEFINE_bool('positive', False, 'When set to True, forces the coefficients to be positive')
-flags.DEFINE_integer('random_state', None, 'The seed of the pseudo random number generator to use when shuffling the data')
+flags.DEFINE_integer('random_state', None, 'RandomState instance to control the pseudo random number generation')
 flags.DEFINE_enum('selection', 'cyclic', ['cyclic', 'random'], 'If set to random, a random coefficient is updated every iteration rather than looping over features sequentially by default')
+
 FLAGS = flags.FLAGS
 
 def preprocess_data(actions, observations, exp_path):
@@ -164,9 +167,9 @@ def main(_):
     # Constraints for the hyperparameters
     if FLAGS.precompute != 'auto':
         FLAGS.precompute = bool(FLAGS.precompute)
-    
+
     # Define the experiment folder to save the model
-    exp_name = 'lasso'
+    exp_name = 'elastic_net'
     exp_path = os.path.join(FLAGS.model_path, exp_name)
     if not os.path.exists(exp_path):
         os.makedirs(exp_path)
@@ -192,29 +195,29 @@ def main(_):
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=FLAGS.train_size, random_state=FLAGS.seed)
 
         # Define the model
-        reg = Lasso(alpha=FLAGS.alpha, fit_intercept=FLAGS.fit_intercept, precompute=FLAGS.precompute, copy_X=FLAGS.copy_X, max_iter=FLAGS.max_iter, tol=FLAGS.tol, warm_start=FLAGS.warm_start, positive=FLAGS.positive, random_state=FLAGS.random_state, selection=FLAGS.selection)
+        regressor = ElasticNet(alpha=FLAGS.alpha, l1_ratio=FLAGS.l1_ratio, fit_intercept=FLAGS.fit_intercept, precompute=FLAGS.precompute, max_iter=FLAGS.max_iter, copy_X=FLAGS.copy_X, tol=FLAGS.tol, warm_start=FLAGS.warm_start, positive=FLAGS.positive, random_state=FLAGS.random_state, selection=FLAGS.selection)
         
         # Train the model
-        reg.fit(X_train, y_train)
+        regressor.fit(X_train, y_train)
 
         # Evaluate the model for train dataset
-        y_pred = reg.predict(X_train)
+        y_pred = regressor.predict(X_train)
         mse_train = mse(y_train, y_pred)
         print('MSE on train set: {}'.format(mse_train))
 
         # Evaluate the model for test dataset
-        y_pred = reg.predict(X_test)
+        y_pred = regressor.predict(X_test)
         mse_test = mse(y_test, y_pred)
         print('MSE on test set: {}'.format(mse_test))
 
         # Save the model
         path = os.path.join(exp_path, 'model.joblib')
-        pickle.dump(reg, open(path, 'wb'))
+        pickle.dump(regressor, open(path, 'wb'))
 
         FLAGS.append_flags_into_file(os.path.join(exp_path, 'flags.txt'))
 
-        loaded_rf = pickle.load(open(path, 'rb'))
-        y_pred = loaded_rf.predict(X_test)
+        loaded_regressor = pickle.load(open(path, 'rb'))
+        y_pred = loaded_regressor.predict(X_test)
         mse_test_load = mse(y_test, y_pred)
 
         # Check if the model is saved correctly

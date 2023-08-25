@@ -10,7 +10,7 @@ from matplotlib import pyplot as plt
 from scipy import stats
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error as mse
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 
@@ -25,16 +25,22 @@ flags.DEFINE_bool('visualize', False, 'enable visualization of the data')
 flags.DEFINE_bool('train', False, 'enable training of the model')
 
 # Hyperparameters for the model
-flags.DEFINE_float('alpha', 1.0, 'Constant that multiplies the penalty terms')
-flags.DEFINE_bool('fit_intercept', True, 'whether to calculate the intercept for this model')
-flags.DEFINE_bool('precompute', False, 'Whether to use a precomputed Gram matrix to speed up calculations')
-flags.DEFINE_bool('copy_X', True, 'If True, X will be copied; else, it may be overwritten')
-flags.DEFINE_integer('max_iter', 1000, 'The maximum number of iterations')
-flags.DEFINE_float('tol', 1e-4, 'The tolerance for the optimization')
-flags.DEFINE_bool('warm_start', False, 'When set to True, reuse the solution of the previous call to fit as initialization')
-flags.DEFINE_bool('positive', False, 'When set to True, forces the coefficients to be positive')
+flags.DEFINE_enum('penalty', 'l2', ['l1', 'l2', 'elasticnet', None], 'Used to specify the norm used in the penalization')
+flags.DEFINE_bool('dual', False, 'Dual or primal formulation')
+flags.DEFINE_float('tol', 0.0001, 'Tolerance for stopping criteria')
+flags.DEFINE_float('C', 1.0, 'Inverse of regularization strength; must be a positive float')
+flags.DEFINE_bool('fit_intercept', True, 'Specifies if a constant (a.k.a. bias or intercept) should be added to the decision function')
+flags.DEFINE_float('intercept_scaling', 1.0, 'Useful only when the solver “liblinear” is used and self.fit_intercept is set to True. In this case, x becomes [x, self.intercept_scaling], i.e. a “synthetic” feature with constant value equal to intercept_scaling is appended to the instance vector')
+flags.DEFINE_bool('class_weight', None, 'Weights associated with classes in the form {class_label: weight}. If not given, all classes are supposed to have weight one')
 flags.DEFINE_integer('random_state', None, 'The seed of the pseudo random number generator to use when shuffling the data')
-flags.DEFINE_enum('selection', 'cyclic', ['cyclic', 'random'], 'If set to random, a random coefficient is updated every iteration rather than looping over features sequentially by default')
+flags.DEFINE_enum('solver', 'lbfgs', ['lbfgs', 'liblinear', 'newton-cg', 'newton-cholesky', 'sag', 'saga'], 'Algorithm to use in the optimization problem')
+flags.DEFINE_integer('max_iter', 100, 'Maximum number of iterations taken for the solvers to converge')
+flags.DEFINE_enum('multi_class', 'auto', ['auto', 'ovr', 'multinomial'], 'If the option chosen is “ovr”, then a binary problem is fit for each label. For “multinomial” the loss minimised is the multinomial loss fit across the entire probability distribution, even when the data is binary. “multinomial” is unavailable when solver=’liblinear’. “auto” selects “ovr” if the data is binary, or if solver=’liblinear’, and otherwise selects “multinomial”')
+flags.DEFINE_integer('verbose', 0, 'For the liblinear and lbfgs solvers set verbose to any positive number for verbosity')
+flags.DEFINE_bool('warm_start', False, 'When set to True, reuse the solution of the previous call to fit as initialization, otherwise, just erase the previous solution')
+flags.DEFINE_integer('n_jobs', None, 'Number of CPU cores used when parallelizing over classes if multi_class=’ovr’”. This parameter is ignored when the solver is set to “liblinear” regardless of whether “multi_class” is specified or not. None means 1 unless in a joblib.parallel_backend context. -1 means using all processors')
+flags.DEFINE_float('l1_ratio', None, 'The Elastic-Net mixing parameter, with 0 <= l1_ratio <= 1. Only used if penalty is “elasticnet”. Setting l1_ratio=0 is equivalent to using penalty=”l2”, while setting l1_ratio=1 is equivalent to using penalty=”l1”. For 0 < l1_ratio <1, the penalty is a combination of L1 and L2')
+
 FLAGS = flags.FLAGS
 
 def preprocess_data(actions, observations, exp_path):
@@ -166,7 +172,7 @@ def main(_):
         FLAGS.precompute = bool(FLAGS.precompute)
     
     # Define the experiment folder to save the model
-    exp_name = 'lasso'
+    exp_name = 'logistic_regression'
     exp_path = os.path.join(FLAGS.model_path, exp_name)
     if not os.path.exists(exp_path):
         os.makedirs(exp_path)
@@ -192,7 +198,7 @@ def main(_):
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=FLAGS.train_size, random_state=FLAGS.seed)
 
         # Define the model
-        reg = Lasso(alpha=FLAGS.alpha, fit_intercept=FLAGS.fit_intercept, precompute=FLAGS.precompute, copy_X=FLAGS.copy_X, max_iter=FLAGS.max_iter, tol=FLAGS.tol, warm_start=FLAGS.warm_start, positive=FLAGS.positive, random_state=FLAGS.random_state, selection=FLAGS.selection)
+        reg = LogisticRegression(penalty=FLAGS.penalty, dual=FLAGS.dual, tol=FLAGS.tol, C=FLAGS.C, fit_intercept=FLAGS.fit_intercept, intercept_scaling=FLAGS.intercept_scaling, class_weight=FLAGS.class_weight, random_state=FLAGS.random_state, solver=FLAGS.solver, max_iter=FLAGS.max_iter, multi_class=FLAGS.multi_class, verbose=FLAGS.verbose, warm_start=FLAGS.warm_start, n_jobs=FLAGS.n_jobs, l1_ratio=FLAGS.l1_ratio)
         
         # Train the model
         reg.fit(X_train, y_train)
