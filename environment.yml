@@ -13,6 +13,8 @@ dependencies:
   - keras
   - scikit-learn
   - psutil
+  - torch
+  - xgboost
   - beautifulsoup4
   - lxml
   - pytz

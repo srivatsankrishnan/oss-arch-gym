@@ -23,7 +23,7 @@ flags.DEFINE_string('data_path', './data', 'Path to the data')
 flags.DEFINE_string('model_path', './models', 'Path to the model')
 flags.DEFINE_integer('seed', 123, 'Seed for the random number generator')
 flags.DEFINE_float('train_size', 0.8, 'the split between train and test dataset')
-flags.DEFINE_enum('preprocess', 'normalize', ['normalize', 'standardize'], 'Preprocessing method')
+flags.DEFINE_enum('preprocess', None, ['normalize', 'standardize'], 'Preprocessing method')
 flags.DEFINE_enum('encode', 'one_hot', ['one_hot', 'label'], 'Encoding method')
 flags.DEFINE_bool('visualize', False, 'enable visualization of the data')
 flags.DEFINE_bool('train', False, 'enable training of the model')
@@ -87,7 +87,9 @@ def preprocess_data(actions, observations, exp_path):
         os.makedirs(preprocess_data_path)
 
     # Normalize numerical features
-    if FLAGS.preprocess == 'normalize':
+    if FLAGS.preprocess is None:
+        pass
+    elif FLAGS.preprocess == 'normalize':
         # Normalize numerical features for actions
         normalize_feature_transformer = MinMaxScaler(feature_range=(0, 1))
         normalized_numerical_features = normalize_feature_transformer.fit_transform(numerical_actions)
