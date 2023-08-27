@@ -19,6 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setting up the client" href="customenv_train.html" />
     <link rel="prev" title="AstraSim" href="sims.AstraSim.html" /> 
 </head>
 
@@ -90,229 +91,15 @@
              
   <section id="custom-environment">
 <h1>Custom Environment<a class="headerlink" href="#custom-environment" title="Permalink to this heading"></a></h1>
-<section id="module-sims.customenv.train_EMUKIT_GP_vizier">
-<span id="emukit-gp"></span><h2>EMUKIT_GP<a class="headerlink" href="#module-sims.customenv.train_EMUKIT_GP_vizier" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_EMUKIT_GP_vizier.log_fitness_to_csv">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_EMUKIT_GP_vizier.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_EMUKIT_GP_vizier.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_EMUKIT_GP_vizier.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
-<dd><p>Logs fitness history to csv file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>str</em>) – path to the csv file</p></li>
-<li><p><strong>fitness_dict</strong> (<em>dict</em>) – dictionary containing the fitness history</p></li>
+<section id="training-script-example-for-vizier-algorithms">
+<h2>Training Script Example for Vizier Algorithms<a class="headerlink" href="#training-script-example-for-vizier-algorithms" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="customenv_train.html">Setting up the client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customenv_train.html#client-parallelization">Client Parallelization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customenv_train.html#obtaining-suggestions">Obtaining suggestions</a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_EMUKIT_GP_vizier.main">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_EMUKIT_GP_vizier.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_EMUKIT_GP_vizier.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_EMUKIT_GP_vizier.main" title="Permalink to this definition"></a></dt>
-<dd><p>Trains the custom environment using random actions for a given number of steps and episodes</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_EMUKIT_GP_vizier.wrap_in_envlogger">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_EMUKIT_GP_vizier.</span></span><span class="sig-name descname"><span class="pre">wrap_in_envlogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envlogger_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_EMUKIT_GP_vizier.html#wrap_in_envlogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_EMUKIT_GP_vizier.wrap_in_envlogger" title="Permalink to this definition"></a></dt>
-<dd><p>Wraps the environment in envlogger</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>env</strong> (<em>gym.Env</em>) – gym environment</p></li>
-<li><p><strong>envlogger_dir</strong> (<em>str</em>) – path to the directory where the data will be logged</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-sims.customenv.train_NSGA2_vizier">
-<span id="nsga2"></span><h2>NSGA2<a class="headerlink" href="#module-sims.customenv.train_NSGA2_vizier" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_NSGA2_vizier.log_fitness_to_csv">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_NSGA2_vizier.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_NSGA2_vizier.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_NSGA2_vizier.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
-<dd><p>Wraps the environment in envlogger</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>env</strong> (<em>gym.Env</em>) – gym environment</p></li>
-<li><p><strong>envlogger_dir</strong> (<em>str</em>) – path to the directory where the data will be logged</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_NSGA2_vizier.main">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_NSGA2_vizier.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_NSGA2_vizier.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_NSGA2_vizier.main" title="Permalink to this definition"></a></dt>
-<dd><p>Trains the custom environment using random actions for a given number of steps and episodes</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_NSGA2_vizier.wrap_in_envlogger">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_NSGA2_vizier.</span></span><span class="sig-name descname"><span class="pre">wrap_in_envlogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envlogger_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_NSGA2_vizier.html#wrap_in_envlogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_NSGA2_vizier.wrap_in_envlogger" title="Permalink to this definition"></a></dt>
-<dd><p>Wraps the environment in envlogger</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>env</strong> (<em>gym.Env</em>) – gym environment</p></li>
-<li><p><strong>envlogger_dir</strong> (<em>str</em>) – path to the directory where the data will be logged</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-sims.customenv.train_gridsearch_vizier">
-<span id="grid-search"></span><h2>Grid Search<a class="headerlink" href="#module-sims.customenv.train_gridsearch_vizier" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_gridsearch_vizier.log_fitness_to_csv">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_gridsearch_vizier.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_gridsearch_vizier.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_gridsearch_vizier.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
-<dd><p>Logs fitness history to csv file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>str</em>) – path to the csv file</p></li>
-<li><p><strong>fitness_dict</strong> (<em>dict</em>) – dictionary containing the fitness history</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_gridsearch_vizier.main">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_gridsearch_vizier.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_gridsearch_vizier.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_gridsearch_vizier.main" title="Permalink to this definition"></a></dt>
-<dd><p>Trains the custom environment using random actions for a given number of steps and episodes</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_gridsearch_vizier.wrap_in_envlogger">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_gridsearch_vizier.</span></span><span class="sig-name descname"><span class="pre">wrap_in_envlogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envlogger_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_gridsearch_vizier.html#wrap_in_envlogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_gridsearch_vizier.wrap_in_envlogger" title="Permalink to this definition"></a></dt>
-<dd><p>Wraps the environment in envlogger</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>env</strong> (<em>gym.Env</em>) – gym environment</p></li>
-<li><p><strong>envlogger_dir</strong> (<em>str</em>) – path to the directory where the data will be logged</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-sims.customenv.train_quasirandom_vizier">
-<span id="quasi-random-search"></span><h2>Quasi-Random Search<a class="headerlink" href="#module-sims.customenv.train_quasirandom_vizier" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_quasirandom_vizier.log_fitness_to_csv">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_quasirandom_vizier.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_quasirandom_vizier.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_quasirandom_vizier.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
-<dd><p>Logs fitness history to csv file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>str</em>) – path to the csv file</p></li>
-<li><p><strong>fitness_dict</strong> (<em>dict</em>) – dictionary containing the fitness history</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_quasirandom_vizier.main">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_quasirandom_vizier.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_quasirandom_vizier.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_quasirandom_vizier.main" title="Permalink to this definition"></a></dt>
-<dd><p>Trains the custom environment usreward_formulationing random actions for a given number of steps and episodes</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_quasirandom_vizier.wrap_in_envlogger">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_quasirandom_vizier.</span></span><span class="sig-name descname"><span class="pre">wrap_in_envlogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envlogger_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_quasirandom_vizier.html#wrap_in_envlogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_quasirandom_vizier.wrap_in_envlogger" title="Permalink to this definition"></a></dt>
-<dd><p>Wraps the environment in envlogger</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>env</strong> (<em>gym.Env</em>) – gym environment</p></li>
-<li><p><strong>envlogger_dir</strong> (<em>str</em>) – path to the directory where the data will be logged</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-sims.customenv.train_randomsearch_vizier">
-<span id="random-search"></span><h2>Random Search<a class="headerlink" href="#module-sims.customenv.train_randomsearch_vizier" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_randomsearch_vizier.log_fitness_to_csv">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_randomsearch_vizier.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_randomsearch_vizier.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_randomsearch_vizier.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
-<dd><p>Logs fitness history to csv file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>str</em>) – path to the csv file</p></li>
-<li><p><strong>fitness_dict</strong> (<em>dict</em>) – dictionary containing the fitness history</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_randomsearch_vizier.main">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_randomsearch_vizier.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_randomsearch_vizier.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_randomsearch_vizier.main" title="Permalink to this definition"></a></dt>
-<dd><p>Trains the custom environment using random actions for a given number of steps and episodes</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_randomsearch_vizier.wrap_in_envlogger">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_randomsearch_vizier.</span></span><span class="sig-name descname"><span class="pre">wrap_in_envlogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envlogger_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_randomsearch_vizier.html#wrap_in_envlogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_randomsearch_vizier.wrap_in_envlogger" title="Permalink to this definition"></a></dt>
-<dd><p>Wraps the environment in envlogger</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>env</strong> (<em>gym.Env</em>) – gym environment</p></li>
-<li><p><strong>envlogger_dir</strong> (<em>str</em>) – path to the directory where the data will be logged</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-sims.customenv.train_randomwalker">
-<span id="random-walker"></span><h2>Random Walker<a class="headerlink" href="#module-sims.customenv.train_randomwalker" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_randomwalker.log_fitness_to_csv">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_randomwalker.</span></span><span class="sig-name descname"><span class="pre">log_fitness_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fitness_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_randomwalker.html#log_fitness_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_randomwalker.log_fitness_to_csv" title="Permalink to this definition"></a></dt>
-<dd><p>Logs fitness history to csv file</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<em>str</em>) – path to the csv file</p></li>
-<li><p><strong>fitness_dict</strong> (<em>dict</em>) – dictionary containing the fitness history</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_randomwalker.main">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_randomwalker.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_randomwalker.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_randomwalker.main" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sims.customenv.train_randomwalker.wrap_in_envlogger">
-<span class="sig-prename descclassname"><span class="pre">sims.customenv.train_randomwalker.</span></span><span class="sig-name descname"><span class="pre">wrap_in_envlogger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envlogger_dir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sims/customenv/train_randomwalker.html#wrap_in_envlogger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sims.customenv.train_randomwalker.wrap_in_envlogger" title="Permalink to this definition"></a></dt>
-<dd><p>Wraps the environment in envlogger</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>env</strong> (<em>gym.Env</em>) – gym environment</p></li>
-<li><p><strong>envlogger_dir</strong> (<em>str</em>) – path to the directory where the data will be logged</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-sims.customenv">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sims.customenv" title="Permalink to this heading"></a></h2>
+</div>
 </section>
 </section>
 
@@ -321,6 +108,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="sims.AstraSim.html" class="btn btn-neutral float-left" title="AstraSim" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="customenv_train.html" class="btn btn-neutral float-right" title="Setting up the client" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

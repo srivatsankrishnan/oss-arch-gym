@@ -40,7 +40,7 @@ Here are the mapper functions for each parameter:
 
 ## Utilizing the Parameter Space
 
-We utilize supported vizier algorithms to suggest parameters within this space. The training scripts for each algorithm integrated with the DRAM simulator can be found [here](link-to-training-scripts).
+We utilize supported vizier algorithms to suggest parameters within this space. The training scripts for each algorithm integrated with the DRAM simulator can be found [here](www.apple.com).
 
 ## Conclusion
 
