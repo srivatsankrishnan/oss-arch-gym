@@ -70,7 +70,7 @@ html_static_path = ['_static']
 def run_shell_script(app):
     print("--------------------------Running the shell script--------------------------")
     try:
-        subprocess.call(['.'], shell=True)
+        subprocess.call(['./install_acme.sh'], shell=True)
     except Exception as e:
         print("Error running the shell script:", e)
 
