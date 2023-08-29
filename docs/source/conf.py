@@ -68,6 +68,7 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
 def run_shell_script(app):
+    print("--------------------------Running the shell script--------------------------")
     try:
         subprocess.call(['.'], shell=True)
     except Exception as e:
