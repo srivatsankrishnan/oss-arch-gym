@@ -16,9 +16,12 @@ dependencies:
   - torch
   - xgboost
   - beautifulsoup4
+  - qhoptim
   - lxml
   - pytz
   - nodejs
+  - category_encoders
+  - tensorboardX
   - pip
   - pip:
     - -r requirements.txt
