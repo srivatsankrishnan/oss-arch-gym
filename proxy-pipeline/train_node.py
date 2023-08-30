@@ -3,8 +3,7 @@ import pickle
 
 from absl import flags
 from absl import app
-os.sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../node/')))
-import lib
+import lib_node as lib
 import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
