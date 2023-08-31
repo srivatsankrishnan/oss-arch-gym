@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/$USERNAME/anaconda3/envs/arch-gym/lib/"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/$(whoami)/anaconda3/envs/arch-gym/lib/"
 source ~/.bashrc
 
 # Change directory to the "acme" folder
