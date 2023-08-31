@@ -39,7 +39,7 @@ release = '0.1.0'
 # ones.
 extensions = ["sphinx.ext.todo", "sphinx.ext.viewcode", "sphinx.ext.napoleon", "myst_parser"]
 
-# Add any paths that contain templates here, relative to this directory.
+# Add any paths that contain templates here, relative tolibpython3.9.so.1.0: cannot open shared object file: No such file or this directory.
 templates_path = ['_templates']
 
 # List of patterns, relative to source directory, that match files and
@@ -70,7 +70,7 @@ html_static_path = ['_static']
 def run_shell_script(app):
     print("--------------------------Running the shell script--------------------------")
     try:
-        subprocess.call(['./install_acme.sh'], shell=True)
+        subprocess.call(['bash', '../../install_acme.sh'])
     except Exception as e:
         print("Error running the shell script:", e)
 
