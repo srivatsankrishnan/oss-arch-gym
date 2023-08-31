@@ -18,7 +18,7 @@ flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
 flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
 flags.DEFINE_string('summary_dir', '', 'Directory to store the summary')
 flags.DEFINE_integer('num_iter', 10, 'Number of iterations')
-flags.DEFINE_string('reward_formulation', 'energy', 'Reward formulation to use')
+flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation to use')
 
 
 # BO
@@ -160,52 +160,77 @@ def run_task(task):
     # run the command
     os.system(cmd)
   
+def generate_tasks():
+    algorithms = ['ga', 'bo', 'rw']
+    total_iterations = [3, 4]
+    reward_formulations = ['latency', 'energy', 'area']
+    workloads = ['resnet18', 'mobilenet_v2', 'alexnet', 'vgg16']
 
+    tasks = []
+
+    for algo in algorithms:
+        for num_iter in total_iterations:
+            for reward_formulation in reward_formulations:
+                for workload in workloads:
+                    if algo == 'ga':
+                        num_agents_values = [16, 32, 64]
+                        prob_mutation_values = [0.01, 0.05]
+                        for num_agents, prob_mutation in product(num_agents_values, prob_mutation_values):
+                            task = {
+                                'algo': algo,
+                                'workload': workload,
+                                'num_iter': num_iter,
+                                'summary_dir': FLAGS.summary_dir,
+                                'reward_formulation': reward_formulation,
+                                'num_agents': num_agents,
+                                'prob_mut': prob_mutation
+                            }
+                            tasks.append(task)
+                    elif algo == 'bo':
+                        rand_state_values = [0, 1, 2, 3, 4, 5]
+                        for rand_state in rand_state_values:
+                            task = {
+                                'algo': algo,
+                                'workload': workload,
+                                'num_iter': num_iter,
+                                'summary_dir': FLAGS.summary_dir,
+                                'reward_formulation': reward_formulation,
+                                'rand_state': rand_state
+                            }
+                            tasks.append(task)
+                    elif algo == 'aco':
+                        ant_count_values = [16, 32]
+                        evaporation_values = [0.1, 0.2]
+                        greediness_values = [0.1, 0.2]
+                        for ant_count, evaporation, greediness in product(ant_count_values, evaporation_values, greediness_values):
+                            task = {
+                                'algo': algo,
+                                'workload': workload,
+                                'num_iter': num_iter,
+                                'summary_dir': FLAGS.summary_dir,
+                                'reward_formulation': reward_formulation,
+                                'ant_count': ant_count,
+                                'evaporation': evaporation,
+                                'greediness': greediness
+                            }
+                            tasks.append(task)
+                    else:
+                        task = {
+                            'algo': algo,
+                            'workload': workload,
+                            'num_iter': num_iter,
+                            'summary_dir': FLAGS.summary_dir,
+                            'reward_formulation': reward_formulation
+                        }
+                        tasks.append(task)
+
+    return tasks
 
 def main(_):
-    taskList = []
+    
+    tasks = generate_tasks()
 
-    if FLAGS.algo == "ga":
-        task = {"algo": FLAGS.algo,
-                "workload": FLAGS.workload, 
-                "num_agents": FLAGS.num_agents, 
-                "num_iter": FLAGS.num_iter, 
-                "prob_mut": FLAGS.prob_mutation,
-                'summary_dir': FLAGS.summary_dir,
-                'reward_formulation': FLAGS.reward_formulation}
-        taskList.append(task)
-    elif FLAGS.algo == "rw":
-        task = {"algo": FLAGS.algo,
-                "workload": FLAGS.workload, 
-                "num_iter": FLAGS.num_iter, 
-                'summary_dir': FLAGS.summary_dir,
-                'reward_formulation': FLAGS.reward_formulation}
-        taskList.append(task)
-    elif FLAGS.algo == "bo":
-        task = {"algo": FLAGS.algo,
-                "workload": FLAGS.workload, 
-                "num_iter": FLAGS.num_iter, 
-                "rand_state": FLAGS.rand_state,
-                'summary_dir': FLAGS.summary_dir,
-                'reward_formulation': FLAGS.reward_formulation}
-        taskList.append(task)
-    elif FLAGS.algo == "aco":
-        task = {"algo": FLAGS.algo,
-                "workload": FLAGS.workload, 
-                "num_iter": FLAGS.num_iter, 
-                "ant_count": FLAGS.ant_count,
-                "evaporation": FLAGS.evaporation,
-                "greediness": FLAGS.greediness,
-                'summary_dir': FLAGS.summary_dir,
-                'reward_formulation': FLAGS.reward_formulation}
-        taskList.append(task)
-
-    else:
-        raise NotImplementedError
-
-
-    for each_task in taskList:
-        # update the workload in DRAMSys simulator
+    for each_task in tasks:
         run_task(each_task)
 
 

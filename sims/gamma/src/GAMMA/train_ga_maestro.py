@@ -73,7 +73,7 @@ def wrap_in_envlogger(env, envlogger_dir):
 
 def Mastero_optimization_function(p):
     
-    env = maestero_wrapper.make_maestro_env(rl_form='random_walker')
+    env = maestero_wrapper.make_maestro_env(rl_form='random_walker', reward_formulation=FLAGS.reward_formulation)
     maestro_helpers = helpers()
     fitness_hist = {}
 

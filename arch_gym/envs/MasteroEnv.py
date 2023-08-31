@@ -62,10 +62,12 @@ class MasteroEnv(gym.Env):
         self.episode = 0
         self.workload = workload
         self.layer_id = layer_id
+        self.reward_type = reward_formulation
         self.helpers = helpers() 
 
         self.dimension, _ = self.helpers.get_dimensions(workload=self.workload, layer_id=self.layer_id)
         print("dimension: ", self.dimension) 
+        print("Reward Formulation", self.reward_type)
         
         if self.rl_form == 'macme':
             self.observation_space = [
@@ -152,8 +154,6 @@ class MasteroEnv(gym.Env):
         self.steps += 1
         done = False
 
-        print("action: ", action)
-
         if self.rl_form == 'macme':
             # TODO(Sri) implement this
             action_decoded = self.helpers.decode_action_list_multiagent(action)
@@ -195,10 +195,28 @@ class MasteroEnv(gym.Env):
         return obs, reward, done, {}
 
     def calculate_reward(self, stats):
+        
+        if self.reward_type == 'latency':
+            # check if the obs has -1 in it
+            if stats[0]<= 0:
+                reward = -1
+            else:
+                # flatten the list 
+                reward = 1/stats[0]
+        elif self.reward_type == 'energy':
+            if stats[2]<= 0:
+                reward = -1
+            else:
+                reward = 1/(stats[0]*stats[2] * 1e4)
+        elif self.reward_type == 'area':
+            if stats[3]<= 0:
+                reward = -1
+            else:
+                reward = 1/stats[3]
+        else:
+            print("FUckerQ")
 
-        # flatten the list 
-        runtime = stats[0]
-        return 1/runtime
+        return reward
 
     def reset(self):
         self.steps = 0
