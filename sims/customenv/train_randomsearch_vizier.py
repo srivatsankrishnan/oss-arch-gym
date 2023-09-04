@@ -25,7 +25,7 @@ from vizier.service import pyvizier as vz
 from vizier.service import vizier_server
 from vizier.service import vizier_service_pb2_grpc
 
-flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
+# flags.DEFINE_string('workload', 'stream.stl', 'Which DRAMSys workload to run?')
 flags.DEFINE_integer('num_steps', 100, 'Number of training steps.')
 flags.DEFINE_integer('num_episodes', 2, 'Number of training episodes.')
 flags.DEFINE_string('traject_dir', 
