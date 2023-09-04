@@ -2,7 +2,7 @@ Environments
 ============
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Following environments are available:
 
    customenv

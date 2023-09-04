@@ -45,7 +45,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation for Ubuntu VM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Setting up ArchGym Environment</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="environments.html">Environments</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Custom Environment</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
@@ -80,7 +80,7 @@
           <li class="breadcrumb-item"><a href="environments.html">Environments</a></li>
       <li class="breadcrumb-item active">Custom Environment</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/customenv.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/customenv.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -90,21 +90,43 @@
              
   <section id="custom-environment">
 <h1>Custom Environment<a class="headerlink" href="#custom-environment" title="Permalink to this heading"></a></h1>
-<p>Custom Environment - While, gym environment is primarily designed for applying reinforcement learning algorithms, we show how we can generalize that interface to use it to apply any ML algorithms.
-We show how different ways in which various machine learning techniques have been applied to design specialized hardware.
-Recreating these results and overcoming the challenges of getting to work with complex architecture simulators, its sheer slowness increases the barrier of entry for ML-aided design.
-Hence, ArchGym tries to lower this barrier by advocating for a general interface through which we can apply ML-aided design while being agnostic to type of ML algorithm or the simulator type.</p>
+<p>Custom Environment is designed to generalize the Gym interface for applying any machine learning (ML) algorithms. This environment demonstrates how various ML techniques have been utilized in designing specialized hardware. It aims to recreate results and overcome the challenges associated with complex architecture simulators, which can be slow and create barriers to entry for ML-aided design. ArchGym strives to lower this barrier by providing a general interface that allows ML-aided design without being tied to a specific ML algorithm or simulator type.</p>
 <section id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this heading"></a></h2>
-<p>Let’s say we have a hypothetical architecture which has four parameters, namely, number of cores (<code class="docutils literal notranslate"><span class="pre">num_cores</span></code>, type integer), frequency (<code class="docutils literal notranslate"><span class="pre">freq</span></code>, type float), memory type (<code class="docutils literal notranslate"><span class="pre">mem_type</span></code>, {DRAM, SRAM, Hybrid})
-and memory size (<code class="docutils literal notranslate"><span class="pre">mem_size</span></code>, type integer).
-We want to use the algorithms available in OSS-Vizier to find the optimal values of these parameters.
-The file <code class="docutils literal notranslate"><span class="pre">custom_env.py</span></code> shows this particular customised environment.
-For example, if we want to use <code class="docutils literal notranslate"><span class="pre">RANDOM_SEARCH</span></code> algorithm, we can use <code class="docutils literal notranslate"><span class="pre">train_randomsearch_vizier.py</span></code> file. The structure of this code, Detailed description can be found here (add hyperlink for this module)
-If you wish to use any other of the supported algorithms, simply change line <code class="docutils literal notranslate"><span class="pre">study_config.algorithm</span> <span class="pre">=</span> <span class="pre">vz.Algorithm.RANDOM_SEARCH</span></code> to <code class="docutils literal notranslate"><span class="pre">study_config.algorithm</span> <span class="pre">=</span> <span class="pre">vz.Algorithm.&lt;ALGORITHM_NAME&gt;</span></code>. Also, make sure to change the names of directories in the following places :
-<code class="docutils literal notranslate"><span class="pre">flags.DEFINE_string('traject_dir',</span>&#160; <span class="pre">'&lt;algo_name&gt;_trajectories',</span>&#160; <span class="pre">'Directory</span> <span class="pre">to</span> <span class="pre">save</span> <span class="pre">the</span> <span class="pre">dataset.')</span></code>,
-<code class="docutils literal notranslate"><span class="pre">log_path</span> <span class="pre">=</span> <span class="pre">os.path.join(FLAGS.summary_dir,</span> <span class="pre">'&lt;algo_name&gt;_logs',</span> <span class="pre">FLAGS.reward_formulation,</span> <span class="pre">exp_name)</span></code>. This is done to ensure that the data logs in the respective algorithm directory only
-and does not override other algorithms’ data log.</p>
+<p>Let’s consider a hypothetical architecture with four parameters:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Possible Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>num_cores</p></td>
+<td><p>Integer</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>freq</p></td>
+<td><p>Float</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>mem_type</p></td>
+<td><p>Enumeration</p></td>
+<td><p>{DRAM, SRAM, Hybrid}</p></td>
+</tr>
+<tr class="row-odd"><td><p>mem_size</p></td>
+<td><p>Integer</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p>The goal is to use the algorithms available in OSS-Vizier to find the optimal values for these parameters. The following <code class="docutils literal notranslate"><span class="pre">custom_env.py</span></code> file demonstrates this custom environment.</p>
+<p>For instance, if you want to use the “RANDOM_SEARCH” algorithm, you can utilize the <code class="docutils literal notranslate"><span class="pre">train_randomsearch_vizier.py</span></code> file. You can easily switch to another supported algorithm by changing the line <code class="docutils literal notranslate"><span class="pre">study_config.algorithm</span> <span class="pre">=</span> <span class="pre">vz.Algorithm.RANDOM_SEARCH</span></code> to <code class="docutils literal notranslate"><span class="pre">study_config.algorithm</span> <span class="pre">=</span> <span class="pre">vz.Algorithm.&lt;ALGORITHM_NAME&gt;</span></code>. Additionally, ensure that you modify directory names in the following locations to keep the data logs separate for each algorithm:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">flags.DEFINE_string('traject_dir',</span>&#160; <span class="pre">'&lt;algo_name&gt;_trajectories',</span>&#160; <span class="pre">'Directory</span> <span class="pre">to</span> <span class="pre">save</span> <span class="pre">the</span> <span class="pre">dataset.')</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">log_path</span> <span class="pre">=</span> <span class="pre">os.path.join(FLAGS.summary_dir,</span> <span class="pre">'&lt;algo_name&gt;_logs',</span> <span class="pre">FLAGS.reward_formulation,</span> <span class="pre">exp_name)</span></code></p></li>
+</ol>
+<p>This is done to ensure that data logs are saved in the respective algorithm directory and do not overwrite data from other algorithms.</p>
 </section>
 </section>
 
