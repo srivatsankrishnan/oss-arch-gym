@@ -97,7 +97,7 @@ def main(_):
 
     problem.metric_information.append(
         vz.MetricInformation(
-            name='Reward', goal=vz.ObjectiveMetricGoal.MINIMIZE))
+            name='Reward', goal=vz.ObjectiveMetricGoal.MAXIMIZE))
 
 
 
