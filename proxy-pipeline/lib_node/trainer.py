@@ -52,7 +52,7 @@ class Trainer(nn.Module):
         if tag is None and path is None:
             tag = "temp_{}".format(self.step)
         if path is None:
-            path = os.path.join(self.experiment_path, "checkpoint_{}.pth".format(tag))
+            path = os.path.join(self.experiment_path, "{}.pth".format(tag))
         if mkdir:
             os.makedirs(os.path.dirname(path), exist_ok=True)
         torch.save(OrderedDict([
@@ -69,7 +69,7 @@ class Trainer(nn.Module):
         if tag is None and path is None:
             path = get_latest_file(os.path.join(self.experiment_path, 'checkpoint_temp_[0-9]*.pth'))
         elif tag is not None and path is None:
-            path = os.path.join(self.experiment_path, "checkpoint_{}.pth".format(tag))
+            path = os.path.join(self.experiment_path, "{}.pth".format(tag))
         checkpoint = torch.load(path)
 
         self.load_state_dict(checkpoint['model'], **kwargs)

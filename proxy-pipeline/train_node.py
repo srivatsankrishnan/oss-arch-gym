@@ -182,6 +182,9 @@ def visualize_data(data, exp_path):
 
 
 def main(_):
+    if os.path.exists('./logs'):
+        os.system('rm -rf ./logs')
+
     # Constraint on the Hyperparamters
     if FLAGS.choice_function == 'EntMax15':
         choice_function = lib.entmax15
@@ -245,7 +248,7 @@ def main(_):
         
         trainer = lib.Trainer(
             model=model, loss_function=nn.MSELoss(),
-            experiment_name=os.path.join(exp_path, 'checkpoints'), warm_start=FLAGS.warm_start,
+            experiment_name='checkpoints', warm_start=FLAGS.warm_start,
             Optimizer=QHAdam, optimizer_params=optimizer_params,
             verbose=FLAGS.verbose
         )
@@ -258,10 +261,10 @@ def main(_):
 
             if metrics['loss'] < best_mse:
                 best_mse = metrics['loss']
-                trainer.save_checkpoint(os.path.join(exp_path, 'model_{}.joblib'.format(FLAGS.output_index)))
+                trainer.save_checkpoint('model_{}'.format(FLAGS.output_index))
 
         # Evaluate the model for train dataset
-        model.load_state_dict(torch.load(os.path.join(exp_path, 'model_{}.joblib'.format(FLAGS.output_index))))
+        trainer.load_checkpoint(tag='model_{}'.format(FLAGS.output_index))
         y_pred = model(torch.from_numpy(X_train).float().to(FLAGS.device)).detach().cpu().numpy()
         mse_train = mse(y_train, y_pred)
         print('MSE on train set: {}'.format(mse_train))
@@ -289,12 +292,6 @@ def main(_):
         plt.close()
 
         FLAGS.append_flags_into_file(os.path.join(exp_path, 'flags_{}.txt'.format(FLAGS.output_index)))
-
-        # Check if the model is saved correctly
-        if mse_train == best_mse:
-            print('Model saved successfully at {}'.format(os.path.join(exp_path, 'model_{}.joblib'.format(FLAGS.output_index))))
-        else:
-            raise Exception('Model is not saved correctly')
 
 
 if __name__ == '__main__':
