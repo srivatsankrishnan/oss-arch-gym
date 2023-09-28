@@ -1,5 +1,12 @@
 # AstraSim Simulator Documentation
 
+## Installing AstraSim
+
+Clone AstraSim from this repo: ```git clone --recursive https://github.com/astra-sim/astra-sim.git```
+
+Run the compilation script with analytical backend: ```./build/astra_analytical/build.sh -c```
+
+
 ## Running Training Scripts
 
 Inside sims/AstraSim:
@@ -23,6 +30,7 @@ For ACO, in aco/deepswarm/backends.py, define the network and workload file path
 For BO, define the input file paths in the network_file, system_file, and workload_file variables in bo/AstraSimEstimator.py.
 
 For RL, define the input file paths in the network_file, system_file, and workload_file variables in envs/AstraSimEnv.py.
+
 
 ## Updating Hyperparameters
 
@@ -58,5 +66,6 @@ For RL, define the input file paths in the network_file, system_file, and worklo
 | hbm-latency    | 1 |
 | hbm-bandwidth    | 1 |
 | hbm-scale    | 1 |
+
 
 ## Parameter Mapping
