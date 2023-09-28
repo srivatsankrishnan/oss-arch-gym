@@ -4,6 +4,8 @@
 
 Clone AstraSim from this repo: ```git clone --recursive https://github.com/astra-sim/astra-sim.git```
 
+Install conda environment.
+
 Run the compilation script with analytical backend: ```./build/astra_analytical/build.sh -c```
 
 
@@ -11,25 +13,25 @@ Run the compilation script with analytical backend: ```./build/astra_analytical/
 
 Inside sims/AstraSim:
 
-* **Ant Colony Optimization**: run trainACOAstraSim.py
+* **Ant Colony Optimization**: ```python trainACOAstraSim.py```
 
-* **Bayesian Optimization**: run trainBOAstraSim.py
+* **Bayesian Optimization**: ```python trainBOAstraSim.py```
 
-* **Genetic Algorithm**: run trainGAAstraSim.py
+* **Genetic Algorithm**: ```python trainGAAstraSim.py```
 
-* **Random Walker**: run trainRandomWalkerAstraSim.py
+* **Random Walker**: ```python trainRandomWalkerAstraSim.py```
 
-* **Reinforcement Learning**: run trainSingleAgentAstraSim.py
+* **Reinforcement Learning**: ```python trainSingleAgentAstraSim.py```
 
 To update the input network, system, and workload files for the training scripts, follow these steps:
 
 For GA and Random Walker, define the input file paths in the network_file, system_file, and workload_file variables in the training scripts.
 
-For ACO, in aco/deepswarm/backends.py, define the network and workload file paths in self.action_dict["network"]['path'] and self.action_dict["workload"]['path']. Define the system file path self.system_file. 
+For ACO, in ```aco/deepswarm/backends.py```, define the network and workload file paths in ```self.action_dict["network"]['path']``` and ```self.action_dict["workload"]['path']```. Define the system file path self.system_file. 
 
-For BO, define the input file paths in the network_file, system_file, and workload_file variables in bo/AstraSimEstimator.py.
+For BO, define the input file paths in the network_file, system_file, and workload_file variables in ```bo/AstraSimEstimator.py```.
 
-For RL, define the input file paths in the network_file, system_file, and workload_file variables in envs/AstraSimEnv.py.
+For RL, define the input file paths in the network_file, system_file, and workload_file variables in ```envs/AstraSimEnv.py```.
 
 
 ## Updating Hyperparameters
