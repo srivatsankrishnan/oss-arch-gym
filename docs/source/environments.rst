@@ -8,7 +8,7 @@ Environments
    customenv
    DRAM
    FARSI_sim
-   astrasim
+   AstraSim
    gamma
    cfu
    timeloop
