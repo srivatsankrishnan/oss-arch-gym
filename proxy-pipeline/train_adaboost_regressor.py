@@ -15,6 +15,7 @@ from sklearn.metrics import mean_squared_error as mse
 from sklearn.ensemble import AdaBoostRegressor
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn.datasets import fetch_california_housing
 
 # Define parameters for the training/handling of the data and model
 flags.DEFINE_string('data_path', './data', 'Path to the data')
@@ -29,7 +30,7 @@ flags.DEFINE_integer('output_index', 0, 'Index of the output to train the model 
 flags.DEFINE_bool('custom_dataset', False, 'enable custom dataset')
 
 # Hyperparameters for the model
-flags.DEFINE_spaceseplist('estimators', ['decision_tree', 'random_forest'], 'The base estimator from which the boosted ensemble is built')
+flags.DEFINE_enum('estimator', None, ['decision_tree', 'random_forest'], 'The base estimator from which the boosted ensemble is built')
 flags.DEFINE_integer('n_estimators', 50, 'The maximum number of estimators at which boosting is terminated')
 flags.DEFINE_float('learning_rate', 1.0, 'Weight applied to each regressor at each boosting iteration')
 flags.DEFINE_enum('loss', 'linear', ['linear', 'square', 'exponential'], 'The loss function to use when updating the weights after each boosting iteration')
@@ -209,18 +210,18 @@ def main(_):
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=FLAGS.train_size, random_state=FLAGS.seed)
 
         # Define the model
-        models = []
-        for estimator in FLAGS.estimators:
-            if os.path.exists(os.path.join(FLAGS.model_path, estimator)):
-                if os.path.exists(os.path.join(FLAGS.model_path, estimator, 'model_{}.joblib'.format(FLAGS.output_index))):
-                    path = os.path.join(FLAGS.model_path, estimator, 'model_{}.joblib'.format(FLAGS.output_index))
-                    models.append((estimator, pickle.load(open(path, 'rb'))))
-                else:
-                    raise Exception('Model {} is not trained'.format(estimator))
+        if FLAGS.estimator == None:
+            model = None
+        elif os.path.exists(os.path.join(FLAGS.model_path, FLAGS.estimator)):
+            if os.path.exists(os.path.join(FLAGS.model_path, FLAGS.estimator, 'model_{}.joblib'.format(FLAGS.output_index))):
+                path = os.path.join(FLAGS.model_path, FLAGS.estimator, 'model_{}.joblib'.format(FLAGS.output_index))
+                model = pickle.load(open(path, 'rb'))
             else:
-                raise Exception('Model {} is not found'.format(estimator))
+                raise Exception('Model {} is not trained'.format(FLAGS.estimator))
+        else:
+            raise Exception('Model {} is not found'.format(FLAGS.estimator))
         
-        regressor = AdaBoostRegressor(estimators=models, n_estimators=FLAGS.n_estimators, learning_rate=FLAGS.learning_rate, loss=FLAGS.loss, random_state=FLAGS.random_state)
+        regressor = AdaBoostRegressor(estimator=model, n_estimators=FLAGS.n_estimators, learning_rate=FLAGS.learning_rate, loss=FLAGS.loss, random_state=FLAGS.random_state)
         
         # Train the model
         regressor.fit(X_train, y_train)

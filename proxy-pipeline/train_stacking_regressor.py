@@ -14,6 +14,7 @@ from sklearn.metrics import mean_squared_error as mse
 from sklearn.ensemble import BaggingRegressor
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn.datasets import fetch_california_housing
 
 # Define parameters for the training/handling of the data and model
 flags.DEFINE_string('data_path', './data', 'Path to the data')
@@ -25,13 +26,19 @@ flags.DEFINE_enum('encode', 'one_hot', ['one_hot', 'label'], 'Encoding method')
 flags.DEFINE_bool('visualize', False, 'enable visualization of the data')
 flags.DEFINE_bool('train', False, 'enable training of the model')
 flags.DEFINE_integer('output_index', 0, 'Index of the output to train the model on')
+flags.DEFINE_bool('custom_dataset', False, 'Whether to use a custom dataset or not')
 
 # Hyperparameters for the model
-flags.DEFINE_spaceseplist('estimators', ['decision_tree', 'random_forest'], 'Base estimators which will be stacked together')
-flags.DEFINE_string('final_estimator', 'decision_tree', 'A regressor which will be used to combine the base estimators')
-flags.DEFINE_integer('cv', None, 'Determines the cross-validation splitting strategy used in cross_val_predict to train final_estimator')
+flags.DEFINE_enum('estimator', None, ['decision_tree', 'random_forest'], 'Base estimators which will be stacked together')
+flags.DEFINE_integer('n_estimators', 10, 'The number of base estimators in the ensemble')
+flags.DEFINE_integer('max_samples', 1, 'The number of samples to draw from X to train each base estimator')
+flags.DEFINE_integer('max_features', 1, 'The number of features to draw from X to train each base estimator')
+flags.DEFINE_bool('bootstrap', True, 'Whether samples are drawn with replacement')
+flags.DEFINE_bool('bootstrap_features', False, 'Whether features are drawn with replacement')
+flags.DEFINE_bool('oob_score', False, 'Whether to use out-of-bag samples to estimate the generalization accuracy')
+flags.DEFINE_bool('warm_start', False, 'When set to True, reuse the solution of the previous call to fit and add more estimators to the ensemble')
 flags.DEFINE_integer('n_jobs', None, 'The number of jobs to run in parallel for fit of all estimators')
-flags.DEFINE_bool('passthrough', False, 'When False, only the predictions of estimators will be used as training data for final_estimator')
+flags.DEFINE_integer('random_state', None, 'Determines random number generation for bagging')
 flags.DEFINE_integer('verbose', 0, 'Controls the verbosity of the building process')
 
 FLAGS = flags.FLAGS
@@ -40,6 +47,10 @@ def preprocess_data(actions, observations, exp_path):
     observations = observations.to_frame()
     # Categorical features
     categorical_cols = list(set(actions.columns) - set(actions._get_numeric_data().columns))
+    if len(categorical_cols) == 0:
+        NO_CAT = True
+    else:
+        NO_CAT = False
     categorical_actions = actions[categorical_cols]
     
     # Numerical features
@@ -50,7 +61,7 @@ def preprocess_data(actions, observations, exp_path):
         os.makedirs(encoder_path)
 
     # Encode categorical features
-    if FLAGS.encode == 'one_hot':
+    if FLAGS.encode == 'one_hot' and not NO_CAT:
         # One-hot encode categorical features
         enc = OneHotEncoder(handle_unknown='ignore')
         enc.fit(categorical_actions)
@@ -60,7 +71,7 @@ def preprocess_data(actions, observations, exp_path):
         # Transform the categorical features
         dummy_col_names = pd.get_dummies(categorical_actions).columns
         categorical_actions = pd.DataFrame(enc.transform(categorical_actions).toarray(), columns=dummy_col_names)
-    elif FLAGS.encode == 'label':
+    elif FLAGS.encode == 'label' and not NO_CAT:
         dummy_actions = pd.DataFrame()
         for categorical_col in categorical_cols:
             # Label encode categorical features
@@ -72,7 +83,7 @@ def preprocess_data(actions, observations, exp_path):
             # Transform the categorical features
             dummy_actions[categorical_col] = enc.transform(categorical_actions[categorical_col])
         categorical_actions = pd.DataFrame(dummy_actions, columns=categorical_cols)
-    else:
+    elif not NO_CAT:
         raise ValueError('Encoding method not supported')
 
     preprocess_data_path = os.path.join(exp_path, 'preprocess_data')
@@ -118,9 +129,11 @@ def preprocess_data(actions, observations, exp_path):
         raise ValueError('Preprocessing method not supported')
 
     # Concatenate numerical and categorical features
-    actions = pd.concat([numerical_actions, categorical_actions], axis = 1).to_numpy()
+    if NO_CAT:
+        actions = numerical_actions.to_numpy()
+    else:
+        actions = pd.concat([numerical_actions, categorical_actions], axis = 1).to_numpy()
     observations = observations.to_numpy()
-
     return actions, observations
 
 
@@ -169,11 +182,15 @@ def main(_):
         os.makedirs(exp_path)
 
     # Load the data
-    actions_path = os.path.join(FLAGS.data_path, 'actions_feasible.csv')
-    observations_path = os.path.join(FLAGS.data_path, 'observations_feasible.csv')
-
-    actions = pd.read_csv(actions_path)
-    observations = pd.read_csv(observations_path)
+    if FLAGS.custom_dataset:
+        actions_path = os.path.join(FLAGS.data_path, 'actions_feasible.csv')
+        observations_path = os.path.join(FLAGS.data_path, 'observations_feasible.csv')
+        actions = pd.read_csv(actions_path)
+        observations = pd.read_csv(observations_path)
+    else:
+        california = fetch_california_housing()
+        actions = pd.DataFrame(california.data, columns=california.feature_names)
+        observations = pd.DataFrame(california.target, columns=['MEDV'])
 
     output = observations.copy()
     if FLAGS.output_index >= output.shape[1]:
@@ -196,17 +213,21 @@ def main(_):
 
         # Define the model
         models = []
-        for estimator in FLAGS.estimators:
-            if os.path.exists(os.path.join(FLAGS.model_path, estimator)):
-                if os.path.exists(os.path.join(FLAGS.model_path, estimator, 'model_{}.joblib'.format(FLAGS.output_index))):
-                    path = os.path.join(FLAGS.model_path, estimator, 'model_{}.joblib'.format(FLAGS.output_index))
-                    models.append((estimator, pickle.load(open(path, 'rb'))))
-                else:
-                    raise Exception('Model {} is not trained'.format(estimator))
+        if FLAGS.estimator is None:
+            model = None
+        elif os.path.exists(os.path.join(FLAGS.model_path, FLAGS.estimator)):
+            if os.path.exists(os.path.join(FLAGS.model_path, FLAGS.estimator, 'model_{}.joblib'.format(FLAGS.output_index))):
+                path = os.path.join(FLAGS.model_path, FLAGS.estimator, 'model_{}.joblib'.format(FLAGS.output_index))
+                model = pickle.load(open(path, 'rb'))
             else:
-                raise Exception('Model {} is not found'.format(estimator))
+                raise Exception('Model {} is not trained'.format(FLAGS.estimator))
+        else:
+            raise Exception('Model {} is not found'.format(FLAGS.estimator))
         
-        regressor = BaggingRegressor(estimators=models, n_estimators=FLAGS.n_estimators, max_samples=FLAGS.max_samples, max_features=FLAGS.max_features, bootstrap=FLAGS.bootstrap, bootstrap_features=FLAGS.bootstrap_features, oob_score=FLAGS.oob_score, warm_start=FLAGS.warm_start, n_jobs=FLAGS.n_jobs, random_state=FLAGS.random_state, verbose=FLAGS.verbose)
+        regressor = BaggingRegressor(estimator=model, max_samples=FLAGS.max_samples, max_features=FLAGS.max_features, 
+                                     bootstrap=FLAGS.bootstrap, bootstrap_features=FLAGS.bootstrap_features, 
+                                     oob_score=FLAGS.oob_score, warm_start=FLAGS.warm_start, n_jobs=FLAGS.n_jobs, 
+                                     random_state=FLAGS.random_state, verbose=FLAGS.verbose)
         
         # Train the model
         regressor.fit(X_train, y_train)

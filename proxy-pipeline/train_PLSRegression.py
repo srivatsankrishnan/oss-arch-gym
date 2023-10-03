@@ -14,6 +14,7 @@ from sklearn.metrics import mean_squared_error as mse
 from sklearn.cross_decomposition import PLSRegression
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn.datasets import fetch_california_housing
 
 # Define parameters for the training/handling of the data and model
 flags.DEFINE_string('data_path', './data', 'Path to the data')
@@ -25,6 +26,7 @@ flags.DEFINE_enum('encode', 'one_hot', ['one_hot', 'label'], 'Encoding method')
 flags.DEFINE_bool('visualize', False, 'enable visualization of the data')
 flags.DEFINE_bool('train', False, 'enable training of the model')
 flags.DEFINE_integer('output_index', 0, 'Index of the output to train the model on')
+flags.DEFINE_bool('custom_dataset', False, 'Whether to use a custom dataset or not')
 
 # Hyperparameters for the model
 flags.DEFINE_integer("n_components", 2, 'Number of components to keep')
@@ -33,13 +35,16 @@ flags.DEFINE_integer("max_iter", 500, 'The maximum number of iterations of the p
 flags.DEFINE_float('tol', 1e-06, 'The tolerance used as convergence criteria in the power method')
 flags.DEFINE_bool('copy', True, 'Whether to copy X and Y in fit before applying centering, and potentially scaling.')
 
-
 FLAGS = flags.FLAGS
 
 def preprocess_data(actions, observations, exp_path):
     observations = observations.to_frame()
     # Categorical features
     categorical_cols = list(set(actions.columns) - set(actions._get_numeric_data().columns))
+    if len(categorical_cols) == 0:
+        NO_CAT = True
+    else:
+        NO_CAT = False
     categorical_actions = actions[categorical_cols]
     
     # Numerical features
@@ -50,7 +55,7 @@ def preprocess_data(actions, observations, exp_path):
         os.makedirs(encoder_path)
 
     # Encode categorical features
-    if FLAGS.encode == 'one_hot':
+    if FLAGS.encode == 'one_hot' and not NO_CAT:
         # One-hot encode categorical features
         enc = OneHotEncoder(handle_unknown='ignore')
         enc.fit(categorical_actions)
@@ -60,7 +65,7 @@ def preprocess_data(actions, observations, exp_path):
         # Transform the categorical features
         dummy_col_names = pd.get_dummies(categorical_actions).columns
         categorical_actions = pd.DataFrame(enc.transform(categorical_actions).toarray(), columns=dummy_col_names)
-    elif FLAGS.encode == 'label':
+    elif FLAGS.encode == 'label' and not NO_CAT:
         dummy_actions = pd.DataFrame()
         for categorical_col in categorical_cols:
             # Label encode categorical features
@@ -72,7 +77,7 @@ def preprocess_data(actions, observations, exp_path):
             # Transform the categorical features
             dummy_actions[categorical_col] = enc.transform(categorical_actions[categorical_col])
         categorical_actions = pd.DataFrame(dummy_actions, columns=categorical_cols)
-    else:
+    elif not NO_CAT:
         raise ValueError('Encoding method not supported')
 
     preprocess_data_path = os.path.join(exp_path, 'preprocess_data')
@@ -118,7 +123,10 @@ def preprocess_data(actions, observations, exp_path):
         raise ValueError('Preprocessing method not supported')
 
     # Concatenate numerical and categorical features
-    actions = pd.concat([numerical_actions, categorical_actions], axis = 1).to_numpy()
+    if NO_CAT:
+        actions = numerical_actions.to_numpy()
+    else:
+        actions = pd.concat([numerical_actions, categorical_actions], axis = 1).to_numpy()
     observations = observations.to_numpy()
 
     return actions, observations
@@ -170,11 +178,15 @@ def main(_):
         os.makedirs(exp_path)
 
     # Load the data
-    actions_path = os.path.join(FLAGS.data_path, 'actions_feasible.csv')
-    observations_path = os.path.join(FLAGS.data_path, 'observations_feasible.csv')
-
-    actions = pd.read_csv(actions_path)
-    observations = pd.read_csv(observations_path)
+    if FLAGS.custom_dataset:
+        actions_path = os.path.join(FLAGS.data_path, 'actions_feasible.csv')
+        observations_path = os.path.join(FLAGS.data_path, 'observations_feasible.csv')
+        actions = pd.read_csv(actions_path)
+        observations = pd.read_csv(observations_path)
+    else:
+        california = fetch_california_housing()
+        actions = pd.DataFrame(california.data, columns=california.feature_names)
+        observations = pd.DataFrame(california.target, columns=['MEDV'])
     
     output = observations.copy()
     if FLAGS.output_index >= output.shape[1]:
@@ -196,7 +208,8 @@ def main(_):
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=FLAGS.train_size, random_state=FLAGS.seed)
 
         # Define the model
-        regressor = PLSRegression(n_components=flags.n_components, scale=flags.scale, max_iter=flags.max_iter, tol=flags.tol, copy=flags.copy)
+        regressor = PLSRegression(n_components=FLAGS.n_components, scale=FLAGS.scale, max_iter=FLAGS.max_iter, tol=FLAGS.tol,
+                                  copy=FLAGS.copy)
         
         # Train the model
         regressor.fit(X_train, y_train[:, 0])

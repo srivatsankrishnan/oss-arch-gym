@@ -11,9 +11,10 @@ from scipy import stats
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error as mse
-from sklearn.linear_model import NearestNeighbors
+from sklearn.neighbors import KNeighborsRegressor
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn.datasets import fetch_california_housing
 
 # Define parameters for the training/handling of the data and model
 flags.DEFINE_string('data_path', './data', 'Path to the data')
@@ -25,16 +26,15 @@ flags.DEFINE_enum('encode', 'one_hot', ['one_hot', 'label'], 'Encoding method')
 flags.DEFINE_bool('visualize', False, 'enable visualization of the data')
 flags.DEFINE_bool('train', False, 'enable training of the model')
 flags.DEFINE_integer('output_index', 0, 'Index of the output to train the model on')
+flags.DEFINE_bool('custom_dataset', False, 'Whether to use a custom dataset or not')
 
 # Hyperparameters for the model
 flags.DEFINE_integer('n_neighbours', 5, 'Number of neighbors to use by default for kneighbors queries')
-flags.DEFINE_float('radius', 1.0, 'Range of parameter space to use by default for radius_neighbors queries')
+flags.DEFINE_enum('weights', 'uniform', ['uniform', 'distance'], 'Weight function used in prediction')
 flags.DEFINE_enum('algorithm', 'auto', ['auto', 'ball_tree', 'kd_tree', 'brute'], 'Algorithm used to compute the nearest neighbors')
 flags.DEFINE_integer('leaf_size', 30, 'Leaf size passed to BallTree or KDTree')
 flags.DEFINE_string('metric', 'minkowski', 'the distance metric to use for the tree')
 flags.DEFINE_float('p', 2, 'Parameter for the Minkowski metric from sklearn.metrics.pairwise.pairwise_distances')
-flags.DEFINE_spaceseplist('metric_params_keys', None, 'Additional keyword arguments for the metric function(keys)')
-flags.DEFINE_spaceseplist('metric_params_values', None, 'Additional keyword arguments for the metric function(values)')
 flags.DEFINE_integer('n_jobs', None, 'The number of parallel jobs to run for neighbors search')
 
 FLAGS = flags.FLAGS
@@ -43,6 +43,10 @@ def preprocess_data(actions, observations, exp_path):
     observations = observations.to_frame()
     # Categorical features
     categorical_cols = list(set(actions.columns) - set(actions._get_numeric_data().columns))
+    if len(categorical_cols) == 0:
+        NO_CAT = True
+    else:
+        NO_CAT = False
     categorical_actions = actions[categorical_cols]
     
     # Numerical features
@@ -53,7 +57,7 @@ def preprocess_data(actions, observations, exp_path):
         os.makedirs(encoder_path)
 
     # Encode categorical features
-    if FLAGS.encode == 'one_hot':
+    if FLAGS.encode == 'one_hot' and not NO_CAT:
         # One-hot encode categorical features
         enc = OneHotEncoder(handle_unknown='ignore')
         enc.fit(categorical_actions)
@@ -63,7 +67,7 @@ def preprocess_data(actions, observations, exp_path):
         # Transform the categorical features
         dummy_col_names = pd.get_dummies(categorical_actions).columns
         categorical_actions = pd.DataFrame(enc.transform(categorical_actions).toarray(), columns=dummy_col_names)
-    elif FLAGS.encode == 'label':
+    elif FLAGS.encode == 'label' and not NO_CAT:
         dummy_actions = pd.DataFrame()
         for categorical_col in categorical_cols:
             # Label encode categorical features
@@ -75,7 +79,7 @@ def preprocess_data(actions, observations, exp_path):
             # Transform the categorical features
             dummy_actions[categorical_col] = enc.transform(categorical_actions[categorical_col])
         categorical_actions = pd.DataFrame(dummy_actions, columns=categorical_cols)
-    else:
+    elif not NO_CAT:
         raise ValueError('Encoding method not supported')
 
     preprocess_data_path = os.path.join(exp_path, 'preprocess_data')
@@ -121,7 +125,10 @@ def preprocess_data(actions, observations, exp_path):
         raise ValueError('Preprocessing method not supported')
 
     # Concatenate numerical and categorical features
-    actions = pd.concat([numerical_actions, categorical_actions], axis = 1).to_numpy()
+    if NO_CAT:
+        actions = numerical_actions.to_numpy()
+    else:
+        actions = pd.concat([numerical_actions, categorical_actions], axis = 1).to_numpy()
     observations = observations.to_numpy()
 
     return actions, observations
@@ -173,11 +180,15 @@ def main(_):
         os.makedirs(exp_path)
 
     # Load the data
-    actions_path = os.path.join(FLAGS.data_path, 'actions_feasible.csv')
-    observations_path = os.path.join(FLAGS.data_path, 'observations_feasible.csv')
-
-    actions = pd.read_csv(actions_path)
-    observations = pd.read_csv(observations_path)
+    if FLAGS.custom_dataset:
+        actions_path = os.path.join(FLAGS.data_path, 'actions_feasible.csv')
+        observations_path = os.path.join(FLAGS.data_path, 'observations_feasible.csv')
+        actions = pd.read_csv(actions_path)
+        observations = pd.read_csv(observations_path)
+    else:
+        california = fetch_california_housing()
+        actions = pd.DataFrame(california.data, columns=california.feature_names)
+        observations = pd.DataFrame(california.target, columns=['MEDV'])
     
     output = observations.copy()
     if FLAGS.output_index >= output.shape[1]:
@@ -199,10 +210,8 @@ def main(_):
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=FLAGS.train_size, random_state=FLAGS.seed)
 
         # Define the model
-        regressor = NearestNeighbors(n_neighbors=FLAGS.n_neighbours, radius=FLAGS.radius, algorithm=FLAGS.algorithm,
-                                     leaf_size=FLAGS.leaf_size, metric=FLAGS.metric, p=FLAGS.p,
-                                     metric_params=dict(zip(FLAGS.metric_params_keys, FLAGS.metric_params_values)),
-                                     n_jobs=FLAGS.n_jobs)
+        regressor = KNeighborsRegressor(n_neighbors=FLAGS.n_neighbours, weights=FLAGS.weights, algorithm=FLAGS.algorithm,
+                                        leaf_size=FLAGS.leaf_size, metric=FLAGS.metric, p=FLAGS.p, n_jobs=FLAGS.n_jobs)
         
         # Train the model
         regressor.fit(X_train, y_train[:, 0])

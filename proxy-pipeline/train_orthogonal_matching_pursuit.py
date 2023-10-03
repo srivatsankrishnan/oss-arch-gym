@@ -13,6 +13,7 @@ from sklearn.metrics import mean_squared_error as mse
 from sklearn.linear_model import OrthogonalMatchingPursuit
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn.datasets import fetch_california_housing
 
 # Define parameters for the training/handling of the data and model
 flags.DEFINE_string('data_path', './data', 'Path to the data')
@@ -23,18 +24,25 @@ flags.DEFINE_enum('preprocess', None, ['normalize', 'standardize'], 'Preprocessi
 flags.DEFINE_enum('encode', 'one_hot', ['one_hot', 'label'], 'Encoding method')
 flags.DEFINE_bool('visualize', False, 'enable visualization of the data')
 flags.DEFINE_bool('train', False, 'enable training of the model')
+flags.DEFINE_integer('output_index', 0, 'Index of the output to train the model on')
+flags.DEFINE_bool('custom_dataset', False, 'Whether to use a custom dataset or not')
 
 # Hyperparameters for the model
 flags.DEFINE_integer('n_nonzero_coefs', None, 'Targeted number of non-zero entries in the solution')
 flags.DEFINE_float('tol', None, 'Maximum norm of the residual')
 flags.DEFINE_bool('fit_intercept', True, 'whether to calculate the intercept for this model')
-flags.DEFINE_bool('precompute', 'auto', 'Whether to use a precomputed Gram matrix to speed up calculations')
+flags.DEFINE_bool('precompute', False, 'Whether to use a precomputed Gram matrix to speed up calculations')
 
 FLAGS = flags.FLAGS
 
 def preprocess_data(actions, observations, exp_path):
+    observations = observations.to_frame()
     # Categorical features
     categorical_cols = list(set(actions.columns) - set(actions._get_numeric_data().columns))
+    if len(categorical_cols) == 0:
+        NO_CAT = True
+    else:
+        NO_CAT = False
     categorical_actions = actions[categorical_cols]
     
     # Numerical features
@@ -45,7 +53,7 @@ def preprocess_data(actions, observations, exp_path):
         os.makedirs(encoder_path)
 
     # Encode categorical features
-    if FLAGS.encode == 'one_hot':
+    if FLAGS.encode == 'one_hot' and not NO_CAT:
         # One-hot encode categorical features
         enc = OneHotEncoder(handle_unknown='ignore')
         enc.fit(categorical_actions)
@@ -55,7 +63,7 @@ def preprocess_data(actions, observations, exp_path):
         # Transform the categorical features
         dummy_col_names = pd.get_dummies(categorical_actions).columns
         categorical_actions = pd.DataFrame(enc.transform(categorical_actions).toarray(), columns=dummy_col_names)
-    elif FLAGS.encode == 'label':
+    elif FLAGS.encode == 'label' and not NO_CAT:
         dummy_actions = pd.DataFrame()
         for categorical_col in categorical_cols:
             # Label encode categorical features
@@ -67,7 +75,7 @@ def preprocess_data(actions, observations, exp_path):
             # Transform the categorical features
             dummy_actions[categorical_col] = enc.transform(categorical_actions[categorical_col])
         categorical_actions = pd.DataFrame(dummy_actions, columns=categorical_cols)
-    else:
+    elif not NO_CAT:
         raise ValueError('Encoding method not supported')
 
     preprocess_data_path = os.path.join(exp_path, 'preprocess_data')
@@ -75,7 +83,7 @@ def preprocess_data(actions, observations, exp_path):
         os.makedirs(preprocess_data_path)
 
     # Normalize numerical features
-    if FLAGS.preprocess == None:
+    if FLAGS.preprocess is None:
         pass
     elif FLAGS.preprocess == 'normalize':
         # Normalize numerical features for actions
@@ -91,7 +99,7 @@ def preprocess_data(actions, observations, exp_path):
         normalized_numerical_features = normalize_feature_transformer.fit_transform(observations)
         observations = pd.DataFrame(normalized_numerical_features, columns=[observations.columns])
         # Save the scaler
-        path = os.path.join(preprocess_data_path, 'normalize_feature_transformer_observations.joblib')
+        path = os.path.join(preprocess_data_path, 'normalize_feature_transformer_observations_{}.joblib'.format(FLAGS.output_index))
         pickle.dump(normalize_feature_transformer, open(path, 'wb'))
     elif FLAGS.preprocess == 'standardize':
         # Standardize numerical features for actions
@@ -107,13 +115,16 @@ def preprocess_data(actions, observations, exp_path):
         standardized_numerical_features = standardize_feature_transformer.fit_transform(observations)
         observations = pd.DataFrame(standardized_numerical_features, columns=[observations.columns])
         # Save the scaler
-        path = os.path.join(preprocess_data_path, 'standardize_feature_transformer_observations.joblib')
+        path = os.path.join(preprocess_data_path, 'standardize_feature_transformer_observations_{}.joblib'.format(FLAGS.output_index))
         pickle.dump(standardize_feature_transformer, open(path, 'wb'))
     else:
         raise ValueError('Preprocessing method not supported')
 
     # Concatenate numerical and categorical features
-    actions = pd.concat([numerical_actions, categorical_actions], axis = 1).to_numpy()
+    if NO_CAT:
+        actions = numerical_actions.to_numpy()
+    else:
+        actions = pd.concat([numerical_actions, categorical_actions], axis = 1).to_numpy()
     observations = observations.to_numpy()
 
     return actions, observations
@@ -158,10 +169,6 @@ def visualize_data(data, exp_path):
 
 
 def main(_):
-    # Constraints for the hyperparameters
-    if FLAGS.precompute != 'auto':
-        FLAGS.precompute = bool(FLAGS.precompute)
-    
     # Define the experiment folder to save the model
     exp_name = 'orthogonal_matching_pursuit'
     exp_path = os.path.join(FLAGS.model_path, exp_name)
@@ -169,14 +176,24 @@ def main(_):
         os.makedirs(exp_path)
 
     # Load the data
-    actions_path = os.path.join(FLAGS.data_path, 'actions_feasible.csv')
-    observations_path = os.path.join(FLAGS.data_path, 'observations_feasible.csv')
+    if FLAGS.custom_dataset:
+        actions_path = os.path.join(FLAGS.data_path, 'actions_feasible.csv')
+        observations_path = os.path.join(FLAGS.data_path, 'observations_feasible.csv')
+        actions = pd.read_csv(actions_path)
+        observations = pd.read_csv(observations_path)
+    else:
+        california = fetch_california_housing()
+        actions = pd.DataFrame(california.data, columns=california.feature_names)
+        observations = pd.DataFrame(california.target, columns=['MEDV'])
 
-    actions = pd.read_csv(actions_path)
-    observations = pd.read_csv(observations_path)
-    observations = observations.drop(['observation-2', 'observation-3', 'observation-4'], axis = 1)
+    output = observations.copy()
+    if FLAGS.output_index >= output.shape[1]:
+        raise ValueError('Output index is out of range')
+    output = output.iloc[:, FLAGS.output_index]
 
-    X, y = preprocess_data(actions, observations, exp_path)
+    observations = observations.loc[:, (observations != observations.iloc[0]).any()]
+
+    X, y = preprocess_data(actions, output, exp_path)
 
     # Visualize the data
     if FLAGS.visualize:
@@ -189,29 +206,47 @@ def main(_):
         X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=FLAGS.train_size, random_state=FLAGS.seed)
 
         # Define the model
-        reg = OrthogonalMatchingPursuit(alpha=FLAGS.alpha, fit_intercept=FLAGS.fit_intercept, precompute=FLAGS.precompute, copy_X=FLAGS.copy_X, max_iter=FLAGS.max_iter, tol=FLAGS.tol, warm_start=FLAGS.warm_start, positive=FLAGS.positive, random_state=FLAGS.random_state, selection=FLAGS.selection)
+        regressor = OrthogonalMatchingPursuit(n_nonzero_coefs=FLAGS.n_nonzero_coefs, tol=FLAGS.tol, 
+                                              fit_intercept=FLAGS.fit_intercept, precompute=FLAGS.precompute)
         
         # Train the model
-        reg.fit(X_train, y_train)
+        regressor.fit(X_train, y_train)
 
         # Evaluate the model for train dataset
-        y_pred = reg.predict(X_train)
+        y_pred = regressor.predict(X_train)
         mse_train = mse(y_train, y_pred)
         print('MSE on train set: {}'.format(mse_train))
 
         # Evaluate the model for test dataset
-        y_pred = reg.predict(X_test)
+        y_pred = regressor.predict(X_test)
         mse_test = mse(y_test, y_pred)
         print('MSE on test set: {}'.format(mse_test))
 
+        # Visualize the results
+        y_test_series = pd.Series(y_test.reshape(-1))
+        y_pred_series = pd.Series(y_pred.reshape(-1))
+        results_df = pd.DataFrame()
+        results_df['observation-{}'.format(FLAGS.output_index)] = y_test_series
+        results_df['observation-{}-predicted'.format(FLAGS.output_index)] = y_pred_series
+
+        plt.figure(figsize=(8, 6))
+        sns.scatterplot(x='observation-{}'.format(FLAGS.output_index), y='observation-{}-predicted'.format(FLAGS.output_index),
+                        data=results_df)
+        sns.regplot(x='observation-{}'.format(FLAGS.output_index), y='observation-{}-predicted'.format(FLAGS.output_index),
+                        data=results_df, color='orange', scatter=False)
+        plt.savefig(os.path.join(exp_path, 'results_graph_{}.png'.format(FLAGS.output_index)))
+        plt.show(block=False)
+        plt.pause(5)
+        plt.close()
+
         # Save the model
-        path = os.path.join(exp_path, 'model.joblib')
-        pickle.dump(reg, open(path, 'wb'))
+        path = os.path.join(exp_path, 'model_{}.joblib'.format(FLAGS.output_index))
+        pickle.dump(regressor, open(path, 'wb'))
 
-        FLAGS.append_flags_into_file(os.path.join(exp_path, 'flags.txt'))
+        FLAGS.append_flags_into_file(os.path.join(exp_path, 'flags_{}.txt'.format(FLAGS.output_index)))
 
-        loaded_rf = pickle.load(open(path, 'rb'))
-        y_pred = loaded_rf.predict(X_test)
+        loaded_regressor = pickle.load(open(path, 'rb'))
+        y_pred = loaded_regressor.predict(X_test)
         mse_test_load = mse(y_test, y_pred)
 
         # Check if the model is saved correctly
