@@ -14,6 +14,7 @@ Welcome to ArchGym's documentation!
    installation
    environments
    agents
+   proxy-pipeline
    source_code
 
 Indices and tables
