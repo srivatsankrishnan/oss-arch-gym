@@ -7,5 +7,5 @@ absl-py
 sympy
 plotly
 scons
-myst_parsers
+myst_parser
 portpicker
