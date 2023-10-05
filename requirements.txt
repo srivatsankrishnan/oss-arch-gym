@@ -8,4 +8,5 @@ sympy
 plotly
 scons
 myst_parser
+myst_nb
 portpicker
