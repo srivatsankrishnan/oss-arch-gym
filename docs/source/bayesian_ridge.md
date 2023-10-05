@@ -1,9 +1,15 @@
 # Bayesian Ridge Regression
 
+## Example Usage
+An example command that can be passed is as follows:
+```shell:
+python train_bayesian_ridge.py --train=True --n_iter=250
+```
+
 This page provides documentation for the Bayesian Ridge Regression code. The code includes data preprocessing, model training, and visualization. Each section below corresponds to a specific part of the code.
 
 ## Define Parameters
-In this section, we define various parameters and flags used throughout the code. These parameters include file paths, preprocessing options, encoding methods, and hyperparameters for the Bayesian Ridge model.
+In this section, we define various parameters used throughout the code. These parameters include file paths, preprocessing options, encoding methods, and hyperparameters for the Bayesian Ridge model. These parameters can be passed as flags.
 
 ```python:
 # Define parameters for the training/handling of the data and model
@@ -37,7 +43,7 @@ FLAGS = flags.FLAGS
 
 ## Data Preprocessing
 ### Preprocess Data Function
-#### The preprocess_data function handles data preprocessing tasks, including encoding categorical features and normalizing numerical features.
+The preprocess_data function handles data preprocessing tasks, including encoding categorical features and normalizing numerical features.
 ```python:
 def preprocess_data(actions, observations, exp_path):
     observations = observations.to_frame()
@@ -177,7 +183,7 @@ def visualize_data(data, exp_path):
 ```
 ## Main Function
 ### Loading Data
-#### In the main function, data is loaded either from a custom dataset or the California housing dataset.
+In the main function, data is loaded either from a custom dataset or the California housing dataset.
 
 ```python:
 # Load the data
