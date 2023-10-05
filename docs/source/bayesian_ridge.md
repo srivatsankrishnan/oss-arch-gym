@@ -196,21 +196,22 @@ In the main function, data is loaded either from a custom dataset or the Califor
         california = fetch_california_housing()
         actions = pd.DataFrame(california.data, columns=california.feature_names)
         observations = pd.DataFrame(california.target, columns=['MEDV'])
-
+```
 ### Data preprocessing
-#### Data preprocessing is performed using the preprocess_data function.
+Data preprocessing is performed using the preprocess_data function.
+```python:
 X, y = preprocess_data(actions, output, exp_path)
-
+```
 ### Data Visualization
-#### Optional data visualization can be enabled by setting the visualize flag to 'True'.
-
+Optional data visualization can be enabled by setting the visualize flag to 'True'.
+```python:
 # Visualize the data
 if FLAGS.visualize:
     visualize_data(observations, exp_path)
-
+```
 ### Model Training
-#### If the train flag is set to True, the Bayesian Ridge regression model is trained.
-
+If the train flag is set to True, the Bayesian Ridge regression model is trained.
+```python:
 if FLAGS.train:
         print('------Training the model------')
         # Split the data into train and test
