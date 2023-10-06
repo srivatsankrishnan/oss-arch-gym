@@ -22,7 +22,7 @@ flags.DEFINE_string('traject_dir', 'aco_trajectories', 'Directory to trajectory 
 flags.DEFINE_string('aco_log_dir', 'aco_logs', 'Directory to store logs.')
 flags.DEFINE_string('workload', 'stream.stl', 'Which workload to run')
 flags.DEFINE_string('exp_config_file', 'exp_config.ini', 'Experiment config file.')
-flags.DEFINE_integer('depth', 1, 'Depth of the network.')
+flags.DEFINE_integer('depth', 10, 'Depth of the network.')
 flags.DEFINE_string('summary_dir', '.', 'Directory to store summaries.')
 flags.DEFINE_string('reward_formulation', 'power', 'Reward formulation to use.')
 flags.DEFINE_bool('use_envlogger', True, 'Use EnvLogger to log environment data.')

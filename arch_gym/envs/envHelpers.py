@@ -797,10 +797,10 @@ class helpers():
         interDimension_mapper = {0: "baseline", 1: "themis"}
 
         # Modified system parameters
-        act_decoded["system"]["scheduling-policy"] = schedulePolicy_mapper[int(act_encoded[0])]
-        act_decoded["system"]["collective-optimization"] = collectiveOptimization_mapper[int(act_encoded[1])]
-        act_decoded["system"]["intra-dimension-scheduling"] = intraDimension_mapper[int(act_encoded[2])]
-        act_decoded["system"]["inter-dimension-scheduling"] = interDimension_mapper[int(act_encoded[3])]
+        act_decoded["system"]["scheduling-policy"] = schedulePolicy_mapper[int(round(act_encoded[0]))]
+        act_decoded["system"]["collective-optimization"] = collectiveOptimization_mapper[int(round(act_encoded[1]))]
+        act_decoded["system"]["intra-dimension-scheduling"] = intraDimension_mapper[int(round(act_encoded[2]))]
+        act_decoded["system"]["inter-dimension-scheduling"] = interDimension_mapper[int(round(act_encoded[3]))]
 
         return act_decoded
 

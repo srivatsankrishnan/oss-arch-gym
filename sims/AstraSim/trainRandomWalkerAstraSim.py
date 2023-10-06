@@ -9,7 +9,10 @@ from absl import logging
 os.sys.path.insert(0, os.path.abspath('../../'))
 os.sys.path.insert(0, os.path.abspath('../../arch_gym'))
 
-from arch_gym.envs import AstraSimWrapper
+from configs import arch_gym_configs
+
+from arch_gym.envs.envHelpers import helpers
+from arch_gym.envs import AstraSimWrapper, AstraSimEnv
 import envlogger
 import numpy as np
 import pandas as pd
@@ -20,7 +23,7 @@ import json
 # define workload in run_general.sh
 
 flags.DEFINE_string('workload', 'resnet18', 'Which AstraSim workload to run?')
-flags.DEFINE_integer('num_steps', 2, 'Number of training steps.')
+flags.DEFINE_integer('num_steps', 50, 'Number of training steps.')
 flags.DEFINE_integer('num_episodes', 1, 'Number of training episodes.')
 flags.DEFINE_bool('use_envlogger', True, 'Use envlogger to log the data.') 
 flags.DEFINE_string('traject_dir', 
@@ -194,8 +197,6 @@ def parse_system(system_file, action_dict):
             key, value = line.strip().split(': ')
             action_dict['system'][key] = value
 
-        
-
 
 # def parse_workload(workload_file):
     
@@ -283,9 +284,9 @@ def main(_):
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
     # DEFINE NETWORK AND SYSTEM AND WORKLOAD
-    network_file = "3d_fc_ring_switch.json"
-    system_file = os.path.join(systems_folder, "3d_fc_ring_switch_baseline.txt")
-    workload_file = "gnmt_fp16_fused.txt"
+    network_file = "4d_ring_fc_ring_switch.json"
+    system_file = os.path.join(systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+    workload_file = "all_reduce/allreduce_0.65.txt"
     
 
     exe_path = os.path.join(proj_root_path, "run_general.sh")
@@ -296,6 +297,8 @@ def main(_):
 
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
     # env = AstraSimEnv.AstraSimEnv(rl_form='random_walker')
+
+    astrasim_helper = helpers()
 
     # experiment name 
     exp_name = str(FLAGS.workload)+"_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
@@ -322,7 +325,7 @@ def main(_):
     # INITIATE action dict
     action_dict = {}
 
-    # TODO: load network and workloads
+    # if path exists, use path, else parse the sub-dict
     action_dict['network'] = {"path": network_file}
     action_dict['workload'] = {"path": workload_file}
     
@@ -331,6 +334,8 @@ def main(_):
 
     # TODO: parse knobs (all variables to change in action_dict)
     system_knob, network_knob = parse_knobs(knobs_spec)
+
+    best_reward, best_observation, best_actions = 0.0, 0.0, {}
 
     for i in range(FLAGS.num_episodes):
         logging.info('Episode %r', i)
@@ -350,11 +355,19 @@ def main(_):
             step_results['reward'] = [reward]
             step_results['action'] = action_dict
             step_results['obs'] = observation
+
+            if reward and reward > best_reward:
+                best_reward = reward
+                best_observation = observation
+                best_actions = action_dict
             
             log_results_to_csv(log_path, step_results)
 
     end = time.time()
 
+    print("Best Reward: ", best_reward)
+    print("Best Observation: ", best_observation)
+    print("Best Parameters: ", best_actions)
     print("Total Time Taken: ", end - start)
     print("Total Useful Steps: ", env.useful_counter)
 

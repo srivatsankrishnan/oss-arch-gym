@@ -13,7 +13,7 @@
 # limitations under the License.
 
 """Wraps an OpenAI Gym environment to be used as a dm_env environment."""
-import sys, os
+import sys
 from typing import Any, Dict, List, Optional
 
 from acme import specs
@@ -25,8 +25,8 @@ from gym import spaces
 import numpy as np
 import tree
 
-os.sys.path.insert(0, os.path.abspath('../../'))
-from arch_gym.envs.AstraSimEnv import AstraSimEnv
+from AstraSimEnv import AstraSimEnv
+from envHelpers import helpers
 
 # dm = deepmind 
 class AstraSimEnvWrapper(dm_env.Environment):
@@ -41,6 +41,7 @@ class AstraSimEnvWrapper(dm_env.Environment):
     self._environment = environment
     self._reset_next_step = True
     self._last_info = None
+    self.helper = helpers()
     self.env_wrapper_sel = env_wrapper_sel
 
     # set useful counter
@@ -182,12 +183,12 @@ def _convert_to_spec(space: gym.Space,
   else:
     raise ValueError('Unexpected gym space: {}'.format(space))
 
-def make_astraSim_env(seed: int = 12345,
-                    rl_form = 'macme',
+def make_astraSim_env(seed: int = 12234,
+                    rl_form = 'sa1',
                     reward_formulation = 'power',
                     reward_scaling = 'false',
-                    max_steps: int = 100,
-                    num_agents: int = 10) -> dm_env.Environment:
+                    max_steps: int = 1,
+                    num_agents: int = 1) -> dm_env.Environment:
   """Returns DRAMSys environment."""
   print("[DEBUG][Seed]", seed)
   print("[DEBUG][RL Form]", rl_form)
@@ -206,6 +207,6 @@ def make_astraSim_env(seed: int = 12345,
     env_wrapper_sel = rl_form
   )
   environment = wrappers.SinglePrecisionWrapper(environment)
-  if(rl_form == 'sa' or rl_form == 'tdm'):
-    environment = wrappers.CanonicalSpecWrapper(environment, clip=True)
+  if(rl_form == 'sa1' or rl_form == 'tdm'):
+    environment = wrappers.CanonicalSpecWrapper(environment, clip=False)
   return environment

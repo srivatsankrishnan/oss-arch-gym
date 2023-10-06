@@ -20,7 +20,7 @@ from configs import arch_gym_configs
 import pandas as pd
 import matplotlib.pyplot as plt
 
-flags.DEFINE_integer('num_steps', 10, 'Number of training steps.')
+flags.DEFINE_integer('num_steps', 20, 'Number of training steps.')
 flags.DEFINE_integer('num_agents', 4, 'Number of agents.')
 flags.DEFINE_float('prob_mutation', 0.1, 'Probability of mutation.')
 flags.DEFINE_string('workload','resnet18', 'ML model name')
@@ -86,9 +86,9 @@ def AstraSim_optimization_function(p):
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
     # DEFINE NETWORK AND SYSTEM AND WORKLOAD
-    network_file = "3d_fc_ring_switch.json"
-    system_file = os.path.join(systems_folder, "3d_fc_ring_switch_baseline.txt")
-    workload_file = "gnmt_fp16_fused.txt"
+    network_file = "4d_ring_fc_ring_switch.json"
+    system_file = os.path.join(systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+    workload_file = "all_reduce/allreduce_0.65.txt"
 
     # parse knobs
     system_knob, network_knob = parse_knobs(knobs_spec)
@@ -121,7 +121,6 @@ def AstraSim_optimization_function(p):
     
     # parse system
     parse_system(system_file, action_dict)
-
 
     action_dict_decoded = astraSim_helper.action_decoder_ga_astraSim(p)
     
