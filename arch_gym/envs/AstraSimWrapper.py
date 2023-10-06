@@ -206,6 +206,7 @@ def make_astraSim_env(seed: int = 12234,
     ),
     env_wrapper_sel = rl_form
   )
+  
   environment = wrappers.SinglePrecisionWrapper(environment)
   if(rl_form == 'sa1' or rl_form == 'tdm'):
     environment = wrappers.CanonicalSpecWrapper(environment, clip=False)
