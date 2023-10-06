@@ -2,11 +2,17 @@
 
 ## Installing AstraSim
 
-Clone AstraSim from this repo: ```git clone --recursive https://github.com/astra-sim/astra-sim.git```
+Clone AstraSim from this repo: 
+```
+git clone --recursive https://github.com/astra-sim/astra-sim.git
+```
 
 Install conda environment.
 
-Run the compilation script with analytical backend: ```./build/astra_analytical/build.sh -c```
+Run the compilation script with analytical backend: 
+```
+./build/astra_analytical/build.sh -c
+```
 
 
 ## Running Training Scripts
