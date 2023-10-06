@@ -42,6 +42,17 @@ For RL, define the input file paths in the network_file, system_file, and worklo
 
 ## Updating Hyperparameters
 
+For ACO, update hyperparameters such as evaporation, ant count, greediness, and depth in ```sims/AstraSim/trainACOAstraSim.py```.
+
+For BO, update hyperparameters such as number of training steps in ```sims/AstraSim/trainBOAstraSim.py```.
+
+For GA, update hyperparameters such as number of steps, number of agents, and probability of mutation in ```sims/AstraSim/trainGAAstraSim.py```.
+
+For RW, update hyperparameters such as number of steps and number of episodes in ```sims/AstraSim/trainRandomWalkerAstraSim.py```.
+
+For RL, update hyperparameters such as max_steps in ```sims/AstraSim/AstraSimWrapper.py```.
+
+
 ## Parameter Space
 | System Parameter      | Values        |
 | ----------------      | ------------- |
@@ -75,5 +86,3 @@ For RL, define the input file paths in the network_file, system_file, and worklo
 | hbm-bandwidth    | 1 |
 | hbm-scale    | 1 |
 
-
-## Parameter Mapping
