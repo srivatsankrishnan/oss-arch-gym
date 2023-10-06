@@ -1,5 +1,26 @@
 # AstraSim Simulator Documentation
 
+## Setting up ArchGym
+
+Recurisvely clone ArchGym from this repo:
+```
+git clone —recurse-submodules https://github.com/srivatsankrishnan/oss-arch-gym.git
+git checkout add-bayesian-optimization
+git submodule add https://github.com/astra-sim/astrasim-archgym.git sims/AstraSim/astrasim-archgym
+git submodule update --init --recursive — sims/AstraSim/astrasim-archgym
+```
+Check out to these specific commits:
+```
+cd astra-sim
+git checkout ceda7a923ba3f0dded3f89398958c70b424d56be
+cd extern/googletest
+git checkout 7e33b6a1c497ced1e98fc60175aeb4678419281c
+```
+Activate the AstraSim environment:
+```
+conda activate AstraSim
+```
+
 ## Installing AstraSim
 
 Clone AstraSim from this repo: 
@@ -9,7 +30,7 @@ git clone --recursive https://github.com/astra-sim/astra-sim.git
 
 Install conda environment.
 
-Run the compilation script with analytical backend: 
+Run the compilation script with analytical backend in the astra-sim repo: 
 ```
 ./build/astra_analytical/build.sh -c
 ```
