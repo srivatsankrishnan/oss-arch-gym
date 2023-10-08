@@ -9,7 +9,7 @@ os.sys.path.insert(0, settings_dir_path + '/../../')
 os.sys.path.insert(0, settings_dir_path + '/../../sims/DRAM/binary/DRAMSys_Proxy_Model')
 print(os.sys.path)
 from DRAMSys_Proxy_Model import DRAMSysProxyModel
-from configs import arch_gym_configs
+from configs import DRAMSys_config
 import gym
 from gym.utils import seeding
 from envHelpers import helpers
@@ -35,11 +35,11 @@ class DRAMEnv(gym.Env):
         # Todo: Change the values if we normalize the observation space
         self.observation_space = gym.spaces.Box(low=0, high=1e10, shape=(1,3))
         self.action_space = gym.spaces.Box(low=0, high=8, shape=(10,))
-        self.binary_name = arch_gym_configs.binary_name
-        self.exe_path = arch_gym_configs.exe_path
-        self.sim_config = arch_gym_configs.sim_config
-        self.experiment_name = arch_gym_configs.experiment_name
-        self.logdir = arch_gym_configs.logdir
+        self.binary_name = DRAMSys_config.binary_name
+        self.exe_path = DRAMSys_config.exe_path
+        self.sim_config = DRAMSys_config.sim_config
+        self.experiment_name = DRAMSys_config.experiment_name
+        self.logdir = DRAMSys_config.logdir
 
         self.cost_model = cost_model
 
@@ -88,8 +88,8 @@ class DRAMEnv(gym.Env):
         return obs_dict
     
     def calculate_reward(self, power, latency):
-        target_power = arch_gym_configs.target_power
-        target_latency = arch_gym_configs.target_latency
+        target_power = DRAMSys_config.target_power
+        target_latency = DRAMSys_config.target_latency
         print("Power:", power, "Latency:", latency, "Target Power:", target_power, "Target Latency:", target_latency)
         #power_norm = max((power - target_power)/target_power, self.reward_cap)
         #latency_norm = max((latency-target_latency)/target_latency, self.reward_cap)
@@ -105,7 +105,7 @@ class DRAMEnv(gym.Env):
             reward = power_norm*latency_norm
 
         # For RL agent, we want to maximize the reward
-        if(arch_gym_configs.rl_agent):
+        if(DRAMSys_config.rl_agent):
             reward = 1/reward
         
         return reward
