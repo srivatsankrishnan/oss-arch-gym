@@ -10,5 +10,5 @@ Environments
    FARSI_sim
    AstraSim
    gamma
-   cfu
+   CFUPlayground
    timeloop
