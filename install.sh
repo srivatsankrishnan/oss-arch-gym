@@ -6,9 +6,9 @@ if [ $1  == 'cfu' ]; then
 
     cd sims/CFU-Playground/CFU-Playground
 
+    ./scripts/setup_vexriscv_build.sh
     ./scripts/setup
     make install-sf
-    ./scripts/setup_vexriscv_build.sh
 fi
 
 #install vizier in arch-gym conda environment
@@ -22,7 +22,7 @@ if [ $1 == 'viz' ]; then
     sudo apt-get install -y libprotobuf-dev
 
     pip install -r requirements.txt --use-deprecated=legacy-resolver
-    pip install -e
+    pip install -e .
 
     ./build_protos.sh
 
