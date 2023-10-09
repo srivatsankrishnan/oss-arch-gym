@@ -27,8 +27,8 @@ import tree
 
 import os
 os.sys.path.insert(0, os.path.abspath('../../'))
-print(os.sys.path)
-from configs import DRAMSys_config 
+from configs.sims import DRAMSys_config 
+from configs.algos import rl_config
 from DRAMEnv import DRAMEnv
 from envHelpers import helpers
 class DRAMSysEnvWrapper(dm_env.Environment):
@@ -199,6 +199,6 @@ def make_dramsys_env(seed: int = 12234,
   environment = DRAMSysEnvWrapper(DRAMEnv(
     reward_formulation = reward_formulation))
   environment = wrappers.SinglePrecisionWrapper(environment)
-  if(DRAMSys_config.rl_agent):
+  if(rl_config.rl_agent):
     environment = wrappers.CanonicalSpecWrapper(environment, clip=True)
   return environment

@@ -6,7 +6,7 @@ from absl import app
 from absl import logging
 
 os.sys.path.insert(0, os.path.abspath('../../'))
-from configs import DRAMSys_config
+from configs.sims import DRAMSys_config
 from arch_gym.envs.envHelpers import helpers
 from arch_gym.envs import dramsys_wrapper
 import envlogger

@@ -10,7 +10,7 @@ from .nodes import Node, NeighbourNode
 import sys
 import os
 os.sys.path.insert(0, os.path.abspath('/../../configs'))
-from configs import arch_gym_configs
+from configs.algos import aco_config
 
 
 
@@ -77,7 +77,7 @@ class ACO:
         """
 
         ants = []
-        if arch_gym_configs.aco_batch_mode:
+        if aco_config.aco_batch_mode:
             for ant_number in range(cfg['aco']['ant_count']):
                 # 1 Generate all the ants and its path
                 Log.header("[ACO Batch Mode] GENERATING ANT %i" % (ant_number + 1))

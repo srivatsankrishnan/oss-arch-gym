@@ -1,32 +1,25 @@
 import os
 import sys
+import sys
+import subprocess
+import time
+import re
+import random
+import numpy as np
 
 settings_file_path = os.path.realpath(__file__)
 settings_dir_path = os.path.dirname(settings_file_path)
 os.sys.path.insert(0, settings_dir_path)
-
 os.sys.path.insert(0, settings_dir_path + '/../../')
 os.sys.path.insert(0, settings_dir_path + '/../../sims/DRAM/binary/DRAMSys_Proxy_Model')
-print(os.sys.path)
+
 from DRAMSys_Proxy_Model import DRAMSysProxyModel
-from configs import DRAMSys_config
+from configs.sims        import DRAMSys_config
+from configs.algos       import rl_config
 import gym
-from gym.utils import seeding
-from envHelpers import helpers
-
-from loggers import write_csv
-import numpy as np
-
-# ToDo: Have a configuration for Arch-Gym to manipulate this methods
-
-import sys
-
-import subprocess
-import time
-import re
-import numpy
-
-import random
+from gym.utils           import seeding
+from envHelpers          import helpers
+from loggers             import write_csv
 
 class DRAMEnv(gym.Env):
     def __init__(self,
@@ -105,7 +98,7 @@ class DRAMEnv(gym.Env):
             reward = power_norm*latency_norm
 
         # For RL agent, we want to maximize the reward
-        if(DRAMSys_config.rl_agent):
+        if(rl_config.rl_agent):
             reward = 1/reward
         
         return reward

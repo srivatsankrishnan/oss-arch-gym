@@ -1,5 +1,15 @@
 import os
 import sys
+import subprocess
+import time
+import re
+import random
+import math
+import numpy as np
+import matplotlib.colors as colors
+import matplotlib.colors as mcolors
+import pandas as pd
+import argparse, sys
 from tkinter import N
 
 settings_file_path = os.path.realpath(__file__)
@@ -22,46 +32,22 @@ from design_utils.components.hardware import *
 from top.main_FARSI import set_up_FARSI_with_arch_gym
 from settings import config
 from design_utils.des_handler import move
-from  design_utils.design import *
-import os
+from design_utils.design import *
 import itertools
-# main function
-import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 import matplotlib.pyplot as plt
 from visualization_utils.vis_hardware import *
-import numpy as np
 from specs.LW_cl import *
 from specs.database_input import  *
-import math
-import matplotlib.colors as colors
-#import pandas
-import matplotlib.colors as mcolors
-import pandas as pd
-import argparse, sys
 import data_collection.collection_utils.what_ifs.FARSI_what_ifs as wf
 
-
-
-from configs import arch_gym_configs
 import gym
-from gym.utils import seeding
-from envHelpers import helpers
+from   gym.utils     import seeding
+from   envHelpers    import helpers
+from   loggers       import write_csv
+from   configs.algos import rl_config
 
-from loggers import write_csv
-import numpy as np
-
-# ToDo: Have a configuration for Arch-Gym to manipulate this methods
-
-import sys
-
-import subprocess
-import time
-import re
-import numpy
-
-import random
 
 class FARSISimEnv(gym.Env):
     def __init__(self,
@@ -88,11 +74,6 @@ class FARSISimEnv(gym.Env):
         else:  # leaving default prior to RL impl to make sure nothing breaks
             self.observation_space = gym.spaces.Box(low=0, high=1e3, shape=(1,3))
             self.action_space = gym.spaces.Box(low=0, high=8, shape=(10,))
-        self.binary_name = arch_gym_configs.binary_name
-        self.exe_path = arch_gym_configs.exe_path
-        self.sim_config = arch_gym_configs.sim_config
-        self.experiment_name = arch_gym_configs.experiment_name
-        self.logdir = arch_gym_configs.logdir
 
         # RL params
         self.rl_form = rl_form
@@ -217,29 +198,11 @@ class FARSISimEnv(gym.Env):
     
     def calculate_reward(self, sim_dp):
 
-        """
-        target_power = arch_gym_configs.target_power
-        target_latency = arch_gym_configs.target_latency
-        print("Power:", power, "Latency:", latency, "Target Power:", target_power, "Target Latency:", target_latency)
-        #power_norm = max((power - target_power)/target_power, self.reward_cap)
-        #latency_norm = max((latency-target_latency)/target_latency, self.reward_cap)
-        if self.reward_formulation == "power":
-            power_norm = target_power/abs(power-target_power)
-            reward = power_norm
-        elif self.reward_formulation == "latency":
-            latency_norm = target_latency/abs((latency-target_latency))
-            reward = latency_norm
-        elif self.reward_formulation == "both":
-            power_norm = target_power/abs(power-target_power)
-            latency_norm = target_latency/abs((latency-target_latency))
-            reward = power_norm*latency_norm
-        """
-        
         #reward = sim_dp.dp_stats.dist_to_goal(self.reward_formulation.split(" "), config.metric_sel_dis_mode)
         reward = sim_dp.dp_stats.dist_to_goal(["power", "area", "latency"], config.metric_sel_dis_mode)
         
         # For RL agent, we want to maximize the reward
-        if(arch_gym_configs.rl_agent):
+        if(rl_config.rl_agent):
             reward = 1/reward
         
         # some algo (ACO) will throw error if reward is 0. So set it to a very small number
@@ -248,28 +211,6 @@ class FARSISimEnv(gym.Env):
 
         return reward
 
-    def runDRAMEnv(self):
-        '''
-        Method to launch the DRAM executables given an action
-        '''
-        exe_path = self.exe_path
-        exe_name = self.binary_name
-        config_name = self.sim_config
-        exe_final = os.path.join(exe_path,exe_name)
-
-        process = subprocess.Popen([exe_final, config_name],stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        out, err = process.communicate()
-        if err.decode() == "":
-            outstream = out.decode()
-        else:
-            print(err.decode())
-            sys.exit()
-        
-        obs = self.get_observation(outstream)
-        obs = obs.reshape(1,3)
-        
-        return obs
 
     def decode_action_greedy_style(self, action_encoded, cur_ex_dp):
         action = cPickle.loads(action_encoded["action"])
@@ -563,12 +504,6 @@ class FARSISimEnv(gym.Env):
         '''
         done = False
 
-        """
-        if(status):
-            obs = self.runDRAMEnv()
-        else:
-            print("Error in writing configs")
-        """
         #reward = self.calculate_reward(obs[0][0], obs[0][1])
 
         if(self.steps == self.max_steps):
@@ -645,12 +580,6 @@ class FARSISimEnv(gym.Env):
         self.steps += 1
         done = False
 
-        """
-        if(status):
-            obs = self.runDRAMEnv()
-        else:
-            print("Error in writing configs")
-        """
         #reward = self.calculate_reward(obs[0][0], obs[0][1])
         reward = self.calculate_reward(self.cur_sim_dp)
 
@@ -687,11 +616,10 @@ class FARSISimEnv(gym.Env):
 
 if __name__ == "__main__":
     
-    dramObj = DRAMEnv()
+    FARSIObj = FARSISimEnv()
     helpers = helpers()
     logs = []
 
-    obs = dramObj.runDRAMEnv()
 
     
  

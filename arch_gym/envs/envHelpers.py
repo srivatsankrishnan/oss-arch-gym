@@ -10,7 +10,7 @@ os.sys.path.insert(0, os.path.abspath('/../../configs'))
 os.sys.path.insert(0, os.path.abspath('/../..'))
 
 #from configs import configs
-from configs import DRAMSys_config
+from configs.sims import DRAMSys_config
 import shutil
 from sims.Timeloop.process_params import TimeloopConfigParams
 from subprocess import Popen, PIPE

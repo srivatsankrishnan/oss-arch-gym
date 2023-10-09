@@ -7,8 +7,8 @@ os.sys.path.insert(0, settings_dir_path)
 os.sys.path.insert(0, settings_dir_path + '/../../configs')
 os.sys.path.insert(0, settings_dir_path + '/../../configs/sniper')
 
-from configs import arch_gym_configs
-from sims.Sniper import simulate_benchmark
+from configs.sims import Sniper_config
+from sims.Sniper  import simulate_benchmark
 
 import gym
 from gym.utils import seeding
@@ -40,22 +40,22 @@ class SniperEnv(gym.Env):
         self.max_episode_len = 10
         self.episode = 0
 
-        self.binary_name = arch_gym_configs.sniper_binary_name
-        self.binary_path = arch_gym_configs.sniper_binary_path
-        self.sniper_config = arch_gym_configs.sniper_config
-        self.sniper_workload = arch_gym_configs.spec_workload
+        self.binary_name = Sniper_config.sniper_binary_name
+        self.binary_path = Sniper_config.sniper_binary_path
+        self.sniper_config = Sniper_config.sniper_config
+        self.sniper_workload = Sniper_config.spec_workload
 
         # For batch mode, we will pass unique logdir for each agent
-        if(arch_gym_configs.sniper_mode == 'batch'):
+        if(Sniper_config.sniper_mode == 'batch'):
             self.output_dirs = []
             self.agent_configs =[]
             self.cummulative_reward = []
-            self.logdir = arch_gym_configs.sniper_logdir
+            self.logdir = Sniper_config.sniper_logdir
         else:
-            self.logdir = arch_gym_configs.sniper_logdir
+            self.logdir = Sniper_config.sniper_logdir
             self.cummulative_reward = 0
         
-        self.cores = arch_gym_configs.sniper_numcores
+        self.cores = Sniper_config.sniper_numcores
         
         self.helpers = helpers()
         #self.reset()
@@ -76,7 +76,7 @@ class SniperEnv(gym.Env):
         # create copies of the config files
         for agent_ids in range(len(actions)):
             self.agent_configs.append(self.helpers.create_agent_configs(
-                                agent_ids,arch_gym_configs.sniper_config,
+                                agent_ids,Sniper_config.sniper_config,
                                 ))
                                 
         # check if all the config files are created
@@ -198,7 +198,7 @@ class SniperEnv(gym.Env):
         done = False
         launcher = simulate_benchmark.SniperLauncher(int(self.cores))
 
-        jobs = [arch_gym_configs.spec_workload for _ in range(num_agents)]
+        jobs = [Sniper_config.spec_workload for _ in range(num_agents)]
         results = []
 
         for agent_idx in range(len(jobs)):
@@ -227,7 +227,7 @@ class SniperEnv(gym.Env):
         
         obs = collections.defaultdict(dict)
         for idx in range(len(self.output_dirs)):
-            basedir = os.path.join(arch_gym_configs.sniper_binary_path, self.output_dirs[idx])
+            basedir = os.path.join(Sniper_config.sniper_binary_path, self.output_dirs[idx])
             
             # rety this operation till stats.json file is created
             retry_count = 0
@@ -326,9 +326,9 @@ class SniperEnv(gym.Env):
         '''
         reward = 0
 
-        latency = math.pow((obs[0] - arch_gym_configs.target_latency)/arch_gym_configs.target_latency,2)
-        power = math.pow((obs[1]- arch_gym_configs.target_power)/arch_gym_configs.target_power,2)
-        area = math.pow((obs[2]- arch_gym_configs.target_area)/arch_gym_configs.target_area,2)
+        latency = math.pow((obs[0] - Sniper_config.target_latency)/Sniper_config.target_latency,2)
+        power = math.pow((obs[1]- Sniper_config.target_power)/Sniper_config.target_power,2)
+        area = math.pow((obs[2]- Sniper_config.target_area)/Sniper_config.target_area,2)
         
         reward = math.sqrt(latency + power + area)
         return reward

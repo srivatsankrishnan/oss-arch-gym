@@ -16,22 +16,20 @@
 
 from typing import Any, Dict, List, Optional
 
-from acme import specs
-from acme import types
-from acme import wrappers
-import dm_env
-import gym
-from gym import spaces
-import numpy as np
-import tree
-
 import os
+import tree
+import dm_env
+import numpy as np
 os.sys.path.insert(0, os.path.abspath('../../'))
-print(os.sys.path)
-from configs import arch_gym_configs 
-from arch_gym.envs.DRAMEnv import DRAMEnv
-from arch_gym.envs.FARSIEnv import FARSISimEnv
-from envHelpers import helpers
+import gym
+from   gym                    import spaces
+from   configs.algos          import rl_config
+from   arch_gym.envs.FARSIEnv import FARSISimEnv
+from   envHelpers             import helpers
+from   acme                   import specs
+from   acme                   import types
+from   acme                   import wrappers
+
 class FARSISimEnvWrapper(dm_env.Environment):
   """Environment wrapper for OpenAI Gym environments."""
 
@@ -206,6 +204,6 @@ def make_FARSI_sim_env(seed: int = 12234,
   environment = FARSISimEnvWrapper(FARSISimEnv(
     reward_formulation = reward_formulation, workload = workload, rl_form=rl_form, rl_algo=rl_algo, max_steps=max_steps, num_agents=num_agents, reward_scaling=reward_scaling))
   environment = wrappers.SinglePrecisionWrapper(environment)
-  if(arch_gym_configs.rl_agent):
+  if(rl_config.rl_agent):
     environment = wrappers.CanonicalSpecWrapper(environment, clip=True)
   return environment

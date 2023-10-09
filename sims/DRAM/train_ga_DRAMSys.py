@@ -1,22 +1,21 @@
 import os
 import sys
-os.sys.path.insert(0, os.path.abspath('../../'))
-
-from configs import arch_gym_configs
-from arch_gym.envs.DRAMEnv import DRAMEnv
-from arch_gym.envs import dramsys_wrapper
-from arch_gym.envs.envHelpers import helpers
-import envlogger
-from sko.GA import GA
 import json
 import numpy as np
-
-from absl import flags
-from absl import app
-from absl import logging
-
 import pandas as pd
 import matplotlib.pyplot as plt
+
+os.sys.path.insert(0, os.path.abspath('../../'))
+
+from sko.GA                   import GA
+from arch_gym.envs.DRAMEnv    import DRAMEnv
+from arch_gym.envs            import dramsys_wrapper
+from arch_gym.envs.envHelpers import helpers
+from absl                     import flags
+from absl                     import app
+from absl                     import logging
+import envlogger
+
 
 flags.DEFINE_bool('use_envlogger', False, 'Whether to use envlogger.')
 flags.DEFINE_string('reward_formulation', 'power', 'Reward formulation to use')

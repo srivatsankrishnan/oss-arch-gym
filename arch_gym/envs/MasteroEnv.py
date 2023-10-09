@@ -8,7 +8,7 @@ os.sys.path.insert(0, settings_dir_path)
 
 os.sys.path.insert(0, settings_dir_path + '/../../')
 
-from configs import arch_gym_configs
+from configs.sims import Gamma_config
 import gym
 import glob
 from gym.utils import seeding
@@ -48,7 +48,7 @@ class MasteroEnv(gym.Env):
                  l2_size: int = 1073741824,
                  num_pe: int = 1024,
                  ):
-        self._executable = arch_gym_configs.exe_file
+        self._executable = Gamma_config.mastero_exe_file
         self.mapping_file = mapping_file
         self.num_agents = num_agents
         self.NocBW = noc_bw

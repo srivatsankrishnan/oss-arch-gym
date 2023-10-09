@@ -1,7 +1,6 @@
 from sklearn.base import BaseEstimator, ClassifierMixin
 import os
 os.sys.path.insert(0, os.path.abspath('/../'))
-from configs import arch_gym_configs
 import json
 from arch_gym.envs.envHelpers import helpers
 from arch_gym.envs.DRAMEnv import DRAMEnv

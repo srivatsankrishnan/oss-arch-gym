@@ -19,6 +19,7 @@ dependencies:
   - qhoptim
   - lxml
   - pytz
+  - pygraphviz
   - nodejs
   - category_encoders
   - tensorboardX

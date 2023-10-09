@@ -2,7 +2,9 @@
 # Licensed under MIT License
 
 from arch_gym.envs import FARSI_sim_wrapper
-from configs import arch_gym_configs
+from configs.sims import DRAMSys_config
+from configs.sims import Timeloop_config
+from configs.algos import rl_config
 import copy
 from . import cfg
 import collections
@@ -580,22 +582,17 @@ class DummyDRAMSys():
         if power is not None and latency is not None:
             print(
                 "*********************OPTIMIZE FOR POWER & LATENCY*********************")
-            reward = np.sum([np.square(arch_gym_configs.target_power - power),
-                            np.square(arch_gym_configs.target_latency - latency)])
-            reward = np.sqrt(reward)
-        elif energy is not None:
-            print("*********************OPTIMIZE FOR ENERGY*********************")
-            reward = np.sum(
-                [np.square(arch_gym_configs.target_energy - energy)])
+            reward = np.sum([np.square(DRAMSys_config.target_power - power),
+                            np.square(DRAMSys_config.target_latency - latency)])
             reward = np.sqrt(reward)
         elif power is not None:
             print("*********************OPTIMIZE FOR POWER*********************")
-            reward = np.sum([np.square(arch_gym_configs.target_power - power)])
+            reward = np.sum([np.square(DRAMSys_config.target_power - power)])
             reward = np.sqrt(reward)
         elif latency is not None:
             print("*********************OPTIMIZE FOR LATENCY*********************")
             reward = np.sum(
-                [np.square(arch_gym_configs.target_latency - latency)])
+                [np.square(DRAMSys_config.target_latency - latency)])
             reward = np.sqrt(reward)
         return reward
 
@@ -603,7 +600,7 @@ class DummyDRAMSys():
         mem_ctrl_filename = "policy.json"
         op_success = False
         full_path = os.path.join(
-            arch_gym_configs.dram_mem_controller_config, mem_ctrl_filename)
+            DRAMSys_config.dram_mem_controller_config, mem_ctrl_filename)
 
         try:
             with open(full_path, "r") as JsonFile:
@@ -882,7 +879,7 @@ class DummyTimeloop():
         
         self.log_dir = log_dir
         self.timeloop_config = TimeloopConfigParams(
-            arch_gym_configs.timeloop_parameters)
+            Timeloop_config.timeloop_parameters)
         self.fitness_hist = {}
         self.action_dict = []
         self.flat_params = self.timeloop_config.get_all_params_flattened()
@@ -1226,28 +1223,6 @@ class DummyFARSI():
         self.log_fitness_to_csv()
         return -1 * reward
 
-    # def calculate_reward(self, energy=None, power=None, latency=None):
-    #     if power is not None and latency is not None:
-    #         print(
-    #             "*********************OPTIMIZE FOR POWER & LATENCY*********************")
-    #         reward = np.sum([np.square(arch_gym_configs.target_power - power),
-    #                         np.square(arch_gym_configs.target_latency - latency)])
-    #         reward = np.sqrt(reward)
-    #     elif energy is not None:
-    #         print("*********************OPTIMIZE FOR ENERGY*********************")
-    #         reward = np.sum(
-    #             [np.square(arch_gym_configs.target_energy - energy)])
-    #         reward = np.sqrt(reward)
-    #     elif power is not None:
-    #         print("*********************OPTIMIZE FOR POWER*********************")
-    #         reward = np.sum([np.square(arch_gym_configs.target_power - power)])
-    #         reward = np.sqrt(reward)
-    #     elif latency is not None:
-    #         print("*********************OPTIMIZE FOR LATENCY*********************")
-    #         reward = np.sum(
-    #             [np.square(arch_gym_configs.target_latency - latency)])
-    #         reward = np.sqrt(reward)
-    #     return reward
 
     def log_fitness_to_csv(self):
         df_traj = pd.DataFrame([self.fitness_hist])

@@ -217,7 +217,7 @@ def run_task(task):
     # Run GA
     elif algo == "ga":
         print("train_ga_DRAMSys")
-        cmd = "python train_ga_DRAMEnv.py " + \
+        cmd = "python train_ga_DRAMSys.py " + \
             "--workload=" + str(workload) + " " \
             "--num_iter=" + str(num_iter) + " " \
             "--prob_mutation=" + str(prob_mut) + " "\
