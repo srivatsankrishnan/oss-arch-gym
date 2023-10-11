@@ -51,7 +51,6 @@ Inside sims/CFU-Playground:
 
 
 To update the parameters such as workload, num_steps, reward_formulation for the training scripts, follow these steps:
-...
 
 ```
 python training_script.py --parameter=value
