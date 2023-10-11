@@ -23,7 +23,10 @@ conda activate arch-gym
 
 ## Install acme
 
-Simply run ```install_acme.sh``` in the arch-gym emnvironment.
+Activate the arch-gym conda environment, then in ```oss-arch-gym/acme``` run 
+```
+pip install .[tf,testing,envs,jax]
+```
 
 Now, run ```conda env list```, which will show the path to your arch-gym environment.
 

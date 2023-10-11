@@ -1,6 +1,6 @@
 # Install Vizier
 
-You can run the following script in the arch-gym environment to install vizier :
+Activate the arch-gym conda environment, then in the repository root run the following script to install vizier :
 
 ```
 ./install_sim viz
