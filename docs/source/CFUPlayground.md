@@ -5,35 +5,14 @@ CFU Playground is a full-stack open-source framework for TinyML Acceleration. Th
 
 ## Installing CFU Playground
 
-In order to install CFU Playground, run the following script from the `oss-arch-gym` repository root:
-
-```sh
-git submodule update --init sims/CFU-Playground/CFU-Playground
+From the repository root, run the following script:
 ```
-
-- Move into the CFU Playrgoud directory:
-```sh 
-cd sims/CFU-Playground/CFU-Playground
-```
-- Run the following from this location:
-```sh
-./scripts/setup
-./scripts/setup_vexriscv_build.sh
-make install-sf
-```
-Now you should be able to use the CFU-env gym environment.
-
-To invoke CFU Playground from arch-gym (after completing above installation steps):
-```
-cd oss-arch-gym/sims/CFU-Playground/
-```
-```
-make enter-sf
+./install_sim cfu
 ```
 
 ## Run Training Scripts
 
-Inside sims/CFU-Playground:
+Run the required script in the arch-gym conda environment. These scripts are present in sims/CFU-Playground:
 
 * **Random Walker**: ```python train_randomwalker_CFUPlayground.py```
 
@@ -47,20 +26,37 @@ Inside sims/CFU-Playground:
 
 * **EMUKIT_GP**: ```python train_EMUKIT_GP_CFUPlayground.py```
 
+## Configuration options
 
+There are various workloads available to train for in CFU Playground:
 
+* micro_speech, magic_wand, mnv2, hps, mlcommons_tiny_v01_amond, mlcommons_tiny_v01_imgc, mlcommons_tiny_v01_kws, mlcommons_tiny_v01_vww
 
-To update the parameters such as workload, num_steps, reward_formulation for the training scripts, follow these steps:
+There are also the following embench workloads available:
+
+* primecount, minver, aha_mont64, crc_32, cubic, edn, huffbench, matmul, md5, nbody, nettle_aes, nettle_sha256, nsichneu, picojpeg, qrduino, slre, st, statemate, tarfind, ud, wikisort
+
+To update various parameters such as workload, num_steps, reward_formulation for the training scripts, follow these steps:
 
 ```
 python training_script.py --parameter=value
 ```
 
-## Parameter Space
+| Script Parameter       | Values        | default|
+| ----------------       | ------------- | ----------| 
+|workload                | any of the workloads listed above| micro_speech
+|num_steps              | any integer  | 1
+|traject_dir | directory name (relative to sims/CFU-Playground) | \<training algorithm name>_trajectories
+|use_envlogger| boolean | True
+|reward_formulation| both, cells, cycles| both          
+
+## Design Space
+
+Currently, CFU-Playground allows the exploration of the following design space:
+
 | System Parameter       | Values        |
 | ----------------       | ------------- |
 |Bypass                  | True, False  
-|CFU Enable              | True, False  
 |Branch Prediction       | None, Static, Dynamic, Dynamic Target                           
 |Instruction Cache Size  | 0-16KiB                               
 |Data Cache Size         | 0-16KiB                               

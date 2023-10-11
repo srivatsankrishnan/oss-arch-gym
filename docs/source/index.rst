@@ -12,6 +12,7 @@ Welcome to ArchGym's documentation!
 
    intro
    installation
+   Vizier_Installation
    environments
    agents
    proxy-pipeline
