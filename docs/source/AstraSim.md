@@ -18,7 +18,7 @@ git checkout 7e33b6a1c497ced1e98fc60175aeb4678419281c
 ```
 Activate the AstraSim environment:
 ```
-conda activate AstraSim
+conda activate arch-gym
 ```
 
 ## Installing AstraSim
