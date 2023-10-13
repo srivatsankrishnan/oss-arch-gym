@@ -11,3 +11,4 @@ absl-py
 sympy
 plotly
 scons
+jupyter
