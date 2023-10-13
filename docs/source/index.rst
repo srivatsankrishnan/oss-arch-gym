@@ -5,6 +5,9 @@
 
 Welcome to ArchGym's documentation!
 ===================================
+.. image:: ArchGym-animation.gif
+    :width: 100%
+    :align: center
 
 .. toctree::
    :maxdepth: 1
