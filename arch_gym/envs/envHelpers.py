@@ -10,7 +10,7 @@ os.sys.path.insert(0, os.path.abspath('/../../configs'))
 os.sys.path.insert(0, os.path.abspath('/../..'))
 
 #from configs import configs
-from configs import arch_gym_configs
+from configs.sims import DRAMSys_config
 import shutil
 from sims.Timeloop.process_params import TimeloopConfigParams
 from subprocess import Popen, PIPE
@@ -24,8 +24,8 @@ class CustomListDumper(yaml.Dumper):
 
 class helpers():
     def __init__(self):
-        self.mem_control_basepath = arch_gym_configs.dram_mem_controller_config
-        self.sniper_basepath = arch_gym_configs.sniper_config
+        self.mem_control_basepath = DRAMSys_config.dram_mem_controller_config
+        #self.sniper_basepath = arch_gym_configs.sniper_config
         #self.timeloop_param_obj = TimeloopConfigParams(arch_gym_configs.timeloop_parameters)
     
     def action_mapper(self, action, param):
@@ -842,7 +842,7 @@ class helpers():
     def read_modify_write_dramsys(self, action):
         print("[envHelpers][Action]", action)
         op_success = False
-        mem_ctrl_file = arch_gym_configs.dram_mem_controller_config_file
+        mem_ctrl_file = DRAMSys_config.dram_mem_controller_config_file
         
         try:
             with open (mem_ctrl_file, "r") as JsonFile:
@@ -867,7 +867,7 @@ class helpers():
         return op_success
 
     def writemem_ctrlr(self,action_dict):
-        mem_ctrl_filename = arch_gym_configs.dram_mem_controller_config_file
+        mem_ctrl_filename = DRAMSys_config.dram_mem_controller_config_file
         write_success = False
         full_path = os.path.join(self.mem_control_basepath,mem_ctrl_filename)
         mcconfig_dict = {}

@@ -15,6 +15,7 @@ dependencies:
   - beautifulsoup4
   - lxml
   - pytz
+  - pygraphviz
   - nodejs
   - category_encoders
   - tensorboardX

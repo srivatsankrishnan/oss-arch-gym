@@ -5,7 +5,7 @@ import argparse
 import operator
 import os
 os.sys.path.insert(0, os.path.abspath('/../../../configs'))
-from configs import arch_gym_configs
+from configs.algos import aco_config 
 
 import sys
 
@@ -32,7 +32,7 @@ if not (base_path / 'settings' / 'mnist.yaml').exists():
     module_path = base_path
 
     # Change the base path to the current working directory
-    base_path = Path(arch_gym_configs.aco_base_path)
+    base_path = Path(aco_config.aco_base_path)
     #base_path = Path(os.getcwd())
     settings_directory = (base_path / 'settings')
 
@@ -41,7 +41,7 @@ if not (base_path / 'settings' / 'mnist.yaml').exists():
         settings_directory.mkdir()
 
     # If default settings file doesn't exist, copy one from the module directory
-    module_default_config = module_path / Path('settings/' + arch_gym_configs.aco_config)
+    module_default_config = module_path / Path('settings/' + aco_config.aco_config)
     settings_default_config = settings_directory / 'default.yaml'
     if not settings_default_config.exists() and module_default_config.exists():
         copyfile(module_default_config, settings_default_config)
@@ -53,7 +53,7 @@ settings_file_path = Path(settings_directory, filename).with_suffix('.yaml')
 
 # If the file doesn't exist fallback to the default settings file
 if not settings_file_path.exists():
-    settings_file_path = Path(settings_directory, arch_gym_configs.aco_config).with_suffix('.yaml')
+    settings_file_path = Path(settings_directory, aco_config.aco_config).with_suffix('.yaml')
 print(settings_file_path)
 # Read settings file
 with open(settings_file_path, 'r') as settings_file:

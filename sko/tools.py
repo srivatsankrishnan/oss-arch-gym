@@ -6,7 +6,7 @@ import sys
 import multiprocessing
 import os
 os.sys.path.insert(0, os.path.abspath('../configs'))
-from configs import arch_gym_configs
+from configs.algos import ga_config
 
 if sys.platform != 'win32':
     multiprocessing.set_start_method('fork')
@@ -112,7 +112,7 @@ def func_transformer(func):
         return func_transformed
     
     else:  # common
-        if arch_gym_configs.ga_batch_mode:
+        if ga_config.ga_batch_mode:
             print('Batch mode')
             def func_transformed(X):
                 
