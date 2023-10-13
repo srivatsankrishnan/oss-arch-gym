@@ -3,7 +3,7 @@
 Activate the arch-gym conda environment, then in the repository root run the following script to install vizier :
 
 ```
-./install_sim viz
+./install_sim.sh viz
 ```
 
 ## Verify Vizier Installation 
