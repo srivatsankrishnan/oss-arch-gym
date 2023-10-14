@@ -9,6 +9,7 @@ Welcome to ArchGym's documentation!
     :width: 100%
     :align: center
 
+
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
