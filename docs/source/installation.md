@@ -2,6 +2,9 @@
 Instructions for installing ArchGym using Docker and natively are both provided.
 ## 1a) Docker Install 
 ###### Clone latest ArchGym Image
+```
+git clone https://github.com/ShvetankPrakash/arch-gym-container.git
+```
 
 ###### Build Image
 ```
