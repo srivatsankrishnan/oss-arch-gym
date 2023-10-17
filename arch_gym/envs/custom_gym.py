@@ -24,6 +24,9 @@ class ExampleEnv(Env):
 
 
     def step(self, action):
+        """
+        Step function for the environment
+        """
         num_cores, freq, mem_type, mem_size = action
 
         self.energy = abs(self.ideal['num_cores'] - num_cores)

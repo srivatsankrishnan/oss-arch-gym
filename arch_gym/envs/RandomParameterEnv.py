@@ -32,6 +32,9 @@ class RandomParameterEnv(gym.Env):
         self.reset()
 
     def step(self, action):
+        """
+        Step function for the environment
+        """
 
         self.stepN = self.stepN + 1
         self.steps = self.steps + 1

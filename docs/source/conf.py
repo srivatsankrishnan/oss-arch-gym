@@ -18,6 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 import os, sys
+import subprocess
+
 os.sys.path.insert(0, os.path.abspath('../../'))
 os.sys.path.insert(0, os.path.abspath('../../sims'))
 os.sys.path.insert(0, os.path.abspath('../../arch_gym'))
@@ -35,15 +37,22 @@ release = '0.1.0'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.todo", "sphinx.ext.viewcode", "sphinx.ext.napoleon"]
+extensions = ["sphinx.ext.todo", "sphinx.ext.viewcode", "sphinx.ext.napoleon", "myst_parser"]
 
-# Add any paths that contain templates here, relative to this directory.
+# Add any paths that contain templates here, relative tolibpython3.9.so.1.0: cannot open shared object file: No such file or this directory.
 templates_path = ['_templates']
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
+
+# Supported formats for text include are rst, md, and txt.
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown',
+}
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -57,3 +66,13 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+def run_shell_script(app):
+    print("--------------------------Calling the shell script--------------------------")
+    try:
+        subprocess.call(['./install_acme.sh'], shell = True)
+    except Exception as e:
+        print("Error running the shell script:", e)
+
+def setup(app):
+    app.connect('builder-inited', run_shell_script)

@@ -115,7 +115,9 @@ class AstraSimEnv(gym.Env):
 
     # give it one action: one set of parameters from json file
     def step(self, action_dict):
-
+        """
+        Step function for the environment
+        """
         # write the three config files
         # with open(self.network_config, "w") as outfile:
         #     outfile.write(json.dumps(action_dict['network'], indent=4))

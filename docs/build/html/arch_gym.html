@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Environment &mdash; ArchGym 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Environments" href="arch_gym.envs.html" />
+    <link rel="prev" title="Environments for Architecture Simulators" href="modules_arch_gym.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ArchGym
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Setting up ArchGym Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="source_code.html">Source Code</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules_arch_gym.html">Environments for Architecture Simulators</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html">Environments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules_sims.html">Training Scripts for Architecture Simulators</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ArchGym</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="source_code.html">Source Code</a></li>
+          <li class="breadcrumb-item"><a href="modules_arch_gym.html">Environments for Architecture Simulators</a></li>
+      <li class="breadcrumb-item active">Environment</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/arch_gym.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="environment">
+<h1>Environment<a class="headerlink" href="#environment" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="arch_gym.envs.html">Environments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.AstraSimEnv">arch_gym.envs.AstraSimEnv module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv"><code class="docutils literal notranslate"><span class="pre">AstraSimEnv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.action_space"><code class="docutils literal notranslate"><span class="pre">AstraSimEnv.action_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.calculate_reward"><code class="docutils literal notranslate"><span class="pre">AstraSimEnv.calculate_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.close"><code class="docutils literal notranslate"><span class="pre">AstraSimEnv.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.observation_space"><code class="docutils literal notranslate"><span class="pre">AstraSimEnv.observation_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.parse_result"><code class="docutils literal notranslate"><span class="pre">AstraSimEnv.parse_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.render"><code class="docutils literal notranslate"><span class="pre">AstraSimEnv.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.reset"><code class="docutils literal notranslate"><span class="pre">AstraSimEnv.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.seed"><code class="docutils literal notranslate"><span class="pre">AstraSimEnv.seed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimEnv.AstraSimEnv.step"><code class="docutils literal notranslate"><span class="pre">AstraSimEnv.step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.AstraSimWrapper">arch_gym.envs.AstraSimWrapper module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper"><code class="docutils literal notranslate"><span class="pre">AstraSimEnvWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.action_spec"><code class="docutils literal notranslate"><span class="pre">AstraSimEnvWrapper.action_spec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.close"><code class="docutils literal notranslate"><span class="pre">AstraSimEnvWrapper.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.environment"><code class="docutils literal notranslate"><span class="pre">AstraSimEnvWrapper.environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.get_info"><code class="docutils literal notranslate"><span class="pre">AstraSimEnvWrapper.get_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.observation_spec"><code class="docutils literal notranslate"><span class="pre">AstraSimEnvWrapper.observation_spec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.reset"><code class="docutils literal notranslate"><span class="pre">AstraSimEnvWrapper.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.reward_spec"><code class="docutils literal notranslate"><span class="pre">AstraSimEnvWrapper.reward_spec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.step"><code class="docutils literal notranslate"><span class="pre">AstraSimEnvWrapper.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.AstraSimWrapper.make_astraSim_env"><code class="docutils literal notranslate"><span class="pre">make_astraSim_env()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-dramenv-module">arch_gym.envs.DRAMEnv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-dramenv-rl-module">arch_gym.envs.DRAMEnv_RL module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-farsienv-module">arch_gym.envs.FARSIEnv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-farsi-sim-env-module">arch_gym.envs.FARSI_sim_env module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-farsi-sim-wrapper-module">arch_gym.envs.FARSI_sim_wrapper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-masteroenv-module">arch_gym.envs.MasteroEnv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.RandomParameterEnv">arch_gym.envs.RandomParameterEnv module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.RandomParameterEnv.RandomParameterEnv"><code class="docutils literal notranslate"><span class="pre">RandomParameterEnv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.action_space"><code class="docutils literal notranslate"><span class="pre">RandomParameterEnv.action_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.compute_reward"><code class="docutils literal notranslate"><span class="pre">RandomParameterEnv.compute_reward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.observation_space"><code class="docutils literal notranslate"><span class="pre">RandomParameterEnv.observation_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.random_walk"><code class="docutils literal notranslate"><span class="pre">RandomParameterEnv.random_walk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.render"><code class="docutils literal notranslate"><span class="pre">RandomParameterEnv.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.reset"><code class="docutils literal notranslate"><span class="pre">RandomParameterEnv.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.step"><code class="docutils literal notranslate"><span class="pre">RandomParameterEnv.step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-sniperenv-module">arch_gym.envs.SniperEnv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-timeloopenv-module">arch_gym.envs.TimeloopEnv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-timeloopenv-rl-module">arch_gym.envs.TimeloopEnv_RL module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.archgym_env">arch_gym.envs.archgym_env module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.archgym_env.ArchGymEnv"><code class="docutils literal notranslate"><span class="pre">ArchGymEnv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.archgym_env.ArchGymEnv.action_space"><code class="docutils literal notranslate"><span class="pre">ArchGymEnv.action_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.archgym_env.ArchGymEnv.computeReward"><code class="docutils literal notranslate"><span class="pre">ArchGymEnv.computeReward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.archgym_env.ArchGymEnv.getGoal"><code class="docutils literal notranslate"><span class="pre">ArchGymEnv.getGoal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.archgym_env.ArchGymEnv.observation_space"><code class="docutils literal notranslate"><span class="pre">ArchGymEnv.observation_space</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.custom_env">arch_gym.envs.custom_env module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env.CustomEnv"><code class="docutils literal notranslate"><span class="pre">CustomEnv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env.CustomEnv.action_space"><code class="docutils literal notranslate"><span class="pre">CustomEnv.action_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env.CustomEnv.observation_space"><code class="docutils literal notranslate"><span class="pre">CustomEnv.observation_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env.CustomEnv.render"><code class="docutils literal notranslate"><span class="pre">CustomEnv.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env.CustomEnv.reset"><code class="docutils literal notranslate"><span class="pre">CustomEnv.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env.CustomEnv.step"><code class="docutils literal notranslate"><span class="pre">CustomEnv.step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.custom_env_2">arch_gym.envs.custom_env_2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env_2.SimpleArch"><code class="docutils literal notranslate"><span class="pre">SimpleArch</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env_2.SimpleArch.action_space"><code class="docutils literal notranslate"><span class="pre">SimpleArch.action_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env_2.SimpleArch.observation_space"><code class="docutils literal notranslate"><span class="pre">SimpleArch.observation_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env_2.SimpleArch.render"><code class="docutils literal notranslate"><span class="pre">SimpleArch.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env_2.SimpleArch.reset"><code class="docutils literal notranslate"><span class="pre">SimpleArch.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env_2.SimpleArch.step"><code class="docutils literal notranslate"><span class="pre">SimpleArch.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_env_2.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.custom_gym">arch_gym.envs.custom_gym module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_gym.ExampleEnv"><code class="docutils literal notranslate"><span class="pre">ExampleEnv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_gym.ExampleEnv.action_space"><code class="docutils literal notranslate"><span class="pre">ExampleEnv.action_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_gym.ExampleEnv.observation_space"><code class="docutils literal notranslate"><span class="pre">ExampleEnv.observation_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_gym.ExampleEnv.render"><code class="docutils literal notranslate"><span class="pre">ExampleEnv.render()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_gym.ExampleEnv.reset"><code class="docutils literal notranslate"><span class="pre">ExampleEnv.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.custom_gym.ExampleEnv.step"><code class="docutils literal notranslate"><span class="pre">ExampleEnv.step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.customenv_wrapper">arch_gym.envs.customenv_wrapper module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.customenv_wrapper.CustomEnvWrapper"><code class="docutils literal notranslate"><span class="pre">CustomEnvWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.action_spec"><code class="docutils literal notranslate"><span class="pre">CustomEnvWrapper.action_spec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.close"><code class="docutils literal notranslate"><span class="pre">CustomEnvWrapper.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.environment"><code class="docutils literal notranslate"><span class="pre">CustomEnvWrapper.environment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.get_info"><code class="docutils literal notranslate"><span class="pre">CustomEnvWrapper.get_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.observation_spec"><code class="docutils literal notranslate"><span class="pre">CustomEnvWrapper.observation_spec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.reset"><code class="docutils literal notranslate"><span class="pre">CustomEnvWrapper.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.reward_spec"><code class="docutils literal notranslate"><span class="pre">CustomEnvWrapper.reward_spec()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.step"><code class="docutils literal notranslate"><span class="pre">CustomEnvWrapper.step()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.customenv_wrapper.make_custom_env"><code class="docutils literal notranslate"><span class="pre">make_custom_env()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-dramsys-wrapper-module">arch_gym.envs.dramsys_wrapper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-dramsys-wrapper-rl-module">arch_gym.envs.dramsys_wrapper_rl module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-envhelpers-module">arch_gym.envs.envHelpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-envlogger-reader-test-module">arch_gym.envs.envlogger_reader_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.envlogger_writer_test">arch_gym.envs.envlogger_writer_test module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.loggers">arch_gym.envs.loggers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.loggers.write_csv"><code class="docutils literal notranslate"><span class="pre">write_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-maestero-wrapper-module">arch_gym.envs.maestero_wrapper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs.simpleEnv">arch_gym.envs.simpleEnv module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv"><code class="docutils literal notranslate"><span class="pre">simpleEnv</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.LF_MIN"><code class="docutils literal notranslate"><span class="pre">simpleEnv.LF_MIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.RT_MAX"><code class="docutils literal notranslate"><span class="pre">simpleEnv.RT_MAX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.action_space"><code class="docutils literal notranslate"><span class="pre">simpleEnv.action_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.max_steps"><code class="docutils literal notranslate"><span class="pre">simpleEnv.max_steps</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.metadata"><code class="docutils literal notranslate"><span class="pre">simpleEnv.metadata</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.move_left"><code class="docutils literal notranslate"><span class="pre">simpleEnv.move_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.move_right"><code class="docutils literal notranslate"><span class="pre">simpleEnv.move_right</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.observation_space"><code class="docutils literal notranslate"><span class="pre">simpleEnv.observation_space</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.reset"><code class="docutils literal notranslate"><span class="pre">simpleEnv.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.reward_away"><code class="docutils literal notranslate"><span class="pre">simpleEnv.reward_away</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.reward_goal"><code class="docutils literal notranslate"><span class="pre">simpleEnv.reward_goal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.reward_step"><code class="docutils literal notranslate"><span class="pre">simpleEnv.reward_step</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="arch_gym.envs.html#arch_gym.envs.simpleEnv.simpleEnv.step"><code class="docutils literal notranslate"><span class="pre">simpleEnv.step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-sniperenv-wrapper-module">arch_gym.envs.sniperenv_wrapper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-test-randomparameterenv-module">arch_gym.envs.test_RandomParameterEnv module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-timeloop-acme-wrapper-module">arch_gym.envs.timeloop_acme_wrapper module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#arch-gym-envs-timeloop-acme-wrapper-rl-module">arch_gym.envs.timeloop_acme_wrapper_rl module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arch_gym.envs.html#module-arch_gym.envs">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules_arch_gym.html" class="btn btn-neutral float-left" title="Environments for Architecture Simulators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="arch_gym.envs.html" class="btn btn-neutral float-right" title="Environments" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, --.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

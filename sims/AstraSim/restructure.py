@@ -2,6 +2,9 @@ import os
 import csv
 
 def read_csv_column(file_path):
+    """
+    Reads a CSV file and returns a list of the values in the first column.
+    """
     with open(file_path, 'r', newline='') as csvfile:
         reader = csv.reader(csvfile)
         column_data = [row if row else "NA" for row in reader]
