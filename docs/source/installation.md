@@ -59,7 +59,7 @@ conda activate arch-gym
 ```
 
 ## 3) Verify Setup
-Navigate to `sims/DRAMSys` and run:
+Navigate to `sims/DRAM` and run:
 ```
 python train_ga_DRAMSys.py
 ```
