@@ -18,13 +18,13 @@ flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
 flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
 flags.DEFINE_string('summary_dir', '', 'Directory to store the summary')
 flags.DEFINE_integer('num_iter', 10, 'Number of iterations')
-flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation to use')
+flags.DEFINE_string('reward_formulation', 'energy', 'Reward formulation to use')
 
 
 # BO
 flags.DEFINE_integer('rand_state', 0, 'Random state')
 
-# GA
+# GAa
 flags.DEFINE_integer('num_agents', 10, 'Number of agents')
 flags.DEFINE_float('prob_mutation', 0.1, 'Probability of mutation.')
 

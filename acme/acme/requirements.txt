@@ -27,3 +27,4 @@ pillow
 rlax
 atari-py
 pygame==2.1.0
+dm-reverb==0.7.2

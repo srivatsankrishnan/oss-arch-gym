@@ -1,5 +1,9 @@
 tensorboard >= 2.3
 tensorflow >= 2.3
+qhoptim >= 1.1
+torch >= 1.6
+scikit-learn
+xgboost
 atoma
 scikit-optimize
 envlogger==1.0.8
@@ -10,3 +14,5 @@ scons
 myst_parser
 sphinx-rtd-theme
 portpicker
+dill
+jupyter

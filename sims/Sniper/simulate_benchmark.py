@@ -7,7 +7,6 @@ from multiprocessing import dummy
 import os
 import traceback
 os.sys.path.insert(0, os.path.abspath('../../'))
-from configs import arch_gym_configs
 
 import pathlib
 import re

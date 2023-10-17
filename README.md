@@ -4,7 +4,7 @@
 Architecture Gym (ArchGym) is a systematic and standardized framework for ML-driven research tackling architectural design space exploration.
 ArchGym currently supports five different ML-based search algorithms and three unique architecture simulators. The framework is built with the ability to be easily extended to support brand-new search algorithms and architecture simulators via a standardized interface.
 
-![Alt text](./docs/ArchGym_Framework_Overview.png?raw=true "Title")
+![Alt text](./docs/ArchGym-animation.gif?raw=true "Title")
 
 ## Agents
 We define “agent” as an encapsulation of the machine learning algorithm. An ML algorithm consists of “hyperparameters” and a guiding “policy”. 
