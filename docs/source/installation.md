@@ -32,7 +32,7 @@ exit
 ###### Clone ArchGym Repository and Create Conda Environment 
 Start a new terminal and run:
 ```
-git clone --recursive https://github.com/srivatsankrishnan/oss-arch-gym.git
+git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
 conda env create -f oss-arch-gym/environment.yml
 conda activate arch-gym
 ```
