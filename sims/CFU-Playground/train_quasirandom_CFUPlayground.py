@@ -145,19 +145,18 @@ def main(_):
     count = 0
     for suggestion in suggestions:
         count += 1
-        action = {"Bypass": float(str(suggestion.parameters['Bypass'])),
-            "CFU_enable": float(str(suggestion.parameters['CFU_enable'])),
-            "Data_cache_size": float(str(suggestion.parameters['Data_cache_size'])),
-            "Hardware_Divider": float(str(suggestion.parameters['Hardware_Divider'])),
-            "Instruction_cache_size": float(str(suggestion.parameters['Instruction_cache_size'])),
-            "Hardware_Multiplier": float(str(suggestion.parameters['Hardware_Multiplier'])),
-            "Branch_predictor_type": float(str(suggestion.parameters['Branch_predictor_type'])),
-            "Safe_mode_enable": float(str(suggestion.parameters['Safe_mode_enable'])),
-            "Single_Cycle_Shifter": float(str(suggestion.parameters['Single_Cycle_Shifter'])),     
-            "Single_Cycle_Multiplier": float(str(suggestion.parameters['Single_Cycle_Multiplier']))}
-        
-        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-        
+
+        action = {"Bypass": int(float(str(suggestion.parameters['Bypass']))),
+            "CFU_enable": int(float(str(suggestion.parameters['CFU_enable']))),
+            "Data_cache_size": int(float(str(suggestion.parameters['Data_cache_size']))),
+            "Hardware_Divider": int(float(str(suggestion.parameters['Hardware_Divider']))),
+            "Instruction_cache_size": int(float(str(suggestion.parameters['Instruction_cache_size']))),
+            "Hardware_Multiplier": int(float(str(suggestion.parameters['Hardware_Multiplier']))),
+            "Branch_predictor_type": int(float(str(suggestion.parameters['Branch_predictor_type']))),
+            "Safe_mode_enable": int(float(str(suggestion.parameters['Safe_mode_enable']))),
+            "Single_Cycle_Shifter": int(float(str(suggestion.parameters['Single_Cycle_Shifter']))),     
+            "Single_Cycle_Multiplier": int(float(str(suggestion.parameters['Single_Cycle_Multiplier'])))}
+                
         print(action)
         
         
