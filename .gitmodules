@@ -4,4 +4,4 @@
 	url = https://github.com/astra-sim/astra-sim.git
 [submodule "sims/AstraSim/astrasim-archgym"]
 	path = sims/AstraSim/astrasim-archgym
-	url = https://github.com/astra-sim/astrasim-archgym.git
+	url = https://github.com/changhai0109/astrasim-archgym-public.git
