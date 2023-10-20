@@ -11,8 +11,6 @@ absl-py
 sympy
 plotly
 scons
-myst_parser
-sphinx-rtd-theme
 portpicker
 dill
 jupyter
