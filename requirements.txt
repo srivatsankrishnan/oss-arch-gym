@@ -13,4 +13,3 @@ plotly
 scons
 portpicker
 dill
-jupyter
