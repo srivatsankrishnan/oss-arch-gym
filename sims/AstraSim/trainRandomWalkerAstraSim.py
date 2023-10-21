@@ -278,7 +278,7 @@ def main(_):
 
     # TODO: V1 SPEC:
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-    knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+    knobs_spec = os.path.join(archgen_v1_knobs, "themis_knobs_spec.py")
     networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
     systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
