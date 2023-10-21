@@ -1362,6 +1362,24 @@ class helpers():
             write_ok = False
         return write_ok
 
+    def get_OpenLane_action_space(self):
+        # TODO: Define space of actions more clearly than empty lists
+        action_space = {
+            "pdk"      : [],
+            "synthesis": [],
+            "floorplan": [],
+            "placement": [],
+            "cts"      : [],
+            "route"    : []
+            }
+        return action_space
+
+    def get_OpenLane_random_action(self):
+        action_space = self.get_OpenLane_action_space()
+        # TODO: Assign random actions 
+        return action_space
+
+
 # For testing 
 if __name__ == "__main__":   
     print("Hello!")
