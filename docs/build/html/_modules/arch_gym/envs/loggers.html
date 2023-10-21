@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>arch_gym.envs.loggers &mdash; ArchGym 0.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ArchGym
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Setting up ArchGym Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../environments.html">Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../agents.html">Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source_code.html">Source Code</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ArchGym</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">arch_gym.envs.loggers</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for arch_gym.envs.loggers</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+
+
+<div class="viewcode-block" id="write_csv"><a class="viewcode-back" href="../../../arch_gym.envs.html#arch_gym.envs.loggers.write_csv">[docs]</a><span class="k">def</span> <span class="nf">write_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">data</span><span class="p">):</span>
+    
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)):</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+
+<span class="c1"># For testing</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;123&quot;</span><span class="p">,</span> <span class="s2">&quot;456&quot;</span><span class="p">,</span> <span class="s2">&quot;789&quot;</span><span class="p">]]</span>
+    <span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Power&quot;</span><span class="p">,</span> <span class="s2">&quot;Energy&quot;</span><span class="p">,</span> <span class="s2">&quot;Latency&quot;</span><span class="p">]</span>
+    <span class="n">my_actions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;PagePolicy&#39;</span><span class="p">:</span> <span class="s1">&#39;Open&#39;</span><span class="p">,</span> <span class="s1">&#39;Scheduler&#39;</span><span class="p">:</span> <span class="s1">&#39;FrFcfsGrp&#39;</span><span class="p">,</span> <span class="s1">&#39;SchedulerBuffer&#39;</span><span class="p">:</span> <span class="s1">&#39;Shared&#39;</span><span class="p">,</span> <span class="s1">&#39;RequestBufferSize&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;CmdMux&#39;</span><span class="p">:</span> <span class="s1">&#39;Oldest&#39;</span><span class="p">,</span> <span class="s1">&#39;RespQueue&#39;</span><span class="p">:</span> <span class="s1">&#39;Fifo&#39;</span><span class="p">,</span> <span class="s1">&#39;RefreshPolicy&#39;</span><span class="p">:</span> <span class="s1">&#39;NoRefresh&#39;</span><span class="p">,</span> <span class="s1">&#39;RefreshMaxPostponed&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;RefreshMaxPulledin&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;PowerDownPolicy&#39;</span><span class="p">:</span> <span class="s1">&#39;NoPowerDown&#39;</span><span class="p">,</span> <span class="s1">&#39;Arbiter&#39;</span><span class="p">:</span> <span class="s1">&#39;Simple&#39;</span><span class="p">,</span> <span class="s1">&#39;MaxActiveTransactions&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">}</span>
+    <span class="n">my_obs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Energy&#39;</span><span class="p">:</span> <span class="mf">250557975.0</span><span class="p">,</span> <span class="s1">&#39;Power&#39;</span><span class="p">:</span> <span class="mf">2647.66</span><span class="p">,</span> <span class="s1">&#39;Latency&#39;</span><span class="p">:</span> <span class="mf">94633750.0</span><span class="p">}</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">my_actions</span><span class="p">,</span> <span class="o">**</span><span class="n">my_obs</span><span class="p">}</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">data</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    
+
+    
+    
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, --.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

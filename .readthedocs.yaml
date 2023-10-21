@@ -1,0 +1,8 @@
+version: 2
+conda:
+  environment: environment_old.yml
+build:
+  os: "ubuntu-20.04"
+  tools:
+    python: "mambaforge-22.9"
+

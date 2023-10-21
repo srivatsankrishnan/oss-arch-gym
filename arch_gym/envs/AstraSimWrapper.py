@@ -64,7 +64,9 @@ class AstraSimEnvWrapper(dm_env.Environment):
 
   
   def step(self, action: types.NestedArray) -> dm_env.TimeStep:
-    """Steps the environment."""
+    """
+    Steps the environment.
+    """
     if self._reset_next_step:
       return self.reset()
     if(self.env_wrapper_sel=='macme' or self.env_wrapper_sel=='macme_continuous'):
@@ -125,6 +127,9 @@ class AstraSimEnvWrapper(dm_env.Environment):
     return getattr(self._environment, name)
 
   def close(self):
+    """
+    Closes the environment.
+    """
     self._environment.close()
 
 
