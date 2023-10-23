@@ -120,7 +120,7 @@ def run_task(task):
         os.chdir(base_dir)
 
         # Create the command to run the simulation
-        cmd = "python train_rw_timeloop.py --script " + script_dir \
+        cmd = "python train_rw_Timeloop.py --script " + script_dir \
             + " --output " + output_dir \
             + " --arch " + arch_dir \
             + " --mapper " + mapper_dir \
@@ -142,7 +142,7 @@ def run_task(task):
         os.chdir(base_dir)
 
         # Create the command to run the simulation
-        cmd = "python train_ga_timeloop.py --script " + script_dir \
+        cmd = "python train_ga_Timeloop.py --script " + script_dir \
             + " --output " + output_dir \
             + " --arch " + arch_dir \
             + " --mapper " + mapper_dir \
@@ -177,7 +177,7 @@ def run_task(task):
         os.chdir(base_dir)
         
         # Create the command to run the simulation
-        cmd = "python train_aco_timeloop.py --script " + script_dir \
+        cmd = "python train_aco_Timeloop.py --script " + script_dir \
             + " --output " + output_dir \
             + " --arch " + arch_dir \
             + " --mapper " + mapper_dir \
@@ -201,7 +201,7 @@ def run_task(task):
         os.chdir(base_dir)
 
         # Create the command to run the simulation
-        cmd = "python train_bo_timeloop.py --script " + script_dir \
+        cmd = "python train_bo_Timeloop.py --script " + script_dir \
             + " --output " + output_dir \
             + " --arch " + arch_dir \
             + " --mapper " + mapper_dir \
@@ -243,7 +243,7 @@ def run_task(task):
             os.chdir(base_dir)
 
             # single agent
-            cmd = "python train_single_agent.py " + \
+            cmd = "python train_single_agent_Timeloop.py " + \
             "--script={} ".format(script_dir) + \
             "--output={} ".format(output_dir) + \
             "--arch={} ".format(arch_dir) + \
