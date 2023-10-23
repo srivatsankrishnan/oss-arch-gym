@@ -13,11 +13,19 @@ Let's consider a hypothetical architecture with four parameters:
 | mem_type    | Enumeration     | {DRAM, SRAM, Hybrid}   |
 | mem_size    | Integer         |                        |
 
-The goal is to use the algorithms available in OSS-Vizier to find the optimal values for these parameters. The following `custom_env.py` file demonstrates this custom environment.
+The goal is to use the algorithms available in OSS-Vizier to find the optimal values for these parameters. 
 
-For instance, if you want to use the "RANDOM_SEARCH" algorithm, you can utilize the `train_randomsearch_vizier.py` file. You can easily switch to another supported algorithm by changing the line `study_config.algorithm = vz.Algorithm.RANDOM_SEARCH` to `study_config.algorithm = vz.Algorithm.<ALGORITHM_NAME>`. Additionally, ensure that you modify directory names in the following locations to keep the data logs separate for each algorithm:
+Run the required script in the arch-gym conda environment. These scripts are present in sims/customenv:
 
-1. `flags.DEFINE_string('traject_dir',  '<algo_name>_trajectories',  'Directory to save the dataset.')`
-2. `log_path = os.path.join(FLAGS.summary_dir, '<algo_name>_logs', FLAGS.reward_formulation, exp_name)`
+* **Random Walker**: ```python train_randomwalker.py```
 
-This is done to ensure that data logs are saved in the respective algorithm directory and do not overwrite data from other algorithms.
+* **Random Search**: ```python train_randomsearch_vizier.py```
+
+* **Quasi Random**: ```python train_quasirandom_vizier.py```
+
+* **Grid Search**: ```python train_gridsearch_vizier.py```
+
+* **NSGA2**: ```python train_NSGA2_vizier.py```
+
+* **EMUKIT_GP**: ```python train_EMUKIT_GP_vizier.py```
+ 
