@@ -46,6 +46,9 @@ class simpleEnv(gym.Env):
     return self.state
 
   def step(self, action):
+    """
+    Step function for the environment
+    """
     if self.done:
       print("Episode Done!")
     elif (self.count == self.max_steps):

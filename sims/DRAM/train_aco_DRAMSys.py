@@ -15,17 +15,17 @@ import configparser
 from absl import flags
 from absl import app
 
-flags.DEFINE_float('evaporation', 0.1, 'Evaporation value for pheromone.')
+flags.DEFINE_float  ('evaporation', 0.1, 'Evaporation value for pheromone.')
 flags.DEFINE_integer('ant_count', 16, 'Number of Ants.')
-flags.DEFINE_float('greediness', 0.5, 'How greedy you want the ants to be?.')
-flags.DEFINE_string('traject_dir', 'aco_trajectories', 'Directory to trajectory data.')
-flags.DEFINE_string('aco_log_dir', 'aco_logs', 'Directory to store logs.')
-flags.DEFINE_string('workload', 'stream.stl', 'Which workload to run')
-flags.DEFINE_string('exp_config_file', 'exp_config.ini', 'Experiment config file.')
+flags.DEFINE_float  ('greediness', 0.5, 'How greedy you want the ants to be?.')
+flags.DEFINE_string ('traject_dir', 'aco_trajectories', 'Directory to trajectory data.')
+flags.DEFINE_string ('aco_log_dir', 'aco_logs', 'Directory to store logs.')
+flags.DEFINE_string ('workload', 'stream.stl', 'Which workload to run')
+flags.DEFINE_string ('exp_config_file', 'exp_config.ini', 'Experiment config file.')
 flags.DEFINE_integer('depth', 4, 'Depth of the network.')
-flags.DEFINE_string('summary_dir', '.', 'Directory to store summaries.')
-flags.DEFINE_string('reward_formulation', 'power', 'Reward formulation to use.')
-flags.DEFINE_bool('use_envlogger', False, 'Use EnvLogger to log environment data.')
+flags.DEFINE_string ('summary_dir', '.', 'Directory to store summaries.')
+flags.DEFINE_string ('reward_formulation', 'power', 'Reward formulation to use.')
+flags.DEFINE_bool   ('use_envlogger', False, 'Use EnvLogger to log environment data.')
 FLAGS = flags.FLAGS
 
 

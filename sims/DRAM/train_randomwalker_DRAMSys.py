@@ -6,7 +6,7 @@ from absl import app
 from absl import logging
 
 os.sys.path.insert(0, os.path.abspath('../../'))
-from configs import arch_gym_configs
+from configs.sims import DRAMSys_config
 from arch_gym.envs.envHelpers import helpers
 from arch_gym.envs import dramsys_wrapper
 import envlogger
@@ -54,7 +54,7 @@ def wrap_in_envlogger(env, envlogger_dir):
 def main(_):
     env = dramsys_wrapper.make_dramsys_env()
     
-    # dram_helper = helpers()
+    dram_helper = helpers()
     
     fitness_hist = {}
 

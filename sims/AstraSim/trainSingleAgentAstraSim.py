@@ -74,7 +74,7 @@ flags.DEFINE_integer("params_scaling", 1, "Number of training steps")
 
 def get_directory_name():
     _EXP_NAME = 'Algo_{}_rlform_{}_num_steps_{}_seed_{}_lr_{}_entropy_{}'.format(_RL_AGO.value, _RL_FORM.value,_NUM_STEPS.value, _SEED.value, _LEARNING_RATE.value, _ENTROPY_COST.value)
-    
+
     return _EXP_NAME
 
 
@@ -141,7 +141,7 @@ def build_experiment_config():
         if(not os.path.exists(envlogger_dir)):
             os.makedirs(envlogger_dir)
         env = wrap_in_envlogger(env, envlogger_dir)
-    
+
     env_spec = specs.make_environment_spec(env) #TODO
     if FLAGS.rl_algo == 'ppo':
         config = ppo.PPOConfig(entropy_cost=FLAGS.entropy_cost,
@@ -200,6 +200,3 @@ def main(_):
 
 if __name__ == '__main__':
    app.run(main)
-
-
-

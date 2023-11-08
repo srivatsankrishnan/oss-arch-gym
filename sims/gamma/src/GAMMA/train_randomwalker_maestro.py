@@ -40,7 +40,7 @@ def generate_random_actions(dimension):
     # generate random action with lower bound of lb and upper bound of ub.
     action = np.random.randint(lb, ub)
 
-    return action
+    return action[-1]
 
 def log_fitness_to_csv(filename, fitness_dict):
         df = pd.DataFrame([fitness_dict['reward']])
@@ -73,7 +73,7 @@ def wrap_in_envlogger(env, envlogger_dir):
         return env
 
 def main(_):
-    env = maestero_wrapper.make_maestro_env(rl_form='random_walker')
+    env = maestero_wrapper.make_maestro_env(rl_form='random_walker', reward_formulation=FLAGS.reward_formulation)
     
     maestro_helper = helpers()
     

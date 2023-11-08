@@ -1,34 +1,31 @@
 #!/usr/bin/env python3
-from audioop import mul
-import multiprocessing
-from sims.Timeloop import simulate_timeloop, process_params
-from configs import arch_gym_configs
-from envHelpers import helpers
 import math
 import time
 import os
-
 import gym
+import multiprocessing
 import numpy as np
 
 settings_file_path = os.path.realpath(__file__)
 settings_dir_path = os.path.dirname(settings_file_path)
 os.sys.path.insert(0, settings_dir_path)
 os.sys.path.insert(0, settings_dir_path + '/../../configs')
-
 os.sys.path.insert(0, settings_dir_path + '/../../sims/Timeloop')
 
+from   audioop       import mul
+from   sims.Timeloop import simulate_timeloop, process_params
+from   configs.sims  import Timeloop_config
+from   envHelpers    import helpers
 
 MAX_EPISODE_LENGTH = 10
 MAX_STEPS = 100
-
 
 class TimeloopEnv(gym.Env):
     def __init__(self, script_dir=None, output_dir=None, arch_dir=None,
                  mapper_dir=None, workload_dir=None, target_val=None,
                  num_cores=None, reward_formulation=None):
 
-        param_obj = process_params.TimeloopConfigParams(arch_gym_configs.timeloop_parameters)
+        param_obj = process_params.TimeloopConfigParams(Timeloop_config.timeloop_parameters)
         param_sizes = param_obj.get_param_size()
 
         # print(param_sizes)
@@ -54,21 +51,21 @@ class TimeloopEnv(gym.Env):
         print("Reward formulation: ", self.reward_formulation)
         
         if script_dir is None:
-            self.timeloop_script = arch_gym_configs.timeloop_scriptdir
+            self.timeloop_script = Timeloop_config.timeloop_scriptdir
         if output_dir is None:
-            self.timeloop_output = arch_gym_configs.timeloop_outputdir
+            self.timeloop_output = Timeloop_config.timeloop_outputdir
         if arch_dir is None:
-            self.timeloop_arch = arch_gym_configs.timeloop_archdir
+            self.timeloop_arch = Timeloop_config.timeloop_archdir
         if mapper_dir is None:
-            self.timeloop_mapper = arch_gym_configs.timeloop_mapperdir
+            self.timeloop_mapper = Timeloop_config.timeloop_mapperdir
         if workload_dir is None:
-            self.timeloop_workload = arch_gym_configs.timeloop_workloaddir
+            self.timeloop_workload = Timeloop_config.timeloop_workloaddir
         if target_val is None:
-            self.target_val = np.array([arch_gym_configs.target_energy,
-                                        arch_gym_configs.target_area,
-                                        arch_gym_configs.target_cycles])
+            self.target_val = np.array([Timeloop_config.target_energy,
+                                        Timeloop_config.target_area,
+                                        Timeloop_config.target_cycles])
         if num_cores is None:
-            self.cores = int(arch_gym_configs.timeloop_numcores)
+            self.cores = int(Timeloop_config.timeloop_numcores)
         
 
         self.cores = self.cores//8    # 8 threads per timeloop run

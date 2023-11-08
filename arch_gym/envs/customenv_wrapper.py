@@ -15,7 +15,7 @@
 """Wraps an OpenAI Gym environment to be used as a dm_env environment."""
 
 from typing import Any, Dict, List, Optional
-import acme
+
 from acme import specs
 from acme import types
 from acme import wrappers
@@ -27,44 +27,49 @@ import tree
 
 import os
 os.sys.path.insert(0, os.path.abspath('../../'))
-print(os.sys.path)
-from arch_gym.envs.custom_gym import ExampleEnv
-
+# print(os.sys.path)
+# from configs import arch_gym_configs 
+from arch_gym.envs.custom_env import CustomEnv
+# from envHelpers import helpers
 class CustomEnvWrapper(dm_env.Environment):
-  """Environment wrapper for OpenAI Gym environments. It wraps the environment into the deepmind envlogger interface.
-  """
+  """Environment wrapper for OpenAI Gym environments."""
 
   # Note: we don't inherit from base.EnvironmentWrapper because that class
   # assumes that the wrapped environment is a dm_env.Environment.
 
   def __init__(self, environment: gym.Env):
-    """Constructor method."""
+
     self._environment = environment
     self._reset_next_step = True
     self._last_info = None
+    # self.helper = helpers()
 
     # Convert action and observation specs.
     obs_space = self._environment.observation_space
     act_space = self._environment.action_space
     self._observation_spec = _convert_to_spec(obs_space, name='observation')
     self._action_spec = _convert_to_spec(act_space, name='action')
-    print("action spec: ", self._action_spec)
-    print("observation spec: ", self._observation_spec)
+    print("wrapper", environment.observation)
 
   def reset(self) -> dm_env.TimeStep:
     """Resets the episode."""
     self._reset_next_step = False
     observation = self._environment.reset()
+    print("-----Wrapper observation-----", observation)
     # Reset the diagnostic information.
     self._last_info = None
-    return dm_env.restart(observation)
+    a = dm_env.restart(observation)
+    print("dm_env.restart(observation)",a)
+    return a
 
   def step(self, action: types.NestedArray) -> dm_env.TimeStep:
     """Steps the environment."""
     if self._reset_next_step:
       return self.reset()
-    
+
     observation, reward, done, info = self._environment.step(action)
+    print("wrapper step", observation)
+    print("wrapper step rew", reward)
     self._reset_next_step = done
     self._last_info = info
 
@@ -95,20 +100,14 @@ class CustomEnvWrapper(dm_env.Environment):
 
   def get_info(self) -> Optional[Dict[str, Any]]:
     """Returns the last info returned from env.step(action).
-    
     Returns:
       info: dictionary of diagnostic information from the last environment step
-    Return Type: dict
     """
     return self._last_info
 
   @property
-  def environment(self) -> gym.Env: 
-    """Returns the wrapped environment.
-    
-    Returns:
-      environment: the wrapped environment
-    """
+  def environment(self) -> gym.Env:
+    """Returns the wrapped environment."""
     return self._environment
 
   def __getattr__(self, name: str):
@@ -118,7 +117,6 @@ class CustomEnvWrapper(dm_env.Environment):
     return getattr(self._environment, name)
 
   def close(self):
-    """Closes the environment."""
     self._environment.close()
 
 
@@ -128,11 +126,9 @@ def _convert_to_spec(space: gym.Space,
   Box, MultiBinary and MultiDiscrete Gym spaces are converted to BoundedArray
   specs. Discrete OpenAI spaces are converted to DiscreteArray specs. Tuple and
   Dict spaces are recursively converted to tuples and dictionaries of specs.
-
   Args:
     space: The Gym space to convert.
     name: Optional name to apply to all return spec(s).
-
   Returns:
     A dm_env spec or nested structure of specs, corresponding to the input
     space.
@@ -180,16 +176,9 @@ def make_custom_env(seed: int = 12234,
                      max_steps: int = 100,
                      reward_formulation: str = 'power',
                      ) -> dm_env.Environment:
-  """Returns the custom environment.
-  
-  Args:
-    seed: seed for the environment
-    max_steps: maximum number of steps in an episode
-    reward_formulation: formulation of the reward function
-
-  Returns:
-    environment: the custom environment
-  """
-  environment = CustomEnvWrapper(ExampleEnv())
+  """Returns DRAMSys environment."""
+  environment = CustomEnvWrapper(CustomEnv(max_steps=max_steps))
   environment = wrappers.SinglePrecisionWrapper(environment)
+#   if(arch_gym_configs.rl_agent):
+#     environment = wrappers.CanonicalSpecWrapper(environment, clip=True)
   return environment

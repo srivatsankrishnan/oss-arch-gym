@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Environments &mdash; ArchGym 0.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Training Scripts for Architecture Simulators" href="modules_sims.html" />
+    <link rel="prev" title="Environment" href="arch_gym.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            ArchGym
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Setting up ArchGym Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environments.html">Environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="agents.html">Agents</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="source_code.html">Source Code</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="modules_arch_gym.html">Environments for Architecture Simulators</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="arch_gym.html">Environment</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Environments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules_sims.html">Training Scripts for Architecture Simulators</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ArchGym</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="source_code.html">Source Code</a></li>
+          <li class="breadcrumb-item"><a href="modules_arch_gym.html">Environments for Architecture Simulators</a></li>
+          <li class="breadcrumb-item"><a href="arch_gym.html">Environment</a></li>
+      <li class="breadcrumb-item active">Environments</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/arch_gym.envs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="environments">
+<h1>Environments<a class="headerlink" href="#environments" title="Permalink to this heading"></a></h1>
+<section id="module-arch_gym.envs.AstraSimEnv">
+<span id="arch-gym-envs-astrasimenv-module"></span><h2>arch_gym.envs.AstraSimEnv module<a class="headerlink" href="#module-arch_gym.envs.AstraSimEnv" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimEnv.AstraSimEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arch_gym.envs.AstraSimEnv.</span></span><span class="sig-name descname"><span class="pre">AstraSimEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rl_form</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'random_walker'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_agents</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_formulation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_scaling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimEnv.html#AstraSimEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimEnv.AstraSimEnv.action_space">
+<span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ActType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.action_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimEnv.AstraSimEnv.calculate_reward">
+<span class="sig-name descname"><span class="pre">calculate_reward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimEnv.html#AstraSimEnv.calculate_reward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.calculate_reward" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimEnv.AstraSimEnv.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimEnv.html#AstraSimEnv.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.close" title="Permalink to this definition"></a></dt>
+<dd><p>Override close in your subclass to perform any necessary cleanup.</p>
+<p>Environments will automatically <a class="reference internal" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.close" title="arch_gym.envs.AstraSimEnv.AstraSimEnv.close"><code class="xref py py-meth docutils literal notranslate"><span class="pre">close()</span></code></a> themselves when
+garbage collected or when the program exits.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimEnv.AstraSimEnv.observation_space">
+<span class="sig-name descname"><span class="pre">observation_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ObsType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.observation_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimEnv.AstraSimEnv.parse_result">
+<span class="sig-name descname"><span class="pre">parse_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimEnv.html#AstraSimEnv.parse_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.parse_result" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimEnv.AstraSimEnv.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RenderFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">RenderFrame</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.render" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the render frames as specified by render_mode attribute during initialization of the environment.</p>
+<p>The set of supported modes varies per environment. (And some
+third-party environments may not support rendering at all.)
+By convention, if render_mode is:</p>
+<ul class="simple">
+<li><p>None (default): no render is computed.</p></li>
+<li><p>human: render return None.
+The environment is continuously rendered in the current display or terminal. Usually for human consumption.</p></li>
+<li><p>single_rgb_array: return a single frame representing the current state of the environment.
+A frame is a numpy.ndarray with shape (x, y, 3) representing RGB values for an x-by-y pixel image.</p></li>
+<li><p>rgb_array: return a list of frames representing the states of the environment since the last reset.
+Each frame is a numpy.ndarray with shape (x, y, 3), as with single_rgb_array.</p></li>
+<li><p>ansi: Return a list of strings (str) or StringIO.StringIO containing a
+terminal-style text representation for each time step.
+The text can include newlines and ANSI escape sequences (e.g. for colors).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rendering computations is performed internally even if you don’t call render().
+To avoid this, you can set render_mode = None and, if the environment supports it,
+call render() specifying the argument ‘mode’.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that your class’s metadata ‘render_modes’ key includes
+the list of supported modes. It’s recommended to call super()
+in implementations to use the functionality of this method.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimEnv.AstraSimEnv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimEnv.html#AstraSimEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.reset" title="Permalink to this definition"></a></dt>
+<dd><p>Resets the environment to an initial state and returns the initial observation.</p>
+<p>This method can reset the environment’s random number generator(s) if <code class="docutils literal notranslate"><span class="pre">seed</span></code> is an integer or
+if the environment has not yet initialized a random number generator.
+If the environment already has a random number generator and <a class="reference internal" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.reset" title="arch_gym.envs.AstraSimEnv.AstraSimEnv.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> is called with <code class="docutils literal notranslate"><span class="pre">seed=None</span></code>,
+the RNG should not be reset. Moreover, <a class="reference internal" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.reset" title="arch_gym.envs.AstraSimEnv.AstraSimEnv.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> should (in the typical use case) be called with an
+integer seed right after initialization and then never again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>optional int</em>) – The seed that is used to initialize the environment’s PRNG.
+If the environment does not already have a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> (the default option) is passed,
+a seed will be chosen from some source of entropy (e.g. timestamp or /dev/urandom).
+However, if the environment already has a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> is passed, the PRNG will <em>not</em> be reset.
+If you pass an integer, the PRNG will be reset even if it already exists.
+Usually, you want to pass an integer <em>right after the environment has been initialized and then never again</em>.
+Please refer to the minimal example above to see this paradigm in action.</p></li>
+<li><p><strong>return_info</strong> (<em>bool</em>) – If true, return additional information along with initial observation.
+This info should be analogous to the info returned in <a class="reference internal" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.step" title="arch_gym.envs.AstraSimEnv.AstraSimEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a></p></li>
+<li><p><strong>options</strong> (<em>optional dict</em>) – Additional information to specify how the environment is reset (optional,
+depending on the specific environment)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Observation of the initial state. This will be an element of <a class="reference internal" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.observation_space" title="arch_gym.envs.AstraSimEnv.AstraSimEnv.observation_space"><code class="xref py py-attr docutils literal notranslate"><span class="pre">observation_space</span></code></a></dt><dd><p>(typically a numpy array) and is analogous to the observation returned by <a class="reference internal" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.step" title="arch_gym.envs.AstraSimEnv.AstraSimEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+<dt>info (optional dictionary): This will <em>only</em> be returned if <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> is passed.</dt><dd><p>It contains auxiliary information complementing <code class="docutils literal notranslate"><span class="pre">observation</span></code>. This dictionary should be analogous to
+the <code class="docutils literal notranslate"><span class="pre">info</span></code> returned by <a class="reference internal" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.step" title="arch_gym.envs.AstraSimEnv.AstraSimEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>observation (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimEnv.AstraSimEnv.seed">
+<span class="sig-name descname"><span class="pre">seed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimEnv.html#AstraSimEnv.seed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.seed" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Deprecated<span class="colon">:</span></dt>
+<dd class="field-odd"><p>function that sets the seed for the environment’s random number generator(s).</p>
+</dd>
+</dl>
+<p>Use <cite>env.reset(seed=seed)</cite> as the new API for setting the seed of the environment.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some environments use multiple pseudorandom number generators.
+We want to capture all such seeds used in order to ensure that
+there aren’t accidental correlations between multiple generators.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>seed</strong> (<em>Optional int</em>) – The seed value for the random number generator</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Returns the list of seeds used in this environment’s random</dt><dd><p>number generators. The first value in the list should be the
+“main” seed, or the value which a reproducer should pass to
+‘seed’. Often, the main seed equals the provided ‘seed’, but
+this won’t be true <cite>if seed=None</cite>, for example.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>seeds (List[int])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimEnv.AstraSimEnv.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimEnv.html#AstraSimEnv.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimEnv.AstraSimEnv.step" title="Permalink to this definition"></a></dt>
+<dd><p>Step function for the environment</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-arch_gym.envs.AstraSimWrapper">
+<span id="arch-gym-envs-astrasimwrapper-module"></span><h2>arch_gym.envs.AstraSimWrapper module<a class="headerlink" href="#module-arch_gym.envs.AstraSimWrapper" title="Permalink to this heading"></a></h2>
+<p>Wraps an OpenAI Gym environment to be used as a dm_env environment.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arch_gym.envs.AstraSimWrapper.</span></span><span class="sig-name descname"><span class="pre">AstraSimEnvWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Env</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_wrapper_sel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'macme'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimWrapper.html#AstraSimEnvWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code></p>
+<p>Environment wrapper for OpenAI Gym environments.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.action_spec">
+<span class="sig-name descname"><span class="pre">action_spec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">NestedSpec</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NestedSpec</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimWrapper.html#AstraSimEnvWrapper.action_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.action_spec" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the actions that should be provided to <cite>step</cite>.</p>
+<p>May use a subclass of <cite>specs.Array</cite> that specifies additional properties
+such as min and max bounds on the values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An <cite>Array</cite> spec, or a nested dict, list or tuple of <cite>Array</cite> specs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimWrapper.html#AstraSimEnvWrapper.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.close" title="Permalink to this definition"></a></dt>
+<dd><p>Closes the environment.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.environment">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">environment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Env</span></em><a class="headerlink" href="#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.environment" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the wrapped environment.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.get_info">
+<span class="sig-name descname"><span class="pre">get_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimWrapper.html#AstraSimEnvWrapper.get_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.get_info" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the last info returned from env.step(action).
+:returns: dictionary of diagnostic information from the last environment step
+:rtype: info</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.observation_spec">
+<span class="sig-name descname"><span class="pre">observation_spec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">NestedSpec</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NestedSpec</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimWrapper.html#AstraSimEnvWrapper.observation_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.observation_spec" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the observations provided by the environment.</p>
+<p>May use a subclass of <cite>specs.Array</cite> that specifies additional properties
+such as min and max bounds on the values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An <cite>Array</cite> spec, or a nested dict, list or tuple of <cite>Array</cite> specs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TimeStep</span></span></span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimWrapper.html#AstraSimEnvWrapper.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.reset" title="Permalink to this definition"></a></dt>
+<dd><p>Resets the episode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.reward_spec">
+<span class="sig-name descname"><span class="pre">reward_spec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimWrapper.html#AstraSimEnvWrapper.reward_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.reward_spec" title="Permalink to this definition"></a></dt>
+<dd><p>Describes the reward returned by the environment.</p>
+<p>By default this is assumed to be a single float.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An <cite>Array</cite> spec, or a nested dict, list or tuple of <cite>Array</cite> specs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TimeStep</span></span></span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimWrapper.html#AstraSimEnvWrapper.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimWrapper.AstraSimEnvWrapper.step" title="Permalink to this definition"></a></dt>
+<dd><p>Steps the environment.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arch_gym.envs.AstraSimWrapper.make_astraSim_env">
+<span class="sig-prename descclassname"><span class="pre">arch_gym.envs.AstraSimWrapper.</span></span><span class="sig-name descname"><span class="pre">make_astraSim_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12345</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rl_form</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'macme'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_formulation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'power'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_scaling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'false'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_agents</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Environment</span></span></span><a class="reference internal" href="_modules/arch_gym/envs/AstraSimWrapper.html#make_astraSim_env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.AstraSimWrapper.make_astraSim_env" title="Permalink to this definition"></a></dt>
+<dd><p>Returns DRAMSys environment.</p>
+</dd></dl>
+
+</section>
+<section id="arch-gym-envs-dramenv-module">
+<h2>arch_gym.envs.DRAMEnv module<a class="headerlink" href="#arch-gym-envs-dramenv-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-dramenv-rl-module">
+<h2>arch_gym.envs.DRAMEnv_RL module<a class="headerlink" href="#arch-gym-envs-dramenv-rl-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-farsienv-module">
+<h2>arch_gym.envs.FARSIEnv module<a class="headerlink" href="#arch-gym-envs-farsienv-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-farsi-sim-env-module">
+<h2>arch_gym.envs.FARSI_sim_env module<a class="headerlink" href="#arch-gym-envs-farsi-sim-env-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-farsi-sim-wrapper-module">
+<h2>arch_gym.envs.FARSI_sim_wrapper module<a class="headerlink" href="#arch-gym-envs-farsi-sim-wrapper-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-masteroenv-module">
+<h2>arch_gym.envs.MasteroEnv module<a class="headerlink" href="#arch-gym-envs-masteroenv-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-arch_gym.envs.RandomParameterEnv">
+<span id="arch-gym-envs-randomparameterenv-module"></span><h2>arch_gym.envs.RandomParameterEnv module<a class="headerlink" href="#module-arch_gym.envs.RandomParameterEnv" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="arch_gym.envs.RandomParameterEnv.RandomParameterEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arch_gym.envs.RandomParameterEnv.</span></span><span class="sig-name descname"><span class="pre">RandomParameterEnv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">natural</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/RandomParameterEnv.html#RandomParameterEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.action_space">
+<span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ActType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.action_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.compute_reward">
+<span class="sig-name descname"><span class="pre">compute_reward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/RandomParameterEnv.html#RandomParameterEnv.compute_reward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.compute_reward" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.observation_space">
+<span class="sig-name descname"><span class="pre">observation_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ObsType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.observation_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.random_walk">
+<span class="sig-name descname"><span class="pre">random_walk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/RandomParameterEnv.html#RandomParameterEnv.random_walk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.random_walk" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RenderFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">RenderFrame</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.render" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the render frames as specified by render_mode attribute during initialization of the environment.</p>
+<p>The set of supported modes varies per environment. (And some
+third-party environments may not support rendering at all.)
+By convention, if render_mode is:</p>
+<ul class="simple">
+<li><p>None (default): no render is computed.</p></li>
+<li><p>human: render return None.
+The environment is continuously rendered in the current display or terminal. Usually for human consumption.</p></li>
+<li><p>single_rgb_array: return a single frame representing the current state of the environment.
+A frame is a numpy.ndarray with shape (x, y, 3) representing RGB values for an x-by-y pixel image.</p></li>
+<li><p>rgb_array: return a list of frames representing the states of the environment since the last reset.
+Each frame is a numpy.ndarray with shape (x, y, 3), as with single_rgb_array.</p></li>
+<li><p>ansi: Return a list of strings (str) or StringIO.StringIO containing a
+terminal-style text representation for each time step.
+The text can include newlines and ANSI escape sequences (e.g. for colors).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rendering computations is performed internally even if you don’t call render().
+To avoid this, you can set render_mode = None and, if the environment supports it,
+call render() specifying the argument ‘mode’.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that your class’s metadata ‘render_modes’ key includes
+the list of supported modes. It’s recommended to call super()
+in implementations to use the functionality of this method.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/RandomParameterEnv.html#RandomParameterEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.reset" title="Permalink to this definition"></a></dt>
+<dd><p>Resets the environment to an initial state and returns the initial observation.</p>
+<p>This method can reset the environment’s random number generator(s) if <code class="docutils literal notranslate"><span class="pre">seed</span></code> is an integer or
+if the environment has not yet initialized a random number generator.
+If the environment already has a random number generator and <a class="reference internal" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.reset" title="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> is called with <code class="docutils literal notranslate"><span class="pre">seed=None</span></code>,
+the RNG should not be reset. Moreover, <a class="reference internal" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.reset" title="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> should (in the typical use case) be called with an
+integer seed right after initialization and then never again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>optional int</em>) – The seed that is used to initialize the environment’s PRNG.
+If the environment does not already have a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> (the default option) is passed,
+a seed will be chosen from some source of entropy (e.g. timestamp or /dev/urandom).
+However, if the environment already has a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> is passed, the PRNG will <em>not</em> be reset.
+If you pass an integer, the PRNG will be reset even if it already exists.
+Usually, you want to pass an integer <em>right after the environment has been initialized and then never again</em>.
+Please refer to the minimal example above to see this paradigm in action.</p></li>
+<li><p><strong>return_info</strong> (<em>bool</em>) – If true, return additional information along with initial observation.
+This info should be analogous to the info returned in <a class="reference internal" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.step" title="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a></p></li>
+<li><p><strong>options</strong> (<em>optional dict</em>) – Additional information to specify how the environment is reset (optional,
+depending on the specific environment)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Observation of the initial state. This will be an element of <a class="reference internal" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.observation_space" title="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.observation_space"><code class="xref py py-attr docutils literal notranslate"><span class="pre">observation_space</span></code></a></dt><dd><p>(typically a numpy array) and is analogous to the observation returned by <a class="reference internal" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.step" title="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+<dt>info (optional dictionary): This will <em>only</em> be returned if <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> is passed.</dt><dd><p>It contains auxiliary information complementing <code class="docutils literal notranslate"><span class="pre">observation</span></code>. This dictionary should be analogous to
+the <code class="docutils literal notranslate"><span class="pre">info</span></code> returned by <a class="reference internal" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.step" title="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>observation (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.RandomParameterEnv.RandomParameterEnv.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/RandomParameterEnv.html#RandomParameterEnv.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.RandomParameterEnv.RandomParameterEnv.step" title="Permalink to this definition"></a></dt>
+<dd><p>Step function for the environment</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="arch-gym-envs-sniperenv-module">
+<h2>arch_gym.envs.SniperEnv module<a class="headerlink" href="#arch-gym-envs-sniperenv-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-timeloopenv-module">
+<h2>arch_gym.envs.TimeloopEnv module<a class="headerlink" href="#arch-gym-envs-timeloopenv-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-timeloopenv-rl-module">
+<h2>arch_gym.envs.TimeloopEnv_RL module<a class="headerlink" href="#arch-gym-envs-timeloopenv-rl-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-arch_gym.envs.archgym_env">
+<span id="arch-gym-envs-archgym-env-module"></span><h2>arch_gym.envs.archgym_env module<a class="headerlink" href="#module-arch_gym.envs.archgym_env" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="arch_gym.envs.archgym_env.ArchGymEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arch_gym.envs.archgym_env.</span></span><span class="sig-name descname"><span class="pre">ArchGymEnv</span></span><a class="reference internal" href="_modules/arch_gym/envs/archgym_env.html#ArchGymEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.archgym_env.ArchGymEnv" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.archgym_env.ArchGymEnv.action_space">
+<span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ActType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.archgym_env.ArchGymEnv.action_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.archgym_env.ArchGymEnv.computeReward">
+<span class="sig-name descname"><span class="pre">computeReward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/archgym_env.html#ArchGymEnv.computeReward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.archgym_env.ArchGymEnv.computeReward" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.archgym_env.ArchGymEnv.getGoal">
+<span class="sig-name descname"><span class="pre">getGoal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/archgym_env.html#ArchGymEnv.getGoal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.archgym_env.ArchGymEnv.getGoal" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.archgym_env.ArchGymEnv.observation_space">
+<span class="sig-name descname"><span class="pre">observation_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ObsType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.archgym_env.ArchGymEnv.observation_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-arch_gym.envs.custom_env">
+<span id="arch-gym-envs-custom-env-module"></span><h2>arch_gym.envs.custom_env module<a class="headerlink" href="#module-arch_gym.envs.custom_env" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env.CustomEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arch_gym.envs.custom_env.</span></span><span class="sig-name descname"><span class="pre">CustomEnv</span></span><a class="reference internal" href="_modules/arch_gym/envs/custom_env.html#CustomEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.custom_env.CustomEnv" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env.CustomEnv.action_space">
+<span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ActType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.custom_env.CustomEnv.action_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env.CustomEnv.observation_space">
+<span class="sig-name descname"><span class="pre">observation_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ObsType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.custom_env.CustomEnv.observation_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env.CustomEnv.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RenderFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">RenderFrame</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#arch_gym.envs.custom_env.CustomEnv.render" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the render frames as specified by render_mode attribute during initialization of the environment.</p>
+<p>The set of supported modes varies per environment. (And some
+third-party environments may not support rendering at all.)
+By convention, if render_mode is:</p>
+<ul class="simple">
+<li><p>None (default): no render is computed.</p></li>
+<li><p>human: render return None.
+The environment is continuously rendered in the current display or terminal. Usually for human consumption.</p></li>
+<li><p>single_rgb_array: return a single frame representing the current state of the environment.
+A frame is a numpy.ndarray with shape (x, y, 3) representing RGB values for an x-by-y pixel image.</p></li>
+<li><p>rgb_array: return a list of frames representing the states of the environment since the last reset.
+Each frame is a numpy.ndarray with shape (x, y, 3), as with single_rgb_array.</p></li>
+<li><p>ansi: Return a list of strings (str) or StringIO.StringIO containing a
+terminal-style text representation for each time step.
+The text can include newlines and ANSI escape sequences (e.g. for colors).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rendering computations is performed internally even if you don’t call render().
+To avoid this, you can set render_mode = None and, if the environment supports it,
+call render() specifying the argument ‘mode’.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that your class’s metadata ‘render_modes’ key includes
+the list of supported modes. It’s recommended to call super()
+in implementations to use the functionality of this method.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env.CustomEnv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/custom_env.html#CustomEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.custom_env.CustomEnv.reset" title="Permalink to this definition"></a></dt>
+<dd><p>Resets the environment to an initial state and returns the initial observation.</p>
+<p>This method can reset the environment’s random number generator(s) if <code class="docutils literal notranslate"><span class="pre">seed</span></code> is an integer or
+if the environment has not yet initialized a random number generator.
+If the environment already has a random number generator and <a class="reference internal" href="#arch_gym.envs.custom_env.CustomEnv.reset" title="arch_gym.envs.custom_env.CustomEnv.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> is called with <code class="docutils literal notranslate"><span class="pre">seed=None</span></code>,
+the RNG should not be reset. Moreover, <a class="reference internal" href="#arch_gym.envs.custom_env.CustomEnv.reset" title="arch_gym.envs.custom_env.CustomEnv.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> should (in the typical use case) be called with an
+integer seed right after initialization and then never again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>optional int</em>) – The seed that is used to initialize the environment’s PRNG.
+If the environment does not already have a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> (the default option) is passed,
+a seed will be chosen from some source of entropy (e.g. timestamp or /dev/urandom).
+However, if the environment already has a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> is passed, the PRNG will <em>not</em> be reset.
+If you pass an integer, the PRNG will be reset even if it already exists.
+Usually, you want to pass an integer <em>right after the environment has been initialized and then never again</em>.
+Please refer to the minimal example above to see this paradigm in action.</p></li>
+<li><p><strong>return_info</strong> (<em>bool</em>) – If true, return additional information along with initial observation.
+This info should be analogous to the info returned in <a class="reference internal" href="#arch_gym.envs.custom_env.CustomEnv.step" title="arch_gym.envs.custom_env.CustomEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a></p></li>
+<li><p><strong>options</strong> (<em>optional dict</em>) – Additional information to specify how the environment is reset (optional,
+depending on the specific environment)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Observation of the initial state. This will be an element of <a class="reference internal" href="#arch_gym.envs.custom_env.CustomEnv.observation_space" title="arch_gym.envs.custom_env.CustomEnv.observation_space"><code class="xref py py-attr docutils literal notranslate"><span class="pre">observation_space</span></code></a></dt><dd><p>(typically a numpy array) and is analogous to the observation returned by <a class="reference internal" href="#arch_gym.envs.custom_env.CustomEnv.step" title="arch_gym.envs.custom_env.CustomEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+<dt>info (optional dictionary): This will <em>only</em> be returned if <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> is passed.</dt><dd><p>It contains auxiliary information complementing <code class="docutils literal notranslate"><span class="pre">observation</span></code>. This dictionary should be analogous to
+the <code class="docutils literal notranslate"><span class="pre">info</span></code> returned by <a class="reference internal" href="#arch_gym.envs.custom_env.CustomEnv.step" title="arch_gym.envs.custom_env.CustomEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>observation (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env.CustomEnv.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/custom_env.html#CustomEnv.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.custom_env.CustomEnv.step" title="Permalink to this definition"></a></dt>
+<dd><p>Step function for the environment</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-arch_gym.envs.custom_env_2">
+<span id="arch-gym-envs-custom-env-2-module"></span><h2>arch_gym.envs.custom_env_2 module<a class="headerlink" href="#module-arch_gym.envs.custom_env_2" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env_2.SimpleArch">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arch_gym.envs.custom_env_2.</span></span><span class="sig-name descname"><span class="pre">SimpleArch</span></span><a class="reference internal" href="_modules/arch_gym/envs/custom_env_2.html#SimpleArch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.custom_env_2.SimpleArch" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env_2.SimpleArch.action_space">
+<span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ActType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.custom_env_2.SimpleArch.action_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env_2.SimpleArch.observation_space">
+<span class="sig-name descname"><span class="pre">observation_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ObsType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.custom_env_2.SimpleArch.observation_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env_2.SimpleArch.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RenderFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">RenderFrame</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#arch_gym.envs.custom_env_2.SimpleArch.render" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the render frames as specified by render_mode attribute during initialization of the environment.</p>
+<p>The set of supported modes varies per environment. (And some
+third-party environments may not support rendering at all.)
+By convention, if render_mode is:</p>
+<ul class="simple">
+<li><p>None (default): no render is computed.</p></li>
+<li><p>human: render return None.
+The environment is continuously rendered in the current display or terminal. Usually for human consumption.</p></li>
+<li><p>single_rgb_array: return a single frame representing the current state of the environment.
+A frame is a numpy.ndarray with shape (x, y, 3) representing RGB values for an x-by-y pixel image.</p></li>
+<li><p>rgb_array: return a list of frames representing the states of the environment since the last reset.
+Each frame is a numpy.ndarray with shape (x, y, 3), as with single_rgb_array.</p></li>
+<li><p>ansi: Return a list of strings (str) or StringIO.StringIO containing a
+terminal-style text representation for each time step.
+The text can include newlines and ANSI escape sequences (e.g. for colors).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rendering computations is performed internally even if you don’t call render().
+To avoid this, you can set render_mode = None and, if the environment supports it,
+call render() specifying the argument ‘mode’.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that your class’s metadata ‘render_modes’ key includes
+the list of supported modes. It’s recommended to call super()
+in implementations to use the functionality of this method.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env_2.SimpleArch.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/custom_env_2.html#SimpleArch.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.custom_env_2.SimpleArch.reset" title="Permalink to this definition"></a></dt>
+<dd><p>Resets the environment to an initial state and returns the initial observation.</p>
+<p>This method can reset the environment’s random number generator(s) if <code class="docutils literal notranslate"><span class="pre">seed</span></code> is an integer or
+if the environment has not yet initialized a random number generator.
+If the environment already has a random number generator and <a class="reference internal" href="#arch_gym.envs.custom_env_2.SimpleArch.reset" title="arch_gym.envs.custom_env_2.SimpleArch.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> is called with <code class="docutils literal notranslate"><span class="pre">seed=None</span></code>,
+the RNG should not be reset. Moreover, <a class="reference internal" href="#arch_gym.envs.custom_env_2.SimpleArch.reset" title="arch_gym.envs.custom_env_2.SimpleArch.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> should (in the typical use case) be called with an
+integer seed right after initialization and then never again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>optional int</em>) – The seed that is used to initialize the environment’s PRNG.
+If the environment does not already have a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> (the default option) is passed,
+a seed will be chosen from some source of entropy (e.g. timestamp or /dev/urandom).
+However, if the environment already has a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> is passed, the PRNG will <em>not</em> be reset.
+If you pass an integer, the PRNG will be reset even if it already exists.
+Usually, you want to pass an integer <em>right after the environment has been initialized and then never again</em>.
+Please refer to the minimal example above to see this paradigm in action.</p></li>
+<li><p><strong>return_info</strong> (<em>bool</em>) – If true, return additional information along with initial observation.
+This info should be analogous to the info returned in <a class="reference internal" href="#arch_gym.envs.custom_env_2.SimpleArch.step" title="arch_gym.envs.custom_env_2.SimpleArch.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a></p></li>
+<li><p><strong>options</strong> (<em>optional dict</em>) – Additional information to specify how the environment is reset (optional,
+depending on the specific environment)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Observation of the initial state. This will be an element of <a class="reference internal" href="#arch_gym.envs.custom_env_2.SimpleArch.observation_space" title="arch_gym.envs.custom_env_2.SimpleArch.observation_space"><code class="xref py py-attr docutils literal notranslate"><span class="pre">observation_space</span></code></a></dt><dd><p>(typically a numpy array) and is analogous to the observation returned by <a class="reference internal" href="#arch_gym.envs.custom_env_2.SimpleArch.step" title="arch_gym.envs.custom_env_2.SimpleArch.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+<dt>info (optional dictionary): This will <em>only</em> be returned if <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> is passed.</dt><dd><p>It contains auxiliary information complementing <code class="docutils literal notranslate"><span class="pre">observation</span></code>. This dictionary should be analogous to
+the <code class="docutils literal notranslate"><span class="pre">info</span></code> returned by <a class="reference internal" href="#arch_gym.envs.custom_env_2.SimpleArch.step" title="arch_gym.envs.custom_env_2.SimpleArch.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>observation (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env_2.SimpleArch.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/custom_env_2.html#SimpleArch.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.custom_env_2.SimpleArch.step" title="Permalink to this definition"></a></dt>
+<dd><p>Step function for the environment</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_env_2.main">
+<span class="sig-prename descclassname"><span class="pre">arch_gym.envs.custom_env_2.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/custom_env_2.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.custom_env_2.main" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-arch_gym.envs.custom_gym">
+<span id="arch-gym-envs-custom-gym-module"></span><h2>arch_gym.envs.custom_gym module<a class="headerlink" href="#module-arch_gym.envs.custom_gym" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_gym.ExampleEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arch_gym.envs.custom_gym.</span></span><span class="sig-name descname"><span class="pre">ExampleEnv</span></span><a class="reference internal" href="_modules/arch_gym/envs/custom_gym.html#ExampleEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.custom_gym.ExampleEnv" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_gym.ExampleEnv.action_space">
+<span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ActType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.custom_gym.ExampleEnv.action_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_gym.ExampleEnv.observation_space">
+<span class="sig-name descname"><span class="pre">observation_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ObsType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.custom_gym.ExampleEnv.observation_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_gym.ExampleEnv.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">RenderFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">RenderFrame</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#arch_gym.envs.custom_gym.ExampleEnv.render" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the render frames as specified by render_mode attribute during initialization of the environment.</p>
+<p>The set of supported modes varies per environment. (And some
+third-party environments may not support rendering at all.)
+By convention, if render_mode is:</p>
+<ul class="simple">
+<li><p>None (default): no render is computed.</p></li>
+<li><p>human: render return None.
+The environment is continuously rendered in the current display or terminal. Usually for human consumption.</p></li>
+<li><p>single_rgb_array: return a single frame representing the current state of the environment.
+A frame is a numpy.ndarray with shape (x, y, 3) representing RGB values for an x-by-y pixel image.</p></li>
+<li><p>rgb_array: return a list of frames representing the states of the environment since the last reset.
+Each frame is a numpy.ndarray with shape (x, y, 3), as with single_rgb_array.</p></li>
+<li><p>ansi: Return a list of strings (str) or StringIO.StringIO containing a
+terminal-style text representation for each time step.
+The text can include newlines and ANSI escape sequences (e.g. for colors).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Rendering computations is performed internally even if you don’t call render().
+To avoid this, you can set render_mode = None and, if the environment supports it,
+call render() specifying the argument ‘mode’.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that your class’s metadata ‘render_modes’ key includes
+the list of supported modes. It’s recommended to call super()
+in implementations to use the functionality of this method.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_gym.ExampleEnv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/custom_gym.html#ExampleEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.custom_gym.ExampleEnv.reset" title="Permalink to this definition"></a></dt>
+<dd><p>Resets the environment to an initial state and returns the initial observation.</p>
+<p>This method can reset the environment’s random number generator(s) if <code class="docutils literal notranslate"><span class="pre">seed</span></code> is an integer or
+if the environment has not yet initialized a random number generator.
+If the environment already has a random number generator and <a class="reference internal" href="#arch_gym.envs.custom_gym.ExampleEnv.reset" title="arch_gym.envs.custom_gym.ExampleEnv.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> is called with <code class="docutils literal notranslate"><span class="pre">seed=None</span></code>,
+the RNG should not be reset. Moreover, <a class="reference internal" href="#arch_gym.envs.custom_gym.ExampleEnv.reset" title="arch_gym.envs.custom_gym.ExampleEnv.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> should (in the typical use case) be called with an
+integer seed right after initialization and then never again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>optional int</em>) – The seed that is used to initialize the environment’s PRNG.
+If the environment does not already have a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> (the default option) is passed,
+a seed will be chosen from some source of entropy (e.g. timestamp or /dev/urandom).
+However, if the environment already has a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> is passed, the PRNG will <em>not</em> be reset.
+If you pass an integer, the PRNG will be reset even if it already exists.
+Usually, you want to pass an integer <em>right after the environment has been initialized and then never again</em>.
+Please refer to the minimal example above to see this paradigm in action.</p></li>
+<li><p><strong>return_info</strong> (<em>bool</em>) – If true, return additional information along with initial observation.
+This info should be analogous to the info returned in <a class="reference internal" href="#arch_gym.envs.custom_gym.ExampleEnv.step" title="arch_gym.envs.custom_gym.ExampleEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a></p></li>
+<li><p><strong>options</strong> (<em>optional dict</em>) – Additional information to specify how the environment is reset (optional,
+depending on the specific environment)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Observation of the initial state. This will be an element of <a class="reference internal" href="#arch_gym.envs.custom_gym.ExampleEnv.observation_space" title="arch_gym.envs.custom_gym.ExampleEnv.observation_space"><code class="xref py py-attr docutils literal notranslate"><span class="pre">observation_space</span></code></a></dt><dd><p>(typically a numpy array) and is analogous to the observation returned by <a class="reference internal" href="#arch_gym.envs.custom_gym.ExampleEnv.step" title="arch_gym.envs.custom_gym.ExampleEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+<dt>info (optional dictionary): This will <em>only</em> be returned if <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> is passed.</dt><dd><p>It contains auxiliary information complementing <code class="docutils literal notranslate"><span class="pre">observation</span></code>. This dictionary should be analogous to
+the <code class="docutils literal notranslate"><span class="pre">info</span></code> returned by <a class="reference internal" href="#arch_gym.envs.custom_gym.ExampleEnv.step" title="arch_gym.envs.custom_gym.ExampleEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>observation (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.custom_gym.ExampleEnv.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/custom_gym.html#ExampleEnv.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.custom_gym.ExampleEnv.step" title="Permalink to this definition"></a></dt>
+<dd><p>Step function for the environment</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-arch_gym.envs.customenv_wrapper">
+<span id="arch-gym-envs-customenv-wrapper-module"></span><h2>arch_gym.envs.customenv_wrapper module<a class="headerlink" href="#module-arch_gym.envs.customenv_wrapper" title="Permalink to this heading"></a></h2>
+<p>Wraps an OpenAI Gym environment to be used as a dm_env environment.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="arch_gym.envs.customenv_wrapper.CustomEnvWrapper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arch_gym.envs.customenv_wrapper.</span></span><span class="sig-name descname"><span class="pre">CustomEnvWrapper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Env</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/customenv_wrapper.html#CustomEnvWrapper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.customenv_wrapper.CustomEnvWrapper" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Environment</span></code></p>
+<p>Environment wrapper for OpenAI Gym environments. It wraps the environment into the deepmind envlogger interface.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.customenv_wrapper.CustomEnvWrapper.action_spec">
+<span class="sig-name descname"><span class="pre">action_spec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">NestedSpec</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NestedSpec</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/arch_gym/envs/customenv_wrapper.html#CustomEnvWrapper.action_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.action_spec" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the actions that should be provided to <cite>step</cite>.</p>
+<p>May use a subclass of <cite>specs.Array</cite> that specifies additional properties
+such as min and max bounds on the values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An <cite>Array</cite> spec, or a nested dict, list or tuple of <cite>Array</cite> specs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.customenv_wrapper.CustomEnvWrapper.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/customenv_wrapper.html#CustomEnvWrapper.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.close" title="Permalink to this definition"></a></dt>
+<dd><p>Closes the environment.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="arch_gym.envs.customenv_wrapper.CustomEnvWrapper.environment">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">environment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Env</span></em><a class="headerlink" href="#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.environment" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the wrapped environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the wrapped environment</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>environment</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.customenv_wrapper.CustomEnvWrapper.get_info">
+<span class="sig-name descname"><span class="pre">get_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/arch_gym/envs/customenv_wrapper.html#CustomEnvWrapper.get_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.get_info" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the last info returned from env.step(action).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dictionary of diagnostic information from the last environment step</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>info</p>
+</dd>
+</dl>
+<p>Return Type: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.customenv_wrapper.CustomEnvWrapper.observation_spec">
+<span class="sig-name descname"><span class="pre">observation_spec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Array</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">NestedSpec</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">NestedSpec</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/arch_gym/envs/customenv_wrapper.html#CustomEnvWrapper.observation_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.observation_spec" title="Permalink to this definition"></a></dt>
+<dd><p>Defines the observations provided by the environment.</p>
+<p>May use a subclass of <cite>specs.Array</cite> that specifies additional properties
+such as min and max bounds on the values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An <cite>Array</cite> spec, or a nested dict, list or tuple of <cite>Array</cite> specs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.customenv_wrapper.CustomEnvWrapper.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TimeStep</span></span></span><a class="reference internal" href="_modules/arch_gym/envs/customenv_wrapper.html#CustomEnvWrapper.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.reset" title="Permalink to this definition"></a></dt>
+<dd><p>Resets the episode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.customenv_wrapper.CustomEnvWrapper.reward_spec">
+<span class="sig-name descname"><span class="pre">reward_spec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/customenv_wrapper.html#CustomEnvWrapper.reward_spec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.reward_spec" title="Permalink to this definition"></a></dt>
+<dd><p>Describes the reward returned by the environment.</p>
+<p>By default this is assumed to be a single float.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>An <cite>Array</cite> spec, or a nested dict, list or tuple of <cite>Array</cite> specs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.customenv_wrapper.CustomEnvWrapper.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">TimeStep</span></span></span><a class="reference internal" href="_modules/arch_gym/envs/customenv_wrapper.html#CustomEnvWrapper.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.customenv_wrapper.CustomEnvWrapper.step" title="Permalink to this definition"></a></dt>
+<dd><p>Steps the environment.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arch_gym.envs.customenv_wrapper.make_custom_env">
+<span class="sig-prename descclassname"><span class="pre">arch_gym.envs.customenv_wrapper.</span></span><span class="sig-name descname"><span class="pre">make_custom_env</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12234</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reward_formulation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'power'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Environment</span></span></span><a class="reference internal" href="_modules/arch_gym/envs/customenv_wrapper.html#make_custom_env"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.customenv_wrapper.make_custom_env" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the custom environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> – seed for the environment</p></li>
+<li><p><strong>max_steps</strong> – maximum number of steps in an episode</p></li>
+<li><p><strong>reward_formulation</strong> – formulation of the reward function</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the custom environment</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>environment</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="arch-gym-envs-dramsys-wrapper-module">
+<h2>arch_gym.envs.dramsys_wrapper module<a class="headerlink" href="#arch-gym-envs-dramsys-wrapper-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-dramsys-wrapper-rl-module">
+<h2>arch_gym.envs.dramsys_wrapper_rl module<a class="headerlink" href="#arch-gym-envs-dramsys-wrapper-rl-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-envhelpers-module">
+<h2>arch_gym.envs.envHelpers module<a class="headerlink" href="#arch-gym-envs-envhelpers-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-envlogger-reader-test-module">
+<h2>arch_gym.envs.envlogger_reader_test module<a class="headerlink" href="#arch-gym-envs-envlogger-reader-test-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-arch_gym.envs.envlogger_writer_test">
+<span id="arch-gym-envs-envlogger-writer-test-module"></span><h2>arch_gym.envs.envlogger_writer_test module<a class="headerlink" href="#module-arch_gym.envs.envlogger_writer_test" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-arch_gym.envs.loggers">
+<span id="arch-gym-envs-loggers-module"></span><h2>arch_gym.envs.loggers module<a class="headerlink" href="#module-arch_gym.envs.loggers" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="arch_gym.envs.loggers.write_csv">
+<span class="sig-prename descclassname"><span class="pre">arch_gym.envs.loggers.</span></span><span class="sig-name descname"><span class="pre">write_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/loggers.html#write_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.loggers.write_csv" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="arch-gym-envs-maestero-wrapper-module">
+<h2>arch_gym.envs.maestero_wrapper module<a class="headerlink" href="#arch-gym-envs-maestero-wrapper-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-arch_gym.envs.simpleEnv">
+<span id="arch-gym-envs-simpleenv-module"></span><h2>arch_gym.envs.simpleEnv module<a class="headerlink" href="#module-arch_gym.envs.simpleEnv" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arch_gym.envs.simpleEnv.</span></span><span class="sig-name descname"><span class="pre">simpleEnv</span></span><a class="reference internal" href="_modules/arch_gym/envs/simpleEnv.html#simpleEnv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Env</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.LF_MIN">
+<span class="sig-name descname"><span class="pre">LF_MIN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.LF_MIN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.RT_MAX">
+<span class="sig-name descname"><span class="pre">RT_MAX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.RT_MAX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.action_space">
+<span class="sig-name descname"><span class="pre">action_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ActType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.action_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.max_steps">
+<span class="sig-name descname"><span class="pre">max_steps</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.max_steps" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'render.modes':</span> <span class="pre">['human']}</span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.metadata" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.move_left">
+<span class="sig-name descname"><span class="pre">move_left</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.move_left" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.move_right">
+<span class="sig-name descname"><span class="pre">move_right</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.move_right" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.observation_space">
+<span class="sig-name descname"><span class="pre">observation_space</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Space</span><span class="p"><span class="pre">[</span></span><span class="pre">ObsType</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.observation_space" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/simpleEnv.html#simpleEnv.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.reset" title="Permalink to this definition"></a></dt>
+<dd><p>Resets the environment to an initial state and returns the initial observation.</p>
+<p>This method can reset the environment’s random number generator(s) if <code class="docutils literal notranslate"><span class="pre">seed</span></code> is an integer or
+if the environment has not yet initialized a random number generator.
+If the environment already has a random number generator and <a class="reference internal" href="#arch_gym.envs.simpleEnv.simpleEnv.reset" title="arch_gym.envs.simpleEnv.simpleEnv.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> is called with <code class="docutils literal notranslate"><span class="pre">seed=None</span></code>,
+the RNG should not be reset. Moreover, <a class="reference internal" href="#arch_gym.envs.simpleEnv.simpleEnv.reset" title="arch_gym.envs.simpleEnv.simpleEnv.reset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">reset()</span></code></a> should (in the typical use case) be called with an
+integer seed right after initialization and then never again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seed</strong> (<em>optional int</em>) – The seed that is used to initialize the environment’s PRNG.
+If the environment does not already have a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> (the default option) is passed,
+a seed will be chosen from some source of entropy (e.g. timestamp or /dev/urandom).
+However, if the environment already has a PRNG and <code class="docutils literal notranslate"><span class="pre">seed=None</span></code> is passed, the PRNG will <em>not</em> be reset.
+If you pass an integer, the PRNG will be reset even if it already exists.
+Usually, you want to pass an integer <em>right after the environment has been initialized and then never again</em>.
+Please refer to the minimal example above to see this paradigm in action.</p></li>
+<li><p><strong>return_info</strong> (<em>bool</em>) – If true, return additional information along with initial observation.
+This info should be analogous to the info returned in <a class="reference internal" href="#arch_gym.envs.simpleEnv.simpleEnv.step" title="arch_gym.envs.simpleEnv.simpleEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a></p></li>
+<li><p><strong>options</strong> (<em>optional dict</em>) – Additional information to specify how the environment is reset (optional,
+depending on the specific environment)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Observation of the initial state. This will be an element of <a class="reference internal" href="#arch_gym.envs.simpleEnv.simpleEnv.observation_space" title="arch_gym.envs.simpleEnv.simpleEnv.observation_space"><code class="xref py py-attr docutils literal notranslate"><span class="pre">observation_space</span></code></a></dt><dd><p>(typically a numpy array) and is analogous to the observation returned by <a class="reference internal" href="#arch_gym.envs.simpleEnv.simpleEnv.step" title="arch_gym.envs.simpleEnv.simpleEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+<dt>info (optional dictionary): This will <em>only</em> be returned if <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> is passed.</dt><dd><p>It contains auxiliary information complementing <code class="docutils literal notranslate"><span class="pre">observation</span></code>. This dictionary should be analogous to
+the <code class="docutils literal notranslate"><span class="pre">info</span></code> returned by <a class="reference internal" href="#arch_gym.envs.simpleEnv.simpleEnv.step" title="arch_gym.envs.simpleEnv.simpleEnv.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>observation (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.reward_away">
+<span class="sig-name descname"><span class="pre">reward_away</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-2</span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.reward_away" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.reward_goal">
+<span class="sig-name descname"><span class="pre">reward_goal</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">10</span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.reward_goal" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.reward_step">
+<span class="sig-name descname"><span class="pre">reward_step</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.reward_step" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arch_gym.envs.simpleEnv.simpleEnv.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arch_gym/envs/simpleEnv.html#simpleEnv.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arch_gym.envs.simpleEnv.simpleEnv.step" title="Permalink to this definition"></a></dt>
+<dd><p>Step function for the environment</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="arch-gym-envs-sniperenv-wrapper-module">
+<h2>arch_gym.envs.sniperenv_wrapper module<a class="headerlink" href="#arch-gym-envs-sniperenv-wrapper-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-test-randomparameterenv-module">
+<h2>arch_gym.envs.test_RandomParameterEnv module<a class="headerlink" href="#arch-gym-envs-test-randomparameterenv-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-timeloop-acme-wrapper-module">
+<h2>arch_gym.envs.timeloop_acme_wrapper module<a class="headerlink" href="#arch-gym-envs-timeloop-acme-wrapper-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="arch-gym-envs-timeloop-acme-wrapper-rl-module">
+<h2>arch_gym.envs.timeloop_acme_wrapper_rl module<a class="headerlink" href="#arch-gym-envs-timeloop-acme-wrapper-rl-module" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-arch_gym.envs">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-arch_gym.envs" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="arch_gym.html" class="btn btn-neutral float-left" title="Environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules_sims.html" class="btn btn-neutral float-right" title="Training Scripts for Architecture Simulators" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, --.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

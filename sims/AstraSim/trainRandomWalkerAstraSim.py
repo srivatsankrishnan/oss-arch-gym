@@ -9,7 +9,6 @@ from arch_gym.envs.envHelpers import helpers
 from configs import arch_gym_configs
 import os
 import sys
-import pickle
 
 from absl import flags
 from absl import app
@@ -34,6 +33,7 @@ flags.DEFINE_string('reward_formulation', 'latency',
 FLAGS = flags.FLAGS
 
 
+<<<<<<< HEAD:sims/AstraSim/trainRandomWalkerAstraSim.py
 # parses the network file
 # def parse_network(network_file):
 #     with open(network_file) as f:
@@ -107,6 +107,145 @@ def generate_random_actions(action_dict, system_knob, network_knob):
 
     return action_dict
 
+=======
+def write_network(dimension):
+    def dim_helper(dim, val):
+        return [val for _ in range(dim)]
+
+    def rand_dim_helper(dim, vals):
+        return [random.choice(vals) for _ in range(dim)]
+
+    links_count = {"Ring": 2, "FullyConnected": 7, "Switch": 1}
+
+    def rand_num_helper(dim, min, max):
+        return [random.randint(min, max) for _ in range(dim)]
+
+    def rand_float_helper(dim, min, max):
+        return [round(random.uniform(min, max), 1) for _ in range(dim)]
+
+    network = {
+        "topology-name": random.choice(["Hierarchical"]),
+        "topologies-per-dim": rand_dim_helper(dimension, ["Ring", "FullyConnected", "Switch"]),
+        # NEED TO CHECK HOW RANDOM DIM TYPE CAN BE
+        "dimension-type": dim_helper(dimension, random.choice(["N", "P"])),
+        "dimensions-count": dimension,
+        "units-count": rand_num_helper(dimension, 2, 8),
+        "link-latency": rand_num_helper(dimension, 1, 500),
+        "link-bandwidth": rand_float_helper(dimension, 12.0, 250.0),
+        # SHOULD THIS BE ONLY ZEROS?
+        "nic-latency": rand_num_helper(dimension, 0, 0),
+        "router-latency": rand_num_helper(dimension, 0, 10),
+        "hbm-latency": rand_num_helper(dimension, 1, 500),
+        "hbm-bandwidth": rand_num_helper(dimension, 1, 500),
+        "hbm-scale": rand_num_helper(dimension, 0, 1),
+    }
+
+    network["links-count"] = [links_count[network["topologies-per-dim"][i]]
+                                for i in range(dimension)]
+
+    return network
+
+
+def write_system(dimension):
+        def implementation_helper(dim, val):
+            if val in ["oneRing", "oneDirect"]:
+                return val
+            else:
+                value = ""
+                for _ in range(dim):
+                    value += val + "_"
+                return value[:-1]
+
+        system = {
+            "scheduling-policy": random.choice(["LIFO", "FIFO"]),
+            "endpoint-delay": random.randint(1, 10),
+            "active-chunks-per-dimension": 1,
+            # whenever dataset splits is high, it takes a long time to run
+            "preferred-dataset-splits": random.randint(1, 32),
+            "boost-mode": random.randint(0, 1),
+            "all-reduce-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
+            "all-gather-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
+            "reduce-scatter-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
+            "all-to-all-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
+            "collective-optimization": random.choice(["baseline", "localBWAware"])
+        }
+        return system
+
+
+def write_workload():
+    value = ""
+    # randomize workload type
+    workload_type = random.choice(["DATA\n", "HYBRID_TRANSFORMER\n", "HYBRID_DLRM\n", "MICRO\n"])
+    # randomize number of DNN layers
+    layers_count = random.randint(1, 50)
+    if workload_type == "MICRO\n":
+        layers_count = 1
+    value += workload_type
+
+    value += str(layers_count) + "\n"
+    # configure each layer
+    for i in range(layers_count):
+        # layer name and reserved variable
+        value += "layer" + str(i) + "\t-1\t"
+        # forward pass compute time
+        forward_time = str(random.randint(1, 42000000)) + "\t"
+        # forward_time = str(random.randint(1, 4200)) + "\t"
+        if workload_type == "MICRO\n":
+            forward_time = "5\t"
+        value += forward_time
+
+        # forward pass communication type
+        forward_type = random.choice(["ALLREDUCE", "ALLGATHER", "ALLTOALL", "NONE"]) + "\t"
+        if workload_type == "MICRO\n":
+            forward_type = "NONE\t"
+        value += forward_type
+        # forward pass communication size
+        forward_size = "0\t" if forward_type == "NONE\t" else str(random.randint(0, 70000000)) + "\t"
+        value += forward_size
+
+        # input grad compute time
+        grad_time = str(random.randint(1, 42000000)) + " "
+
+        if workload_type == "MICRO\n":
+            grad_time = "5\t"
+        value += grad_time
+        # input grad communication type
+        grad_type = random.choice(["ALLREDUCE", "ALLGATHER", "ALLTOALL", "NONE"]) + "\t"
+        if workload_type == "MICRO\n":
+            grad_type = "NONE\t"
+        value += grad_type
+        # input grad communication size
+        grad_size = "0\t" if grad_type == "NONE\t" else str(random.randint(0, 70000000)) + "\t"
+        value += grad_size
+
+        # weight grad compute time
+        weight_time = str(random.randint(1, 42000000)) + "\t"
+        # weight_time = str(random.randint(1, 4200)) + "\t"
+        if workload_type == "MICRO\n":
+            weight_time = "5\t"
+        value += weight_time
+        # weight grad communication type
+        weight_type = random.choice(["ALLREDUCE", "ALLGATHER", "ALLTOALL", "NONE"]) + "\t"
+        value += weight_type
+        # weight grad communication size
+        weight_size = "0\t" if weight_type == "NONE\t" else str(random.randint(0, 70000000)) + "\t"
+
+        value += weight_size
+        # delay per entire weight/input/output update after the collective is finished
+        value += str(random.randint(5, 5000)) + "\n"
+        # value += str(random.randint(5, 50)) + "\n"
+
+    return {"value": value}
+
+
+def generate_random_actions(dimension):
+    action = {}
+    action['network'] = write_network(dimension)
+    action['system'] = write_system(dimension)
+    # action['workload'] = write_workload()
+    
+    return action
+>>>>>>> main:sims/AstraSim/train_randomwalker_AstraSim.py
 
 def log_results_to_csv(filename, fitness_dict):
     df = pd.DataFrame([fitness_dict['reward']])
@@ -146,6 +285,7 @@ def main(_):
     settings_dir_path = os.path.dirname(settings_file_path)
     proj_root_path = os.path.abspath(settings_dir_path)
 
+<<<<<<< HEAD:sims/AstraSim/trainRandomWalkerAstraSim.py
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
 
     # TODO: V1 SPEC:
@@ -161,6 +301,8 @@ def main(_):
         systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
     workload_file = "all_reduce/allreduce_0.65.txt"
 
+=======
+>>>>>>> main:sims/AstraSim/train_randomwalker_AstraSim.py
     exe_path = os.path.join(proj_root_path, "run_general.sh")
     network_config = os.path.join(proj_root_path, "general_network.json")
     system_config = os.path.join(proj_root_path, "general_system.txt")
@@ -189,12 +331,12 @@ def main(_):
     env = wrap_in_envlogger(env, traject_dir)
 
     # get the dimension of the network
-    # the dimension is now defined in the template
     dimension = random.randint(2, 3)
 
     start = time.time()
 
     step_results = {}
+<<<<<<< HEAD:sims/AstraSim/trainRandomWalkerAstraSim.py
 
     # INITIATE action dict
     action_dict = {}
@@ -208,27 +350,41 @@ def main(_):
 
     # TODO: parse knobs (all variables to change in action_dict)
     system_knob, network_knob = parse_knobs(knobs_spec)
+=======
+>>>>>>> main:sims/AstraSim/train_randomwalker_AstraSim.py
 
     best_reward, best_observation, best_actions = 0.0, 0.0, {}
 
     for i in range(FLAGS.num_episodes):
         logging.info('Episode %r', i)
 
-        # every step of the current training
         for step in range(FLAGS.num_steps):
+<<<<<<< HEAD:sims/AstraSim/trainRandomWalkerAstraSim.py
             # pass into generate_random_actions(dimension, knobs)
             action_dict = generate_random_actions(
                 action_dict, system_knob, network_knob)
+=======
+            # generate random actions
+            action = generate_random_actions(dimension)
+
+            # write the three config files
+            with open("general_network.json", "w") as outfile:
+                outfile.write(json.dumps(action['network'], indent=4))
+
+            with open("general_system.txt", 'w') as file:
+                for key, value in action["system"].items():
+                    file.write(f'{key}: {value}\n')
+>>>>>>> main:sims/AstraSim/train_randomwalker_AstraSim.py
 
             # with open("general_workload.txt", 'w') as file:
             #     file.write(action["workload"]["value"])
 
             # step_result wrapped in TimeStep object
-            step_result = env.step(action_dict)
+            step_result = env.step(action)
             step_type, reward, discount, observation = step_result
 
             step_results['reward'] = [reward]
-            step_results['action'] = action_dict
+            step_results['action'] = action
             step_results['obs'] = observation
 
             if reward and reward > best_reward:
@@ -240,10 +396,14 @@ def main(_):
 
     end = time.time()
 
+<<<<<<< HEAD:sims/AstraSim/trainRandomWalkerAstraSim.py
     print("Best Reward: ", best_reward)
     print("Best Observation: ", best_observation)
     print("Best Parameters: ", best_actions)
     print("Total Time Taken: ", end - start)
+=======
+    print("Total Time taken: ", end - start)
+>>>>>>> main:sims/AstraSim/train_randomwalker_AstraSim.py
     print("Total Useful Steps: ", env.useful_counter)
 
 
