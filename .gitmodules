@@ -2,6 +2,8 @@
 [submodule "sims/AstraSim/astra-sim"]
 	path = sims/AstraSim/astra-sim
 	url = https://github.com/astra-sim/astra-sim.git
+	recursive = true
 [submodule "sims/CFU-Playground/CFU-Playground"]
 	path = sims/CFU-Playground/CFU-Playground
 	url = https://github.com/google/CFU-Playground.git
+	recursive = true
