@@ -4,7 +4,7 @@
 
 Recursively clone ArchGym from this repo:
 ```
-git clone —recurse-submodules https://github.com/srivatsankrishnan/oss-arch-gym.git
+git clone -—recurse-submodules https://github.com/srivatsankrishnan/oss-arch-gym.git
 git submodule add https://github.com/astra-sim/astrasim-archgym.git sims/AstraSim/astrasim-archgym
 git submodule update --init --recursive — sims/AstraSim/astrasim-archgym
 ```
