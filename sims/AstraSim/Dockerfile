@@ -25,7 +25,7 @@ RUN cd arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install envlog
 RUN chown -R 1000:root /workdir && chmod -R 775 /workdir
 
 
-WORKDIR /workdir/arch-gym/sims/gamma/
+WORKDIR /workdir/arch-gym/sims/AstraSim/
 
 
 # Install cost model
