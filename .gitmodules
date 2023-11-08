@@ -1,7 +1,6 @@
-
-[submodule "sims/AstraSim/astra-sim"]
-	path = sims/AstraSim/astra-sim
-	url = https://github.com/astra-sim/astra-sim.git
+[submodule "sims/AstraSim/astrasim-archgym"]
+	path = sims/AstraSim/astrasim-archgym
+	url = https://github.com/changhai0109/astrasim-archgym-public.git
 [submodule "sims/CFU-Playground/CFU-Playground"]
 	path = sims/CFU-Playground/CFU-Playground
 	url = https://github.com/google/CFU-Playground.git
