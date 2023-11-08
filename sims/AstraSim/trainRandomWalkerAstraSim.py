@@ -89,7 +89,6 @@ def generate_random_actions(action_dict, system_knob, network_knob):
 
     return action_dict
 
-=======
 def write_network(dimension):
     def dim_helper(dim, val):
         return [val for _ in range(dim)]
@@ -227,7 +226,7 @@ def generate_random_actions(dimension):
     # action['workload'] = write_workload()
     
     return action
->>>>>>> main:sims/AstraSim/train_randomwalker_AstraSim.py
+
 
 def log_results_to_csv(filename, fitness_dict):
     df = pd.DataFrame([fitness_dict['reward']])
@@ -267,7 +266,6 @@ def main(_):
     settings_dir_path = os.path.dirname(settings_file_path)
     proj_root_path = os.path.abspath(settings_dir_path)
 
-<<<<<<< HEAD:sims/AstraSim/trainRandomWalkerAstraSim.py
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
 
     # TODO: V1 SPEC:
@@ -283,8 +281,6 @@ def main(_):
         systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
     workload_file = "all_reduce/allreduce_0.65.txt"
 
-=======
->>>>>>> main:sims/AstraSim/train_randomwalker_AstraSim.py
     exe_path = os.path.join(proj_root_path, "run_general.sh")
     network_config = os.path.join(proj_root_path, "general_network.json")
     system_config = os.path.join(proj_root_path, "general_system.txt")
@@ -315,7 +311,6 @@ def main(_):
     start = time.time()
 
     step_results = {}
-<<<<<<< HEAD:sims/AstraSim/trainRandomWalkerAstraSim.py
 
     # INITIATE action dict
     action_dict = {}
@@ -329,8 +324,6 @@ def main(_):
 
     # TODO: parse knobs (all variables to change in action_dict)
     system_knob, network_knob = parse_knobs(knobs_spec)
-=======
->>>>>>> main:sims/AstraSim/train_randomwalker_AstraSim.py
 
     best_reward, best_observation, best_actions = 0.0, 0.0, {}
 
@@ -338,22 +331,9 @@ def main(_):
         logging.info('Episode %r', i)
 
         for step in range(FLAGS.num_steps):
-<<<<<<< HEAD:sims/AstraSim/trainRandomWalkerAstraSim.py
             # pass into generate_random_actions(dimension, knobs)
             action_dict = generate_random_actions(
                 action_dict, system_knob, network_knob)
-=======
-            # generate random actions
-            action = generate_random_actions(dimension)
-
-            # write the three config files
-            with open("general_network.json", "w") as outfile:
-                outfile.write(json.dumps(action['network'], indent=4))
-
-            with open("general_system.txt", 'w') as file:
-                for key, value in action["system"].items():
-                    file.write(f'{key}: {value}\n')
->>>>>>> main:sims/AstraSim/train_randomwalker_AstraSim.py
 
             # with open("general_workload.txt", 'w') as file:
             #     file.write(action["workload"]["value"])
@@ -375,14 +355,10 @@ def main(_):
 
     end = time.time()
 
-<<<<<<< HEAD:sims/AstraSim/trainRandomWalkerAstraSim.py
     print("Best Reward: ", best_reward)
     print("Best Observation: ", best_observation)
     print("Best Parameters: ", best_actions)
     print("Total Time Taken: ", end - start)
-=======
-    print("Total Time taken: ", end - start)
->>>>>>> main:sims/AstraSim/train_randomwalker_AstraSim.py
     print("Total Useful Steps: ", env.useful_counter)
 
 
