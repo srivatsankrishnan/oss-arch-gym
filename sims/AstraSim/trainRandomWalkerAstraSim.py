@@ -33,32 +33,17 @@ flags.DEFINE_string('reward_formulation', 'latency',
 FLAGS = flags.FLAGS
 
 
-<<<<<<< HEAD:sims/AstraSim/trainRandomWalkerAstraSim.py
-# parses the network file
-# def parse_network(network_file):
-#     with open(network_file) as f:
-#         network = json.load(f)
-#     return network
+# network: parses the network file
+def parse_network(network_file, action_dict):
+    with open(network_file) as f:
+        network = json.load(f)
+
+        for key in network.keys():
+            action_dict['network'][key] = network[key]
+    return network
 
 
 # systems: parse from file into json into generate_random_actions
-"""
-system_file content: 
-scheduling-policy: LIFO
-endpoint-delay: 1
-active-chunks-per-dimension: 1
-preferred-dataset-splits: 64
-boost-mode: 1
-all-reduce-implementation: direct_ring_halvingDoubling
-all-gather-implementation: direct_ring_halvingDoubling
-reduce-scatter-implementation: direct_ring_halvingDoubling
-all-to-all-implementation: direct_direct_direct
-collective-optimization: localBWAware
-intra-dimension-scheduling: FIFO
-inter-dimension-scheduling: baseline
-"""
-
-
 def parse_system(system_file, action_dict):
     # parse system_file (above is the content) into dict
     action_dict['system'] = {}
@@ -68,9 +53,6 @@ def parse_system(system_file, action_dict):
         for line in lines:
             key, value = line.strip().split(': ')
             action_dict['system'][key] = value
-
-
-# def parse_workload(workload_file):
 
 
 # parses knobs that we want to experiment with
@@ -296,7 +278,7 @@ def main(_):
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
     # DEFINE NETWORK AND SYSTEM AND WORKLOAD
-    network_file = "4d_ring_fc_ring_switch.json"
+    network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
     system_file = os.path.join(
         systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
     workload_file = "all_reduce/allreduce_0.65.txt"
@@ -330,9 +312,6 @@ def main(_):
             os.makedirs(traject_dir)
     env = wrap_in_envlogger(env, traject_dir)
 
-    # get the dimension of the network
-    dimension = random.randint(2, 3)
-
     start = time.time()
 
     step_results = {}
@@ -342,11 +321,11 @@ def main(_):
     action_dict = {}
 
     # if path exists, use path, else parse the sub-dict
-    action_dict['network'] = {"path": network_file}
     action_dict['workload'] = {"path": workload_file}
 
-    # TODO: parse system
+    # TODO: parse system and network
     parse_system(system_file, action_dict)
+    parse_network(network_file, action_dict)
 
     # TODO: parse knobs (all variables to change in action_dict)
     system_knob, network_knob = parse_knobs(knobs_spec)
