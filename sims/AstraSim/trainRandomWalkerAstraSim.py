@@ -40,6 +40,7 @@ def parse_network(network_file, action_dict):
 
         for key in network.keys():
             action_dict['network'][key] = network[key]
+
     return network
 
 
@@ -88,144 +89,6 @@ def generate_random_actions(action_dict, system_knob, network_knob):
                     dict_type[knob][1], dict_type[knob][2])
 
     return action_dict
-
-def write_network(dimension):
-    def dim_helper(dim, val):
-        return [val for _ in range(dim)]
-
-    def rand_dim_helper(dim, vals):
-        return [random.choice(vals) for _ in range(dim)]
-
-    links_count = {"Ring": 2, "FullyConnected": 7, "Switch": 1}
-
-    def rand_num_helper(dim, min, max):
-        return [random.randint(min, max) for _ in range(dim)]
-
-    def rand_float_helper(dim, min, max):
-        return [round(random.uniform(min, max), 1) for _ in range(dim)]
-
-    network = {
-        "topology-name": random.choice(["Hierarchical"]),
-        "topologies-per-dim": rand_dim_helper(dimension, ["Ring", "FullyConnected", "Switch"]),
-        # NEED TO CHECK HOW RANDOM DIM TYPE CAN BE
-        "dimension-type": dim_helper(dimension, random.choice(["N", "P"])),
-        "dimensions-count": dimension,
-        "units-count": rand_num_helper(dimension, 2, 8),
-        "link-latency": rand_num_helper(dimension, 1, 500),
-        "link-bandwidth": rand_float_helper(dimension, 12.0, 250.0),
-        # SHOULD THIS BE ONLY ZEROS?
-        "nic-latency": rand_num_helper(dimension, 0, 0),
-        "router-latency": rand_num_helper(dimension, 0, 10),
-        "hbm-latency": rand_num_helper(dimension, 1, 500),
-        "hbm-bandwidth": rand_num_helper(dimension, 1, 500),
-        "hbm-scale": rand_num_helper(dimension, 0, 1),
-    }
-
-    network["links-count"] = [links_count[network["topologies-per-dim"][i]]
-                                for i in range(dimension)]
-
-    return network
-
-
-def write_system(dimension):
-        def implementation_helper(dim, val):
-            if val in ["oneRing", "oneDirect"]:
-                return val
-            else:
-                value = ""
-                for _ in range(dim):
-                    value += val + "_"
-                return value[:-1]
-
-        system = {
-            "scheduling-policy": random.choice(["LIFO", "FIFO"]),
-            "endpoint-delay": random.randint(1, 10),
-            "active-chunks-per-dimension": 1,
-            # whenever dataset splits is high, it takes a long time to run
-            "preferred-dataset-splits": random.randint(1, 32),
-            "boost-mode": random.randint(0, 1),
-            "all-reduce-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
-            "all-gather-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
-            "reduce-scatter-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
-            "all-to-all-implementation": implementation_helper(dimension, random.choice(["ring", "direct", "doubleBinaryTree", "oneRing", "oneDirect"])),
-            "collective-optimization": random.choice(["baseline", "localBWAware"])
-        }
-        return system
-
-
-def write_workload():
-    value = ""
-    # randomize workload type
-    workload_type = random.choice(["DATA\n", "HYBRID_TRANSFORMER\n", "HYBRID_DLRM\n", "MICRO\n"])
-    # randomize number of DNN layers
-    layers_count = random.randint(1, 50)
-    if workload_type == "MICRO\n":
-        layers_count = 1
-    value += workload_type
-
-    value += str(layers_count) + "\n"
-    # configure each layer
-    for i in range(layers_count):
-        # layer name and reserved variable
-        value += "layer" + str(i) + "\t-1\t"
-        # forward pass compute time
-        forward_time = str(random.randint(1, 42000000)) + "\t"
-        # forward_time = str(random.randint(1, 4200)) + "\t"
-        if workload_type == "MICRO\n":
-            forward_time = "5\t"
-        value += forward_time
-
-        # forward pass communication type
-        forward_type = random.choice(["ALLREDUCE", "ALLGATHER", "ALLTOALL", "NONE"]) + "\t"
-        if workload_type == "MICRO\n":
-            forward_type = "NONE\t"
-        value += forward_type
-        # forward pass communication size
-        forward_size = "0\t" if forward_type == "NONE\t" else str(random.randint(0, 70000000)) + "\t"
-        value += forward_size
-
-        # input grad compute time
-        grad_time = str(random.randint(1, 42000000)) + " "
-
-        if workload_type == "MICRO\n":
-            grad_time = "5\t"
-        value += grad_time
-        # input grad communication type
-        grad_type = random.choice(["ALLREDUCE", "ALLGATHER", "ALLTOALL", "NONE"]) + "\t"
-        if workload_type == "MICRO\n":
-            grad_type = "NONE\t"
-        value += grad_type
-        # input grad communication size
-        grad_size = "0\t" if grad_type == "NONE\t" else str(random.randint(0, 70000000)) + "\t"
-        value += grad_size
-
-        # weight grad compute time
-        weight_time = str(random.randint(1, 42000000)) + "\t"
-        # weight_time = str(random.randint(1, 4200)) + "\t"
-        if workload_type == "MICRO\n":
-            weight_time = "5\t"
-        value += weight_time
-        # weight grad communication type
-        weight_type = random.choice(["ALLREDUCE", "ALLGATHER", "ALLTOALL", "NONE"]) + "\t"
-        value += weight_type
-        # weight grad communication size
-        weight_size = "0\t" if weight_type == "NONE\t" else str(random.randint(0, 70000000)) + "\t"
-
-        value += weight_size
-        # delay per entire weight/input/output update after the collective is finished
-        value += str(random.randint(5, 5000)) + "\n"
-        # value += str(random.randint(5, 50)) + "\n"
-
-    return {"value": value}
-
-
-def generate_random_actions(dimension):
-    action = {}
-    action['network'] = write_network(dimension)
-    action['system'] = write_system(dimension)
-    # action['workload'] = write_workload()
-    
-    return action
 
 
 def log_results_to_csv(filename, fitness_dict):
@@ -339,11 +202,11 @@ def main(_):
             #     file.write(action["workload"]["value"])
 
             # step_result wrapped in TimeStep object
-            step_result = env.step(action)
+            step_result = env.step(action_dict)
             step_type, reward, discount, observation = step_result
 
             step_results['reward'] = [reward]
-            step_results['action'] = action
+            step_results['action'] = action_dict
             step_results['obs'] = observation
 
             if reward and reward > best_reward:
