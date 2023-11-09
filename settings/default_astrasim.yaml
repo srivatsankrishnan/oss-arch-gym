@@ -19,7 +19,10 @@ Nodes:
       topologiesPerDim1: ["Ring", "FullyConnected", "Switch"]
       topologiesPerDim2: ["Ring", "FullyConnected", "Switch"]
       topologiesPerDim3: ["Ring", "FullyConnected", "Switch"]
-      dimensionType: ["N"]
+
+      dimensionType1: ["N"]
+      dimensionType2: ["N"]
+      dimensionType3: ["N"]
       # fix dimensions-count for all ants
       dimensionsCount: [1, 2, 3]
 

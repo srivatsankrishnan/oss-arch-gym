@@ -383,18 +383,33 @@ class DummyAstraSim():
 
         self.nodes_dict = {
             "scheduling-policy": node.schedulingPolicy,
-            "endoing-delay": node.endpointDelay,
+            "endpoint-delay": node.endpointDelay,
             "active-chunks-per-dimension": node.activeChunksPerDimension,
             "preferred-dataset-splits": node.preferredDatasetSplits,
-            "boost-mode": self.boostMode,
-            "all-reduce-implementation": self.allReduceImplementation,
-            "all-gather-implementation": self.allGatherImplementation,
-            "reduce-scatter-implementation": self.reduceScatterImplementation,
-            "all-to-all-implementation": self.allToAllImplementation,
+            "boost-mode": node.boostMode,
+            "all-reduce-implementation": [node.allReduceImplementation1, node.allReduceImplementation2, node.allReduceImplementation3],
+            "all-gather-implementation": [node.allGatherImplementation1, node.allGatherImplementation2, node.allGatherImplementation3],
+            "reduce-scatter-implementation": [node.reduceScatterImplementation1, node.reduceScatterImplementation2, node.reduceScatterImplementation3],
+            "all-to-all-implementation": [node.allToAllImplementation1, node.allToAllImplementation2, node.allToAllImplementation3],
             "collective-optimization": node.collectiveOptimization,
             "intra-dimension-scheduling": node.intraDimensionScheduling,
             "inter-dimension-scheduling": node.interDimensionScheduling,
+            "topology-name": node.topologyName,
+            "topologies-per-dim": [node.topologiesPerDim1, node.topologiesPerDim2, node.topologiesPerDim3], 
+            "dimension-type": [node.dimensionType1, node.dimensionType2, node.dimensionType3],
+            "dimensions-count": node.dimensionsCount,
+            "units-count": [node.unitsCount1, node.unitsCount2, node.unitsCount3],
+            "links-count": [node.linksCount1, node.linksCount2, node.linksCount3],
+            "link-latency": [node.linkLatency1, node.linkLatency2, node.linkLatency3],
+            "link-bandwidth": [node.linkBandwidth1, node.linkBandwidth2, node.linkBandwidth3],
+            "nic-latency": [node.nicLatency1, node.nicLatency2, node.nicLatency3],
+            "router-latency": [node.routerLatency1, node.routerLatency2, node.routerLatency3],
+            "hbm-latency": [node.hbmLatency1, node.hbmLatency2, node.hbmLatency3],
+            "hbm-bandwidth": [node.hbmBandwidth1, node.hbmBandwidth2, node.hbmBandwidth3],
+            "hbm-scale": [node.hbmScale1, node.hbmScale2, node.hbmScale3]
         }
+
+        # ADD 5 DIMENSIONS + account for dimension variable
 
         for node in path:
             system_knob, network_knob = self.parse_knobs(self.knobs_spec)
