@@ -32,21 +32,37 @@ flags.DEFINE_string('reward_formulation', 'latency',
                     'Which reward formulation to use?')
 FLAGS = flags.FLAGS
 
+# define which parameters are affected by dimension count
+DIMENSION_PARAMS = {
+    # network parameters
+    "topology-name": [False], "topologies-per-dim": [True, "diff"],
+    "dimension-type": [True, "same"], "dimensions-count": [False],
+    "units-count": [True, "diff"], "links-count": [True, "diff"],
+    "link-latency": [True, "same"], "link-bandwidth": [True, "diff"],
+    "nic-latency": [True, "same"], "router-latency": [True, "same"],
+    "hbm-latency": [True, "same"], "hbm-bandwidth": [True, "same"],
+    "hbm-scale": [True, "same"],
+    # system parameters
+    "scheduling-policy": [False], "endpoint-delay": [False],
+    "active-chunks-per-dimension": [False], "preferred-dataset-splits": [False],
+    "boost-mode": [False], "all-reduce-implementation": [True, "diff"],
+    "all-gather-implementation": [True, "diff"], "reduce-scatter-implementation": [True, "diff"],
+    "all-to-all-implementation": [True, "diff"], "collective-optimization": [False],
+    "intra-dimension-scheduling": [False], "inter-dimension-scheduling": [False]
+}
 
 # network: parses the network file
 def parse_network(network_file, action_dict):
+    action_dict['network'] = {}
     with open(network_file) as f:
         network = json.load(f)
 
         for key in network.keys():
             action_dict['network'][key] = network[key]
 
-    return network
-
 
 # systems: parse from file into json into generate_random_actions
 def parse_system(system_file, action_dict):
-    # parse system_file (above is the content) into dict
     action_dict['system'] = {}
     with open(system_file, 'r') as file:
         lines = file.readlines()
@@ -77,16 +93,32 @@ def parse_knobs(knobs_spec):
 
 # action_type = specify 'network' or 'system
 # new_params = parsed knobs from experiment file
-def generate_random_actions(action_dict, system_knob, network_knob):
+def generate_random_actions(dimension, action_dict, system_knob, network_knob):
     dicts = [(system_knob, 'system'), (network_knob, 'network')]
     for dict_type, dict_name in dicts:
         for knob in dict_type.keys():
             if isinstance(dict_type[knob], set):
-                action_dict[dict_name][knob] = random.choice(
-                    list(dict_type[knob]))
+                if DIMENSION_PARAMS[knob][0]:
+                    if DIMENSION_PARAMS[knob][1] == "diff":
+                        action_dict[dict_name][knob] = [random.choice(
+                            list(dict_type[knob])) for _ in range(dimension)]
+                    else:
+                        choice = random.choice(list(dict_type[knob]))
+                        action_dict[dict_name][knob] = [choice for _ in range(dimension)]
+                else:
+                    action_dict[dict_name][knob] = random.choice(
+                        list(dict_type[knob]))
             else:
-                action_dict[dict_name][knob] = random.randint(
-                    dict_type[knob][1], dict_type[knob][2])
+                if DIMENSION_PARAMS[knob][0]:
+                    if DIMENSION_PARAMS[knob][1] == "diff":
+                        action_dict[dict_name][knob] = [random.randint(
+                            dict_type[knob][1], dict_type[knob][2])]
+                    else:
+                        choice = random.randint(dict_type[knob][1], dict_type[knob][2])
+                        action_dict[dict_name][knob] = [choice for _ in range(dimension)]
+                else:
+                    action_dict[dict_name][knob] = random.randint(
+                        dict_type[knob][1], dict_type[knob][2])
 
     return action_dict
 
@@ -196,7 +228,7 @@ def main(_):
         for step in range(FLAGS.num_steps):
             # pass into generate_random_actions(dimension, knobs)
             action_dict = generate_random_actions(
-                action_dict, system_knob, network_knob)
+                action_dict['network']['dimensions-count'], action_dict, system_knob, network_knob)
 
             # with open("general_workload.txt", 'w') as file:
             #     file.write(action["workload"]["value"])

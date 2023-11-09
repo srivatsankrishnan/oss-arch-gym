@@ -145,9 +145,9 @@ class BaseBackend(ABC):
 
 
 class AstraSimBackend(BaseBackend):
-    
+
     def __init__(self, dataset=None, optimizer=None, exp_name=None, traject_dir=None,
-                    log_dir=None, reward_formulation=None, use_envlogger=False):
+                 log_dir=None, reward_formulation=None, use_envlogger=False):
         super().__init__(dataset, optimizer)
         self.exp_name = exp_name
         self.traject_dir = traject_dir
@@ -338,10 +338,11 @@ class DummySniper():
         # for now, just return the runtime
 
         return obs[0]
-    
+
 
 class DummyAstraSim():
     """Dummy placeholder for DRAMSys to do POC"""
+
     def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger):
         self.env = SniperEnv()
         self.helper = helpers()
@@ -355,38 +356,53 @@ class DummyAstraSim():
 
         self.settings_file_path = os.path.realpath(__file__)
         self.settings_dir_path = os.path.dirname(self.settings_file_path)
-        self.proj_root_path = os.path.join(self.settings_dir_path, '..', '..', '..')
+        self.proj_root_path = os.path.join(
+            self.settings_dir_path, '..', '..', '..')
 
-        self.astrasim_archgym = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim-archgym")
-        self.knobs_spec = os.path.join(self.astrasim_archgym, "dse/archgen_v1_knobs/archgen_v1_knobs_spec.py")
+        self.astrasim_archgym = os.path.join(
+            self.proj_root_path, "sims/AstraSim/astrasim-archgym")
+        self.knobs_spec = os.path.join(
+            self.astrasim_archgym, "dse/archgen_v1_knobs/archgen_v1_knobs_spec.py")
 
-        systems_folder = os.path.join(self.astrasim_archgym, "themis/inputs/system")
-        self.system_file = os.path.join(systems_folder, "3d_fc_ring_switch_baseline.txt")
+        self.systems_folder = os.path.join(
+            self.astrasim_archgym, "themis/inputs/system")
+        self.network_folder = os.path.join(
+            self.astrasim_archgym, "themis/inputs/network")
+        self.system_file = os.path.join(
+            self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+        self.network_file = os.path.join(
+            self.network_folder, "4d_ring_fc_ring_switch.json")
 
         # SET UP ACTION DICT
-        self.action_dict = {"network": {}, "workload": {}}
-        self.action_dict["network"]['path'] = "3d_fc_ring_switch.json"
+        self.action_dict = {"workload": {}}
         self.action_dict["workload"]['path'] = "all_reduce/allreduce_0.65.txt"
 
-        # PARSE SYSTEM FILE
+        # parse system and network files
         self.parse_system(self.system_file, self.action_dict)
+        self.parse_network(self.network_file, self.action_dict)
+
+        self.nodes_dict = {
+            "scheduling-policy": node.schedulingPolicy,
+            "endoing-delay": node.endpointDelay,
+            "active-chunks-per-dimension": node.activeChunksPerDimension,
+            "preferred-dataset-splits": node.preferredDatasetSplits,
+            "boost-mode": self.boostMode,
+            "all-reduce-implementation": self.allReduceImplementation,
+            "all-gather-implementation": self.allGatherImplementation,
+            "reduce-scatter-implementation": self.reduceScatterImplementation,
+            "all-to-all-implementation": self.allToAllImplementation,
+            "collective-optimization": node.collectiveOptimization,
+            "intra-dimension-scheduling": node.intraDimensionScheduling,
+            "inter-dimension-scheduling": node.interDimensionScheduling,
+        }
 
         for node in path:
             system_knob, network_knob = self.parse_knobs(self.knobs_spec)
             dicts = [(system_knob, 'system'), (network_knob, 'network')]
             if hasattr(node, "topologyName"):
-                nodes_dict = {
-                    "scheduling-policy": node.schedulingPolicy,
-                    "active-chunks-per-dimension": node.activeChunksPerDimension,
-                    "preferred-dataset-splits": node.preferredDatasetSplits,
-                    "collective-optimization": node.collectiveOptimization,
-                    "intra-dimension-scheduling": node.intraDimensionScheduling,
-                    "inter-dimension-scheduling": node.interDimensionScheduling,
-                }
                 for dict_type, dict_name in dicts:
                     for knob in dict_type.keys():
-                        self.action_dict[dict_name][knob] = nodes_dict[knob]
-    
+                        self.action_dict[dict_name][knob] = self.nodes_dict[knob]
 
     def parse_knobs(self, knobs_spec):
         SYSTEM_KNOBS = {}
@@ -402,9 +418,17 @@ class DummyAstraSim():
             # Access the dictionaries
             SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
             NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
-        
-        return SYSTEM_KNOBS, NETWORK_KNOBS  
 
+        return SYSTEM_KNOBS, NETWORK_KNOBS
+
+    def parse_network(self, network_file, action_dict):
+        # parse network file into dict
+        action_dict['network'] = {}
+        with open(network_file) as f:
+            network = json.load(f)
+
+            for key in network.keys():
+                action_dict['network'][key] = network[key]
 
     def parse_system(self, system_file, action_dict):
         # parse system_file (above is the content) into dict
@@ -416,9 +440,9 @@ class DummyAstraSim():
                 key, value = line.strip().split(': ')
                 action_dict['system'][key] = value
 
-
     # Fit function = step function
     # Environment already calculates reward so don't need calc_reward
+
     def wrap_in_envlogger(self, env, envlogger_dir, use_envlogger):
         metadata = {
             'agent_type': 'ACO',
@@ -427,37 +451,39 @@ class DummyAstraSim():
         if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
-                                    data_directory=envlogger_dir,
-                                    max_episodes_per_file=1000,
-                                    metadata=metadata)
+                                      data_directory=envlogger_dir,
+                                      max_episodes_per_file=1000,
+                                      metadata=metadata)
             logging.info('Done wrapping environment with EnvironmentLogger.')
             return env
         else:
             print("Not using envlogger")
             return env
-    
+
     def fit(self, X, y=None):
         '''
         This is the function that is called by the optimizer. ACO by defaul tries to minimize the fitness function.
         If you have a fitness function that you want to maximize, you can simply return the negative of the fitness function.
         '''
 
-        env_wrapper = make_astraSim_env(reward_formulation = self.reward_formulation, rl_form = "aco")
+        env_wrapper = make_astraSim_env(
+            reward_formulation=self.reward_formulation, rl_form="aco")
 
         if self.use_envlogger:
             # check if trajectory directory exists
             if not os.path.exists(self.traject_dir):
                 os.makedirs(self.traject_dir)
-        
+
         # check if log directory exists
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
-        
-        env = self.wrap_in_envlogger(env_wrapper, self.traject_dir, self.use_envlogger)
+
+        env = self.wrap_in_envlogger(
+            env_wrapper, self.traject_dir, self.use_envlogger)
         env.reset()
-        
+
         step_type, reward, discount, info = env.step(self.action_dict)
-        
+
         self.fitness_hist['reward'] = reward
         self.fitness_hist['action_dict'] = self.action_dict
         self.fitness_hist['obs'] = info
@@ -465,22 +491,20 @@ class DummyAstraSim():
         print("Reward: ", reward)
         print("Action Dict: ", self.action_dict)
         print("Info: ", info)
-        
+
         self.log_fitness_to_csv()
         return -1 * reward
-
 
     def log_fitness_to_csv(self):
         df_traj = pd.DataFrame([self.fitness_hist])
         filename = os.path.join(self.log_dir, self.exp_name + "_traj.csv")
         df_traj.to_csv(filename,
-                  index=False, header=False, mode='a')
-        
+                       index=False, header=False, mode='a')
+
         df_rewards = pd.DataFrame([self.fitness_hist['reward']])
         filename = os.path.join(self.log_dir, self.exp_name + "_rewards.csv")
         df_rewards.to_csv(filename,
-                  index=False, header=False, mode='a')
-
+                          index=False, header=False, mode='a')
 
 
 class DummyDRAMSys():
@@ -514,7 +538,6 @@ class DummyDRAMSys():
         self.reward_formulation = reward_formulation
         self.use_envlogger = use_envlogger
 
-
         # Single layer network implementation
         for node in path:
             if hasattr(node, "PagePolicy"):
@@ -537,36 +560,38 @@ class DummyDRAMSys():
         if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
-                                    data_directory=envlogger_dir,
-                                    max_episodes_per_file=1000,
-                                    metadata=metadata)
+                                      data_directory=envlogger_dir,
+                                      max_episodes_per_file=1000,
+                                      metadata=metadata)
             logging.info('Done wrapping environment with EnvironmentLogger.')
             return env
         else:
             print("Not using envlogger")
             return env
-                
+
     def fit(self, X, y=None):
         '''
         This is the function that is called by the optimizer. ACO by defaul tries to minimize the fitness function.
         If you have a fitness function that you want to maximize, you can simply return the negative of the fitness function.
         '''
 
-        env_wrapper = make_dramsys_env(reward_formulation = self.reward_formulation)
-        
+        env_wrapper = make_dramsys_env(
+            reward_formulation=self.reward_formulation)
+
         if self.use_envlogger:
             # check if trajectory directory exists
             if not os.path.exists(self.traject_dir):
                 os.makedirs(self.traject_dir)
-        
+
         # check if log directory exists
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
-        
-        env = self.wrap_in_envlogger(env_wrapper, self.traject_dir, self.use_envlogger)
+
+        env = self.wrap_in_envlogger(
+            env_wrapper, self.traject_dir, self.use_envlogger)
         env.reset()
-        _, reward, _,info = env.step(self.action_dict)
-        
+        _, reward, _, info = env.step(self.action_dict)
+
         self.fitness_hist['reward'] = reward
         self.fitness_hist['action_dict'] = self.action_dict
         self.fitness_hist['obs'] = info
@@ -574,7 +599,7 @@ class DummyDRAMSys():
         print("Reward: ", reward)
         print("Action Dict: ", self.action_dict)
         print("Info: ", info)
-        
+
         self.log_fitness_to_csv()
         return -1 * reward
 
@@ -628,17 +653,19 @@ class DummyDRAMSys():
         df_traj = pd.DataFrame([self.fitness_hist])
         filename = os.path.join(self.log_dir, self.exp_name + "_traj.csv")
         df_traj.to_csv(filename,
-                  index=False, header=False, mode='a')
-        
+                       index=False, header=False, mode='a')
+
         df_rewards = pd.DataFrame([self.fitness_hist['reward']])
         filename = os.path.join(self.log_dir, self.exp_name + "_rewards.csv")
         df_rewards.to_csv(filename,
-                  index=False, header=False, mode='a')
+                          index=False, header=False, mode='a')
+
 
 class MaestroBackend(BaseBackend):
     """Backend based on Maestro API"""
+
     def __init__(self, dataset=None, optimizer=None, exp_name=None, traject_dir=None,
-                    log_dir=None, reward_formulation=None, use_envlogger=False):
+                 log_dir=None, reward_formulation=None, use_envlogger=False):
         super().__init__(dataset, optimizer)
         self.exp_name = exp_name
         self.traject_dir = traject_dir
@@ -670,6 +697,7 @@ class MaestroBackend(BaseBackend):
 
     def free_gpu(self):
         return
+
 
 class DummyMaestro():
     """Dummy placeholder for Maestro to do POC"""
@@ -708,7 +736,6 @@ class DummyMaestro():
         self.reward_formulation = reward_formulation
         self.use_envlogger = use_envlogger
 
-
         # Single layer network implementation
         for node in path:
             if hasattr(node, "seed_l2"):
@@ -738,54 +765,55 @@ class DummyMaestro():
         if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
-                                    data_directory=envlogger_dir,
-                                    max_episodes_per_file=1000,
-                                    metadata=metadata)
+                                      data_directory=envlogger_dir,
+                                      max_episodes_per_file=1000,
+                                      metadata=metadata)
             logging.info('Done wrapping environment with EnvironmentLogger.')
             return env
         else:
             print("Not using envlogger")
             return env
-    
+
     def convert_action_dict_to_action(self, action_dict):
         order = [
-        'seed_l2', 'ckxy_l2', 's_l2', 'r_l2', 'k_l2',
-        'c_l2', 'x_l2', 'y_l2', 'ckxy_l1', 's_l1',
-        'r_l1', 'k_l1', 'c_l1', 'x_l1', 'y_l1',
-        'seed_l1', 'num_pe'
+            'seed_l2', 'ckxy_l2', 's_l2', 'r_l2', 'k_l2',
+            'c_l2', 'x_l2', 'y_l2', 'ckxy_l1', 's_l1',
+            'r_l1', 'k_l1', 'c_l1', 'x_l1', 'y_l1',
+            'seed_l1', 'num_pe'
         ]
-
-
 
         action_list = [action_dict[key] for key in order]
         print(action_list)
 
         return action_list
+
     def fit(self, X, y=None):
         '''
         This is the function that is called by the optimizer. ACO by defaul tries to minimize the fitness function.
         If you have a fitness function that you want to maximize, you can simply return the negative of the fitness function.
         '''
 
-        env_wrapper = make_maestro_env(reward_formulation = self.reward_formulation, rl_form = "aco")
-        
+        env_wrapper = make_maestro_env(
+            reward_formulation=self.reward_formulation, rl_form="aco")
+
         if self.use_envlogger:
             # check if trajectory directory exists
             if not os.path.exists(self.traject_dir):
                 os.makedirs(self.traject_dir)
-        
+
         # check if log directory exists
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
-        
-        env = self.wrap_in_envlogger(env_wrapper, self.traject_dir, self.use_envlogger)
+
+        env = self.wrap_in_envlogger(
+            env_wrapper, self.traject_dir, self.use_envlogger)
         env.reset()
-        
+
         # convert action dict to action list
         action_list = self.convert_action_dict_to_action(self.action_dict)
 
-        _, reward, _,info = env.step(action_list)
-        
+        _, reward, _, info = env.step(action_list)
+
         self.fitness_hist['reward'] = reward
         self.fitness_hist['action_dict'] = self.action_dict
         self.fitness_hist['obs'] = info
@@ -793,7 +821,7 @@ class DummyMaestro():
         print("Reward: ", reward)
         print("Action Dict: ", self.action_dict)
         print("Info: ", info)
-        
+
         self.log_fitness_to_csv()
         return -1 * reward
 
@@ -801,13 +829,13 @@ class DummyMaestro():
         df_traj = pd.DataFrame([self.fitness_hist])
         filename = os.path.join(self.log_dir, self.exp_name + "_traj.csv")
         df_traj.to_csv(filename,
-                  index=False, header=False, mode='a')
-        
+                       index=False, header=False, mode='a')
+
         df_rewards = pd.DataFrame([self.fitness_hist['reward']])
         filename = os.path.join(self.log_dir, self.exp_name + "_rewards.csv")
         df_rewards.to_csv(filename,
-                  index=False, header=False, mode='a')
-        
+                          index=False, header=False, mode='a')
+
 
 class TimeloopBackend(BaseBackend):
     """Timeloop Backend for ACO"""
@@ -827,7 +855,6 @@ class TimeloopBackend(BaseBackend):
         self.reward_formulation = reward_formulation
         self.exp_name = exp_name
 
-        
     def generate_model(self, path):
         return DummyTimeloop(path, self.script_dir, self.output_dir, self.arch_dir,
                              self.mapper_dir, self.workload_dir, self.target_val, self.log_dir,
@@ -876,7 +903,7 @@ class TimeloopBackend(BaseBackend):
 class DummyTimeloop():
     def __init__(self, path, script_dir, output_dir, arch_dir, mapper_dir, workload_dir, target_val, log_dir,
                  use_envlogger, reward_formulation, exp_name):
-        
+
         self.log_dir = log_dir
         self.timeloop_config = TimeloopConfigParams(
             Timeloop_config.timeloop_parameters)
@@ -895,14 +922,14 @@ class DummyTimeloop():
         self.helper = helpers()
         self.exp_name = exp_name
 
-        self.timeloop_env = TimeloopEnv(script_dir = self.script_dir,
-                                        output_dir= self.output_dir,
-                                        arch_dir= self.arch_dir,
-                                        mapper_dir= self.mapper_dir,
-                                        workload_dir= self.workload_dir,
-                                        target_val= self.target_val, 
-                                        reward_formulation= self.reward_formulation)
-        
+        self.timeloop_env = TimeloopEnv(script_dir=self.script_dir,
+                                        output_dir=self.output_dir,
+                                        arch_dir=self.arch_dir,
+                                        mapper_dir=self.mapper_dir,
+                                        workload_dir=self.workload_dir,
+                                        target_val=self.target_val,
+                                        reward_formulation=self.reward_formulation)
+
         for node in path:
             if hasattr(node, "NUM_PEs"):
                 self._set_action_dict(node)
@@ -916,7 +943,7 @@ class DummyTimeloop():
                 self.action_dict.append(values.index(getattr(node, field)) + 1)
 
         self.action_dict = np.array(self.action_dict)
-    
+
     def wrap_in_envlogger(self, env, envlogger_dir, use_envlogger):
         metadata = {
             'agent_type': 'ACO',
@@ -925,31 +952,32 @@ class DummyTimeloop():
         if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
-                                    data_directory=envlogger_dir,
-                                    max_episodes_per_file=1000,
-                                    metadata=metadata)
+                                      data_directory=envlogger_dir,
+                                      max_episodes_per_file=1000,
+                                      metadata=metadata)
             logging.info('Done wrapping environment with EnvironmentLogger.')
             return env
         else:
             print("Not using envlogger")
-            return env    
+            return env
 
     def fit(self, x):
         # Always reset before step
 
-        env_wrapper = make_timeloop_env(env= TimeloopEnv(
-            script_dir = self.script_dir,
-            output_dir= self.output_dir,
-            arch_dir= self.arch_dir,
-            mapper_dir= self.mapper_dir,
-            workload_dir= self.workload_dir,
-            target_val= self.target_val,
-            reward_formulation= self.reward_formulation)
+        env_wrapper = make_timeloop_env(env=TimeloopEnv(
+            script_dir=self.script_dir,
+            output_dir=self.output_dir,
+            arch_dir=self.arch_dir,
+            mapper_dir=self.mapper_dir,
+            workload_dir=self.workload_dir,
+            target_val=self.target_val,
+            reward_formulation=self.reward_formulation)
         )
 
-        env = self.wrap_in_envlogger(env_wrapper, self.log_dir, self.use_envlogger)
+        env = self.wrap_in_envlogger(
+            env_wrapper, self.log_dir, self.use_envlogger)
         env.reset()
-        
+
         action_dict = self.helper.decode_timeloop_action(self.action_dict)
         _, reward, _, info = env.step(self.action_dict)
 
@@ -966,17 +994,18 @@ class DummyTimeloop():
         # for now, just return the runtime
 
         return obs[0]
-    
+
     def log_fitness_to_csv(self):
         df_traj = pd.DataFrame([self.fitness_hist])
         filename = os.path.join(self.log_dir, self.exp_name + "_traj.csv")
         df_traj.to_csv(filename,
-                  index=False, header=False, mode='a')
-        
+                       index=False, header=False, mode='a')
+
         df_rewards = pd.DataFrame([self.fitness_hist['reward']])
         filename = os.path.join(self.log_dir, self.exp_name + "_rewards.csv")
         df_rewards.to_csv(filename,
-                  index=False, header=False, mode='a')
+                          index=False, header=False, mode='a')
+
 
 class Timeloop_Parallel_Helper():
     def __init__(self, script_dir, output_dir, arch_dir, mapper_dir, workload_dir, target_val, log_dir):
@@ -993,10 +1022,11 @@ class Timeloop_Parallel_Helper():
         for id in range(len(model)):
             # agent_id = "agent_" + str(id)
             action_dicts.append(copy.deepcopy(model[id].action_dict))
-        
+
         action_dicts = np.array(action_dicts)
 
-        env_wrapper = make_timeloop_env(env=self.timeloop_env, multi_agent=True)
+        env_wrapper = make_timeloop_env(
+            env=self.timeloop_env, multi_agent=True)
 
         with envlogger.EnvLogger(env_wrapper,
                                  data_directory=self.log_dir,
@@ -1066,39 +1096,39 @@ class DummyFARSI():
         self.fitness_hist = {}
         self.action_dict = {}
 
-        self.pe_allocation_0         = 0
-        self.pe_allocation_1         = 0
-        self.pe_allocation_2         = 0
-        
-        self.mem_allocation_0        = 0
-        self.mem_allocation_1        = 0
-        self.mem_allocation_2        = 0
-        
-        self.bus_allocation_0        = 0
-        self.bus_allocation_1        = 0
-        self.bus_allocation_2        = 0
-        
-        self.pe_to_bus_connection_0  = 0
-        self.pe_to_bus_connection_1  = 0
-        self.pe_to_bus_connection_2  = 0
-        
+        self.pe_allocation_0 = 0
+        self.pe_allocation_1 = 0
+        self.pe_allocation_2 = 0
+
+        self.mem_allocation_0 = 0
+        self.mem_allocation_1 = 0
+        self.mem_allocation_2 = 0
+
+        self.bus_allocation_0 = 0
+        self.bus_allocation_1 = 0
+        self.bus_allocation_2 = 0
+
+        self.pe_to_bus_connection_0 = 0
+        self.pe_to_bus_connection_1 = 0
+        self.pe_to_bus_connection_2 = 0
+
         self.bus_to_bus_connection_0 = -1
         self.bus_to_bus_connection_1 = -1
         self.bus_to_bus_connection_2 = -1
-         
+
         self.bus_to_mem_connection_0 = -1
         self.bus_to_mem_connection_1 = -1
         self.bus_to_mem_connection_2 = -1
 
-        self.task_to_pe_mapping_0  = 0
-        self.task_to_pe_mapping_1  = 0
-        self.task_to_pe_mapping_2  = 0
-        self.task_to_pe_mapping_3  = 0
-        self.task_to_pe_mapping_4  = 0
-        self.task_to_pe_mapping_5  = 0
-        self.task_to_pe_mapping_6  = 0
-        self.task_to_pe_mapping_7  = 0
-        
+        self.task_to_pe_mapping_0 = 0
+        self.task_to_pe_mapping_1 = 0
+        self.task_to_pe_mapping_2 = 0
+        self.task_to_pe_mapping_3 = 0
+        self.task_to_pe_mapping_4 = 0
+        self.task_to_pe_mapping_5 = 0
+        self.task_to_pe_mapping_6 = 0
+        self.task_to_pe_mapping_7 = 0
+
         self.task_to_mem_mapping_0 = 0
         self.task_to_mem_mapping_1 = 0
         self.task_to_mem_mapping_2 = 0
@@ -1114,35 +1144,42 @@ class DummyFARSI():
         self.reward_formulation = reward_formulation
         self.workload = workload
         self.use_envlogger = use_envlogger
-        self.env = FARSI_sim_wrapper.make_FARSI_sim_env(reward_formulation = self.reward_formulation, workload=self.workload)
+        self.env = FARSI_sim_wrapper.make_FARSI_sim_env(
+            reward_formulation=self.reward_formulation, workload=self.workload)
 
         # Single layer network implementation
         for node in path:
             if hasattr(node, "pe_allocation_0"):
-                self.action_dict["pe_allocation"] = [node.pe_allocation_0, node.pe_allocation_1, node.pe_allocation_2]
-                self.action_dict["mem_allocation"] = [node.mem_allocation_0, node.mem_allocation_1, node.mem_allocation_2] 
-                self.action_dict["bus_allocation"] = [node.bus_allocation_0, node.bus_allocation_1, node.bus_allocation_2]
-                self.action_dict["pe_to_bus_connection"] = [node.pe_to_bus_connection_0, node.pe_to_bus_connection_1,node.pe_to_bus_connection_2,]
-                self.action_dict["bus_to_bus_connection"] = [node.bus_to_bus_connection_0, node.bus_to_bus_connection_1, node.bus_to_bus_connection_2,]
-                self.action_dict["bus_to_mem_connection"] = [node.bus_to_mem_connection_0, node.bus_to_mem_connection_1, node.bus_to_mem_connection_2,]
-                self.action_dict["task_to_pe_mapping"] = [node.task_to_pe_mapping_0, 
-                                                          node.task_to_pe_mapping_1, 
-                                                          node.task_to_pe_mapping_2, 
-                                                          node.task_to_pe_mapping_3, 
-                                                          node.task_to_pe_mapping_4, 
-                                                          node.task_to_pe_mapping_5, 
-                                                          node.task_to_pe_mapping_6, 
-                                                          node.task_to_pe_mapping_7, 
-                                                         ]
-                self.action_dict["task_to_mem_mapping"] = [node.task_to_mem_mapping_0, 
-                                                           node.task_to_mem_mapping_1, 
-                                                           node.task_to_mem_mapping_2, 
-                                                           node.task_to_mem_mapping_3, 
-                                                           node.task_to_mem_mapping_4, 
-                                                           node.task_to_mem_mapping_5, 
-                                                           node.task_to_mem_mapping_6, 
-                                                           node.task_to_mem_mapping_7, 
+                self.action_dict["pe_allocation"] = [
+                    node.pe_allocation_0, node.pe_allocation_1, node.pe_allocation_2]
+                self.action_dict["mem_allocation"] = [
+                    node.mem_allocation_0, node.mem_allocation_1, node.mem_allocation_2]
+                self.action_dict["bus_allocation"] = [
+                    node.bus_allocation_0, node.bus_allocation_1, node.bus_allocation_2]
+                self.action_dict["pe_to_bus_connection"] = [
+                    node.pe_to_bus_connection_0, node.pe_to_bus_connection_1, node.pe_to_bus_connection_2, ]
+                self.action_dict["bus_to_bus_connection"] = [
+                    node.bus_to_bus_connection_0, node.bus_to_bus_connection_1, node.bus_to_bus_connection_2, ]
+                self.action_dict["bus_to_mem_connection"] = [
+                    node.bus_to_mem_connection_0, node.bus_to_mem_connection_1, node.bus_to_mem_connection_2, ]
+                self.action_dict["task_to_pe_mapping"] = [node.task_to_pe_mapping_0,
+                                                          node.task_to_pe_mapping_1,
+                                                          node.task_to_pe_mapping_2,
+                                                          node.task_to_pe_mapping_3,
+                                                          node.task_to_pe_mapping_4,
+                                                          node.task_to_pe_mapping_5,
+                                                          node.task_to_pe_mapping_6,
+                                                          node.task_to_pe_mapping_7,
                                                           ]
+                self.action_dict["task_to_mem_mapping"] = [node.task_to_mem_mapping_0,
+                                                           node.task_to_mem_mapping_1,
+                                                           node.task_to_mem_mapping_2,
+                                                           node.task_to_mem_mapping_3,
+                                                           node.task_to_mem_mapping_4,
+                                                           node.task_to_mem_mapping_5,
+                                                           node.task_to_mem_mapping_6,
+                                                           node.task_to_mem_mapping_7,
+                                                           ]
 
     def wrap_in_envlogger(self, env, envlogger_dir, use_envlogger):
         metadata = {
@@ -1152,15 +1189,15 @@ class DummyFARSI():
         if use_envlogger == True:
             logging.info('Wrapping environment with EnvironmentLogger...')
             env = envlogger.EnvLogger(env,
-                                    data_directory=envlogger_dir,
-                                    max_episodes_per_file=1000,
-                                    metadata=metadata)
+                                      data_directory=envlogger_dir,
+                                      max_episodes_per_file=1000,
+                                      metadata=metadata)
             logging.info('Done wrapping environment with EnvironmentLogger.')
             return env
         else:
             print("Not using envlogger")
             return env
-                
+
     def fit(self, X, y=None):
         '''
         This is the function that is called by the optimizer. ACO by defaul tries to minimize the fitness function.
@@ -1169,19 +1206,22 @@ class DummyFARSI():
 
         FARSI_sim_helper = helpers()
         design_space_mode = "limited"  # ["limited", "comprehensive"]
-        SOC_design_space = FARSI_sim_helper.gen_SOC_design_space(self.env, design_space_mode)
-        encoding_dictionary = FARSI_sim_helper.gen_SOC_encoding(self.env, SOC_design_space)
+        SOC_design_space = FARSI_sim_helper.gen_SOC_design_space(
+            self.env, design_space_mode)
+        encoding_dictionary = FARSI_sim_helper.gen_SOC_encoding(
+            self.env, SOC_design_space)
 
         if self.use_envlogger:
             # check if trajectory directory exists
             if not os.path.exists(self.traject_dir):
                 os.makedirs(self.traject_dir)
-        
+
         # check if log directory exists
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
-        
-        env = self.wrap_in_envlogger(self.env, self.traject_dir, self.use_envlogger)
+
+        env = self.wrap_in_envlogger(
+            self.env, self.traject_dir, self.use_envlogger)
         env.reset()
         '''
         with envlogger.EnvLogger(env_wrapper,
@@ -1193,25 +1233,26 @@ class DummyFARSI():
                                  }, step_fn=step_fn) as env:
             env.reset()
         '''
-         # flatten action_dict into one list
+        # flatten action_dict into one list
         flattened_action = []
         flattened_action.extend(self.action_dict["pe_allocation"])
-        flattened_action.extend(self.action_dict["mem_allocation"]) 
+        flattened_action.extend(self.action_dict["mem_allocation"])
         flattened_action.extend(self.action_dict["bus_allocation"])
         flattened_action.extend(self.action_dict["pe_to_bus_connection"])
         flattened_action.extend(self.action_dict["bus_to_bus_connection"])
         flattened_action.extend(self.action_dict["bus_to_mem_connection"])
         flattened_action.extend(self.action_dict["task_to_pe_mapping"])
         flattened_action.extend(self.action_dict["task_to_mem_mapping"])
-        
-        action = FARSI_sim_helper.action_decoder_FARSI(flattened_action, encoding_dictionary)
+
+        action = FARSI_sim_helper.action_decoder_FARSI(
+            flattened_action, encoding_dictionary)
         _, reward, _, info = env.step(action)
-        
-        action_dict_for_logging={}
+
+        action_dict_for_logging = {}
         for key in action.keys():
             if "encoding" not in key:
                 action_dict_for_logging[key] = action[key]
-                
+
         self.fitness_hist['action_dict'] = action_dict_for_logging
         self.fitness_hist["reward"] = reward.item()
         self.fitness_hist["obs"] = [metric.item() for metric in info]
@@ -1219,19 +1260,17 @@ class DummyFARSI():
         print("Reward: ", reward)
         print("Action Dict: ", self.action_dict)
         print("Info: ", info)
-        
+
         self.log_fitness_to_csv()
         return -1 * reward
-
 
     def log_fitness_to_csv(self):
         df_traj = pd.DataFrame([self.fitness_hist])
         filename = os.path.join(self.log_dir, self.exp_name + "_traj.csv")
         df_traj.to_csv(filename,
-                  index=False, header=False, mode='a')
-        
+                       index=False, header=False, mode='a')
+
         df_rewards = pd.DataFrame([self.fitness_hist['reward']])
         filename = os.path.join(self.log_dir, self.exp_name + "_rewards.csv")
         df_rewards.to_csv(filename,
-                  index=False, header=False, mode='a')
-
+                          index=False, header=False, mode='a')
