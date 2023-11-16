@@ -15,7 +15,6 @@ Nodes:
   ArchParamsNode:
     attributes:
       # network attributes
-      topologyName: ["Hierarchical"]
       topologiesPerDim1: ["Ring", "FullyConnected", "Switch"]
       topologiesPerDim2: ["Ring", "FullyConnected", "Switch"]
       topologiesPerDim3: ["Ring", "FullyConnected", "Switch"]

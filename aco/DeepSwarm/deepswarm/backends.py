@@ -18,6 +18,7 @@ from arch_gym.envs.maestero_wrapper import make_maestro_env
 from arch_gym.envs.AstraSimWrapper import make_astraSim_env
 from arch_gym.envs.SniperEnv import SniperEnv
 from arch_gym.envs.DRAMEnv import DRAMEnv
+from arch_gym.envs.AstraSimEnv import AstraSimEnv
 from arch_gym.envs.envHelpers import helpers
 import json
 import envlogger
@@ -344,7 +345,7 @@ class DummyAstraSim():
     """Dummy placeholder for DRAMSys to do POC"""
 
     def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger):
-        self.env = SniperEnv()
+        self.env = AstraSimEnv()
         self.helper = helpers()
         self.fitness_hist = {}
 
@@ -408,8 +409,6 @@ class DummyAstraSim():
             "hbm-bandwidth": [node.hbmBandwidth1, node.hbmBandwidth2, node.hbmBandwidth3],
             "hbm-scale": [node.hbmScale1, node.hbmScale2, node.hbmScale3]
         }
-
-        # ADD 5 DIMENSIONS + account for dimension variable
 
         for node in path:
             system_knob, network_knob = self.parse_knobs(self.knobs_spec)
