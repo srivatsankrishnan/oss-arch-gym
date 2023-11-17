@@ -74,11 +74,15 @@ def parse_knobs(knobs_spec):
 
 # action_type = specify 'network' or 'system
 # new_params = parsed knobs from experiment file
-def generate_random_actions(dimension, action_dict, system_knob, network_knob):
+def generate_random_actions(action_dict, system_knob, network_knob):
     dicts = [(system_knob, 'system'), (network_knob, 'network')]
+    action_dict['network']["num-dims"] = random.choice(network_knob["num-dims"])
+    action_dict['network']["num-npus"] = random.choice(network_knob["num-npus"])
+
     for dict_type, dict_name in dicts:
         knobs = dict_type.keys()
         knobs.remove("num-dims")
+        knobs.reove("num-npus")
         for knob in dict_type.keys():
             if isinstance(dict_type[knob][0], set):
                 if dict_type[knob][1] == "FALSE":
@@ -91,15 +95,17 @@ def generate_random_actions(dimension, action_dict, system_knob, network_knob):
                     action_dict[dict_name][knob] = random.choice(
                         list(dict_type[knob]))
             else:
-                if dict_type[knob][1] == "FALSE":
+                if knob == "npus-count":
+                    action_dict[dict_name][knob] = random.randint(dict_type[knob][0][0], action_dict['network']['num-npus'])
+                elif dict_type[knob][1] == "FALSE":
                         action_dict[dict_name][knob] = [random.randint(
-                            dict_type[knob][1], dict_type[knob][2])]
+                            dict_type[knob][0][0], dict_type[knob][0][1])]
                 elif dict_type[knob][1] == "TRUE":
-                        choice = random.randint(dict_type[knob][1], dict_type[knob][2])
+                        choice = random.randint(dict_type[knob][0][0], dict_type[knob][0][1])
                         action_dict[dict_name][knob] = [choice for _ in range(dimension)]
                 else:
                     action_dict[dict_name][knob] = random.randint(
-                        dict_type[knob][1], dict_type[knob][2])
+                        dict_type[knob][0][0], dict_type[knob][0][1])
 
     return action_dict
 
@@ -208,8 +214,7 @@ def main(_):
 
         for step in range(FLAGS.num_steps):
             # pass into generate_random_actions(dimension, knobs)
-            action_dict = generate_random_actions(
-                action_dict['network']['num-dims'], action_dict, system_knob, network_knob)
+            action_dict = generate_random_actions(action_dict, system_knob, network_knob)
 
             # with open("general_workload.txt", 'w') as file:
             #     file.write(action["workload"]["value"])

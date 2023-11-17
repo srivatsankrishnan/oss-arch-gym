@@ -228,6 +228,12 @@ class AstraSimEnv(gym.Env):
             print("Maximum steps reached")
             self.reset()
 
+        # test if product of npu count <= number of npus
+        if np.prod(action_dict["network"]["npus-count"]) > action_dict["network"]["num-npus"]:
+            # set reward to be extremely negative
+            reward = float("-inf")
+            print("reward: ", reward)
+            return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
 
         # test if the csv files exist (if they don't, the config files are invalid)
         if ((len(backend_dim_info) == 0 or len(backend_end_to_end) == 0 or
