@@ -44,28 +44,28 @@ elif [ "$simulator"  == 'farsi' ]; then
 
     git submodule update --init Project_FARSI
 
-    echo "Submodule Project_FARSI has been created!"
+    echo "---Submodule Project_FARSI has been created!---"
 
-    cd Project_FARSI
+    cd Project_FARSI && git clone https://github.com/zaddan/cacti_for_FARSI.git && cd ..
 
-    git clone https://github.com/zaddan/cacti_for_FARSI.git
-
-    echo "Downloaded cacti_for_FARSI"
+    echo "---Downloaded cacti_for_FARSI---"
     
-    cd ..
 
     #Use the environment_FARSI.yml file to update the conda env dependencies
-    ####echo "Updating the conda env with additional dependencies for FARSI"
-    ####cd sims/FARSI_sim && conda env update -f environment_FARSI.yml && cd ../..
+    echo "---Updating the conda env with additional dependencies for FARSI---"
+    cd sims/FARSI_sim && conda env update -f environment_FARSI.yml && cd ../..
 
     sudo apt update && sudo apt install -y build-essential && cd Project_FARSI/cacti_for_FARSI && make clean && make
 
     cd ../..
 
-    ####cd acme && pip install .[jax,tf,testing,envs]
+    echo "---INSTALLING ACME: ---"
 
-    sudo apt-get update && sudo apt-get -y install libgmp-dev 
-    ####pip install scikit-optimize
+    cd acme && pip install .[jax,tf,testing,envs] && cd ..
+
+    echo "---ACME installation completed!---"
+
+    sudo apt-get update && sudo apt-get -y install libgmp-dev && pip install scikit-optimize
 
 else
     echo "Invalid simulator choice. Please specify 'cfu' or 'farsi'."
