@@ -4,7 +4,7 @@ import json
 from typing import Optional
 
 os.sys.path.insert(0, os.path.abspath('../../'))
-from configs import arch_gym_configs
+#from configs import arch_gym_configs
 os.sys.path.insert(0, os.path.abspath('../../acme'))
 print(os.sys.path)
 import envlogger
@@ -99,7 +99,8 @@ def wrap_in_envlogger(env, envlogger_dir):
 
 def _logger_factory(logger_label: str, steps_key: Optional[str] = None, task_instance: Optional[int]=0) -> base.Logger:
   """logger factory."""
-  os.chdir('/workdir/arch-gym/sims/FARSI_sim')
+  root_dir = os.getcwd()
+  os.chdir(root_dir)
   _EXP_NAME = get_directory_name()
   if logger_label == 'actor':
       terminal_logger = TerminalLogger(label=logger_label, print_fn=logging.info)
