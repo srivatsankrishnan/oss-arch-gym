@@ -1,10 +1,17 @@
 # FARSI Simulator Documentation
 
-#### Make sure to do the following beforehand: 
+##### 1. Clone ArchGym Repository and Create Conda Environment
+```
+git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
+conda env create -f oss-arch-gym/environment.yml
+conda activate arch-gym
+```
 
-1. Clone the oss-arch-gym repository.
-2. Complete the set up of vizier.
-3. Activate the "arch-gym" conda environment
+##### 2. Install Vizier for Collection of Agents
+From the repository root `oss-arch-gym` run:
+```
+./install_sim.sh viz
+```
 
 ## Installing FARSI simulator
 The below commands are to replace the existing Project_FARSI folder with its latest version as a submodule. The shell script also updates the conda environment dependencies required for FARSI, and installs ACME framework for reinforcement learning.
@@ -18,7 +25,7 @@ git rm -r --cached Project_FARSI
 ```
 Type "farsi" as the answer (in the terminal) to ```"Which simulator (cfu,farsi) do you want to use (cfu, viz, farsi)?"```
 
-Replace the content of ```Project_FARSI/settings/config_cacti.py``` file with this:
+Replace the content of `Project_FARSI/settings/config_cacti.py` file with this:
 
 ```
 import os
@@ -41,7 +48,7 @@ print(cacti_data_log_file, os.path.exists(cacti_data_log_file))
 
 ```
 
-In ```Project_FARSI/settings/config.py```, replace the following line (line 276):
+In `Project_FARSI/settings/config.py`, replace the following line (line 276):
 ```
 database_data_dir = os.path.join(home_dir, "specs", "database_data")
 ```
