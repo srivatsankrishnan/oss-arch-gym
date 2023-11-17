@@ -1,7 +1,7 @@
 from sklearn.base import BaseEstimator, ClassifierMixin
 import os
 os.sys.path.insert(0, os.path.abspath('/../'))
-from configs import arch_gym_configs
+#from configs import arch_gym_configs
 import json
 from arch_gym.envs.envHelpers import helpers
 from arch_gym.envs import FARSI_sim_wrapper
@@ -142,8 +142,9 @@ class FARSIEnvEstimator(BaseEstimator):
         reward = 0
         self.fitness_hist = {}
 
-        # read from the config file
-        os.chdir("/workdir/arch-gym/sims/FARSI_sim")
+# read from the config file
+        root_dir = os.getcwd()
+        os.chdir(root_dir)
         config = configparser.ConfigParser()
         config.read("exp_config.ini")
         # read the all the parameters from exp_config.ini
@@ -155,7 +156,7 @@ class FARSIEnvEstimator(BaseEstimator):
         use_envlogger = config.get("experiment_configuration", "use_envlogger")
         
         env_wrapper = FARSI_sim_wrapper.make_FARSI_sim_env(reward_formulation = reward_formulation, workload=workload)
-        os.chdir("/workdir/arch-gym/sims/FARSI_sim")
+        os.chdir(root_dir)
         FARSI_sim_helper = helpers()
         design_space_mode = "limited"  # ["limited", "comprehensive"]
         SOC_design_space = FARSI_sim_helper.gen_SOC_design_space(env_wrapper, design_space_mode)
