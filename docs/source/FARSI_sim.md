@@ -1,7 +1,7 @@
 # FARSI Simulator Documentation
 
 ##### 1. Clone ArchGym Repository and Create Conda Environment
-Do the following steps from the location where you want the Archgym repo to be cloned:
+Do these steps from the location where you intend to clone the ArchGym repository:
 ```
 git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
 conda env create -f oss-arch-gym/environment.yml
@@ -15,7 +15,7 @@ From the repository root `oss-arch-gym` run:
 ```
 
 ##### 3. Installing FARSI simulator
-The below commands are to replace the existing Project_FARSI folder with its latest version as a submodule. The shell script also updates the conda environment dependencies required for FARSI, and installs ACME framework for reinforcement learning.
+* The below commands are to replace the existing Project_FARSI folder with its latest version as a submodule. The shell script also updates the conda environment dependencies required for FARSI, and installs ACME framework for reinforcement learning.
 
 (Note: the script takes a while to run): 
 ```
@@ -25,7 +25,7 @@ git rm -r --cached Project_FARSI
 ./install_sim.sh farsi
 ```
 
-Replace the content of `Project_FARSI/settings/config_cacti.py` file with this:
+* Replace the content of `Project_FARSI/settings/config_cacti.py` file with this:
 
 ```
 import os
@@ -48,7 +48,7 @@ print(cacti_data_log_file, os.path.exists(cacti_data_log_file))
 
 ```
 
-In `Project_FARSI/settings/config.py`, replace the following line (line 276):
+* In `Project_FARSI/settings/config.py`, replace the following line (line 276):
 ```
 database_data_dir = os.path.join(home_dir, "specs", "database_data")
 ```
