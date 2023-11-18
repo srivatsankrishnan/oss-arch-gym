@@ -52,7 +52,7 @@ print(cacti_data_log_file, os.path.exists(cacti_data_log_file))
 ```
 database_data_dir = os.path.join(home_dir, "specs", "database_data")
 ```
-with this:
+* with this:
 ```
 database_data_dir = os.path.join(home_dir, "oss-arch-gym", "Project_FARSI", "specs", "database_data")
 ```
