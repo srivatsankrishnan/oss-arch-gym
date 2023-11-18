@@ -13,7 +13,7 @@ From the repository root `oss-arch-gym` run:
 ./install_sim.sh viz
 ```
 
-## Installing FARSI simulator
+##### 3. Installing FARSI simulator
 The below commands are to replace the existing Project_FARSI folder with its latest version as a submodule. The shell script also updates the conda environment dependencies required for FARSI, and installs ACME framework for reinforcement learning.
 
 (Note: the script takes a while to run): 
@@ -21,9 +21,8 @@ The below commands are to replace the existing Project_FARSI folder with its lat
 cd oss-arch-gym/
 rm -r Project_FARSI
 git rm -r --cached Project_FARSI
-./install_sim.sh
+./install_sim.sh farsi
 ```
-Type "farsi" as the answer (in the terminal) to ```"Which simulator (cfu,farsi) do you want to use (cfu, viz, farsi)?"```
 
 Replace the content of `Project_FARSI/settings/config_cacti.py` file with this:
 
