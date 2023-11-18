@@ -1,12 +1,7 @@
-#!/bin/bash
-
-# FARSI SIMULATOR SHOULD BE RUN AFTER SETTING UP VIZIER.
-
-echo "Which simulator (cfu,farsi) do you want to use (cfu, viz, farsi)?"
-read simulator
+#/bin/sh
 
 #install cfu-playground submodule
-if [ "$simulator"  == 'cfu' ]; then
+if [ $1  == 'cfu' ]; then
     git submodule update --init sims/CFU-Playground/CFU-Playground
 
     cd sims/CFU-Playground/CFU-Playground
@@ -14,11 +9,12 @@ if [ "$simulator"  == 'cfu' ]; then
     ./scripts/setup_vexriscv_build.sh
     ./scripts/setup
     make install-sf
+fi
 
 #install vizier in arch-gym conda environment
 #Assumes user is in the arch-gym conda environment
 
-elif [ "$simulator" == 'viz' ]; then
+if [ $1 == 'viz' ]; then
 
     git clone https://github.com/ShvetankPrakash/vizier.git
     cd vizier
@@ -32,11 +28,11 @@ elif [ "$simulator" == 'viz' ]; then
 
     pip install -r requirements-algorithms.txt
     pip install -r requirements-benchmarks.txt
-
+fi
 
 #install Project_FARSI submodule
 
-elif [ "$simulator"  == 'farsi' ]; then
+if [ $1  == 'farsi' ]; then
 
     # first, delete the current Project_FARSI folder if any
 
@@ -67,6 +63,4 @@ elif [ "$simulator"  == 'farsi' ]; then
 
     sudo apt-get update && sudo apt-get -y install libgmp-dev && pip install scikit-optimize
 
-else
-    echo "Invalid simulator choice. Please specify 'cfu' or 'farsi'."
 fi
