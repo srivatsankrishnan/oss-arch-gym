@@ -1,6 +1,7 @@
 # FARSI Simulator Documentation
 
 ##### 1. Clone ArchGym Repository and Create Conda Environment
+Do the following steps from the location where you want the Archgym repo to be cloned:
 ```
 git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
 conda env create -f oss-arch-gym/environment.yml
