@@ -61,7 +61,7 @@ jax_requirements = [
     'jax==0.4.1',  # Update when TF2.9 is release.
     'jaxlib==0.4.1',  # Update when TF2.9 is release.
     'dm-haiku==0.0.10',
-    'flax',
+    #'flax',
     'optax',
     'rlax',
 ] + tensorflow
