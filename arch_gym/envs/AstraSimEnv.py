@@ -15,18 +15,21 @@ settings_dir_path = os.path.dirname(settings_file_path)
 proj_root_path = os.path.join(settings_dir_path, '..', '..')
 
 sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
+knobs_spec = os.path.join(archgen_v1_knobs, "themis_knobs_spec.py")
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):
     def __init__(self, rl_form="sa1", max_steps=5, num_agents=1, reward_formulation="None", reward_scaling=1,):
         self.rl_form = rl_form
-
+        self.helpers = helpers()
+        system_knobs, network_knobs, workload_knobs = self.helpers.parse_knobs_astrasim(knobs_spec)
+        param_len = len(system_knobs) + len(network_knobs) + len(workload_knobs)
+         
         if self.rl_form == 'sa1':
             # action space = set of all possible actions. Space.sample() returns a random action
             # observation space =  set of all possible observations
             self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32) # box is an array of shape len
-            self.action_space = gym.spaces.Box(low=0, high=1, shape=(4,), dtype=np.float32)
-            self.helpers = helpers()
+            self.action_space = gym.spaces.Box(low=0, high=1, shape=(param_len,), dtype=np.float32)
 
         else:
             self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
@@ -244,7 +247,6 @@ class AstraSimEnv(gym.Env):
             print("reward: ", reward)
             return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
         else:
-            # only recording the first line because apparently they are all the same? TODO
             observations = [
                 float(backend_end_to_end["CommsTime"][0])
                 # end_to_end["fwd compute"][0],

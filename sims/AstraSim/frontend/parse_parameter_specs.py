@@ -31,7 +31,7 @@ def parse_csv_to_knobs(input_csv):
                 print(parameter, eval(range), samePerDimension)
                 current_knob_dict[parameter] = (eval(range), samePerDimension)
 
-    return system_knobs, network_knobs
+    return system_knobs, network_knobs, workload_knobs
 
 
 input_csv_file = 'parameter_specs.csv'
@@ -42,7 +42,7 @@ proj_root_path = os.path.abspath(settings_dir_path)
 
 parameter_specs = os.path.join(proj_root_path, input_csv_file)
 
-SYSTEM_KNOBS, NETWORK_KNOBS = parse_csv_to_knobs(parameter_specs)
+SYSTEM_KNOBS, NETWORK_KNOBS, WORKLOAD_KNOBS = parse_csv_to_knobs(parameter_specs)
 
 # write system_knobs and network_knobs to a separate python file, as dicts
 with open('parameter_knobs.py', 'w') as knobs_file:
@@ -51,8 +51,12 @@ with open('parameter_knobs.py', 'w') as knobs_file:
     knobs_file.write("\n")
     knobs_file.write("NETWORK_KNOBS = ")
     knobs_file.write(str(NETWORK_KNOBS))
+    knobs_file.write("\n")
+    knobs_file.write("WORKLOAD_KNOBS = ")
 
 print("SYSTEM_KNOBS:")
 print(SYSTEM_KNOBS)
 print("\nNETWORK_KNOBS:")
 print(NETWORK_KNOBS)
+print("\nWORKLOAD_KNOBS:")
+print(WORKLOAD_KNOBS)

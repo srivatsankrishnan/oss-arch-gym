@@ -777,33 +777,99 @@ class helpers():
         return act_decoded
 
     
-    def action_decoder_ga_astraSim(self, act_encoded):
-        """
-        "scheduling-policy": {"FIFO", "LIFO"},
-        "collective-optimization": {"localBWAware", "baseline"},
-        "intra-dimension-scheduling": {"FIFO", "SCF"},
-        "inter-dimension-scheduling": {"baseline", "themis"}
-        """
-        act_decoded = {"network": {}, "system": {}}
-        # Network decoding
-        topologyName_mapper = {0:"Hierarchical"}
-        topologiesPerDim_mapper = {0:"Ring", 1:"FullyConnected", 2:"Switch"}
-        dimensionType_mapper = {0:"N", 1:"P", 2:"T"}
+    def action_decoder_ga_astraSim(self, act_encoded, system_knob, network_knob, workload_knob, dimension):
+        act_decoded = {}
+        dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
 
-        # System decoding
-        implementation_mapper = {0: "Ring", 1: "direct", 2: "doubleBinaryTree", 3: "oneRing", 4: "oneDirect"}
-        schedulePolicy_mapper = {0: "LIFO", 1: "FIFO"}
-        collectiveOptimization_mapper = {0: "baseline", 1: "localBWAware"}
-        intraDimension_mapper = {0: "FIFO", 1: "SCF"}
-        interDimension_mapper = {0: "baseline", 1: "themis"}
-
-        # Modified system parameters
-        act_decoded["system"]["scheduling-policy"] = schedulePolicy_mapper[int(round(act_encoded[0]))]
-        act_decoded["system"]["collective-optimization"] = collectiveOptimization_mapper[int(round(act_encoded[1]))]
-        act_decoded["system"]["intra-dimension-scheduling"] = intraDimension_mapper[int(round(act_encoded[2]))]
-        act_decoded["system"]["inter-dimension-scheduling"] = interDimension_mapper[int(round(act_encoded[3]))]
+        counter = 0
+        for dict_type, dict_name in dicts:
+            knobs = dict_type.keys()
+            for knob in knobs:
+                if isinstance(dict_type[knob][0], set):
+                    if dict_type[knob][1] == "FALSE":
+                        act_decoded[dict_name][knob] = [list(dict_type[knob][0])[i]
+                            for i in act_encoded[counter : counter + dimension]]
+                        counter += dimension
+                    elif dict_type[knob][1] == "TRUE":
+                        i = act_encoded[counter]
+                        act_decoded[dict_name][knob] = [list(dict_type[knob][0])[i] for _ in range(dimension)]
+                        counter += 1
+                    else:
+                        i = act_encoded[counter]
+                        act_decoded[dict_name][knob] = list(dict_type[knob][0])[i]
+                        counter += 1
+                else:
+                    if dict_type[knob][1] == "FALSE":
+                        act_decoded[dict_name][knob] = act_encoded[counter : counter + dimension]
+                        counter += dimension
+                    elif dict_type[knob][1] == "TRUE":
+                        act_decoded[dict_name][knob] = [act_encoded[counter] for _ in range(dimension)]
+                        counter += 1
+                    else:
+                        act_decoded[dict_name][knob] = act_encoded[counter]
+                        counter += 1
 
         return act_decoded
+
+    # network: parses the network file
+    def parse_network_astrasim(network_file, action_dict, version):
+        action_dict['network'] = {}
+        if version == 1:
+            with open(network_file) as f:
+                network = json.load(f)
+
+                for key in network.keys():
+                    action_dict['network'][key] = network[key]
+        else:
+            # parse yaml file
+            pass
+        return action_dict['network']
+
+
+    # system: parses the system file
+    def parse_system_astrasim(system_file, action_dict, version):
+        action_dict['system'] = {}
+        if version == 1:
+            with open(system_file, 'r') as file:
+                lines = file.readlines()
+
+                for line in lines:
+                    key, value = line.strip().split(': ')
+                    action_dict['system'][key] = value
+        else:
+            # parse yaml file
+            pass
+        return action_dict['system']
+
+    # workload: parses the workload file
+    def parse_workload_astrasim(workload_file, action_dict, version):
+        action_dict['workload'] = {}
+        if version == 1:
+            pass
+        else:
+            # use symbolic tensor graph generator
+            pass
+        return action_dict['workload']
+
+    # parses knobs that we want to experiment with
+    def parse_knobs_astrasim(knobs_spec):
+        SYSTEM_KNOBS = {}
+        NETWORK_KNOBS = {}
+        WORKLOAD_KNOBS = {}
+
+        with open(knobs_spec, 'r') as file:
+            file_contents = file.read()
+            parsed_dicts = {}
+
+            # Evaluate the file contents and store the dictionaries in the parsed_dicts dictionary
+            exec(file_contents, parsed_dicts)
+
+            # Access the dictionaries
+            SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
+            NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
+            WORKLOAD_KNOBS = parsed_dicts['WORKLOAD_KNOBS']
+        
+        return SYSTEM_KNOBS, NETWORK_KNOBS, WORKLOAD_KNOBS
 
 
     def random_walk(self):

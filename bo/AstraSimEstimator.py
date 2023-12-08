@@ -83,6 +83,14 @@ class AstraSimEstimator(BaseEstimator):
                 key, value = line.strip().split(': ')
                 action_dict['system'][key] = value
 
+    def parse_network(network_file, action_dict):
+    action_dict['network'] = {}
+    with open(network_file) as f:
+        network = json.load(f)
+
+        for key in network.keys():
+            action_dict['network'][key] = network[key]
+
         
     def wrap_in_envlogger(self, env, envlogger_dir, use_envlogger):
         metadata = {
@@ -146,8 +154,8 @@ class AstraSimEstimator(BaseEstimator):
         # action_list = []
 
         actual_action = {}
-        actual_action['network'] = {"path": self.network_file}
         actual_action['workload'] = {"path": self.workload_file}
+        self.parse_network(self.network_file, actual_action)
         self.parse_system(self.system_file, actual_action)
 
         actual_action["system"]["scheduling-policy"] = self.action_dict["scheduling_policy"]

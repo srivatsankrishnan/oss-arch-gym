@@ -19,7 +19,6 @@ os.sys.path.insert(0, os.path.abspath('../../arch_gym'))
 
 
 # define workload in run_general.sh
-
 flags.DEFINE_string('workload', 'resnet18', 'Which AstraSim workload to run?')
 flags.DEFINE_integer('num_steps', 50, 'Number of training steps.')
 flags.DEFINE_integer('num_episodes', 1, 'Number of training episodes.')
@@ -32,74 +31,37 @@ flags.DEFINE_string('reward_formulation', 'latency',
                     'Which reward formulation to use?')
 FLAGS = flags.FLAGS
 
-# network: parses the network file
-def parse_network(network_file, action_dict):
-    action_dict['network'] = {}
-    with open(network_file) as f:
-        network = json.load(f)
-
-        for key in network.keys():
-            action_dict['network'][key] = network[key]
-
-
-# systems: parse from file into json into generate_random_actions
-def parse_system(system_file, action_dict):
-    action_dict['system'] = {}
-    with open(system_file, 'r') as file:
-        lines = file.readlines()
-
-        for line in lines:
-            key, value = line.strip().split(': ')
-            action_dict['system'][key] = value
-
-
-# parses knobs that we want to experiment with
-def parse_knobs(knobs_spec):
-    SYSTEM_KNOBS = {}
-    NETWORK_KNOBS = {}
-
-    with open(knobs_spec, 'r') as file:
-        file_contents = file.read()
-        parsed_dicts = {}
-
-        # Evaluate the file contents and store the dictionaries in the parsed_dicts dictionary
-        exec(file_contents, parsed_dicts)
-
-        # Access the dictionaries
-        SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
-        NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
-
-    return SYSTEM_KNOBS, NETWORK_KNOBS
-
+# define AstraSim version
+VERSION = 1
 
 # action_type = specify 'network' or 'system
 # new_params = parsed knobs from experiment file
 def generate_random_actions(action_dict, system_knob, network_knob):
-    dicts = [(system_knob, 'system'), (network_knob, 'network')]
-    action_dict['network']["num-dims"] = random.choice(network_knob["num-dims"])
-    action_dict['network']["num-npus"] = random.choice(network_knob["num-npus"])
+    dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
+    if "num-dims" in system_knob.keys():
+        action_dict['network']["num-dims"] = random.choice(network_knob["num-dims"])
+        dimension = action_dict['network']["num-dims"]
+        system_knob.remove("num-dims")
+    else:
+        dimension = action_dict['network']["num-dims"]
 
     for dict_type, dict_name in dicts:
         knobs = dict_type.keys()
-        knobs.remove("num-dims")
-        knobs.reove("num-npus")
-        for knob in dict_type.keys():
+        for knob in knobs:
             if isinstance(dict_type[knob][0], set):
                 if dict_type[knob][1] == "FALSE":
                         action_dict[dict_name][knob] = [random.choice(
-                            list(dict_type[knob])) for _ in range(dimension)]
+                            list(dict_type[knob][0])) for _ in range(dimension)]
                 elif dict_type[knob][1] == "TRUE":
-                        choice = random.choice(list(dict_type[knob]))
+                        choice = random.choice(list(dict_type[knob][0]))
                         action_dict[dict_name][knob] = [choice for _ in range(dimension)]
                 else:
                     action_dict[dict_name][knob] = random.choice(
                         list(dict_type[knob]))
             else:
-                if knob == "npus-count":
-                    action_dict[dict_name][knob] = random.randint(dict_type[knob][0][0], action_dict['network']['num-npus'])
-                elif dict_type[knob][1] == "FALSE":
+                if dict_type[knob][1] == "FALSE":
                         action_dict[dict_name][knob] = [random.randint(
-                            dict_type[knob][0][0], dict_type[knob][0][1])]
+                            dict_type[knob][0][0], dict_type[knob][0][1]) for _ in range(dimension)]
                 elif dict_type[knob][1] == "TRUE":
                         choice = random.randint(dict_type[knob][0][0], dict_type[knob][0][1])
                         action_dict[dict_name][knob] = [choice for _ in range(dimension)]
@@ -161,7 +123,7 @@ def main(_):
     network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
     system_file = os.path.join(
         systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
-    workload_file = "all_reduce/allreduce_0.65.txt"
+    workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
 
     exe_path = os.path.join(proj_root_path, "run_general.sh")
     network_config = os.path.join(proj_root_path, "general_network.json")
@@ -200,12 +162,12 @@ def main(_):
     # if path exists, use path, else parse the sub-dict
     action_dict['workload'] = {"path": workload_file}
 
-    # TODO: parse system and network
-    parse_system(system_file, action_dict)
-    parse_network(network_file, action_dict)
+    # parse system and network
+    action_dict['system'] = astrasim_helper.parse_system_astrasim(system_file, action_dict, VERSION)
+    action_dict['network'] = astrasim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
 
-    # TODO: parse knobs (all variables to change in action_dict)
-    system_knob, network_knob = parse_knobs(knobs_spec)
+    # parse knobs
+    system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
 
     best_reward, best_observation, best_actions = 0.0, 0.0, {}
 

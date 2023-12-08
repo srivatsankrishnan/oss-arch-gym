@@ -7,7 +7,7 @@ SCRIPT_DIR=$(dirname "$(realpath $0)")
 BINARY="${SCRIPT_DIR:?}"/astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra
 SYSTEM="${SCRIPT_DIR:?}"/general_system.txt
 NETWORK="${SCRIPT_DIR:?}"/general_networks.json
-WORKLOAD="${SCRIPT_DIR:?}"/astrasim-archgym/themis/inputs/workload/$3
+WORKLOAD="${SCRIPT_DIR:?}"/general_workload.txt
 
 echo "SH NETWORK: ${NETWORK}"
 echo "SH SYSTEM: ${SYSTEM}"

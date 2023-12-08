@@ -32,6 +32,9 @@ flags.DEFINE_bool('use_envlogger', True, 'Whether to use envlogger.')
 
 FLAGS = flags.FLAGS
 
+# define AstraSim version
+VERSION = 1
+
 def generate_run_directories():
     # Construct the exp name from seed and num_iter
     exp_name = FLAGS.workload + "_num_iter_" + str(FLAGS.num_steps) + "_num_agents_" + str(FLAGS.num_agents) + "_prob_mut_" + str(FLAGS.prob_mutation)
@@ -77,22 +80,17 @@ def AstraSim_optimization_function(p):
     proj_root_path = os.path.abspath(settings_dir_path)
 
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
-
-    # TODO: V1 SPEC:
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
     knobs_spec = os.path.join(archgen_v1_knobs, "themis_knobs_spec.py")
-    networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
+
+    networks_folder = os.path.join(astrasim_archgym, "themis/inputs/network")
     systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
     # DEFINE NETWORK AND SYSTEM AND WORKLOAD
-    network_file = "4d_ring_fc_ring_switch.json"
+    network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
     system_file = os.path.join(systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
-    workload_file = "all_reduce/allreduce_0.65.txt"
-
-    # parse knobs
-    system_knob, network_knob = parse_knobs(knobs_spec)
-
+    workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
     
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
     fitness_hist = {}
@@ -114,15 +112,16 @@ def AstraSim_optimization_function(p):
     env.reset()
 
     # decode the actions
+    system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
 
     action_dict = {}
-    action_dict['network'] = {"path": network_file}
     action_dict['workload'] = {"path": workload_file}
     
-    # parse system
-    parse_system(system_file, action_dict)
+    # parse system and network
+    action_dict['system'] = astraSim_helper.parse_system_astrasim(system_file, action_dict, VERSION)
+    action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
 
-    action_dict_decoded = astraSim_helper.action_decoder_ga_astraSim(p)
+    action_dict_decoded = astraSim_helper.action_decoder_ga_astraSim(p, system_knob, network_knob, workload_knob, dimension)
     
     # change all variables decoded into action_dict
     for sect in action_dict_decoded:
@@ -150,42 +149,59 @@ def AstraSim_optimization_function(p):
     
     return -1 * reward
 
+def generate_bounds(action_dict, knobs_spec):
+    # parse knobs
+    system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
+    dicts = [system_knob, network_knob, workload_knob]
 
-def parse_system(system_file, action_dict):
-    # parse system_file (above is the content) into dict
-    action_dict['system'] = {}
-    with open(system_file, 'r') as file:
-        lines = file.readlines()
+    # ASSUMES dimension is specified by input files (otherwise randomized)
+    if "num-dims" in system_knob.keys():
+        action_dict['network']["num-dims"] = random.choice(network_knob["num-dims"])
+        dimension = action_dict['network']["num-dims"]
+        system_knob.remove("num-dims")
+    else:
+        dimension = action_dict['network']["num-dims"]
 
-        for line in lines:
-            key, value = line.strip().split(': ')
-            action_dict['system'][key] = value
+    # initialize lower and upper bounds and precision
+    lb, ub, precision = [], [], []
+    for dict_type in dicts:
+        knobs = dict_type.keys()
+        for knob in knobs:
+            if isinstance(dict_type[knob][0], set):
+                if dict_type[knob][1] == "FALSE":
+                    lb += [0] * dimension
+                    ub += [len(dict_type[knob][0])-1] * dimension
+                    precision += [1] * dimension
+                else:
+                    lb += [0]
+                    ub += [len(dict_type[knob][0])-1]
+                    precision += [1]
+            else:
+                if dict_type[knob][1] == "FALSE":
+                    lb += [dict_type[knob][0][0]] * dimension
+                    ub += [dict_type[knob][0][1]] * dimension
+                    precision += [dict_type[knob][0][2]] * dimension 
+                else:
+                    lb += [dict_type[knob][0][0]]
+                    ub += [dict_type[knob][0][1]]
+                    precision += [dict_type[knob][0][2]]
 
-
-# parses knobs that we want to experiment with
-def parse_knobs(knobs_spec):
-    SYSTEM_KNOBS = {}
-    NETWORK_KNOBS = {}
-
-    with open(knobs_spec, 'r') as file:
-        file_contents = file.read()
-        parsed_dicts = {}
-
-        # Evaluate the file contents and store the dictionaries in the parsed_dicts dictionary
-        exec(file_contents, parsed_dicts)
-
-        # Access the dictionaries
-        SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
-        NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
-    
-    return SYSTEM_KNOBS, NETWORK_KNOBS
+    return lb, ub, precision
 
 
 def main(_):
     
-    
     workload = FLAGS.workload
     layer_id = FLAGS.layer_id
+
+    settings_file_path = os.path.realpath(__file__)
+    settings_dir_path = os.path.dirname(settings_file_path)
+    proj_root_path = os.path.abspath(settings_dir_path)
+
+    astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
+    archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
+    knobs_spec = os.path.join(archgen_v1_knobs, "themis_knobs_spec.py")
+    lower_bound, upper_bound, precision = generate_bounds(knobs_spec)
 
     # encoding format: bounds have same order as modified parameters file
     ga = GA(
@@ -194,9 +210,9 @@ def main(_):
         size_pop=FLAGS.num_agents,
         max_iter=FLAGS.num_steps,
         prob_mut=FLAGS.prob_mutation,
-        lb=[0, 0, 0, 0], 
-        ub=[1, 1, 1, 1],
-        precision=[1, 1, 1, 1],
+        lb=lower_bound, 
+        ub=upper_bound,
+        precision=precision,
     )
 
     """
