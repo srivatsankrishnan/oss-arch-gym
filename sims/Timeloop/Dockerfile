@@ -30,7 +30,7 @@ RUN touch /home/workspace/.nointro
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 
 #RUN conda install
-RUN git clone --recursive https://srivatsankrishnan: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@github.com/srivatsankrishnan/arch-gym.git
+RUN git clone --recursive https://github.com/srivatsankrishnan/oss-arch-gym.git
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 RUN cd arch-gym && conda env create -f environment.yml
 RUN apt-get update && apt-get -y install libgmp-dev gcc g++
