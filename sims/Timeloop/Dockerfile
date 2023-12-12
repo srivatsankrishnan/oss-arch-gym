@@ -1,10 +1,5 @@
 FROM nelliewu/accelergy-timeloop-infrastructure:latest AS builder
-#
-# Main image
-#
 FROM timeloopaccelergy/accelergy-timeloop-infrastructure:latest
-
-RUN if ! id 1000; then useradd -m -u 1000 clouduser; fi
 
 # Install the base utilities
 RUN apt-get update -y \
@@ -40,8 +35,8 @@ RUN echo "conda activate arch-gym" >> ~/.bashrc
 SHELL ["conda", "run", "-n", "arch-gym", "/bin/bash", "--login", "-c"]
 
 RUN cd oss-arch-gym/acme && pip install .[tf,testing,envs,jax]
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin/conda/envs/arch-gym/lib
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin/conda/envs/arch-gym/lib/
 RUN echo $LD_LIBRARY_PATH
 
-ENTRYPOINT ["conda", "run", "-n", "arch-gym", "python", "/home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/arch-gym/sims/Timeloop/launch_gcp.py"]
+ENTRYPOINT ["conda", "run", "-n", "arch-gym", "python", "/home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/sims/Timeloop/launch_gcp.py"]
 
