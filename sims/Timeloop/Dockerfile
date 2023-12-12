@@ -1,18 +1,26 @@
-# start with miniconda image
-FROM continuumio/miniconda3
-
-RUN if ! id 1000; then useradd -m -u 1000 clouduser; fi
-
 FROM nelliewu/accelergy-timeloop-infrastructure:latest AS builder
 #
 # Main image
 #
 FROM timeloopaccelergy/accelergy-timeloop-infrastructure:latest
 
+RUN if ! id 1000; then useradd -m -u 1000 clouduser; fi
 
-RUN apt-get update -y
-RUN apt-get install -y less
+# Install the base utilities
+RUN apt-get update -y \
+    && apt-get install -y less \
+    && apt-get install -y build-essential \
+    && apt-get install -y wget \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
+# Install miniconda
+ENV conda /opt/conda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    /bin/bash ~/miniconda.sh -b -p /opt/conda
+
+# Put conda on the path
+ENV PATH=$CONDA_DIR/bin:$PATH
 
 RUN cp -r /usr/local/src .
 WORKDIR /home/workspace/src
@@ -22,7 +30,6 @@ RUN touch /home/workspace/.nointro
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 
 #RUN conda install
-
 RUN git clone --recursive https://srivatsankrishnan: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@github.com/srivatsankrishnan/arch-gym.git
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 RUN cd arch-gym && conda env create -f environment.yml
