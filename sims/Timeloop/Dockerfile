@@ -32,14 +32,14 @@ RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 #RUN conda install
 RUN git clone --recursive https://github.com/srivatsankrishnan/oss-arch-gym.git
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
-RUN cd arch-gym && conda env create -f environment.yml
+RUN cd oss-arch-gym && conda env create -f environment.yml
 RUN apt-get update && apt-get -y install libgmp-dev gcc g++
   
 # Make RUN commands use the new environment:
 RUN echo "conda activate arch-gym" >> ~/.bashrc
 SHELL ["conda", "run", "-n", "arch-gym", "/bin/bash", "--login", "-c"]
 
-RUN cd arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install envlogger[tfds] && cd ../ && pip install -e . && pip install absl-py && pip install scikit-optimize
+RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install envlogger[tfds] && cd ../ && pip install -e . && pip install absl-py && pip install scikit-optimize
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin/conda/envs/arch-gym/lib
 RUN echo $LD_LIBRARY_PATH
 
