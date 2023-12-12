@@ -39,7 +39,7 @@ RUN apt-get update && apt-get -y install libgmp-dev gcc g++
 RUN echo "conda activate arch-gym" >> ~/.bashrc
 SHELL ["conda", "run", "-n", "arch-gym", "/bin/bash", "--login", "-c"]
 
-RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install envlogger[tfds] && cd ../ && pip install -e . && pip install absl-py && pip install scikit-optimize
+RUN cd oss-arch-gym/acme && pip install .[tf,testing,envs,jax]
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin/conda/envs/arch-gym/lib
 RUN echo $LD_LIBRARY_PATH
 
