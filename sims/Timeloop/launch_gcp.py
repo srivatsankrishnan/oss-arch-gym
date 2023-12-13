@@ -7,7 +7,7 @@ import yaml
 import json
 from datetime import date, datetime
 os.sys.path.insert(0, os.path.abspath('../../'))
-from configs import arch_gym_configs
+from configs.arch_gym_configs import arch_gym_configs
 
 from absl import flags
 from absl import app
