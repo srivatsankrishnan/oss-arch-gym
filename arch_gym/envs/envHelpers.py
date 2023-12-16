@@ -778,7 +778,7 @@ class helpers():
 
     
     def action_decoder_ga_astraSim(self, act_encoded, system_knob, network_knob, workload_knob, dimension):
-        act_decoded = {}
+        act_decoded = {"system": {}, "network": {}, "workload": {}}
         dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
 
         counter = 0
@@ -837,8 +837,11 @@ class helpers():
                     key, value = line.strip().split(': ')
                     action_dict['system'][key] = value
         else:
-            # parse yaml file
-            pass
+            with open(system_file) as f:
+                system = json.load(f)
+
+                for key in system.keys():
+                    action_dict['system'][key] = system[key]
         return action_dict['system']
 
     # workload: parses the workload file

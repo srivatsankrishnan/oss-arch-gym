@@ -215,7 +215,7 @@ def main(_):
     # encoding format: bounds have same order as modified parameters file
     ga = GA(
         func=AstraSim_optimization_function,
-        n_dim=4, 
+        n_dim=len(lower_bound), 
         size_pop=FLAGS.num_agents,
         max_iter=FLAGS.num_steps,
         prob_mut=FLAGS.prob_mutation,
