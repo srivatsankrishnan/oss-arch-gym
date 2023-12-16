@@ -787,15 +787,15 @@ class helpers():
             for knob in knobs:
                 if isinstance(dict_type[knob][0], set):
                     if dict_type[knob][1] == "FALSE":
-                        act_decoded[dict_name][knob] = [list(dict_type[knob][0])[i]
+                        act_decoded[dict_name][knob] = [list(dict_type[knob][0])[int(i)]
                             for i in act_encoded[counter : counter + dimension]]
                         counter += dimension
                     elif dict_type[knob][1] == "TRUE":
-                        i = act_encoded[counter]
+                        i = int(act_encoded[counter])
                         act_decoded[dict_name][knob] = [list(dict_type[knob][0])[i] for _ in range(dimension)]
                         counter += 1
                     else:
-                        i = act_encoded[counter]
+                        i = int(act_encoded[counter])
                         act_decoded[dict_name][knob] = list(dict_type[knob][0])[i]
                         counter += 1
                 else:
@@ -812,7 +812,7 @@ class helpers():
         return act_decoded
 
     # network: parses the network file
-    def parse_network_astrasim(network_file, action_dict, version):
+    def parse_network_astrasim(self, network_file, action_dict, version):
         action_dict['network'] = {}
         if version == 1:
             with open(network_file) as f:
@@ -827,7 +827,7 @@ class helpers():
 
 
     # system: parses the system file
-    def parse_system_astrasim(system_file, action_dict, version):
+    def parse_system_astrasim(self, system_file, action_dict, version):
         action_dict['system'] = {}
         if version == 1:
             with open(system_file, 'r') as file:
@@ -842,7 +842,7 @@ class helpers():
         return action_dict['system']
 
     # workload: parses the workload file
-    def parse_workload_astrasim(workload_file, action_dict, version):
+    def parse_workload_astrasim(self, workload_file, action_dict, version):
         action_dict['workload'] = {}
         if version == 1:
             pass
@@ -852,7 +852,7 @@ class helpers():
         return action_dict['workload']
 
     # parses knobs that we want to experiment with
-    def parse_knobs_astrasim(knobs_spec):
+    def parse_knobs_astrasim(self, knobs_spec):
         SYSTEM_KNOBS = {}
         NETWORK_KNOBS = {}
         WORKLOAD_KNOBS = {}
@@ -871,6 +871,37 @@ class helpers():
         
         return SYSTEM_KNOBS, NETWORK_KNOBS, WORKLOAD_KNOBS
 
+    def convert_knob_ga_astrasim(self, knob):
+        knob_split = knob.split("-")
+
+        converted_knob = ""
+        for text in knob_split:
+            converted_knob += text[0].upper()
+            converted_knob += text[1:]
+            converted_knob += "_"
+
+        return converted_knob[:-1]
+
+    def revert_knob_ga_astrasim(self, knob):
+        knob_split = knob.split("_")
+
+        converted_knob = ""
+        for text in knob_split:
+            converted_knob += text[0].lower()
+            converted_knob += text[1:]
+            converted_knob += "-"
+
+        return converted_knob[:-1]
+
+    def convert_knob_bo_astrasim(self, knob):
+        knob_split = knob.split("-")
+
+        converted_knob = ""
+        for text in knob_split:
+            converted_knob += text
+            converted_knob += "_"
+
+        return converted_knob[:-1]
 
     def random_walk(self):
         '''

@@ -10,6 +10,7 @@ from . import cfg
 import collections
 import pandas as pd
 import numpy as np
+import random
 from sims.Timeloop.process_params import TimeloopConfigParams
 from arch_gym.envs.TimeloopEnv import TimeloopEnv
 from arch_gym.envs.timeloop_acme_wrapper import make_timeloop_env
@@ -24,16 +25,21 @@ import json
 import envlogger
 import os
 import time
+import yaml
 
 from abc import ABC, abstractmethod
 
 import sys
 import os
+from . import settings
 from absl import logging
 from absl import flags
 
 os.sys.path.insert(0, os.path.abspath('/../../configs'))
 
+
+# define AstraSim version
+VERSION = 1
 
 def step_fn(unused_timestep, unused_action, unused_env):
     return {'timestamp': time.time()}
@@ -342,7 +348,6 @@ class DummySniper():
 
 
 class DummyAstraSim():
-    """Dummy placeholder for DRAMSys to do POC"""
 
     def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger):
         self.env = AstraSimEnv()
@@ -357,18 +362,18 @@ class DummyAstraSim():
 
         self.settings_file_path = os.path.realpath(__file__)
         self.settings_dir_path = os.path.dirname(self.settings_file_path)
-        self.proj_root_path = os.path.join(
-            self.settings_dir_path, '..', '..', '..')
+        self.proj_root_path = os.path.dirname(os.path.dirname(os.path.dirname(self.settings_dir_path)))
+        self.proj_dir_path = os.path.dirname(os.path.dirname(os.path.dirname(self.settings_dir_path)))
 
         self.astrasim_archgym = os.path.join(
-            self.proj_root_path, "sims/AstraSim/astrasim-archgym")
+            self.proj_dir_path, "sims/AstraSim/astrasim-archgym")
         self.knobs_spec = os.path.join(
             self.astrasim_archgym, "dse/archgen_v1_knobs/archgen_v1_knobs_spec.py")
 
         self.systems_folder = os.path.join(
             self.astrasim_archgym, "themis/inputs/system")
         self.network_folder = os.path.join(
-            self.astrasim_archgym, "themis/inputs/network")
+            self.astrasim_archgym, "dse/archgen_v1_knobs/templates/network")
         self.system_file = os.path.join(
             self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
         self.network_file = os.path.join(
@@ -379,80 +384,69 @@ class DummyAstraSim():
         self.action_dict["workload"]['path'] = "all_reduce/allreduce_0.65.txt"
 
         # parse system and network files
-        self.parse_system(self.system_file, self.action_dict)
-        self.parse_network(self.network_file, self.action_dict)
+        self.helper.parse_system_astrasim(self.system_file, self.action_dict, VERSION)
+        self.helper.parse_network_astrasim(self.network_file, self.action_dict, VERSION)
+        system_knob, network_knob, workload_knob = self.helper.parse_knobs_astrasim(self.knobs_spec)
+        dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
+        yaml_path = os.path.join(self.proj_root_path, 'settings/default_astrasim.yaml')
+        data = yaml.load(open(yaml_path), Loader=yaml.Loader)
 
-        self.nodes_dict = {
-            "scheduling-policy": node.schedulingPolicy,
-            "endpoint-delay": node.endpointDelay,
-            "active-chunks-per-dimension": node.activeChunksPerDimension,
-            "preferred-dataset-splits": node.preferredDatasetSplits,
-            "boost-mode": node.boostMode,
-            "all-reduce-implementation": [node.allReduceImplementation1, node.allReduceImplementation2, node.allReduceImplementation3],
-            "all-gather-implementation": [node.allGatherImplementation1, node.allGatherImplementation2, node.allGatherImplementation3],
-            "reduce-scatter-implementation": [node.reduceScatterImplementation1, node.reduceScatterImplementation2, node.reduceScatterImplementation3],
-            "all-to-all-implementation": [node.allToAllImplementation1, node.allToAllImplementation2, node.allToAllImplementation3],
-            "collective-optimization": node.collectiveOptimization,
-            "intra-dimension-scheduling": node.intraDimensionScheduling,
-            "inter-dimension-scheduling": node.interDimensionScheduling,
-            "topology-name": node.topologyName,
-            "topologies-per-dim": [node.topologiesPerDim1, node.topologiesPerDim2, node.topologiesPerDim3], 
-            "dimension-type": [node.dimensionType1, node.dimensionType2, node.dimensionType3],
-            "dimensions-count": node.dimensionsCount,
-            "units-count": [node.unitsCount1, node.unitsCount2, node.unitsCount3],
-            "links-count": [node.linksCount1, node.linksCount2, node.linksCount3],
-            "link-latency": [node.linkLatency1, node.linkLatency2, node.linkLatency3],
-            "link-bandwidth": [node.linkBandwidth1, node.linkBandwidth2, node.linkBandwidth3],
-            "nic-latency": [node.nicLatency1, node.nicLatency2, node.nicLatency3],
-            "router-latency": [node.routerLatency1, node.routerLatency2, node.routerLatency3],
-            "hbm-latency": [node.hbmLatency1, node.hbmLatency2, node.hbmLatency3],
-            "hbm-bandwidth": [node.hbmBandwidth1, node.hbmBandwidth2, node.hbmBandwidth3],
-            "hbm-scale": [node.hbmScale1, node.hbmScale2, node.hbmScale3]
-        }
+        # ASSUMES dimension is specified by input files (otherwise randomized)
+        if "dimensions-count" in network_knob.keys():
+            self.action_dict['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
+            dimension = self.action_dict['network']["dimensions-count"]
+            system_knob.remove("dimensions-count")
+        else:
+            dimension = self.action_dict['network']["dimensions-count"]
 
+        # write knobs to yaml file
+        data['Nodes']['ArchParamsNode']['attributes'] = {}
+        for dict_type, dict_name in dicts:
+            knobs = dict_type.keys()
+            for knob in knobs:
+                knob_converted = self.helper.convert_knob_ga_astrasim(knob)
+                if isinstance(dict_type[knob][0], set):
+                    if dict_type[knob][1] == "FALSE":
+                        for i in range(1, dimension + 1):
+                            knob_dimension = knob_converted + str(i)
+                            data['Nodes']['ArchParamsNode']['attributes'][knob_dimension] = [i for i in list(dict_type[knob][0])]
+                    else:
+                        data['Nodes']['ArchParamsNode']['attributes'][knob_converted] = [i for i in list(dict_type[knob][0])]
+                else:
+                    if dict_type[knob][1] == "FALSE":
+                        for i in range(1, dimension + 1):
+                            knob_dimension = knob_converted + str(i)
+                            data['Nodes']['ArchParamsNode']['attributes'][knob_dimension] = [i for i in range(dict_type[knob][0][0], dict_type[knob][0][1] + 1)]
+                    else:
+                        data['Nodes']['ArchParamsNode']['attributes'][knob_converted] = [i for i in range(dict_type[knob][0][0], dict_type[knob][0][1] + 1)]
+
+        with open(yaml_path, 'w') as f:
+            yaml.dump(data, f, sort_keys=False)
+
+        if len(system_knob.keys()) != 0:
+            rand_attr = list(system_knob.keys())[0]
+        elif len(network_knob.keys()) != 0:
+            rand_attr = list(network_knob.keys())[0]
+        else:
+            rand_attr = list(workload_knob.keys())[0]
+        rand_attr = self.helper.convert_knob_ga_astrasim(rand_attr)
+        
         for node in path:
-            system_knob, network_knob = self.parse_knobs(self.knobs_spec)
-            dicts = [(system_knob, 'system'), (network_knob, 'network')]
-            if hasattr(node, "topologyName"):
-                for dict_type, dict_name in dicts:
-                    for knob in dict_type.keys():
-                        self.action_dict[dict_name][knob] = self.nodes_dict[knob]
-
-    def parse_knobs(self, knobs_spec):
-        SYSTEM_KNOBS = {}
-        NETWORK_KNOBS = {}
-
-        with open(knobs_spec, 'r') as file:
-            file_contents = file.read()
-            parsed_dicts = {}
-
-            # Evaluate the file contents and store the dictionaries in the parsed_dicts dictionary
-            exec(file_contents, parsed_dicts)
-
-            # Access the dictionaries
-            SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
-            NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
-
-        return SYSTEM_KNOBS, NETWORK_KNOBS
-
-    def parse_network(self, network_file, action_dict):
-        # parse network file into dict
-        action_dict['network'] = {}
-        with open(network_file) as f:
-            network = json.load(f)
-
-            for key in network.keys():
-                action_dict['network'][key] = network[key]
-
-    def parse_system(self, system_file, action_dict):
-        # parse system_file (above is the content) into dict
-        action_dict['system'] = {}
-        with open(system_file, 'r') as file:
-            lines = file.readlines()
-
-            for line in lines:
-                key, value = line.strip().split(': ')
-                action_dict['system'][key] = value
+            if hasattr(node, rand_attr) or hasattr(node, rand_attr + "1"):
+                print("HAS ATTR")
+                for attr, value in node.__dict__.items():
+                    knob_converted = self.helper.revert_knob_ga_astrasim(attr)
+                    for dict_type, dict_name in dicts:
+                        if knob_converted in dict_type:
+                            if dict_type[knob_converted][1] == "FALSE":
+                                if attr[-1] == 1:
+                                    self.action_dict[dict_name][knob_converted] = [value]
+                                else:
+                                    self.action_dict[dict_name][knob_converted].append(value)
+                            elif dict_type[knob_converted][1] == "TRUE":
+                                self.action_dict[dict_name][knob_converted] = [value for _ in range(dimension)]
+                            else:
+                                self.action_dict[dict_name][knob_converted] = value
 
     # Fit function = step function
     # Environment already calculates reward so don't need calc_reward

@@ -35,6 +35,9 @@ FLAGS = flags.FLAGS
 # define AstraSim version
 VERSION = 1
 
+# define helpers
+astraSim_helper = helpers()
+
 def generate_run_directories():
     # Construct the exp name from seed and num_iter
     exp_name = FLAGS.workload + "_num_iter_" + str(FLAGS.num_steps) + "_num_agents_" + str(FLAGS.num_agents) + "_prob_mut_" + str(FLAGS.prob_mutation)
@@ -81,20 +84,19 @@ def AstraSim_optimization_function(p):
 
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-    knobs_spec = os.path.join(archgen_v1_knobs, "themis_knobs_spec.py")
+    knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
 
     networks_folder = os.path.join(astrasim_archgym, "themis/inputs/network")
     systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
     # DEFINE NETWORK AND SYSTEM AND WORKLOAD
-    network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
+    network_file = os.path.join(networks_folder, "analytical/4d_ring_fc_ring_switch.json")
     system_file = os.path.join(systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
     workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
     
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
     fitness_hist = {}
-    astraSim_helper = helpers()
 
     traject_dir, exp_log_dir = generate_run_directories()
     
@@ -120,6 +122,7 @@ def AstraSim_optimization_function(p):
     # parse system and network
     action_dict['system'] = astraSim_helper.parse_system_astrasim(system_file, action_dict, VERSION)
     action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
+    dimension = action_dict['network']['dimensions-count']
 
     action_dict_decoded = astraSim_helper.action_decoder_ga_astraSim(p, system_knob, network_knob, workload_knob, dimension)
     
@@ -155,12 +158,12 @@ def generate_bounds(action_dict, knobs_spec):
     dicts = [system_knob, network_knob, workload_knob]
 
     # ASSUMES dimension is specified by input files (otherwise randomized)
-    if "num-dims" in system_knob.keys():
-        action_dict['network']["num-dims"] = random.choice(network_knob["num-dims"])
-        dimension = action_dict['network']["num-dims"]
-        system_knob.remove("num-dims")
+    if "dimensions-count" in system_knob.keys():
+        action_dict['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
+        dimension = action_dict['network']["dimensions-count"]
+        system_knob.remove("dimensions-count")
     else:
-        dimension = action_dict['network']["num-dims"]
+        dimension = action_dict['network']["dimensions-count"]
 
     # initialize lower and upper bounds and precision
     lb, ub, precision = [], [], []
@@ -200,8 +203,14 @@ def main(_):
 
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-    knobs_spec = os.path.join(archgen_v1_knobs, "themis_knobs_spec.py")
-    lower_bound, upper_bound, precision = generate_bounds(knobs_spec)
+    knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+
+    networks_folder = os.path.join(astrasim_archgym, "themis/inputs/network")
+    network_file = os.path.join(networks_folder, "analytical/4d_ring_fc_ring_switch.json")
+
+    action_dict = {}
+    action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
+    lower_bound, upper_bound, precision = generate_bounds(action_dict, knobs_spec)
 
     # encoding format: bounds have same order as modified parameters file
     ga = GA(

@@ -12,10 +12,16 @@ from envHelpers import helpers
 
 settings_file_path = os.path.realpath(__file__)
 settings_dir_path = os.path.dirname(settings_file_path)
-proj_root_path = os.path.join(settings_dir_path, '..', '..')
+proj_root_path = os.path.dirname(os.path.dirname(settings_dir_path))
+proj_dir_path = os.path.join(proj_root_path, "sims/AstraSim")
 
+astrasim_archgym = os.path.join(proj_dir_path, "astrasim-archgym")
+archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
 sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
-knobs_spec = os.path.join(archgen_v1_knobs, "themis_knobs_spec.py")
+knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+
+# define AstraSim version
+VERSION = 1
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):
@@ -31,9 +37,14 @@ class AstraSimEnv(gym.Env):
             self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32) # box is an array of shape len
             self.action_space = gym.spaces.Box(low=0, high=1, shape=(param_len,), dtype=np.float32)
 
-        else:
+        # reproducing Themis with AstraSim 1.0
+        elif self.rl_form == 'rl_themis':
             self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
             self.action_space = gym.spaces.Discrete(16)
+        
+        else:
+            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
+            self.action_space = gym.spaces.Box(low=0, high=1, shape=(param_len,), dtype=np.float32)
 
         
         # set parameters
@@ -54,7 +65,7 @@ class AstraSimEnv(gym.Env):
         self.info = {}
 
         self.exe_path = os.path.join(sim_path, "run_general.sh")
-        # self.network_config = os.path.join(sim_path, "general_network.json")
+        self.network_config = os.path.join(sim_path, "general_network.json")
         self.system_config = os.path.join(sim_path, "general_system.txt")
 
         # V1 networks, systems, and workloads folder
@@ -62,12 +73,12 @@ class AstraSimEnv(gym.Env):
         self.workloads_folder = os.path.join(sim_path, "astrasim-archgym/themis/inputs/workload")
 
         # Config does not matter
-        self.network_config = os.path.join(self.networks_folder, "3d_fc_ring_switch.json")
+        # self.network_config = os.path.join(self.networks_folder, "4d_ring_fc_ring_switch.json")
         self.workload_config = os.path.join(self.workloads_folder, "all_reduce/allreduce_0.65.txt")
         self.astrasim_archgym = os.path.join(sim_path, "astrasim-archgym")
         self.systems_folder = os.path.join(self.astrasim_archgym, "themis/inputs/system")
 
-        self.network_file = "4d_ring_fc_ring_switch.json"
+        self.network_file = os.path.join(self.networks_folder, "4d_ring_fc_ring_switch.json")
         self.system_file = os.path.join(self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
         self.workload_file = "all_reduce/allreduce_0.65.txt"
 
@@ -139,16 +150,6 @@ class AstraSimEnv(gym.Env):
         return 1 / (sum ** 0.5)
 
 
-    # parse system_file (above is the content) into dict
-    def parse_system(self, system_file, action_dict):
-        action_dict['system'] = {}
-        with open(system_file, 'r') as file:
-            lines = file.readlines()
-
-            for line in lines:
-                key, value = line.strip().split(': ')
-                action_dict['system'][key] = value
-
     # give it one action: one set of parameters from json file
     def step(self, action_dict):
 
@@ -163,7 +164,8 @@ class AstraSimEnv(gym.Env):
             action_dict_decoded['workload'] = {"path": self.workload_file}
             
             # parse system: initial values
-            self.parse_system(self.system_file, action_dict_decoded)
+            self.helpers.parse_system_astrasim(self.system_file, action_dict_decoded, VERSION)
+            self.helpers.parse_network_astrasim(self.network_file, action_dict_decoded, VERSION)
 
             # returning an 
             action_decoded = self.helpers.action_decoder_ga_astraSim(action_dict)
@@ -175,20 +177,65 @@ class AstraSimEnv(gym.Env):
 
             action_dict = action_dict_decoded
 
-
-
         if "path" in action_dict["network"]:
             self.network_config = action_dict["network"]["path"]
+
+        if "path" in action_dict["system"]:
+            self.system_config = action_dict["system"]["path"]
 
         if "path" in action_dict["workload"]:
             self.workload_config = action_dict["workload"]["path"]
 
+        print("ACTION DICT")
+        print(action_dict)
         # load knobs
-        print("system_config")
-        print(action_dict["system"])
-        with open(self.system_config, 'w') as file:
-            for key, value in action_dict["system"].items():
-                file.write(f'{key}: {value}\n')
+
+        if VERSION == 1:
+            with open(self.system_config, 'w') as file:
+                for key, value in action_dict["system"].items(): 
+                    if isinstance(value, list):
+                        file.write(f'{key}: ')
+                        for i in range(len(value)-1):
+                            file.write(f'{value[i]}_')
+                        file.write(f'{value[len(value)-1]}')
+                        file.write('\n')
+                    else:
+                        file.write(f'{key}: {value}\n')
+            with open(self.network_config, 'w') as file:
+                file.write('{\n')
+                for key, value in action_dict["network"].items():
+                    if isinstance(value, str):
+                        file.write(f'"{key}": "{value}",\n')
+                    elif isinstance(value, list) and isinstance(value[0], str):
+                        file.write(f'"{key}": [')
+                        for i in range(len(value)-1):
+                            file.write(f'"{value[i]}", ')
+                        file.write(f'"{value[len(value)-1]}"')
+                        file.write('],\n')
+                    else:
+                        file.write(f'"{key}": {value},\n')
+                file.seek(file.tell() - 2, os.SEEK_SET)
+                file.write('\n')
+                file.write('}')
+        
+        elif VERSION == 2:
+            with open(self.system_config, 'w') as file:
+                file.write('{\n')
+                for key, value in action_dict["system"].items():
+                    if isinstance(value, str):
+                        file.write(f'"{key}": "{value}",\n')
+                    elif isinstance(value, list) and isinstance(value[0], str):
+                        file.write(f'"{key}": [')
+                        for i in range(len(value)-1):
+                            file.write(f'"{value[i]}", ')
+                        file.write(f'"{value[len(value)-1]}"')
+                        file.write('],\n')
+                    else:
+                        file.write(f'"{key}": {value},\n')
+                file.seek(file.tell() - 2, os.SEEK_SET)
+                file.write('\n')
+                file.write('}')
+            # WRITE NETWORK FILE TO YAML FILE
 
         # the action is actually the parsed parameter files
         print("Step: " + str(self.counter))
@@ -197,10 +244,11 @@ class AstraSimEnv(gym.Env):
         # start subrpocess to run the simulation
         # $1: network, $2: system, $3: workload
         print("Running simulation...")
+        print(self.exe_path, self.network_config, self.system_config, self.workload_config)
         process = subprocess.Popen([self.exe_path, 
-                                    self.network_config, 
+                                    self.network_file, 
                                     self.system_config, 
-                                    self.workload_config],
+                                    self.workload_file],
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         # get the output
@@ -231,12 +279,12 @@ class AstraSimEnv(gym.Env):
             print("Maximum steps reached")
             self.reset()
 
-        # test if product of npu count <= number of npus
-        if np.prod(action_dict["network"]["npus-count"]) > action_dict["network"]["num-npus"]:
-            # set reward to be extremely negative
-            reward = float("-inf")
-            print("reward: ", reward)
-            return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
+        # HARDCODED EXAMPLE: test if product of npu count <= number of npus
+        # if np.prod(action_dict["network"]["npus-count"]) > action_dict["network"]["num-npus"]:
+        #     # set reward to be extremely negative
+        #     reward = float("-inf")
+        #     print("reward: ", reward)
+        #     return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
 
         # test if the csv files exist (if they don't, the config files are invalid)
         if ((len(backend_dim_info) == 0 or len(backend_end_to_end) == 0 or

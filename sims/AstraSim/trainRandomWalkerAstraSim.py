@@ -4,18 +4,17 @@ import random
 import pandas as pd
 import numpy as np
 import envlogger
+import os
+import sys
+os.sys.path.insert(0, os.path.abspath('../../'))
+os.sys.path.insert(0, os.path.abspath('../../arch_gym'))
 from arch_gym.envs import AstraSimWrapper, AstraSimEnv
 from arch_gym.envs.envHelpers import helpers
 from configs import arch_gym_configs
-import os
-import sys
 
 from absl import flags
 from absl import app
 from absl import logging
-
-os.sys.path.insert(0, os.path.abspath('../../'))
-os.sys.path.insert(0, os.path.abspath('../../arch_gym'))
 
 
 # define workload in run_general.sh
@@ -36,14 +35,14 @@ VERSION = 1
 
 # action_type = specify 'network' or 'system
 # new_params = parsed knobs from experiment file
-def generate_random_actions(action_dict, system_knob, network_knob):
+def generate_random_actions(action_dict, system_knob, network_knob, workload_knob):
     dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
-    if "num-dims" in system_knob.keys():
-        action_dict['network']["num-dims"] = random.choice(network_knob["num-dims"])
-        dimension = action_dict['network']["num-dims"]
-        system_knob.remove("num-dims")
+    if "dimensions-count" in system_knob.keys():
+        action_dict['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
+        dimension = action_dict['network']["dimensions-count"]
+        system_knob.remove("dimensions-count")
     else:
-        dimension = action_dict['network']["num-dims"]
+        dimension = action_dict['network']["dimensions-count"]
 
     for dict_type, dict_name in dicts:
         knobs = dict_type.keys()
@@ -57,7 +56,7 @@ def generate_random_actions(action_dict, system_knob, network_knob):
                         action_dict[dict_name][knob] = [choice for _ in range(dimension)]
                 else:
                     action_dict[dict_name][knob] = random.choice(
-                        list(dict_type[knob]))
+                        list(dict_type[knob][0]))
             else:
                 if dict_type[knob][1] == "FALSE":
                         action_dict[dict_name][knob] = [random.randint(
@@ -109,12 +108,11 @@ def main(_):
     settings_file_path = os.path.realpath(__file__)
     settings_dir_path = os.path.dirname(settings_file_path)
     proj_root_path = os.path.abspath(settings_dir_path)
-
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
 
     # TODO: V1 SPEC:
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-    knobs_spec = os.path.join(archgen_v1_knobs, "themis_knobs_spec.py")
+    knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
     networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
     systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
@@ -167,7 +165,7 @@ def main(_):
     action_dict['network'] = astrasim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
 
     # parse knobs
-    system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
+    system_knob, network_knob, workload_knob = astrasim_helper.parse_knobs_astrasim(knobs_spec)
 
     best_reward, best_observation, best_actions = 0.0, 0.0, {}
 
@@ -176,7 +174,7 @@ def main(_):
 
         for step in range(FLAGS.num_steps):
             # pass into generate_random_actions(dimension, knobs)
-            action_dict = generate_random_actions(action_dict, system_knob, network_knob)
+            action_dict = generate_random_actions(action_dict, system_knob, network_knob, workload_knob)
 
             # with open("general_workload.txt", 'w') as file:
             #     file.write(action["workload"]["value"])
