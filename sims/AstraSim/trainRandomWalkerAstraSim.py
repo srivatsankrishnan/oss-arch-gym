@@ -49,21 +49,21 @@ def generate_random_actions(action_dict, system_knob, network_knob, workload_kno
         for knob in knobs:
             if isinstance(dict_type[knob][0], set):
                 if dict_type[knob][1] == "FALSE":
-                        action_dict[dict_name][knob] = [random.choice(
-                            list(dict_type[knob][0])) for _ in range(dimension)]
+                    action_dict[dict_name][knob] = [random.choice(
+                        list(dict_type[knob][0])) for _ in range(dimension)]
                 elif dict_type[knob][1] == "TRUE":
-                        choice = random.choice(list(dict_type[knob][0]))
-                        action_dict[dict_name][knob] = [choice for _ in range(dimension)]
+                    choice = random.choice(list(dict_type[knob][0]))
+                    action_dict[dict_name][knob] = [choice for _ in range(dimension)]
                 else:
                     action_dict[dict_name][knob] = random.choice(
                         list(dict_type[knob][0]))
             else:
                 if dict_type[knob][1] == "FALSE":
-                        action_dict[dict_name][knob] = [random.randint(
-                            dict_type[knob][0][0], dict_type[knob][0][1]) for _ in range(dimension)]
+                    action_dict[dict_name][knob] = [random.randint(
+                        dict_type[knob][0][0], dict_type[knob][0][1]) for _ in range(dimension)]
                 elif dict_type[knob][1] == "TRUE":
-                        choice = random.randint(dict_type[knob][0][0], dict_type[knob][0][1])
-                        action_dict[dict_name][knob] = [choice for _ in range(dimension)]
+                    choice = random.randint(dict_type[knob][0][0], dict_type[knob][0][1])
+                    action_dict[dict_name][knob] = [choice for _ in range(dimension)]
                 else:
                     action_dict[dict_name][knob] = random.randint(
                         dict_type[knob][0][0], dict_type[knob][0][1])

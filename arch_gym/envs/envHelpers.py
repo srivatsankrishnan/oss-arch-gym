@@ -894,7 +894,10 @@ class helpers():
             converted_knob += text[1:]
             converted_knob += "-"
 
-        return converted_knob[:-1]
+        if converted_knob[-2].isnumeric():
+            return converted_knob[:-2]
+        else:
+            return converted_knob[:-1]
 
     def convert_knob_bo_astrasim(self, knob):
         knob_split = knob.split("-")
@@ -905,6 +908,19 @@ class helpers():
             converted_knob += "_"
 
         return converted_knob[:-1]
+
+    def revert_knob_bo_astrasim(self, knob):
+        knob_split = knob.split("_")
+
+        converted_knob = ""
+        for text in knob_split:
+            converted_knob += text
+            converted_knob += "-"
+
+        if converted_knob[-2].isnumeric():
+            return converted_knob[:-2]
+        else:
+            return converted_knob[:-1]
 
     def random_walk(self):
         '''

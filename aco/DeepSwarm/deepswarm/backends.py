@@ -433,16 +433,18 @@ class DummyAstraSim():
         
         for node in path:
             if hasattr(node, rand_attr) or hasattr(node, rand_attr + "1"):
-                print("HAS ATTR")
                 for attr, value in node.__dict__.items():
                     knob_converted = self.helper.revert_knob_ga_astrasim(attr)
                     for dict_type, dict_name in dicts:
                         if knob_converted in dict_type:
                             if dict_type[knob_converted][1] == "FALSE":
-                                if attr[-1] == 1:
+                                if attr[-1] == "1":
                                     self.action_dict[dict_name][knob_converted] = [value]
                                 else:
-                                    self.action_dict[dict_name][knob_converted].append(value)
+                                    if isinstance(self.action_dict[dict_name][knob_converted], str):
+                                        self.action_dict[dict_name][knob_converted] += value
+                                    else:
+                                        self.action_dict[dict_name][knob_converted].append(value)
                             elif dict_type[knob_converted][1] == "TRUE":
                                 self.action_dict[dict_name][knob_converted] = [value for _ in range(dimension)]
                             else:
