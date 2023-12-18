@@ -19,6 +19,7 @@ astrasim_archgym = os.path.join(proj_dir_path, "astrasim-archgym")
 archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
 sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
 knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+parameter_knobs= os.path.join(sim_path, "frontend/parameter_knobs.py")
 
 # define AstraSim version
 VERSION = 1
@@ -28,8 +29,8 @@ class AstraSimEnv(gym.Env):
     def __init__(self, rl_form="sa1", max_steps=5, num_agents=1, reward_formulation="None", reward_scaling=1,):
         self.rl_form = rl_form
         self.helpers = helpers()
-        system_knobs, network_knobs, workload_knobs = self.helpers.parse_knobs_astrasim(knobs_spec)
-        param_len = len(system_knobs) + len(network_knobs) + len(workload_knobs)
+        self.system_knobs, self.network_knobs, self.workload_knobs = self.helpers.parse_knobs_astrasim(knobs_spec)
+        param_len = len(self.system_knobs) + len(self.network_knobs) + len(self.workload_knobs)
          
         if self.rl_form == 'sa1':
             # action space = set of all possible actions. Space.sample() returns a random action
@@ -85,6 +86,11 @@ class AstraSimEnv(gym.Env):
         print("_____________________*****************************_____________________")
 
         self.reset()
+
+        """TODO: constraints"""
+        _, _, _, self.constraints = self.helpers.actual_parse_knobs_astrasim(parameter_knobs)
+        print("CONSTRAINTS: ", self.constraints)
+        
 
     # reset function
 
@@ -217,8 +223,10 @@ class AstraSimEnv(gym.Env):
                 file.seek(file.tell() - 2, os.SEEK_SET)
                 file.write('\n')
                 file.write('}')
-        
         elif VERSION == 2:
+            """
+            TODO: ASTRA-sim 2.0 integration
+            """
             with open(self.system_config, 'w') as file:
                 file.write('{\n')
                 for key, value in action_dict["system"].items():
@@ -278,6 +286,103 @@ class AstraSimEnv(gym.Env):
             self.done = True
             print("Maximum steps reached")
             self.reset()
+
+        """
+        TODO: add constraints
+        """
+        print("network_knobs: ", self.network_knobs)
+        print("system_knobs: ", self.system_knobs)
+        print("workload_knobs: ", self.workload_knobs)
+        print("action_dict: ", action_dict)
+
+        operators = {"<=", ">=", "==", "<", ">"}
+        command = {"product", "mult", "num"}
+        print("ALL constraints: ", self.constraints)
+        for constraint in self.constraints:
+            constraint_args = constraint.split(" ")
+            print("constraint_args: ", constraint_args)
+            
+            left_val, right_val = None, None
+            cur_val = None
+            operator = ""
+
+            # parse the arguments of a single constraint
+            i = 0
+            while i < len(constraint_args):
+                arg = constraint_args[i]
+
+                if arg in operators:
+                    left_val = cur_val
+                    cur_val = None
+                    operator = arg
+
+                elif arg in command:
+                    if arg == "product":
+                        print("product")
+                        print("constraint_args: ", constraint_args)
+                        # product network npus-count <= num network num-npus
+                        knob_dict, knob_name = constraint_args[i+1], constraint_args[i+2]
+                        i += 2
+                        print("knob_dict: ", knob_dict, knob_dict in action_dict)
+                        print("knob_name: ", knob_name, knob_name in action_dict[knob_dict])
+
+                        if knob_dict in action_dict and knob_name in action_dict[knob_dict]:
+                            knob_arr = np.array(action_dict[knob_dict][knob_name])
+                            cur_val = np.prod(knob_arr)
+                            print("product cur_val: ", cur_val)
+                        else:
+                            print(f"___ERROR: constraint knob name {knob_name} not found____")
+                            continue
+
+                    elif arg == "mult":
+                        # mult workload data-parallel-degree workload model-parallel-degree == network num-npus
+                        left_knob_dict, left_knob_name = constraint_args[i+1], constraint_args[i+2]
+                        right_knob_dict, right_knob_name = constraint_args[i+3], constraint_args[i+4]
+                        print("action_dict: ", action_dict)
+                        print("left_knob_dict: ", left_knob_dict, left_knob_dict in action_dict)
+                        print("left_knobs_dict_arg: ", left_knob_name, left_knob_name in action_dict[left_knob_dict])
+                        print("right_knob_dict: ", right_knob_dict, right_knob_dict in action_dict)
+                        print("right_knobs_dict_arg: ", right_knob_name, right_knob_name in action_dict[right_knob_dict])
+                        i += 4
+
+                        if (left_knob_dict in action_dict and 
+                            left_knob_name in action_dict[left_knob_dict] and
+                            right_knob_dict in action_dict and 
+                            right_knob_name in action_dict[right_knob_dict]):
+                            
+                            cur_val = (action_dict[left_knob_dict][left_knob_name] * 
+                                       action_dict[right_knob_dict][right_knob_name])
+                            print("mult cur_val: ", cur_val)
+                        else:
+                            print(f"___ERROR: constraint knob name {knob_name} not found____")
+                            continue
+
+                    elif arg == "num":
+                        # num network npus-count <= num network num-npus
+                        knob_dict, knob_name = constraint_args[i+1], constraint_args[i+2]
+                        print("knob_dict: ", knob_dict, knob_dict in action_dict)
+                        print("knob_name: ", knob_name, knob_name in action_dict[knob_dict])
+                        i += 2
+                        if knob_dict in action_dict and knob_name in action_dict[knob_dict]:
+                            cur_val = action_dict[knob_dict][knob_name]
+                            print("num cur_val: ", cur_val)
+                        else:
+                            print(f"___ERROR: constraint knob name {knob_name} not found____")
+                            continue
+                i += 1
+            
+            # evaluate the constraint
+            right_val = cur_val
+            evaluable = str(left_val) + " " + str(operator) + " " + str(right_val)
+            print("evaluable: ", evaluable)
+            if eval(evaluable):
+                print("constraint satisfied")
+                continue
+            else:
+                print("constraint not satisfied")
+                reward = float("-inf")
+                return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
+            
 
         # HARDCODED EXAMPLE: test if product of npu count <= number of npus
         # if np.prod(action_dict["network"]["npus-count"]) > action_dict["network"]["num-npus"]:
