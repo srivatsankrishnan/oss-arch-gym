@@ -290,17 +290,11 @@ class AstraSimEnv(gym.Env):
         """
         TODO: add constraints
         """
-        print("network_knobs: ", self.network_knobs)
-        print("system_knobs: ", self.system_knobs)
-        print("workload_knobs: ", self.workload_knobs)
-        print("action_dict: ", action_dict)
 
         operators = {"<=", ">=", "==", "<", ">"}
         command = {"product", "mult", "num"}
-        print("ALL constraints: ", self.constraints)
         for constraint in self.constraints:
             constraint_args = constraint.split(" ")
-            print("constraint_args: ", constraint_args)
             
             left_val, right_val = None, None
             cur_val = None
@@ -318,18 +312,13 @@ class AstraSimEnv(gym.Env):
 
                 elif arg in command:
                     if arg == "product":
-                        print("product")
-                        print("constraint_args: ", constraint_args)
                         # product network npus-count <= num network num-npus
                         knob_dict, knob_name = constraint_args[i+1], constraint_args[i+2]
                         i += 2
-                        print("knob_dict: ", knob_dict, knob_dict in action_dict)
-                        print("knob_name: ", knob_name, knob_name in action_dict[knob_dict])
 
                         if knob_dict in action_dict and knob_name in action_dict[knob_dict]:
                             knob_arr = np.array(action_dict[knob_dict][knob_name])
                             cur_val = np.prod(knob_arr)
-                            print("product cur_val: ", cur_val)
                         else:
                             print(f"___ERROR: constraint knob name {knob_name} not found____")
                             continue
@@ -338,11 +327,6 @@ class AstraSimEnv(gym.Env):
                         # mult workload data-parallel-degree workload model-parallel-degree == network num-npus
                         left_knob_dict, left_knob_name = constraint_args[i+1], constraint_args[i+2]
                         right_knob_dict, right_knob_name = constraint_args[i+3], constraint_args[i+4]
-                        print("action_dict: ", action_dict)
-                        print("left_knob_dict: ", left_knob_dict, left_knob_dict in action_dict)
-                        print("left_knobs_dict_arg: ", left_knob_name, left_knob_name in action_dict[left_knob_dict])
-                        print("right_knob_dict: ", right_knob_dict, right_knob_dict in action_dict)
-                        print("right_knobs_dict_arg: ", right_knob_name, right_knob_name in action_dict[right_knob_dict])
                         i += 4
 
                         if (left_knob_dict in action_dict and 
@@ -352,7 +336,6 @@ class AstraSimEnv(gym.Env):
                             
                             cur_val = (action_dict[left_knob_dict][left_knob_name] * 
                                        action_dict[right_knob_dict][right_knob_name])
-                            print("mult cur_val: ", cur_val)
                         else:
                             print(f"___ERROR: constraint knob name {knob_name} not found____")
                             continue
@@ -360,12 +343,9 @@ class AstraSimEnv(gym.Env):
                     elif arg == "num":
                         # num network npus-count <= num network num-npus
                         knob_dict, knob_name = constraint_args[i+1], constraint_args[i+2]
-                        print("knob_dict: ", knob_dict, knob_dict in action_dict)
-                        print("knob_name: ", knob_name, knob_name in action_dict[knob_dict])
                         i += 2
                         if knob_dict in action_dict and knob_name in action_dict[knob_dict]:
                             cur_val = action_dict[knob_dict][knob_name]
-                            print("num cur_val: ", cur_val)
                         else:
                             print(f"___ERROR: constraint knob name {knob_name} not found____")
                             continue
@@ -374,7 +354,6 @@ class AstraSimEnv(gym.Env):
             # evaluate the constraint
             right_val = cur_val
             evaluable = str(left_val) + " " + str(operator) + " " + str(right_val)
-            print("evaluable: ", evaluable)
             if eval(evaluable):
                 print("constraint satisfied")
                 continue
