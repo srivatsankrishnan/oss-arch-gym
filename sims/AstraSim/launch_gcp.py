@@ -106,8 +106,8 @@ def run_task(task):
         raise NotImplementedError
 
     if algo == "ga":
-        print("train_ga_DRAMSys")
-        cmd = "python train_ga_maestro.py " + \
+        print("train_ga_astra_sim")
+        cmd = "python trainGAAstraSim.py " + \
             "--workload=" + str(workload) + " " \
             "--num_steps=" + str(num_iter) + " " \
             "--prob_mutation=" + str(prob_mut) + " "\
@@ -117,16 +117,16 @@ def run_task(task):
         print("Shell Command", cmd)
         
     elif algo == "rw":
-        print("train_randomwalker_maestro")
-        cmd = "python train_randomwalker_maestro.py " + \
+        print("train_randomwalker_astra_sim")
+        cmd = "python trainRandomWalkerAstraSim.py " + \
             "--workload=" + str(workload) + " " \
             "--num_steps=" + str(num_iter) + " " \
             "--summary_dir=" + str(summary_dir) + " "\
             "--reward_formulation=" + str(reward_formulation)
         print("Shell Command", cmd)
     elif algo == "bo":
-        print("train_bo_maestro")
-        cmd = "python train_bo_maestro.py " + \
+        print("train_bo_astra_sim")
+        cmd = "python train_bo_AstraSim.py " + \
             "--workload=" + str(workload) + " " \
             "--num_iter=" + str(num_iter) + " " \
             "--random_state=" + str(rand_state) + " " \
@@ -144,8 +144,8 @@ def run_task(task):
                             "depth": depth}
         update_aco_agent_configs(aco_agent_config_file, aco_hyperparams)
 
-        print("train_aco_maestro")
-        cmd = "python train_aco_maestro.py " + \
+        print("train_aco_astra_sim")
+        cmd = "python trainACOAstraSim.py " + \
             "--workload=" + str(workload) + " " \
             "--depth=" + str(num_iter) + " " \
             "--ant_count=" + str(ant_count) + " " \
