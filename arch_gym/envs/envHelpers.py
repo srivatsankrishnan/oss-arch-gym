@@ -9,7 +9,7 @@ import yaml
 os.sys.path.insert(0, os.path.abspath('/../../configs'))
 os.sys.path.insert(0, os.path.abspath('/../..'))
 
-#from configs import configs
+from configs import arch_gym_configs
 from configs.sims import DRAMSys_config
 import shutil
 from sims.Timeloop.process_params import TimeloopConfigParams
@@ -777,6 +777,65 @@ class helpers():
         return act_decoded
 
     
+    def action_decoder_rl_astraSim(self, act_encoded, system_knob, network_knob, workload_knob, dimension):
+        # decode act_encoded into act_decoded
+        act_decoded = {"system": {}, "network": {}, "workload": {}}
+        dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
+        counter = 0
+        print("action_decoder_rl_astraSim", act_encoded)
+        for dict_type, dict_name in dicts:
+            knobs = sorted(dict_type.keys())
+            for knob in knobs:
+                categories, bin_edges = None, None
+                if isinstance(dict_type[knob][0], set):
+                    # assign a fraction to each element of the set of the set between 0 and 1
+                    categories = sorted(list(dict_type[knob][0]))
+                    # need to map the 0-1.0 value to one of the possible values
+
+                    # create bin_edges between 0 and 1.0
+                    bin_edges = np.linspace(0, 1.0, len(categories) + 1)
+                else:
+                    # (1, 1000, 1)
+                    # min, max, step
+                    minV, maxV, step = dict_type[knob][0]
+                    categories = np.arange(minV, maxV + step, step)
+                    bin_edges = np.linspace(0, 1, len(categories) + 1)
+
+                def find_bin(value):
+                    for i in range(len(bin_edges) - 1):
+                        if bin_edges[i] <= value < bin_edges[i + 1]:
+                            return i
+                            
+                print("knob: ", knob)
+                print("categories: ", categories)
+                print("bin_edges: ", bin_edges)
+                print("act_encoded[counter]: ", act_encoded[counter])
+                print("find_bin(act_encoded[counter]): ", find_bin(act_encoded[counter]))
+                
+                if dict_type[knob][1] == "N/A":
+                    # 0.5
+                    bin_index = find_bin(act_encoded[counter])
+                    act_decoded[dict_name][knob] = categories[bin_index]
+                    counter += 1
+
+                elif dict_type[knob][1] == "TRUE":
+                    # 0.5 0.5 0.5 0.5
+                    bin_index = find_bin(act_encoded[counter])
+                    act_decoded[dict_name][knob] = [categories[bin_index] for _ in range(dimension)]
+                    counter += dimension
+
+                elif dict_type[knob][1] == "FALSE":
+                    # 0.5
+                    bin_index = [0 for _ in range(dimension)]
+                    for i in range(dimension):
+                        bin_index[i] = find_bin(act_encoded[counter])
+                        counter += 1
+                    act_decoded[dict_name][knob] = [categories[i] for i in bin_index]
+
+        print("action_decoder_rl_astraSim decoded", act_decoded)
+        return act_decoded
+
+
     def action_decoder_ga_astraSim(self, act_encoded, system_knob, network_knob, workload_knob, dimension):
         act_decoded = {"system": {}, "network": {}, "workload": {}}
         dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]

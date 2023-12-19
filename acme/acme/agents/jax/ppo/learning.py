@@ -17,6 +17,7 @@
 from typing import Dict, Iterator, List, NamedTuple, Optional, Tuple
 
 import acme
+from acme import core
 from acme import types
 from acme.agents.jax.ppo import networks
 from acme.jax import networks as networks_lib
@@ -66,7 +67,7 @@ class TrainingState(NamedTuple):
   value_std: Optional[networks_lib.Params] = None
 
 
-class PPOLearner(acme.Learner):
+class PPOLearner(core.Learner):
   """Learner for PPO."""
 
   def __init__(

@@ -15,6 +15,7 @@
 """PPO Builder."""
 from typing import Iterator, List, Optional
 
+import acme
 from acme import adders
 from acme import core
 from acme import specs

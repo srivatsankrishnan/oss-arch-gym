@@ -30,24 +30,7 @@ class AstraSimEnv(gym.Env):
         self.rl_form = rl_form
         self.helpers = helpers()
         self.system_knobs, self.network_knobs, self.workload_knobs = self.helpers.parse_knobs_astrasim(knobs_spec)
-        param_len = len(self.system_knobs) + len(self.network_knobs) + len(self.workload_knobs)
-         
-        if self.rl_form == 'sa1':
-            # action space = set of all possible actions. Space.sample() returns a random action
-            # observation space =  set of all possible observations
-            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32) # box is an array of shape len
-            self.action_space = gym.spaces.Box(low=0, high=1, shape=(param_len,), dtype=np.float32)
 
-        # reproducing Themis with AstraSim 1.0
-        elif self.rl_form == 'rl_themis':
-            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
-            self.action_space = gym.spaces.Discrete(16)
-        
-        else:
-            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
-            self.action_space = gym.spaces.Box(low=0, high=1, shape=(param_len,), dtype=np.float32)
-
-        
         # set parameters
         self.max_steps = max_steps
         self.counter = 0
@@ -82,6 +65,44 @@ class AstraSimEnv(gym.Env):
         self.network_file = os.path.join(self.networks_folder, "4d_ring_fc_ring_switch.json")
         self.system_file = os.path.join(self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
         self.workload_file = "all_reduce/allreduce_0.65.txt"
+
+
+        """TODO: ALCULATE LENGTH OF THE ACTION SPACE"""
+        self.param_len = 0
+        self.dimension = 0
+        if "dimensions-count" in self.network_knobs.keys():
+            self.dimension = self.network_knobs["dimensions-count"][0]
+        else:
+            # else get dimension from the network_file 
+            with open(self.network_file, 'r') as file:
+                data = json.load(file)
+                self.dimension = data["dimensions-count"]
+
+        # add 1 if N/A or TRUE knob, else add dimensions
+        for key in self.system_knobs:
+            if self.system_knobs[key][1] == "FALSE":
+                self.param_len += self.dimension
+            else:
+                self.param_len += 1
+
+        # param_len = len(self.system_knobs) + len(self.network_knobs) + len(self.workload_knobs)
+        print("dimensions: ", self.dimension)
+        print("param_len: ", self.param_len)
+
+        if self.rl_form == 'sa1':
+            # action space = set of all possible actions. Space.sample() returns a random action
+            # observation space =  set of all possible observations
+            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32) # box is an array of shape len
+            self.action_space = gym.spaces.Box(low=0, high=1, shape=(self.param_len,), dtype=np.float32)
+
+        # reproducing Themis with AstraSim 1.0
+        elif self.rl_form == 'rl_themis':
+            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
+            self.action_space = gym.spaces.Discrete(16)
+        
+        else:
+            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
+            self.action_space = gym.spaces.Box(low=0, high=1, shape=(self.param_len,), dtype=np.float32)
 
         print("_____________________*****************************_____________________")
 
@@ -159,6 +180,7 @@ class AstraSimEnv(gym.Env):
     # give it one action: one set of parameters from json file
     def step(self, action_dict):
 
+        """ RL """
         if not isinstance(action_dict, dict):
             with open(settings_dir_path + "/AstraSimRL_2.csv", 'a') as f:
                 writer = csv.writer(f)
@@ -174,7 +196,20 @@ class AstraSimEnv(gym.Env):
             self.helpers.parse_network_astrasim(self.network_file, action_dict_decoded, VERSION)
 
             # returning an 
-            action_decoded = self.helpers.action_decoder_ga_astraSim(action_dict)
+            print("ACTION DICT")
+            print(action_dict)
+            print("tunable knobs: ")
+            print(self.system_knobs)
+            print(self.network_knobs)
+            print(self.workload_knobs)
+
+            action_decoded = self.helpers.action_decoder_rl_astraSim(action_dict, 
+                                                                     self.system_knobs, 
+                                                                     self.network_knobs, 
+                                                                     self.workload_knobs, 
+                                                                     self.dimension)
+
+
 
             # change all variables decoded into action_dict
             for sect in action_decoded:

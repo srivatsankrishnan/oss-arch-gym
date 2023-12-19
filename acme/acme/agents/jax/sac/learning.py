@@ -42,7 +42,7 @@ class TrainingState(NamedTuple):
   alpha_params: Optional[networks_lib.Params] = None
 
 
-class SACLearner(acme.Learner):
+class SACLearner(acme.core.Learner):
   """SAC learner."""
 
   _state: TrainingState
