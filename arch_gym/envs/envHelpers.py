@@ -802,11 +802,12 @@ class helpers():
                     bin_edges = np.linspace(0, 1, len(categories) + 1)
 
                 def find_bin(value):
-                    for i in range(len(bin_edges) - 1):
+                    for i in range(0, len(bin_edges) - 2):
                         if bin_edges[i] <= value < bin_edges[i + 1]:
                             return i
+                    return len(bin_edges) - 2
                             
-                print("knob: ", knob)
+                print("knob??: ", knob)
                 print("categories: ", categories)
                 print("bin_edges: ", bin_edges)
                 print("act_encoded[counter]: ", act_encoded[counter])
@@ -823,13 +824,15 @@ class helpers():
                     bin_index = find_bin(act_encoded[counter])
                     act_decoded[dict_name][knob] = [categories[bin_index] for _ in range(dimension)]
                     counter += dimension
+                    print("act_decoded[dict_name][knob]: ", act_decoded[dict_name][knob])
 
                 elif dict_type[knob][1] == "FALSE":
                     # 0.5
                     bin_index = [0 for _ in range(dimension)]
                     for i in range(dimension):
-                        bin_index[i] = find_bin(act_encoded[counter])
-                        counter += 1
+                        bin_index[i] = find_bin(act_encoded[counter+i])
+
+                    counter += dimension
                     act_decoded[dict_name][knob] = [categories[i] for i in bin_index]
 
         print("action_decoder_rl_astraSim decoded", act_decoded)

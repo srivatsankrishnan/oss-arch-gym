@@ -79,8 +79,24 @@ class AstraSimEnv(gym.Env):
                 self.dimension = data["dimensions-count"]
 
         # add 1 if N/A or TRUE knob, else add dimensions
+        print("self.param_len: ", self.param_len)
+        print("system knobs: ", self.system_knobs)
         for key in self.system_knobs:
             if self.system_knobs[key][1] == "FALSE":
+                self.param_len += self.dimension
+            else:
+                self.param_len += 1
+        print("self.param_len: ", self.param_len)
+        print("network knobs: ", self.network_knobs)
+        for key in self.network_knobs:
+            if self.network_knobs[key][1] == "FALSE":
+                self.param_len += self.dimension
+            else:
+                self.param_len += 1
+        print("self.param_len: ", self.param_len)
+        print("workload knobs: ", self.workload_knobs)
+        for key in self.workload_knobs:
+            if self.workload_knobs[key][1] == "FALSE":
                 self.param_len += self.dimension
             else:
                 self.param_len += 1
@@ -227,7 +243,7 @@ class AstraSimEnv(gym.Env):
         if "path" in action_dict["workload"]:
             self.workload_config = action_dict["workload"]["path"]
 
-        print("ACTION DICT")
+        print("ACTION DICTSSSS")
         print(action_dict)
         # load knobs
 
@@ -317,15 +333,16 @@ class AstraSimEnv(gym.Env):
         sample_all_reduce_dimension_utilization = self.parse_result(sim_path +
             '/results/run_general/sample_all_reduce_dimension_utilization.csv')
 
-        if (self.counter == self.max_steps):
-            self.done = True
-            print("Maximum steps reached")
-            self.reset()
+        # if (self.counter == self.max_steps):
+        #     self.done = True
+        #     print("self.counter: ", self.counter)
+        #     print("Maximum steps reached")
+        #     self.reset()
 
         """
         TODO: add constraints
         """
-
+        print("?????????????????????")
         operators = {"<=", ">=", "==", "<", ">"}
         command = {"product", "mult", "num"}
         for constraint in self.constraints:
@@ -395,7 +412,10 @@ class AstraSimEnv(gym.Env):
             else:
                 print("constraint not satisfied")
                 reward = float("-inf")
-                return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
+                observations = [float("inf")]
+                observations = np.reshape(observations, self.observation_space.shape)
+                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+                # return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
             
 
         # HARDCODED EXAMPLE: test if product of npu count <= number of npus
@@ -411,8 +431,11 @@ class AstraSimEnv(gym.Env):
              len(sample_all_reduce_dimension_utilization) == 0)):
             # set reward to be extremely negative
             reward = float("-inf")
-            print("reward: ", reward)
-            return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
+            print("reward?: ", reward)
+            # np.reshape([], self.observation_space.shape)
+            observations = [float("inf")]
+            observations = np.reshape(observations, self.observation_space.shape)
+            return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
         else:
             observations = [
                 float(backend_end_to_end["CommsTime"][0])
