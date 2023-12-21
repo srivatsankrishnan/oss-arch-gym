@@ -4,3 +4,8 @@
 [submodule "sims/CFU-Playground/CFU-Playground"]
 	path = sims/CFU-Playground/CFU-Playground
 	url = https://github.com/google/CFU-Playground.git
+
+[submodule "sims/AstraSim/astrasim-archgym-public"]
+	path = sims/AstraSim/astrasim-archgym-public
+	url = https://github.com/changhai0109/astrasim-archgym-public.git
+	branch = v2.2.0
