@@ -849,16 +849,19 @@ class helpers():
             for knob in knobs:
                 if isinstance(dict_type[knob][0], set):
                     if dict_type[knob][1] == "FALSE":
-                        act_decoded[dict_name][knob] = [list(dict_type[knob][0])[int(i)]
+                        list_sorted = sorted(list(dict_type[knob][0]))
+                        act_decoded[dict_name][knob] = [list_sorted[int(i)]
                             for i in act_encoded[counter : counter + dimension]]
                         counter += dimension
                     elif dict_type[knob][1] == "TRUE":
+                        list_sorted = sorted(list(dict_type[knob][0]))
                         i = int(act_encoded[counter])
-                        act_decoded[dict_name][knob] = [list(dict_type[knob][0])[i] for _ in range(dimension)]
+                        act_decoded[dict_name][knob] = [list_sorted[i] for _ in range(dimension)]
                         counter += 1
                     else:
+                        list_sorted = sorted(list(dict_type[knob][0]))
                         i = int(act_encoded[counter])
-                        act_decoded[dict_name][knob] = list(dict_type[knob][0])[i]
+                        act_decoded[dict_name][knob] = list_sorted[i]
                         counter += 1
                 else:
                     if dict_type[knob][1] == "FALSE":

@@ -37,10 +37,10 @@ VERSION = 1
 # new_params = parsed knobs from experiment file
 def generate_random_actions(action_dict, system_knob, network_knob, workload_knob):
     dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
-    if "dimensions-count" in system_knob.keys():
+    if "dimensions-count" in network_knob.keys():
         action_dict['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
         dimension = action_dict['network']["dimensions-count"]
-        system_knob.remove("dimensions-count")
+        network_knob.remove("dimensions-count")
     else:
         dimension = action_dict['network']["dimensions-count"]
 
@@ -49,14 +49,16 @@ def generate_random_actions(action_dict, system_knob, network_knob, workload_kno
         for knob in knobs:
             if isinstance(dict_type[knob][0], set):
                 if dict_type[knob][1] == "FALSE":
+                    list_sorted = sorted(list(dict_type[knob][0]))
                     action_dict[dict_name][knob] = [random.choice(
-                        list(dict_type[knob][0])) for _ in range(dimension)]
+                        list_sorted) for _ in range(dimension)]
                 elif dict_type[knob][1] == "TRUE":
-                    choice = random.choice(list(dict_type[knob][0]))
+                    list_sorted = sorted(list(dict_type[knob][0]))
+                    choice = random.choice(list_sorted)
                     action_dict[dict_name][knob] = [choice for _ in range(dimension)]
                 else:
-                    action_dict[dict_name][knob] = random.choice(
-                        list(dict_type[knob][0]))
+                    list_sorted = sorted(list(dict_type[knob][0]))
+                    action_dict[dict_name][knob] = random.choice(list_sorted)
             else:
                 if dict_type[knob][1] == "FALSE":
                     action_dict[dict_name][knob] = [random.randint(

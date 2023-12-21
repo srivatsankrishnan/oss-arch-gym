@@ -16,6 +16,9 @@ import pandas as pd
 from absl import flags
 from absl import app
 
+# define AstraSim version
+VERSION = 1
+
 flags.DEFINE_string('workload', 'resnet18', 'Workload trace file')
 flags.DEFINE_integer('layer_id', 2, 'Layer id')
 flags.DEFINE_integer('num_iter', 16, 'Number of training steps.')
@@ -39,13 +42,10 @@ def scorer(estimator, X, y=None):
    return 1 * estimator.fit(X, y)
 
 
-def find_best_params_test(X, parameters, n_iter, seed, exp_name, traject_dir, exp_log_dir):
+def find_best_params_test(X, parameters, n_iter, seed, exp_name, traject_dir, exp_log_dir, dimension_count):
    
-   model = AstraSimEstimator(scheduling_policy = parameters['scheduling_policy'],
-                            collective_optimization = parameters['collective_optimization'],
-                            intra_dimension_scheduling = parameters['intra_dimension_scheduling'],
-                            inter_dimension_scheduling = parameters['inter_dimension_scheduling'],
-                            exp_name= exp_name, traject_dir= traject_dir)
+   model = AstraSimEstimator(exp_name=exp_name, traject_dir=traject_dir, **parameters)
+   print(model)
 
    # use config parser to update its parameters
    config = configparser.ConfigParser()
@@ -62,6 +62,7 @@ def find_best_params_test(X, parameters, n_iter, seed, exp_name, traject_dir, ex
 
     # Note need to use scipy=1.5.2 & scikit-learn=0.23.2 for this, see:
     # https://github.com/scikit-optimize/scikit-optimize/issues/978
+
    opt = BayesSearchCV(
         estimator=model,
         search_spaces = parameters,
@@ -81,41 +82,81 @@ def find_best_params_test(X, parameters, n_iter, seed, exp_name, traject_dir, ex
 
 def main(_):
 
-    # To do : Configure the workload trace here
-    dummy_X = np.array([1,2,3,4,5,6])
+   # To do : Configure the workload trace here
+   dummy_X = np.array([1,2,3,4,5,6])
 
-    # helper
-    h = helpers()
+   # helper
+   h = helpers()
 
-    # get the dimensions of the layers
-    astrasim_helpers = helpers()
-    dimension,_ = astrasim_helpers.get_dimensions(FLAGS.workload, FLAGS.layer_id)
-    
-    # define architectural parameters to search over
-    parameters = {"scheduling_policy": Categorical(["FIFO", "LIFO"]),
-                "collective_optimization":  Categorical(["localBWAware", "baseline"]),
-                "intra_dimension_scheduling": Categorical(["FIFO", "SCF"]),
-                "inter_dimension_scheduling": Categorical(["baseline", "themis"])
-                }
+   # get the dimensions of the layers
+   astrasim_helpers = helpers()
+   dimension,_ = astrasim_helpers.get_dimensions(FLAGS.workload, FLAGS.layer_id)
 
-    # Construct the exp name from seed and num_iter
-    exp_name = str(FLAGS.workload) + "_random_state_" + str(FLAGS.random_state) + "_num_iter_" + str(FLAGS.num_iter)
-    
-    # get the current working directory and append the exp name
-    traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
+   settings_file_path = os.path.realpath(__file__)
+   settings_dir_path = os.path.dirname(settings_file_path)
+   proj_root_path = os.path.abspath(settings_dir_path)
+   astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
 
-    # log directories for storing exp csvs
-    exp_log_dir = os.path.join(FLAGS.summary_dir, "bo_logs", FLAGS.reward_formulation, exp_name)
+   archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
+   networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
+   network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
+   knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
 
-    print("Trajectory directory: " + traject_dir)
+   network_parsed = {}
+   h.parse_network_astrasim(network_file, network_parsed, VERSION)
+   system_knob, network_knob, workload_knob = h.parse_knobs_astrasim(knobs_spec)
+   dicts = [system_knob, network_knob, workload_knob]
 
-    find_best_params_test(dummy_X, parameters,
-                            FLAGS.num_iter,
-                            FLAGS.random_state,
-                            exp_name,
-                            traject_dir,
-                            exp_log_dir
-                            )
+   parameters = {}
+   # ASSUMES dimension is specified by input files (otherwise randomized)
+   if "dimensions-count" in network_knob.keys():
+      parameters["dimensions_count"] = random.choice(network_knob["dimensions-count"])
+      dimension_count = parameters["dimensions_count"]
+      network_knob.remove("dimensions-count")
+   else:
+      dimension_count = network_parsed["network"]["dimensions-count"]
+
+   for dict_type in dicts:
+      for knob in dict_type.keys():
+         knob_converted = h.convert_knob_bo_astrasim(knob)
+         if isinstance(dict_type[knob][0], set):
+            if dict_type[knob][1] == "FALSE":
+               for i in range(1, dimension_count + 1):
+                  knob_dimension = knob_converted + str(i)
+                  list_sorted = sorted(list(dict_type[knob][0]))
+                  parameters[knob_dimension] = Categorical(list_sorted)
+            else:
+               list_sorted = sorted(list(dict_type[knob][0]))
+               parameters[knob_converted] = Categorical(list_sorted)
+         else:
+            if dict_type[knob][1] == "FALSE":
+               for i in range(1, dimension_count + 1):
+                  knob_dimension = knob_converted + str(i)
+                  parameters[knob_dimension] = Integer(dict_type[knob][0][0], dict_type[knob][0][1])
+            else:
+               parameters[knob_converted] = Integer(dict_type[knob][0][0], dict_type[knob][0][1])
+
+   # Construct the exp name from seed and num_iter
+   exp_name = str(FLAGS.workload) + "_random_state_" + str(FLAGS.random_state) + "_num_iter_" + str(FLAGS.num_iter)
+
+   # get the current working directory and append the exp name
+   traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
+
+   # log directories for storing exp csvs
+   exp_log_dir = os.path.join(FLAGS.summary_dir, "bo_logs", FLAGS.reward_formulation, exp_name)
+
+   print("Trajectory directory: " + traject_dir)
+
+   print("PARAMETERS: ", parameters)
+
+   find_best_params_test(dummy_X, parameters,
+                           FLAGS.num_iter,
+                           FLAGS.random_state,
+                           exp_name,
+                           traject_dir,
+                           exp_log_dir,
+                           dimension_count
+                           )
   
 
 if __name__ == '__main__':

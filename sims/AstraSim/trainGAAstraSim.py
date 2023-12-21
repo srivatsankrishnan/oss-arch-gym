@@ -158,10 +158,10 @@ def generate_bounds(action_dict, knobs_spec):
     dicts = [system_knob, network_knob, workload_knob]
 
     # ASSUMES dimension is specified by input files (otherwise randomized)
-    if "dimensions-count" in system_knob.keys():
+    if "dimensions-count" in network_knob.keys():
         action_dict['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
         dimension = action_dict['network']["dimensions-count"]
-        system_knob.remove("dimensions-count")
+        network_knob.remove("dimensions-count")
     else:
         dimension = action_dict['network']["dimensions-count"]
 

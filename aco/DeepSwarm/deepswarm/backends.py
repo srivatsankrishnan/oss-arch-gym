@@ -409,9 +409,11 @@ class DummyAstraSim():
                     if dict_type[knob][1] == "FALSE":
                         for i in range(1, dimension + 1):
                             knob_dimension = knob_converted + str(i)
-                            data['Nodes']['ArchParamsNode']['attributes'][knob_dimension] = [i for i in list(dict_type[knob][0]).sort()]
+                            list_sorted = sorted(list(dict_type[knob][0]))
+                            data['Nodes']['ArchParamsNode']['attributes'][knob_dimension] = [i for i in list_sorted]
                     else:
-                        data['Nodes']['ArchParamsNode']['attributes'][knob_converted] = [i for i in list(dict_type[knob][0]).sort()]
+                        list_sorted = sorted(list(dict_type[knob][0]))
+                        data['Nodes']['ArchParamsNode']['attributes'][knob_converted] = [i for i in list_sorted]
                 else:
                     if dict_type[knob][1] == "FALSE":
                         for i in range(1, dimension + 1):
