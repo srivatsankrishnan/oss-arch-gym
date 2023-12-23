@@ -887,7 +887,17 @@ class helpers():
                     action_dict['network'][key] = network[key]
         else:
             # parse yaml file
-            pass
+            data = yaml.load(open(network_file), Loader=yaml.Loader)
+
+            for key, val in data.items():
+                key_split = key.split("_")
+                key_converted = ""
+                for k in key_split:
+                    key_converted += k 
+                    key_converted += "-"
+
+                action_dict['network'][key_converted[:-1]] = val
+
         return action_dict['network']
 
 
@@ -907,6 +917,7 @@ class helpers():
 
                 for key in system.keys():
                     action_dict['system'][key] = system[key]
+                    
         return action_dict['system']
 
     # workload: parses the workload file

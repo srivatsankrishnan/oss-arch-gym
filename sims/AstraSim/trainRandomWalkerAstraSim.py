@@ -31,12 +31,13 @@ flags.DEFINE_string('reward_formulation', 'latency',
 FLAGS = flags.FLAGS
 
 # define AstraSim version
-VERSION = 1
+VERSION = 2
 
 # action_type = specify 'network' or 'system
 # new_params = parsed knobs from experiment file
 def generate_random_actions(action_dict, system_knob, network_knob, workload_knob):
     dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
+    print("ACTION DICT: ", action_dict)
     if "dimensions-count" in network_knob.keys():
         action_dict['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
         dimension = action_dict['network']["dimensions-count"]
@@ -120,15 +121,24 @@ def main(_):
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
     # DEFINE NETWORK AND SYSTEM AND WORKLOAD
-    network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
-    system_file = os.path.join(
-        systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
-    workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
+    if VERSION == 1:
+        network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
+        system_file = os.path.join(
+            systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+        workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
+    else:
+        network_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
+        system_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
+        workload_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/dse/workload/all_reduce/allreduce_0.10.0.eg")
 
     exe_path = os.path.join(proj_root_path, "run_general.sh")
-    network_config = os.path.join(proj_root_path, "general_network.json")
-    system_config = os.path.join(proj_root_path, "general_system.txt")
-    workload_config = os.path.join(proj_root_path, "general_workload.txt")
+    if VERSION == 1:
+        network_config = os.path.join(proj_root_path, "general_network.json")
+        system_config = os.path.join(proj_root_path, "general_system.txt")
+        workload_config = os.path.join(proj_root_path, "general_workload.txt")
+    else:
+        network_config = os.path.join(proj_root_path, "general_network.yml")
+        system_config = os.path.join(proj_root_path, "general_system.json")
 
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
     # env = AstraSimEnv.AstraSimEnv(rl_form='random_walker')

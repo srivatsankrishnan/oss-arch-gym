@@ -33,7 +33,7 @@ flags.DEFINE_bool('use_envlogger', True, 'Whether to use envlogger.')
 FLAGS = flags.FLAGS
 
 # define AstraSim version
-VERSION = 1
+VERSION = 2
 
 # define helpers
 astraSim_helper = helpers()
@@ -91,8 +91,13 @@ def AstraSim_optimization_function(p):
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
     # DEFINE NETWORK AND SYSTEM AND WORKLOAD
-    network_file = os.path.join(networks_folder, "analytical/4d_ring_fc_ring_switch.json")
-    system_file = os.path.join(systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+    if VERSION == 1:
+        network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
+        system_file = os.path.join(
+            systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+    else:
+        network_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
+        system_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
     workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
     
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')

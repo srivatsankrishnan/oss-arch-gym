@@ -17,7 +17,7 @@ from absl import flags
 from absl import app
 
 # define AstraSim version
-VERSION = 1
+VERSION = 2
 
 flags.DEFINE_string('workload', 'resnet18', 'Workload trace file')
 flags.DEFINE_integer('layer_id', 2, 'Layer id')
@@ -99,7 +99,10 @@ def main(_):
 
    archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
    networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
-   network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
+   if VERSION == 1:
+      network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
+   else:
+      network_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
    knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
 
    network_parsed = {}

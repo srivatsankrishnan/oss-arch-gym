@@ -39,7 +39,7 @@ os.sys.path.insert(0, os.path.abspath('/../../configs'))
 
 
 # define AstraSim version
-VERSION = 1
+VERSION = 2
 
 def step_fn(unused_timestep, unused_action, unused_env):
     return {'timestamp': time.time()}
@@ -374,10 +374,14 @@ class DummyAstraSim():
             self.astrasim_archgym, "themis/inputs/system")
         self.network_folder = os.path.join(
             self.astrasim_archgym, "dse/archgen_v1_knobs/templates/network")
-        self.system_file = os.path.join(
-            self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
-        self.network_file = os.path.join(
-            self.network_folder, "4d_ring_fc_ring_switch.json")
+        if VERSION == 1:
+            self.system_file = os.path.join(
+                self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+            self.network_file = os.path.join(
+                self.network_folder, "4d_ring_fc_ring_switch.json")
+        else:
+            self.network_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
+            self.system_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
 
         # SET UP ACTION DICT
         self.action_dict = {"workload": {}}

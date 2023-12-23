@@ -4,11 +4,12 @@
 SCRIPT_DIR=$(dirname "$(realpath $0)")
 
 # Absolute paths to useful directories
-BINARY="${SCRIPT_DIR:?}"/astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra
-SYSTEM="${SCRIPT_DIR:?}"/general_system.txt
-NETWORK="${SCRIPT_DIR:?}"/general_network.json
-WORKLOAD="${SCRIPT_DIR:?}"/astrasim-archgym/themis/inputs/workload/$3
+BINARY=$1
+SYSTEM=$2
+NETWORK=$3
+WORKLOAD=$4
 
+echo "SH BINARY: ${BINARY}"
 echo "SH NETWORK: ${NETWORK}"
 echo "SH SYSTEM: ${SYSTEM}"
 echo "SH WORKLOAD: ${WORKLOAD}"

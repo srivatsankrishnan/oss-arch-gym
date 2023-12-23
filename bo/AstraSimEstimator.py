@@ -18,7 +18,7 @@ from absl import logging
 from absl import flags
 
 # define AstraSim version
-VERSION = 1
+VERSION = 2
 
 class AstraSimEstimator(BaseEstimator):
 
@@ -43,8 +43,12 @@ class AstraSimEstimator(BaseEstimator):
         systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
         workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
-        self.network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
-        self.system_file = os.path.join(systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+        if VERSION == 1:
+            self.network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
+            self.system_file = os.path.join(systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+        else:
+            self.network_file = os.path.join(proj_root_path, "sims/AstraSim/astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
+            self.system_file = os.path.join(proj_root_path, "sims/AstraSim/astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
         self.workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.20.txt")
 
         self.system_knob, self.network_knob, self.workload_knob = self.helper.parse_knobs_astrasim(knobs_spec)

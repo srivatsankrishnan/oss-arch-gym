@@ -7,6 +7,7 @@ import os
 import time
 import csv
 import random
+import yaml
 
 from envHelpers import helpers
 
@@ -22,7 +23,7 @@ knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
 parameter_knobs= os.path.join(sim_path, "frontend/parameter_knobs.py")
 
 # define AstraSim version
-VERSION = 1
+VERSION = 2
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):
@@ -49,34 +50,50 @@ class AstraSimEnv(gym.Env):
         self.info = {}
 
         self.exe_path = os.path.join(sim_path, "run_general.sh")
-        self.network_config = os.path.join(sim_path, "general_network.json")
-        self.system_config = os.path.join(sim_path, "general_system.txt")
+
+        # CONFIG = FILE WITH CHANGED KNOBS
+        if VERSION == 1:
+            self.network_config = os.path.join(sim_path, "general_network.json")
+            self.system_config = os.path.join(sim_path, "general_system.txt")
+            self.astrasim_binary = os.path.join(sim_path, "astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
+        else:
+            self.network_config = os.path.join(sim_path, "general_network.yml")
+            self.system_config = os.path.join(sim_path, "general_system.json")
+            self.astrasim_binary = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
 
         # V1 networks, systems, and workloads folder
         self.networks_folder = os.path.join(sim_path, "astrasim-archgym/dse/archgen_v1_knobs/templates/network")
         self.workloads_folder = os.path.join(sim_path, "astrasim-archgym/themis/inputs/workload")
 
         # Config does not matter
-        # self.network_config = os.path.join(self.networks_folder, "4d_ring_fc_ring_switch.json")
         self.workload_config = os.path.join(self.workloads_folder, "all_reduce/allreduce_0.65.txt")
         self.astrasim_archgym = os.path.join(sim_path, "astrasim-archgym")
         self.systems_folder = os.path.join(self.astrasim_archgym, "themis/inputs/system")
 
-        self.network_file = os.path.join(self.networks_folder, "4d_ring_fc_ring_switch.json")
-        self.system_file = os.path.join(self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
-        self.workload_file = "all_reduce/allreduce_0.65.txt"
-
-
-        """TODO: ALCULATE LENGTH OF THE ACTION SPACE"""
+        # FILE = INITIAL INPUTS
+        if VERSION == 1:
+            self.network_file = os.path.join(self.networks_folder, "4d_ring_fc_ring_switch.json")
+            self.system_file = os.path.join(self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+            self.workload_file = os.path.join(self.workloads_folder, "all_reduce/allreduce_0.65.txt")
+        else:
+            self.network_file = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
+            self.system_file = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
+            self.workload_file = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/dse/workload/all_reduce/allreduce_0.10.0.eg")
+        
         self.param_len = 0
         self.dimension = 0
         if "dimensions-count" in self.network_knobs.keys():
             self.dimension = self.network_knobs["dimensions-count"][0]
         else:
             # else get dimension from the network_file 
-            with open(self.network_file, 'r') as file:
-                data = json.load(file)
-                self.dimension = data["dimensions-count"]
+            if VERSION == 1:
+                with open(self.network_file, 'r') as file:
+                    data = json.load(file)
+                    self.dimension = data["dimensions-count"]
+            else:
+                data = yaml.load(open(self.network_file), Loader=yaml.Loader)
+                self.dimension = data["dimensions_count"]
+            
 
         # add 1 if N/A or TRUE knob, else add dimensions
         print("self.param_len: ", self.param_len)
@@ -219,7 +236,7 @@ class AstraSimEnv(gym.Env):
             print(self.network_knobs)
             print(self.workload_knobs)
 
-            action_decoded = self.helpers.action_decoder_rl_astraSim(action_dict, 
+            action_decoded = self.helpers.action_decoder_rl_astraSim(action_dict,
                                                                      self.system_knobs, 
                                                                      self.network_knobs, 
                                                                      self.workload_knobs, 
@@ -245,9 +262,12 @@ class AstraSimEnv(gym.Env):
 
         print("ACTION DICTSSSS")
         print(action_dict)
+        print("VERSION:")
+        print(VERSION)
         # load knobs
 
         if VERSION == 1:
+            # write system to txt file
             with open(self.system_config, 'w') as file:
                 for key, value in action_dict["system"].items(): 
                     if isinstance(value, list):
@@ -258,6 +278,7 @@ class AstraSimEnv(gym.Env):
                         file.write('\n')
                     else:
                         file.write(f'{key}: {value}\n')
+            # write network to json file
             with open(self.network_config, 'w') as file:
                 file.write('{\n')
                 for key, value in action_dict["network"].items():
@@ -275,9 +296,7 @@ class AstraSimEnv(gym.Env):
                 file.write('\n')
                 file.write('}')
         elif VERSION == 2:
-            """
-            TODO: ASTRA-sim 2.0 integration
-            """
+            # write system to json file
             with open(self.system_config, 'w') as file:
                 file.write('{\n')
                 for key, value in action_dict["system"].items():
@@ -294,19 +313,52 @@ class AstraSimEnv(gym.Env):
                 file.seek(file.tell() - 2, os.SEEK_SET)
                 file.write('\n')
                 file.write('}')
-            # WRITE NETWORK FILE TO YAML FILE
+            # write network to yaml file
+            data = {}
+            for key, value in action_dict["network"].items():
+                if VERSION == 2 and key == "topologies-per-dim":
+                    new_key = "topology"
+                    key_split = new_key.split("-")
+                    key_converted = ""
+                    for k in key_split:
+                        key_converted += k 
+                        key_converted += "_"
+
+                    data[key_converted[:-1]] = value
+                else:    
+                    if VERSION == 2 and key == "dimensions-count":
+                        continue
+                    key_split = key.split("-")
+                    key_converted = ""
+                    for k in key_split:
+                        key_converted += k 
+                        key_converted += "_"
+
+                    data[key_converted[:-1]] = value
+
+            with open(self.network_config, 'w') as file:
+                yaml.dump(data, file, sort_keys=False)
+            # TODO: write workload to cfg file
+                
+
 
         # the action is actually the parsed parameter files
         print("Step: " + str(self.counter))
         self.counter += 1
+
+        # os.sys.path.insert(0, os.path.abspath('../../'))
+        # from sims.AstraSim.astrasim_archgym_public.dse.conf_file_tools import workload_cfg_to_workload
+        # self.workload_config = "workload.%d.eg"   # just a valid path, maybe store with other serialized cfgs will be better
+        # workload_cfg_to_workload(workload_cfg, self.workload_config)
 
         # start subrpocess to run the simulation
         # $1: network, $2: system, $3: workload
         print("Running simulation...")
         print(self.exe_path, self.network_config, self.system_config, self.workload_config)
         process = subprocess.Popen([self.exe_path, 
-                                    self.network_file, 
+                                    self.astrasim_binary,
                                     self.system_config, 
+                                    self.network_config, 
                                     self.workload_file],
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -345,6 +397,7 @@ class AstraSimEnv(gym.Env):
         print("?????????????????????")
         operators = {"<=", ">=", "==", "<", ">"}
         command = {"product", "mult", "num"}
+        self.constraints = []
         for constraint in self.constraints:
             constraint_args = constraint.split(" ")
             
