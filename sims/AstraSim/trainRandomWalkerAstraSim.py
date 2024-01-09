@@ -129,16 +129,16 @@ def main(_):
     else:
         network_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
         system_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
-        workload_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/dse/workload/all_reduce/allreduce_0.10.0.eg")
+        workload_file = os.path.join(proj_root_path, "astrasim_220_example/workload_cfg.json")
 
-    exe_path = os.path.join(proj_root_path, "run_general.sh")
-    if VERSION == 1:
-        network_config = os.path.join(proj_root_path, "general_network.json")
-        system_config = os.path.join(proj_root_path, "general_system.txt")
-        workload_config = os.path.join(proj_root_path, "general_workload.txt")
-    else:
-        network_config = os.path.join(proj_root_path, "general_network.yml")
-        system_config = os.path.join(proj_root_path, "general_system.json")
+    # exe_path = os.path.join(proj_root_path, "run_general.sh")
+    # if VERSION == 1:
+    #     network_config = os.path.join(proj_root_path, "general_network.json")
+    #     system_config = os.path.join(proj_root_path, "general_system.txt")
+    #     workload_config = os.path.join(proj_root_path, "general_workload.txt")
+    # else:
+    #     network_config = os.path.join(proj_root_path, "general_network.yml")
+    #     system_config = os.path.join(proj_root_path, "general_system.json")
 
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
     # env = AstraSimEnv.AstraSimEnv(rl_form='random_walker')

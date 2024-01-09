@@ -49,26 +49,24 @@ class AstraSimEnv(gym.Env):
         self.done = False
         self.info = {}
 
-        self.exe_path = os.path.join(sim_path, "run_general.sh")
-
-        # CONFIG = FILE WITH CHANGED KNOBS
-        if VERSION == 1:
-            self.network_config = os.path.join(sim_path, "general_network.json")
-            self.system_config = os.path.join(sim_path, "general_system.txt")
-            self.astrasim_binary = os.path.join(sim_path, "astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
-        else:
-            self.network_config = os.path.join(sim_path, "general_network.yml")
-            self.system_config = os.path.join(sim_path, "general_system.json")
-            self.astrasim_binary = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
-
         # V1 networks, systems, and workloads folder
         self.networks_folder = os.path.join(sim_path, "astrasim-archgym/dse/archgen_v1_knobs/templates/network")
         self.workloads_folder = os.path.join(sim_path, "astrasim-archgym/themis/inputs/workload")
+        self.systems_folder = os.path.join(sim_path, "astrasim-archgym/themis/inputs/system")
 
-        # Config does not matter
-        self.workload_config = os.path.join(self.workloads_folder, "all_reduce/allreduce_0.65.txt")
-        self.astrasim_archgym = os.path.join(sim_path, "astrasim-archgym")
-        self.systems_folder = os.path.join(self.astrasim_archgym, "themis/inputs/system")
+        # CONFIG = FILE WITH CHANGED KNOBS
+        if VERSION == 1:
+            self.exe_path = os.path.join(sim_path, "run_general.sh")
+            self.network_config = os.path.join(sim_path, "general_network.json")
+            self.system_config = os.path.join(sim_path, "general_system.txt")
+            self.workload_config = os.path.join(self.workloads_folder, "all_reduce/allreduce_0.65.txt")
+            self.astrasim_binary = os.path.join(sim_path, "astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
+        else:
+            self.exe_path = os.path.join(sim_path, "astrasim_220_example/run.sh")
+            self.network_config = os.path.join(sim_path, "astrasim_220_example/network.yml")
+            self.system_config = os.path.join(sim_path, "astrasim_220_example/system.json")
+            self.workload_config = os.path.join(sim_path, "astrasim_220_example/workload_cfg.json")
+            self.astrasim_binary = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Unaware")
 
         # FILE = INITIAL INPUTS
         if VERSION == 1:
@@ -78,7 +76,7 @@ class AstraSimEnv(gym.Env):
         else:
             self.network_file = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
             self.system_file = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
-            self.workload_file = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/dse/workload/all_reduce/allreduce_0.10.0.eg")
+            self.workload_file = os.path.join(sim_path, "astrasim_220_example/workload-et/generated")
         
         self.param_len = 0
         self.dimension = 0
@@ -338,63 +336,19 @@ class AstraSimEnv(gym.Env):
 
             with open(self.network_config, 'w') as file:
                 yaml.dump(data, file, sort_keys=False)
-            # TODO: write workload to cfg file
-                
+            # write workload to cfg file
+            # with open(self.workload_config, 'w') as file:
+            #     file.write(action_dict["workload"])    
 
 
         # the action is actually the parsed parameter files
         print("Step: " + str(self.counter))
         self.counter += 1
 
-        # os.sys.path.insert(0, os.path.abspath('../../'))
-        # from sims.AstraSim.astrasim_archgym_public.dse.conf_file_tools import workload_cfg_to_workload
-        # self.workload_config = "workload.%d.eg"   # just a valid path, maybe store with other serialized cfgs will be better
-        # workload_cfg_to_workload(workload_cfg, self.workload_config)
-
-        # start subrpocess to run the simulation
-        # $1: network, $2: system, $3: workload
-        print("Running simulation...")
-        print(self.exe_path, self.network_config, self.system_config, self.workload_config)
-        process = subprocess.Popen([self.exe_path, 
-                                    self.astrasim_binary,
-                                    self.system_config, 
-                                    self.network_config, 
-                                    self.workload_file],
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        # get the output
-        out, err = process.communicate()
-        outstream = out.decode()
-        print("------------------------------------------------------------------")
-        print(outstream)
-        print("------------------------------------------------------------------")
-
-        # backend_dim_info.csv
-        backend_dim_info = self.parse_result(sim_path + 
-            '/results/run_general/backend_dim_info.csv')
-        # backend_end_to_end.csv
-        backend_end_to_end = self.parse_result(sim_path + 
-            '/results/run_general/backend_end_to_end.csv')
-        # detailed.csv
-        detailed = self.parse_result(sim_path +
-            '/results/run_general/detailed.csv')
-        # EndToEnd.csv
-        end_to_end = self.parse_result(sim_path +
-            '/results/run_general/EndToEnd.csv')
-        # sample_all_reduce_dimension_utilization.csv
-        sample_all_reduce_dimension_utilization = self.parse_result(sim_path +
-            '/results/run_general/sample_all_reduce_dimension_utilization.csv')
-
-        # if (self.counter == self.max_steps):
-        #     self.done = True
-        #     print("self.counter: ", self.counter)
-        #     print("Maximum steps reached")
-        #     self.reset()
 
         """
         TODO: add constraints
         """
-        print("?????????????????????")
         operators = {"<=", ">=", "==", "<", ">"}
         command = {"product", "mult", "num"}
         self.constraints = []
@@ -478,29 +432,86 @@ class AstraSimEnv(gym.Env):
         #     print("reward: ", reward)
         #     return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
 
-        # test if the csv files exist (if they don't, the config files are invalid)
-        if ((len(backend_dim_info) == 0 or len(backend_end_to_end) == 0 or
-             len(detailed) == 0 or len(end_to_end) == 0 or
-             len(sample_all_reduce_dimension_utilization) == 0)):
-            # set reward to be extremely negative
-            reward = float("-inf")
-            print("reward?: ", reward)
-            # np.reshape([], self.observation_space.shape)
-            observations = [float("inf")]
-            observations = np.reshape(observations, self.observation_space.shape)
-            return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
-        else:
-            observations = [
-                float(backend_end_to_end["CommsTime"][0])
-                # end_to_end["fwd compute"][0],
-                # end_to_end["wg compute"][0],
-                # end_to_end["ig compute"][0],
-                # end_to_end["total exposed comm"][0]
-            ]
 
-            
-            reward = self.calculate_reward(observations)
+
+        # os.sys.path.insert(0, os.path.abspath('../../'))
+        # from sims.AstraSim.astrasim_archgym_public.dse.conf_file_tools import workload_cfg_to_workload
+        # self.workload_config = "workload.%d.eg"   # just a valid path, maybe store with other serialized cfgs will be better
+        # workload_cfg_to_workload(workload_cfg, self.workload_config)
+
+        # start subrpocess to run the simulation
+        # $1: network, $2: system, $3: workload
+        print("Running simulation...")
+        print(self.exe_path, self.network_config, self.system_config, self.workload_config)
+        process = subprocess.Popen([self.exe_path, 
+                                    self.astrasim_binary, 
+                                    self.system_config, 
+                                    self.network_config, 
+                                    self.workload_file],
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # process = subprocess.Popen([self.exe_path],
+        #                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        # get the output
+        out, err = process.communicate()
+        print("OUT: ", out)
+        outstream = out.decode()
+        print("------------------------------------------------------------------")
+        print("standard output: ")
+        print(outstream)
+
+        max_cycles = 0
+        if VERSION == 2:
+            # parse to get the number of cycles
+            for line in outstream.splitlines():
+                if line[0:3] == "sys":
+                    words = line.split()
+                    cycles = int(words[-2])
+                    max_cycles = max(cycles, max_cycles)
+        
+        print("MAX_CYCLES: ", max_cycles)
+        print("------------------------------------------------------------------")
     
+        
+        # if (self.counter == self.max_steps):
+        #     self.done = True
+        #     print("self.counter: ", self.counter)
+        #     print("Maximum steps reached")
+        #     self.reset()
+
+
+        # test if the csv files exist (if they don't, the config files are invalid)
+        if VERSION == 1:
+            backend_dim_info = self.parse_result(sim_path + '/results/run_general/backend_dim_info.csv')
+            backend_end_to_end = self.parse_result(sim_path + '/results/run_general/backend_end_to_end.csv')
+            detailed = self.parse_result(sim_path + '/results/run_general/detailed.csv')
+            end_to_end = self.parse_result(sim_path + '/results/run_general/EndToEnd.csv')
+            sample_all_reduce_dimension_utilization = self.parse_result(sim_path +
+                '/results/run_general/sample_all_reduce_dimension_utilization.csv')
+
+            if ((len(backend_dim_info) == 0 or len(backend_end_to_end) == 0 or
+                len(detailed) == 0 or len(end_to_end) == 0 or
+                len(sample_all_reduce_dimension_utilization) == 0)):
+                # set reward to be extremely negative
+                reward = float("-inf")
+                print("reward?: ", reward)
+                # np.reshape([], self.observation_space.shape)
+                observations = [float("inf")]
+                observations = np.reshape(observations, self.observation_space.shape)
+                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+            else:
+                observations = [float(backend_end_to_end["CommsTime"][0])]
+                reward = self.calculate_reward(observations)
+                print("reward: ", reward)
+                
+                # reshape observations with shape of observation space
+                observations = np.reshape(observations, self.observation_space.shape)
+                self.useful_counter += 1
+
+                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+        else:
+            observations = [max_cycles]
+            reward = self.calculate_reward(observations)
             print("reward: ", reward)
             
             # reshape observations with shape of observation space
