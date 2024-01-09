@@ -10,7 +10,13 @@ NETWORK=$3
 WORKLOAD=$4
 GENERATE=$5
 
-WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
+if [ "$GENERATE" == "TRUE" ]; then
+    python3 workload_cfg_to_et.py --workload_cfg=${WORKLOAD} --workload_et=workload-et/generated.%d.eg
+    WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
+else
+    WORKLOAD=$4
+fi
+
 MEMORY="${SCRIPT_DIR}/memory.json"
 
 echo "SH BINARY: ${ASTRASIM_BIN}"
