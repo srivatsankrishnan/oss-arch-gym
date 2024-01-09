@@ -19,7 +19,10 @@ proj_dir_path = os.path.join(proj_root_path, "sims/AstraSim")
 astrasim_archgym = os.path.join(proj_dir_path, "astrasim-archgym")
 archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
 sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
-knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+# VERSION = 1
+# knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+# VERSION = 2
+knobs_spec = os.path.join(sim_path, "astrasim_220_example/knobs.py")
 parameter_knobs= os.path.join(sim_path, "frontend/parameter_knobs.py")
 
 # define AstraSim version
@@ -31,6 +34,12 @@ class AstraSimEnv(gym.Env):
         self.rl_form = rl_form
         self.helpers = helpers()
         self.system_knobs, self.network_knobs, self.workload_knobs = self.helpers.parse_knobs_astrasim(knobs_spec)
+
+        # only generate workload file if workload knobs given
+        if self.workload_knobs == {}:
+            self.generate_workload = "FALSE"
+        else:
+            self.generate_workload = "TRUE"
 
         # set parameters
         self.max_steps = max_steps
@@ -59,13 +68,11 @@ class AstraSimEnv(gym.Env):
             self.exe_path = os.path.join(sim_path, "run_general.sh")
             self.network_config = os.path.join(sim_path, "general_network.json")
             self.system_config = os.path.join(sim_path, "general_system.txt")
-            self.workload_config = os.path.join(self.workloads_folder, "all_reduce/allreduce_0.65.txt")
             self.astrasim_binary = os.path.join(sim_path, "astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
         else:
             self.exe_path = os.path.join(sim_path, "astrasim_220_example/run.sh")
             self.network_config = os.path.join(sim_path, "astrasim_220_example/network.yml")
             self.system_config = os.path.join(sim_path, "astrasim_220_example/system.json")
-            self.workload_config = os.path.join(sim_path, "astrasim_220_example/workload_cfg.json")
             self.astrasim_binary = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Unaware")
 
         # FILE = INITIAL INPUTS
@@ -76,7 +83,10 @@ class AstraSimEnv(gym.Env):
         else:
             self.network_file = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
             self.system_file = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
-            self.workload_file = os.path.join(sim_path, "astrasim_220_example/workload-et/generated")
+            if self.generate_workload == "TRUE":
+                self.workload_file = os.path.join(sim_path, "astrasim_220_example/workload_cfg.json")
+            else:
+                self.workload_file = os.path.join(sim_path, "astrasim_220_example/workload-et/generated")
         
         self.param_len = 0
         self.dimension = 0
@@ -256,7 +266,7 @@ class AstraSimEnv(gym.Env):
             self.system_config = action_dict["system"]["path"]
 
         if "path" in action_dict["workload"]:
-            self.workload_config = action_dict["workload"]["path"]
+            self.workload_file = action_dict["workload"]["path"]
 
         print("ACTION DICTSSSS")
         print(action_dict)
@@ -266,66 +276,58 @@ class AstraSimEnv(gym.Env):
 
         if VERSION == 1:
             # write system to txt file
-            with open(self.system_config, 'w') as file:
-                for key, value in action_dict["system"].items(): 
-                    if isinstance(value, list):
-                        file.write(f'{key}: ')
-                        for i in range(len(value)-1):
-                            file.write(f'{value[i]}_')
-                        file.write(f'{value[len(value)-1]}')
-                        file.write('\n')
-                    else:
-                        file.write(f'{key}: {value}\n')
+            if "path" not in action_dict["system"]:
+                with open(self.system_config, 'w') as file:
+                    for key, value in action_dict["system"].items(): 
+                        if isinstance(value, list):
+                            file.write(f'{key}: ')
+                            for i in range(len(value)-1):
+                                file.write(f'{value[i]}_')
+                            file.write(f'{value[len(value)-1]}')
+                            file.write('\n')
+                        else:
+                            file.write(f'{key}: {value}\n')
             # write network to json file
-            with open(self.network_config, 'w') as file:
-                file.write('{\n')
-                for key, value in action_dict["network"].items():
-                    if isinstance(value, str):
-                        file.write(f'"{key}": "{value}",\n')
-                    elif isinstance(value, list) and isinstance(value[0], str):
-                        file.write(f'"{key}": [')
-                        for i in range(len(value)-1):
-                            file.write(f'"{value[i]}", ')
-                        file.write(f'"{value[len(value)-1]}"')
-                        file.write('],\n')
-                    else:
-                        file.write(f'"{key}": {value},\n')
-                file.seek(file.tell() - 2, os.SEEK_SET)
-                file.write('\n')
-                file.write('}')
+            if "path" not in action_dict["network"]:
+                with open(self.network_config, 'w') as file:
+                    file.write('{\n')
+                    for key, value in action_dict["network"].items():
+                        if isinstance(value, str):
+                            file.write(f'"{key}": "{value}",\n')
+                        elif isinstance(value, list) and isinstance(value[0], str):
+                            file.write(f'"{key}": [')
+                            for i in range(len(value)-1):
+                                file.write(f'"{value[i]}", ')
+                            file.write(f'"{value[len(value)-1]}"')
+                            file.write('],\n')
+                        else:
+                            file.write(f'"{key}": {value},\n')
+                    file.seek(file.tell() - 2, os.SEEK_SET)
+                    file.write('\n')
+                    file.write('}')
         elif VERSION == 2:
             # write system to json file
-            with open(self.system_config, 'w') as file:
-                file.write('{\n')
-                for key, value in action_dict["system"].items():
-                    if isinstance(value, str):
-                        file.write(f'"{key}": "{value}",\n')
-                    elif isinstance(value, list) and isinstance(value[0], str):
-                        file.write(f'"{key}": [')
-                        for i in range(len(value)-1):
-                            file.write(f'"{value[i]}", ')
-                        file.write(f'"{value[len(value)-1]}"')
-                        file.write('],\n')
-                    else:
-                        file.write(f'"{key}": {value},\n')
-                file.seek(file.tell() - 2, os.SEEK_SET)
-                file.write('\n')
-                file.write('}')
+            if "path" not in action_dict["system"]:
+                with open(self.system_config, 'w') as file:
+                    file.write('{\n')
+                    for key, value in action_dict["system"].items():
+                        if isinstance(value, str):
+                            file.write(f'"{key}": "{value}",\n')
+                        elif isinstance(value, list) and isinstance(value[0], str):
+                            file.write(f'"{key}": [')
+                            for i in range(len(value)-1):
+                                file.write(f'"{value[i]}", ')
+                            file.write(f'"{value[len(value)-1]}"')
+                            file.write('],\n')
+                        else:
+                            file.write(f'"{key}": {value},\n')
+                    file.seek(file.tell() - 2, os.SEEK_SET)
+                    file.write('\n')
+                    file.write('}')
             # write network to yaml file
-            data = {}
-            for key, value in action_dict["network"].items():
-                if VERSION == 2 and key == "topologies-per-dim":
-                    new_key = "topology"
-                    key_split = new_key.split("-")
-                    key_converted = ""
-                    for k in key_split:
-                        key_converted += k 
-                        key_converted += "_"
-
-                    data[key_converted[:-1]] = value
-                else:    
-                    if VERSION == 2 and key == "dimensions-count":
-                        continue
+            if "path" not in action_dict["network"]:
+                data = {}
+                for key, value in action_dict["network"].items():
                     key_split = key.split("-")
                     key_converted = ""
                     for k in key_split:
@@ -334,11 +336,18 @@ class AstraSimEnv(gym.Env):
 
                     data[key_converted[:-1]] = value
 
-            with open(self.network_config, 'w') as file:
-                yaml.dump(data, file, sort_keys=False)
+                with open(self.network_config, 'w') as file:
+                    yaml.dump(data, file, sort_keys=False)
+
             # write workload to cfg file
-            # with open(self.workload_config, 'w') as file:
-            #     file.write(action_dict["workload"])    
+            if "path" not in action_dict["workload"]:
+                with open(self.workload_file, 'w') as file:
+                    file.write('{\n')
+                    for key, value in action_dict["workload"].items():
+                        file.write(f'"{key}": {value},\n')
+                    file.seek(file.tell() - 2, os.SEEK_SET)
+                    file.write('\n')
+                    file.write('}')  
 
 
         # the action is actually the parsed parameter files
@@ -433,24 +442,17 @@ class AstraSimEnv(gym.Env):
         #     return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
 
 
-
-        # os.sys.path.insert(0, os.path.abspath('../../'))
-        # from sims.AstraSim.astrasim_archgym_public.dse.conf_file_tools import workload_cfg_to_workload
-        # self.workload_config = "workload.%d.eg"   # just a valid path, maybe store with other serialized cfgs will be better
-        # workload_cfg_to_workload(workload_cfg, self.workload_config)
-
         # start subrpocess to run the simulation
         # $1: network, $2: system, $3: workload
         print("Running simulation...")
-        print(self.exe_path, self.network_config, self.system_config, self.workload_config)
+        print(self.exe_path, self.network_config, self.system_config, self.workload_file)
         process = subprocess.Popen([self.exe_path, 
                                     self.astrasim_binary, 
                                     self.system_config, 
                                     self.network_config, 
-                                    self.workload_file],
+                                    self.workload_file,
+                                    self.generate_workload],
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        # process = subprocess.Popen([self.exe_path],
-        #                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
         # get the output
         out, err = process.communicate()

@@ -43,7 +43,7 @@ def generate_random_actions(action_dict, system_knob, network_knob, workload_kno
         dimension = action_dict['network']["dimensions-count"]
         network_knob.remove("dimensions-count")
     else:
-        dimension = action_dict['network']["dimensions-count"]
+        dimension = len(action_dict['network']["topology"])
 
     for dict_type, dict_name in dicts:
         knobs = dict_type.keys()
@@ -113,12 +113,23 @@ def main(_):
     proj_root_path = os.path.abspath(settings_dir_path)
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
 
-    # TODO: V1 SPEC:
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-    knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+    # VERSION = 1
+    # knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+    # VERISON = 2
+    knobs_spec = os.path.join(proj_root_path, "astrasim_220_example/knobs.py")
     networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
     systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
+
+    astrasim_helper = helpers()
+
+    # parse knobs
+    system_knob, network_knob, workload_knob = astrasim_helper.parse_knobs_astrasim(knobs_spec)
+    if workload_knob == {}:
+        GENERATE_WORKLOAD = "FALSE"
+    else:
+        GENERATE_WORKLOAD = "TRUE"
 
     # DEFINE NETWORK AND SYSTEM AND WORKLOAD
     if VERSION == 1:
@@ -127,23 +138,15 @@ def main(_):
             systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
         workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
     else:
-        network_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
-        system_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
-        workload_file = os.path.join(proj_root_path, "astrasim_220_example/workload_cfg.json")
-
-    # exe_path = os.path.join(proj_root_path, "run_general.sh")
-    # if VERSION == 1:
-    #     network_config = os.path.join(proj_root_path, "general_network.json")
-    #     system_config = os.path.join(proj_root_path, "general_system.txt")
-    #     workload_config = os.path.join(proj_root_path, "general_workload.txt")
-    # else:
-    #     network_config = os.path.join(proj_root_path, "general_network.yml")
-    #     system_config = os.path.join(proj_root_path, "general_system.json")
+        network_file = os.path.join(proj_root_path, "astrasim_220_example/network_input.yml")
+        system_file = os.path.join(proj_root_path, "astrasim_220_example/system_input.json")
+        if GENERATE_WORKLOAD == "TRUE":
+            workload_file = os.path.join(proj_root_path, "astrasim_220_example/workload_cfg.json")
+        else:
+            workload_file = os.path.join(proj_root_path, "astrasim_220_example/workload-et/generated")
 
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
     # env = AstraSimEnv.AstraSimEnv(rl_form='random_walker')
-
-    astrasim_helper = helpers()
 
     # experiment name
     exp_name = str(FLAGS.workload)+"_num_steps_" + \
@@ -170,14 +173,18 @@ def main(_):
     action_dict = {}
 
     # if path exists, use path, else parse the sub-dict
-    action_dict['workload'] = {"path": workload_file}
+    # action_dict['system'] = {"path": system_file}
+    # action_dict['network] = {"path": network_file}
 
-    # parse system and network
+    # parse system, network, and workload
     action_dict['system'] = astrasim_helper.parse_system_astrasim(system_file, action_dict, VERSION)
     action_dict['network'] = astrasim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
 
-    # parse knobs
-    system_knob, network_knob, workload_knob = astrasim_helper.parse_knobs_astrasim(knobs_spec)
+    # only generate workload if knobs exist
+    if GENERATE_WORKLOAD == "TRUE":
+        action_dict['workload'] = astrasim_helper.parse_workload_astrasim(workload_file, action_dict, VERSION)
+    else:
+        action_dict['workload'] = {"path": workload_file}
 
     best_reward, best_observation, best_actions = 0.0, 0.0, {}
 
@@ -187,9 +194,6 @@ def main(_):
         for step in range(FLAGS.num_steps):
             # pass into generate_random_actions(dimension, knobs)
             action_dict = generate_random_actions(action_dict, system_knob, network_knob, workload_knob)
-
-            # with open("general_workload.txt", 'w') as file:
-            #     file.write(action["workload"]["value"])
 
             # step_result wrapped in TimeStep object
             step_result = env.step(action_dict)

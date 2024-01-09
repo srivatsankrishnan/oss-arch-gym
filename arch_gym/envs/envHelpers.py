@@ -927,7 +927,11 @@ class helpers():
             pass
         else:
             # use symbolic tensor graph generator
-            pass
+            with open(workload_file) as f:
+                workload = json.load(f)
+
+                for key in workload.keys():
+                    action_dict['workload'][key] = workload[key]
         return action_dict['workload']
 
     # parses knobs that we want to experiment with
