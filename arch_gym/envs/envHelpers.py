@@ -781,6 +781,7 @@ class helpers():
         # decode act_encoded into act_decoded
         act_decoded = {"system": {}, "network": {}, "workload": {}}
         dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
+        # counter is the index in the act_encoded
         counter = 0
         print("action_decoder_rl_astraSim", act_encoded)
         for dict_type, dict_name in dicts:
@@ -810,6 +811,8 @@ class helpers():
                 print("knob??: ", knob)
                 print("categories: ", categories)
                 print("bin_edges: ", bin_edges)
+                print("counter: " , counter)
+                print("act_encoded: ", act_encoded)
                 print("act_encoded[counter]: ", act_encoded[counter])
                 print("find_bin(act_encoded[counter]): ", find_bin(act_encoded[counter]))
                 
@@ -823,7 +826,8 @@ class helpers():
                     # 0.5 0.5 0.5 0.5
                     bin_index = find_bin(act_encoded[counter])
                     act_decoded[dict_name][knob] = [categories[bin_index] for _ in range(dimension)]
-                    counter += dimension
+                    counter += 1
+                    print("")
                     print("act_decoded[dict_name][knob]: ", act_decoded[dict_name][knob])
 
                 elif dict_type[knob][1] == "FALSE":

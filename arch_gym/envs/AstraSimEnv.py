@@ -19,14 +19,13 @@ proj_dir_path = os.path.join(proj_root_path, "sims/AstraSim")
 astrasim_archgym = os.path.join(proj_dir_path, "astrasim-archgym")
 archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
 sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
-# VERSION = 1
-# knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
-# VERSION = 2
-knobs_spec = os.path.join(sim_path, "astrasim_220_example/knobs.py")
 parameter_knobs= os.path.join(sim_path, "frontend/parameter_knobs.py")
 
 # define AstraSim version
-VERSION = 2
+VERSION = 1
+knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+# VERSION = 2
+# knobs_spec = os.path.join(sim_path, "astrasim_220_example/knobs.py")
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):
@@ -81,8 +80,8 @@ class AstraSimEnv(gym.Env):
             self.system_file = os.path.join(self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
             self.workload_file = os.path.join(self.workloads_folder, "all_reduce/allreduce_0.65.txt")
         else:
-            self.network_file = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
-            self.system_file = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
+            self.network_file = os.path.join(sim_path, "astrasim_220_example/network_input.yml")
+            self.system_file = os.path.join(sim_path, "astrasim_220_example/system_input.json")
             if self.generate_workload == "TRUE":
                 self.workload_file = os.path.join(sim_path, "astrasim_220_example/workload_cfg.json")
             else:
@@ -90,18 +89,13 @@ class AstraSimEnv(gym.Env):
         
         self.param_len = 0
         self.dimension = 0
-        if "dimensions-count" in self.network_knobs.keys():
-            self.dimension = self.network_knobs["dimensions-count"][0]
+        if VERSION == 1:
+            with open(self.network_file, 'r') as file:
+                data = json.load(file)
+                self.dimension = data["dimensions-count"]
         else:
-            # else get dimension from the network_file 
-            if VERSION == 1:
-                with open(self.network_file, 'r') as file:
-                    data = json.load(file)
-                    self.dimension = data["dimensions-count"]
-            else:
-                data = yaml.load(open(self.network_file), Loader=yaml.Loader)
-                self.dimension = data["dimensions_count"]
-            
+            data = yaml.load(open(self.network_file), Loader=yaml.Loader)
+            self.dimension = len(data["topology"])
 
         # add 1 if N/A or TRUE knob, else add dimensions
         print("self.param_len: ", self.param_len)
@@ -495,10 +489,10 @@ class AstraSimEnv(gym.Env):
                 len(detailed) == 0 or len(end_to_end) == 0 or
                 len(sample_all_reduce_dimension_utilization) == 0)):
                 # set reward to be extremely negative
-                reward = float("-inf")
+                reward = -10000
                 print("reward?: ", reward)
                 # np.reshape([], self.observation_space.shape)
-                observations = [float("inf")]
+                observations = [1000000000000000]
                 observations = np.reshape(observations, self.observation_space.shape)
                 return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
             else:
