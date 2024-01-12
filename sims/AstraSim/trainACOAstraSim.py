@@ -28,6 +28,11 @@ flags.DEFINE_string('reward_formulation', 'power', 'Reward formulation to use.')
 flags.DEFINE_bool('use_envlogger', True, 'Use EnvLogger to log environment data.')
 FLAGS = flags.FLAGS
 
+# define AstraSim version
+# VERSION = 1
+# KNOBS_SPEC = "astrasim-archgym/dse/archgen_v1_knobs/archgen_v1_knobs_spec.py"
+VERSION = 2
+KNOBS_SPEC = "sims/AstraSim/astrasim_220_example/knobs.py"
 
 def main(_):
     # Dummy "training" input for POC
@@ -55,7 +60,9 @@ def main(_):
                             log_dir=log_dir,
                             traject_dir=traject_dir,
                             reward_formulation= FLAGS.reward_formulation,
-                            use_envlogger=FLAGS.use_envlogger)
+                            use_envlogger=FLAGS.use_envlogger,
+                            VERSION=VERSION,
+                            KNOBS_SPEC=KNOBS_SPEC)
     deepswarm = DeepSwarm(backend=backend)
     
     topology = deepswarm.find_topology()

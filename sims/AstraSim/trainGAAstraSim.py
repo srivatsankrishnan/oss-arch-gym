@@ -33,7 +33,10 @@ flags.DEFINE_bool('use_envlogger', True, 'Whether to use envlogger.')
 FLAGS = flags.FLAGS
 
 # define AstraSim version
+# VERSION = 1
+# KNOBS_SPEC = "astrasim-archgym/dse/archgen_v1_knobs/archgen_v1_knobs_spec.py"
 VERSION = 2
+KNOBS_SPEC = "astrasim_220_example/knobs.py"
 
 # define helpers
 astraSim_helper = helpers()
@@ -84,21 +87,32 @@ def AstraSim_optimization_function(p):
 
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-    knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+    knobs_spec = os.path.join(proj_root_path, KNOBS_SPEC)
 
     networks_folder = os.path.join(astrasim_archgym, "themis/inputs/network")
     systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
+    # parse knobs
+    system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
+    if workload_knob == {}:
+        GENERATE_WORKLOAD = "FALSE"
+    else:
+        GENERATE_WORKLOAD = "TRUE"
+
     # DEFINE NETWORK AND SYSTEM AND WORKLOAD
     if VERSION == 1:
-        network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
+        network_file = os.path.join(networks_folder, "analytical/4d_ring_fc_ring_switch.json")
         system_file = os.path.join(
             systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+        workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
     else:
-        network_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
-        system_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
-    workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
+        network_file = os.path.join(proj_root_path, "astrasim_220_example/network_input.yml")
+        system_file = os.path.join(proj_root_path, "astrasim_220_example/system_input.json")
+        if GENERATE_WORKLOAD == "TRUE":
+            workload_file = os.path.join(proj_root_path, "astrasim_220_example/workload_cfg.json")
+        else:
+            workload_file = os.path.join(proj_root_path, "astrasim_220_example/workload-et/generated")
     
     env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
     fitness_hist = {}
@@ -122,12 +136,20 @@ def AstraSim_optimization_function(p):
     system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
 
     action_dict = {}
-    action_dict['workload'] = {"path": workload_file}
+    # only generate workload if knobs exist
+    if GENERATE_WORKLOAD == "TRUE":
+        action_dict['workload'] = astraSim_helper.parse_workload_astrasim(workload_file, action_dict, VERSION)
+    else:
+        action_dict['workload'] = {"path": workload_file}
     
     # parse system and network
     action_dict['system'] = astraSim_helper.parse_system_astrasim(system_file, action_dict, VERSION)
     action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
-    dimension = action_dict['network']['dimensions-count']
+
+    if VERSION == 1:
+        dimension = action_dict['network']["dimensions-count"]
+    else:
+        dimension = len(action_dict['network']["topology"])
 
     action_dict_decoded = astraSim_helper.action_decoder_ga_astraSim(p, system_knob, network_knob, workload_knob, dimension)
     
@@ -162,13 +184,12 @@ def generate_bounds(action_dict, knobs_spec):
     system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
     dicts = [system_knob, network_knob, workload_knob]
 
-    # ASSUMES dimension is specified by input files (otherwise randomized)
-    if "dimensions-count" in network_knob.keys():
-        action_dict['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
+    print("ACTION DICT: ", action_dict)
+
+    if VERSION == 1:
         dimension = action_dict['network']["dimensions-count"]
-        network_knob.remove("dimensions-count")
     else:
-        dimension = action_dict['network']["dimensions-count"]
+        dimension = len(action_dict['network']["topology"])
 
     # initialize lower and upper bounds and precision
     lb, ub, precision = [], [], []
@@ -193,6 +214,9 @@ def generate_bounds(action_dict, knobs_spec):
                     lb += [dict_type[knob][0][0]]
                     ub += [dict_type[knob][0][1]]
                     precision += [dict_type[knob][0][2]]
+            print("KNOB: ", knob)            
+            print("LB: ", lb)
+            print("UB: ", ub)
 
     return lb, ub, precision
 
@@ -208,10 +232,15 @@ def main(_):
 
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-    knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+    knobs_spec = os.path.join(proj_root_path, KNOBS_SPEC)
 
     networks_folder = os.path.join(astrasim_archgym, "themis/inputs/network")
-    network_file = os.path.join(networks_folder, "analytical/4d_ring_fc_ring_switch.json")
+
+    # DEFINE NETWORK AND SYSTEM AND WORKLOAD
+    if VERSION == 1:
+        network_file = os.path.join(networks_folder, "analytical/4d_ring_fc_ring_switch.json")
+    else:
+        network_file = os.path.join(proj_root_path, "astrasim_220_example/network_input.yml")
 
     action_dict = {}
     action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)

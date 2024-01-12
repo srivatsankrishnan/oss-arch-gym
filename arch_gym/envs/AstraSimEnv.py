@@ -22,10 +22,10 @@ sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
 parameter_knobs= os.path.join(sim_path, "frontend/parameter_knobs.py")
 
 # define AstraSim version
-VERSION = 1
-knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
-# VERSION = 2
-# knobs_spec = os.path.join(sim_path, "astrasim_220_example/knobs.py")
+# VERSION = 1
+# knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+VERSION = 2
+knobs_spec = os.path.join(sim_path, "astrasim_220_example/knobs.py")
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):

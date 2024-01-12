@@ -31,17 +31,18 @@ flags.DEFINE_string('reward_formulation', 'latency',
 FLAGS = flags.FLAGS
 
 # define AstraSim version
+# VERSION = 1
+# KNOBS_SPEC = "astrasim-archgym/dse/archgen_v1_knobs/archgen_v1_knobs_spec.py"
 VERSION = 2
+KNOBS_SPEC = "astrasim_220_example/knobs.py"
 
 # action_type = specify 'network' or 'system
 # new_params = parsed knobs from experiment file
 def generate_random_actions(action_dict, system_knob, network_knob, workload_knob):
     dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
     print("ACTION DICT: ", action_dict)
-    if "dimensions-count" in network_knob.keys():
-        action_dict['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
+    if VERSION == 1:
         dimension = action_dict['network']["dimensions-count"]
-        network_knob.remove("dimensions-count")
     else:
         dimension = len(action_dict['network']["topology"])
 
@@ -114,10 +115,7 @@ def main(_):
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
 
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-    # VERSION = 1
-    # knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
-    # VERISON = 2
-    knobs_spec = os.path.join(proj_root_path, "astrasim_220_example/knobs.py")
+    knobs_spec = os.path.join(proj_root_path, KNOBS_SPEC)
     networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
     systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
     workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")

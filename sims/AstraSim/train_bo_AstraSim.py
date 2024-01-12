@@ -17,7 +17,10 @@ from absl import flags
 from absl import app
 
 # define AstraSim version
+# VERSION = 1
+# KNOBS_SPEC = "astrasim-archgym/dse/archgen_v1_knobs/archgen_v1_knobs_spec.py"
 VERSION = 2
+KNOBS_SPEC = "astrasim_220_example/knobs.py"
 
 flags.DEFINE_string('workload', 'resnet18', 'Workload trace file')
 flags.DEFINE_integer('layer_id', 2, 'Layer id')
@@ -45,7 +48,7 @@ def scorer(estimator, X, y=None):
 def find_best_params_test(X, parameters, n_iter, seed, exp_name, traject_dir, exp_log_dir, dimension_count):
    
    model = AstraSimEstimator(exp_name=exp_name, traject_dir=traject_dir, **parameters)
-   print(model)
+   print("MODEL: ", model)
 
    # use config parser to update its parameters
    config = configparser.ConfigParser()
@@ -102,23 +105,21 @@ def main(_):
    if VERSION == 1:
       network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
    else:
-      network_file = os.path.join(proj_root_path, "astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
-   knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+      network_file = os.path.join(proj_root_path, "astrasim_220_example/network_input.yml")
+
+   knobs_spec = os.path.join(proj_root_path, KNOBS_SPEC)
 
    network_parsed = {}
    h.parse_network_astrasim(network_file, network_parsed, VERSION)
    system_knob, network_knob, workload_knob = h.parse_knobs_astrasim(knobs_spec)
    dicts = [system_knob, network_knob, workload_knob]
 
-   parameters = {}
-   # ASSUMES dimension is specified by input files (otherwise randomized)
-   if "dimensions-count" in network_knob.keys():
-      parameters["dimensions_count"] = random.choice(network_knob["dimensions-count"])
-      dimension_count = parameters["dimensions_count"]
-      network_knob.remove("dimensions-count")
+   if VERSION == 1:
+      dimension_count = network_parsed['network']["dimensions-count"]
    else:
-      dimension_count = network_parsed["network"]["dimensions-count"]
+      dimension_count = len(network_parsed['network']["topology"])
 
+   parameters = {}
    for dict_type in dicts:
       for knob in dict_type.keys():
          knob_converted = h.convert_knob_bo_astrasim(knob)

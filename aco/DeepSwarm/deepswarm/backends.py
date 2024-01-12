@@ -37,10 +37,6 @@ from absl import flags
 
 os.sys.path.insert(0, os.path.abspath('/../../configs'))
 
-
-# define AstraSim version
-VERSION = 2
-
 def step_fn(unused_timestep, unused_action, unused_env):
     return {'timestamp': time.time()}
 
@@ -154,19 +150,21 @@ class BaseBackend(ABC):
 class AstraSimBackend(BaseBackend):
 
     def __init__(self, dataset=None, optimizer=None, exp_name=None, traject_dir=None,
-                 log_dir=None, reward_formulation=None, use_envlogger=False):
+                 log_dir=None, reward_formulation=None, use_envlogger=False, VERSION=2, KNOBS_SPEC=None):
         super().__init__(dataset, optimizer)
         self.exp_name = exp_name
         self.traject_dir = traject_dir
         self.log_dir = log_dir
         self.reward_formulation = reward_formulation
         self.use_envlogger = use_envlogger
+        self.VERSION = VERSION
+        self.KNOBS_SPEC = KNOBS_SPEC
 
     def generate_model(self, path):
-        return DummyAstraSim(path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger)
+        return DummyAstraSim(path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger, self.VERSION, self.KNOBS_SPEC)
 
     def reuse_model(self, old_model, new_model_path, distance):
-        return DummyAstraSim(new_model_path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger)
+        return DummyAstraSim(new_model_path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger, self.VERSION, self.KNOBS_SPEC)
 
     def train_model(self, model):
         return model
@@ -349,7 +347,7 @@ class DummySniper():
 
 class DummyAstraSim():
 
-    def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger):
+    def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger, VERSION, KNOBS_SPEC):
         self.env = AstraSimEnv()
         self.helper = helpers()
         self.fitness_hist = {}
@@ -359,6 +357,8 @@ class DummyAstraSim():
         self.exp_name = exp_name
         self.reward_formulation = reward_formulation
         self.use_envlogger = use_envlogger
+        self.VERSION = VERSION
+        self.KNOBS_SPEC = KNOBS_SPEC
 
         self.settings_file_path = os.path.realpath(__file__)
         self.settings_dir_path = os.path.dirname(self.settings_file_path)
@@ -367,41 +367,59 @@ class DummyAstraSim():
 
         self.astrasim_archgym = os.path.join(
             self.proj_dir_path, "sims/AstraSim/astrasim-archgym")
-        self.knobs_spec = os.path.join(
-            self.astrasim_archgym, "dse/archgen_v1_knobs/archgen_v1_knobs_spec.py")
+        self.knobs_spec = os.path.join(self.proj_root_path, self.KNOBS_SPEC)
 
         self.systems_folder = os.path.join(
             self.astrasim_archgym, "themis/inputs/system")
         self.network_folder = os.path.join(
             self.astrasim_archgym, "dse/archgen_v1_knobs/templates/network")
-        if VERSION == 1:
+        self.workload_folder = os.path.join(
+            self.astrasim_archgym, "themis/inputs/workload")
+
+        # parse knobs
+        system_knob, network_knob, workload_knob = self.helper.parse_knobs_astrasim(self.knobs_spec)
+        if workload_knob == {}:
+            GENERATE_WORKLOAD = "FALSE"
+        else:
+            GENERATE_WORKLOAD = "TRUE"
+
+        if self.VERSION == 1:
             self.system_file = os.path.join(
                 self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
             self.network_file = os.path.join(
                 self.network_folder, "4d_ring_fc_ring_switch.json")
+            self.workload_file = os.path.join(
+                self.workload_folder, "all_reduce/allreduce_0.65.txt"
+            )
         else:
-            self.network_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
-            self.system_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
+            self.network_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_220_example/network_input.yml")
+            self.system_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_220_example/system_input.json")
+            if GENERATE_WORKLOAD == "TRUE":
+                self.workload_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_220_example/workload_cfg.json")
+            else:
+                self.workload_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_220_example/workload-et/generated")
 
         # SET UP ACTION DICT
-        self.action_dict = {"workload": {}}
-        self.action_dict["workload"]['path'] = "all_reduce/allreduce_0.65.txt"
+        self.action_dict = {}
+        # only generate workload if knobs exist
+        if GENERATE_WORKLOAD == "TRUE":
+            self.action_dict['workload'] = self.helper.parse_workload_astrasim(self.workload_file, self.action_dict, self.VERSION)
+        else:
+            self.action_dict['workload'] = {"path": self.workload_file}
 
         # parse system and network files
-        self.helper.parse_system_astrasim(self.system_file, self.action_dict, VERSION)
-        self.helper.parse_network_astrasim(self.network_file, self.action_dict, VERSION)
-        system_knob, network_knob, workload_knob = self.helper.parse_knobs_astrasim(self.knobs_spec)
+        self.helper.parse_system_astrasim(self.system_file, self.action_dict, self.VERSION)
+        self.helper.parse_network_astrasim(self.network_file, self.action_dict, self.VERSION)
+
         dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
         yaml_path = os.path.join(self.proj_root_path, 'settings/default_astrasim.yaml')
         data = yaml.load(open(yaml_path), Loader=yaml.Loader)
 
         # ASSUMES dimension is specified by input files (otherwise randomized)
-        if "dimensions-count" in network_knob.keys():
-            self.action_dict['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
+        if VERSION == 1:
             dimension = self.action_dict['network']["dimensions-count"]
-            system_knob.remove("dimensions-count")
         else:
-            dimension = self.action_dict['network']["dimensions-count"]
+            dimension = len(self.action_dict['network']["topology"])
 
         # write knobs to yaml file
         data['Nodes']['ArchParamsNode']['attributes'] = {}

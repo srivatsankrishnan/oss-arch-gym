@@ -18,7 +18,10 @@ from absl import logging
 from absl import flags
 
 # define AstraSim version
+# VERSION = 1
+# KNOBS_SPEC = "astrasim-archgym/dse/archgen_v1_knobs/archgen_v1_knobs_spec.py"
 VERSION = 2
+KNOBS_SPEC = "astrasim_220_example/knobs.py"
 
 class AstraSimEstimator(BaseEstimator):
 
@@ -35,24 +38,37 @@ class AstraSimEstimator(BaseEstimator):
         settings_file_path = os.path.realpath(__file__)
         settings_dir_path = os.path.dirname(settings_file_path)
         proj_root_path = os.path.join(settings_dir_path, '..')
-        astrasim_archgym = os.path.join(proj_root_path, "sims/AstraSim/astrasim-archgym")
+        astrasim = os.path.join(proj_root_path, "sims/AstraSim")
+        astrasim_archgym = os.path.join(astrasim, "astrasim-archgym")
 
         archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-        knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
+        knobs_spec = os.path.join(astrasim, KNOBS_SPEC)
         networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
         systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
         workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
-        if VERSION == 1:
-            self.network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
-            self.system_file = os.path.join(systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
-        else:
-            self.network_file = os.path.join(proj_root_path, "sims/AstraSim/astrasim_archgym_public/astra-sim/inputs/network/analytical/Ring_FullyConnected_Switch.yml")
-            self.system_file = os.path.join(proj_root_path, "sims/AstraSim/astrasim_archgym_public/astra-sim/inputs/system/Ring_FullyConnected_Switch.json")
-        self.workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.20.txt")
-
+        # parse knobs
         self.system_knob, self.network_knob, self.workload_knob = self.helper.parse_knobs_astrasim(knobs_spec)
         self.dicts = [(self.system_knob, 'system'), (self.network_knob, 'network'), (self.workload_knob, 'workload')]
+
+        if self.workload_knob == {}:
+            self.GENERATE_WORKLOAD = "FALSE"
+        else:
+            self.GENERATE_WORKLOAD = "TRUE"
+
+        # DEFINE NETWORK AND SYSTEM AND WORKLOAD
+        if VERSION == 1:
+            self.network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
+            self.system_file = os.path.join(
+                systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+            self.workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
+        else:
+            self.network_file = os.path.join(astrasim, "astrasim_220_example/network_input.yml")
+            self.system_file = os.path.join(astrasim, "astrasim_220_example/system_input.json")
+            if self.GENERATE_WORKLOAD == "TRUE":
+                self.workload_file = os.path.join(astrasim, "astrasim_220_example/workload_cfg.json")
+            else:
+                self.workload_file = os.path.join(astrasim, "astrasim_220_example/workload-et/generated")
 
         for param_key, _ in parameters.items():
             knob_reverted = self.helper.revert_knob_bo_astrasim(param_key)
@@ -132,17 +148,19 @@ class AstraSimEstimator(BaseEstimator):
         print("Action dict: ", self.action_dict)
 
         actual_action = {}
-        actual_action['workload'] = {"path": self.workload_file}
+        # only generate workload if knobs exist
+        if self.GENERATE_WORKLOAD == "TRUE":
+            actual_action['workload'] = self.helper.parse_workload_astrasim(self.workload_file, actual_action, VERSION)
+        else:
+            actual_action['workload'] = {"path": self.workload_file}
         actual_action['network'] = self.helper.parse_network_astrasim(self.network_file, actual_action, VERSION)
         actual_action['system'] = self.helper.parse_system_astrasim(self.system_file, actual_action, VERSION)
 
         # ASSUMES dimension is specified by input files (otherwise randomized)
-        if "dimensions-count" in self.network_knob.keys():
-            actual_action['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
+        if VERSION == 1:
             dimension = actual_action['network']["dimensions-count"]
-            self.network_knob.remove("dimensions-count")
         else:
-            dimension = actual_action['network']["dimensions-count"]
+            dimension = len(actual_action['network']["topology"])
 
         for dict_type, dict_name in self.dicts:
             for knob in dict_type.keys():
