@@ -16,7 +16,7 @@ os.sys.path.insert(0, proj_root_path + "/arch_gym/envs")
 ########################
 #  ACO Configuration   #
 ########################
-aco_config = "default_dramsys.yaml"
+aco_config = "default_astrasim.yaml"
 aco_batch_mode = False
 aco_base_path = proj_root_path
 
