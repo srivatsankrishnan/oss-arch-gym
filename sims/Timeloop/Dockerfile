@@ -36,6 +36,7 @@ SHELL ["conda", "run", "-n", "arch-gym", "/bin/bash", "--login", "-c"]
 
 WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/acme
 RUN git config --global --add safe.directory /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym
+RUN git stash
 RUN git checkout timeloop-docker
 RUN pip install .[tf,testing,envs,jax]
 
