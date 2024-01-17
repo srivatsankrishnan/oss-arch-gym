@@ -17,18 +17,17 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 # Put conda on the path
 ENV PATH=$CONDA_DIR/bin:$PATH
 
-# RUN cp -r /usr/local/src .
-# WORKDIR /home/workspace/src
-# RUN git clone https://github.com/susobhang70/timeloop-examples.git
-# WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like
-# RUN touch /home/workspace/.nointro
-# RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
+RUN cp -r /usr/local/src .
+WORKDIR /home/workspace/src
+RUN git clone https://github.com/susobhang70/timeloop-examples.git
+WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like
+RUN touch /home/workspace/.nointro
+RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 
 #RUN conda install
 RUN git clone --recursive https://github.com/srivatsankrishnan/oss-arch-gym.git
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 RUN cd oss-arch-gym && conda env create -f environment.yml
-RUN git log --oneline --graph --decorate -10
 RUN apt-get update && apt-get -y install libgmp-dev gcc g++
   
 # Make RUN commands use the new environment:
