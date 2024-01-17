@@ -61,8 +61,8 @@ jax_requirements = [
     'jax==0.4.1',
     'jaxlib==0.4.1',
     'dm-haiku==0.0.10',
-    'orbax==0.1.8',
     'flax==0.6.4',
+    'orbax==0.1.8',
     'optax',
     'rlax',
 ] + tensorflow
