@@ -35,8 +35,7 @@ RUN echo "conda activate arch-gym" >> ~/.bashrc
 SHELL ["conda", "run", "-n", "arch-gym", "/bin/bash", "--login", "-c"]
 
 WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/acme
-RUN pip install .[tf,testing,envs,jax] 
-RUN pip install .
+RUN pip install .[tf,testing,envs,jax]
 
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin/conda/envs/arch-gym/lib/
 RUN echo $LD_LIBRARY_PATH
