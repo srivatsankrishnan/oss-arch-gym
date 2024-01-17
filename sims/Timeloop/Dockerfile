@@ -27,6 +27,7 @@ RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 #RUN conda install
 RUN git clone --recursive https://github.com/srivatsankrishnan/oss-arch-gym.git
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
+WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/sims/Timeloop
 RUN cd oss-arch-gym && conda env create -f environment.yml
 RUN apt-get update && apt-get -y install libgmp-dev gcc g++
   
