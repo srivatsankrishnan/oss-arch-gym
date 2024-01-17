@@ -29,16 +29,16 @@ RUN git clone --recursive https://github.com/srivatsankrishnan/oss-arch-gym.git
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 RUN cd oss-arch-gym && conda env create -f environment.yml
 RUN apt-get update && apt-get -y install libgmp-dev gcc g++
-  
-# Make RUN commands use the new environment:
-RUN echo "conda activate arch-gym" >> ~/.bashrc
-SHELL ["conda", "run", "-n", "arch-gym", "/bin/bash", "--login", "-c"]
 
 WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/acme
 RUN git config --global --add safe.directory /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym
 RUN git stash
 RUN git checkout timeloop-docker
 RUN pip install .[tf,testing,envs,jax]
+  
+# Make RUN commands use the new environment:
+RUN echo "conda activate arch-gym" >> ~/.bashrc
+SHELL ["conda", "run", "-n", "arch-gym", "/bin/bash", "--login", "-c"]
 
 ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin/conda/envs/arch-gym/lib/
 RUN echo $LD_LIBRARY_PATH
