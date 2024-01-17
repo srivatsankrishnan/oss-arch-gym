@@ -28,7 +28,6 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 RUN git clone --recursive https://github.com/srivatsankrishnan/oss-arch-gym.git
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 RUN cd oss-arch-gym && conda env create -f environment.yml
-RUN git status
 RUN git log --oneline --graph --decorate -10
 RUN apt-get update && apt-get -y install libgmp-dev gcc g++
   
