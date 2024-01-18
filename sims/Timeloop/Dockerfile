@@ -41,7 +41,7 @@ RUN rm -r ./oss-arch-gym/Project_FARSI
 RUN git config --global --add safe.directory /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym
 RUN cd oss-arch-gym && git rm -r Project_FARSI
 RUN git config --global --add safe.directory /home/workspace/src/timeloop-examples
-RUN ./oss-arch-gym/install_sim.sh farsi
+RUN cd oss-arch-gym && ./install_sim.sh farsi
 
 WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/sims/Timeloop
 ENTRYPOINT ["conda", "run", "-n", "arch-gym", "python", "/home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/sims/Timeloop/launch_gcp.py"]
