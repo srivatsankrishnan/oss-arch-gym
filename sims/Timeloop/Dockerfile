@@ -31,6 +31,7 @@ RUN cd oss-arch-gym && conda env create -f environment.yml
 
 RUN ./oss-arch-gym/install_sim.sh viz
 RUN rm -r ./oss-arch-gym/Project_FARSI
+RUN git config --global --add safe.directory /home/workspace/src/timeloop-examples
 RUN git rm -r ./oss-arch-gym/Project_FARSI
 RUN ./oss-arch-gym/install_sim.sh farsi
 
