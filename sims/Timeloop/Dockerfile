@@ -28,10 +28,12 @@ RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 RUN git clone --recursive https://github.com/varun-k-s/oss-arch-gym.git
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 RUN cd oss-arch-gym && conda env create -f environment.yml
-RUN apt-get update && apt-get -y install libgmp-dev gcc g++
 
-WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/acme
-RUN pip install .[tf,testing,envs,jax]
+RUN ./install_sim.sh viz
+RUN rm -r ./Project_FARSI
+RUN git rm -r ./Project_FARSI
+RUN ./install_sim.sh farsi
+
   
 # Make RUN commands use the new environment:
 RUN echo "conda activate arch-gym" >> ~/.bashrc
