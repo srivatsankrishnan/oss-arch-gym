@@ -3,6 +3,7 @@ FROM timeloopaccelergy/accelergy-timeloop-infrastructure:latest
 
 # Install the base utilities
 RUN apt-get update -y \
+    && apt-get install -y sudo \
     && apt-get install -y less \
     && apt-get install -y build-essential \
     && apt-get install -y wget \
