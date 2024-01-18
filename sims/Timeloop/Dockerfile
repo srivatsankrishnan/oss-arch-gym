@@ -34,9 +34,6 @@ RUN cd oss-arch-gym && conda env create -f environment.yml
 RUN echo "conda activate arch-gym" >> ~/.bashrc
 SHELL ["conda", "run", "-n", "arch-gym", "/bin/bash", "--login", "-c"]
 
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin/conda/envs/arch-gym/lib/
-RUN echo $LD_LIBRARY_PATH
-
 WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym
 RUN ./install_sim.sh viz
 RUN rm -r ./Project_FARSI
@@ -44,6 +41,9 @@ RUN git config --global --add safe.directory /home/workspace/src/timeloop-exampl
 RUN git config --global --add safe.directory /home/workspace/src/timeloop-examples
 RUN git rm -r Project_FARSI
 RUN ./install_sim.sh farsi
+
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin/conda/envs/arch-gym/lib/
+RUN echo $LD_LIBRARY_PATH
 
 WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/sims/Timeloop
 ENTRYPOINT ["conda", "run", "-n", "arch-gym", "python", "/home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/sims/Timeloop/launch_gcp.py"]
