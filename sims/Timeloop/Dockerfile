@@ -42,7 +42,7 @@ RUN git config --global --add safe.directory /home/workspace/src/timeloop-exampl
 RUN git rm -r Project_FARSI
 RUN ./install_sim.sh farsi
 
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/bin/conda/envs/arch-gym/lib/
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/conda/envs/arch-gym/lib/
 RUN echo $LD_LIBRARY_PATH
 
 WORKDIR /home/workspace/src/timeloop-examples/workspace/final-project/example_designs/eyeriss_like/oss-arch-gym/sims/Timeloop
