@@ -13,15 +13,13 @@ import sys
 import numpy as np
 import pandas as pd
 import time
+import json
 
 from absl import logging
 from absl import flags
 
 # define AstraSim version
-# VERSION = 1
-# KNOBS_SPEC = "astrasim-archgym/dse/archgen_v1_knobs/archgen_v1_knobs_spec.py"
 VERSION = 2
-KNOBS_SPEC = "astrasim_220_example/knobs.py"
 
 class AstraSimEstimator(BaseEstimator):
 
@@ -30,11 +28,6 @@ class AstraSimEstimator(BaseEstimator):
         ''' All the default values of AstraSim should be initialized here. 
             Take all the parameters here and write it to the config files
         '''
-        # To do: Implement some default parameters 
-        self.env = AstraSimEnv()
-        self.helper = helpers()
-        self.action_dict = {}
-    
         settings_file_path = os.path.realpath(__file__)
         settings_dir_path = os.path.dirname(settings_file_path)
         proj_root_path = os.path.join(settings_dir_path, '..')
@@ -42,13 +35,21 @@ class AstraSimEstimator(BaseEstimator):
         astrasim_archgym = os.path.join(astrasim, "astrasim-archgym")
 
         archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-        knobs_spec = os.path.join(astrasim, KNOBS_SPEC)
         networks_folder = os.path.join(archgen_v1_knobs, "templates/network")
         systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
         workloads_folder = os.path.join(astrasim_archgym, "themis/inputs/workload")
 
+        flag_path = os.path.join(astrasim, "bo_vars.json")
+        f = open(flag_path)
+        flags = json.load(f)
+
+        self.knobs_spec = os.path.join(astrasim, flags["knobs"])
+
+        self.helper = helpers()
+        self.action_dict = {}
+
         # parse knobs
-        self.system_knob, self.network_knob, self.workload_knob = self.helper.parse_knobs_astrasim(knobs_spec)
+        self.system_knob, self.network_knob, self.workload_knob = self.helper.parse_knobs_astrasim(self.knobs_spec)
         self.dicts = [(self.system_knob, 'system'), (self.network_knob, 'network'), (self.workload_knob, 'workload')]
 
         if self.workload_knob == {}:
@@ -63,12 +64,9 @@ class AstraSimEstimator(BaseEstimator):
                 systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
             self.workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
         else:
-            self.network_file = os.path.join(astrasim, "astrasim_220_example/network_input.yml")
-            self.system_file = os.path.join(astrasim, "astrasim_220_example/system_input.json")
-            if self.GENERATE_WORKLOAD == "TRUE":
-                self.workload_file = os.path.join(astrasim, "astrasim_220_example/workload_cfg.json")
-            else:
-                self.workload_file = os.path.join(astrasim, "astrasim_220_example/workload-et/generated")
+            self.network_file = os.path.join(astrasim, flags["network"])
+            self.system_file = os.path.join(astrasim, flags["system"])
+            self.workload_file = os.path.join(astrasim, flags["workload"])
 
         for param_key, _ in parameters.items():
             knob_reverted = self.helper.revert_knob_bo_astrasim(param_key)
@@ -132,7 +130,7 @@ class AstraSimEstimator(BaseEstimator):
         reward_formulation = config.get("experiment_configuration", "reward_formulation")
         use_envlogger = config.get("experiment_configuration", "use_envlogger")
 
-        env_wrapper = make_astraSim_env(reward_formulation = reward_formulation,
+        env_wrapper = make_astraSim_env(knobs_spec=self.knobs_spec, network=self.network_file, system=self.system_file, workload=self.workload_file, reward_formulation = reward_formulation,
             rl_form = 'bo')
         
         # check if trajectory directory exists

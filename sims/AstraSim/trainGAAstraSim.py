@@ -32,7 +32,7 @@ flags.DEFINE_bool('use_envlogger', True, 'Whether to use envlogger.')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
-flags.DEFINE_string('workload_file', None, "path to workload input file")
+flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 

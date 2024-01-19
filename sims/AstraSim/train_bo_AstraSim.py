@@ -7,7 +7,7 @@ import sys
 os.sys.path.insert(0, os.path.abspath('../../'))
 os.sys.path.insert(0, os.path.abspath('../../arch_gym'))
 from arch_gym.envs.envHelpers import helpers
-from  bo.AstraSimEstimator import AstraSimEstimator
+import bo.AstraSimEstimator as bo
 
 import configparser
 import numpy as np
@@ -15,12 +15,6 @@ import time
 import pandas as pd
 from absl import flags
 from absl import app
-
-# define AstraSim version
-# VERSION = 1
-# KNOBS_SPEC = "astrasim-archgym/dse/archgen_v1_knobs/archgen_v1_knobs_spec.py"
-VERSION = 2
-KNOBS_SPEC = "astrasim_220_example/knobs.py"
 
 flags.DEFINE_string('workload', 'resnet18', 'Workload trace file')
 flags.DEFINE_integer('layer_id', 2, 'Layer id')
@@ -31,8 +25,17 @@ flags.DEFINE_string('exp_config_file', 'exp_config.ini', 'Experiment config file
 flags.DEFINE_string('summary_dir', ".", 'Directory to store data.')
 flags.DEFINE_string('reward_formulation', 'power', 'Reward formulation')
 flags.DEFINE_bool('use_envlogger', True, 'Use EnvLogger to log environment data.')
+flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
+flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
+flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
+flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
+# FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
+# FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
+
 FLAGS = flags.FLAGS
 
+# define AstraSim version
+VERSION = 2
 
 def scorer(estimator, X, y=None):
    """
@@ -47,8 +50,7 @@ def scorer(estimator, X, y=None):
 
 def find_best_params_test(X, parameters, n_iter, seed, exp_name, traject_dir, exp_log_dir, dimension_count):
    
-   model = AstraSimEstimator(exp_name=exp_name, traject_dir=traject_dir, **parameters)
-   print("MODEL: ", model)
+   model = bo.AstraSimEstimator(exp_name=exp_name, traject_dir=traject_dir, **parameters)
 
    # use config parser to update its parameters
    config = configparser.ConfigParser()
@@ -82,9 +84,7 @@ def find_best_params_test(X, parameters, n_iter, seed, exp_name, traject_dir, ex
     
    return opt.best_params_
 
-
 def main(_):
-
    # To do : Configure the workload trace here
    dummy_X = np.array([1,2,3,4,5,6])
 
@@ -105,9 +105,9 @@ def main(_):
    if VERSION == 1:
       network_file = os.path.join(networks_folder, "4d_ring_fc_ring_switch.json")
    else:
-      network_file = os.path.join(proj_root_path, "astrasim_220_example/network_input.yml")
+      network_file = os.path.join(proj_root_path, FLAGS.network)
 
-   knobs_spec = os.path.join(proj_root_path, KNOBS_SPEC)
+   knobs_spec = os.path.join(proj_root_path, FLAGS.knobs)
 
    network_parsed = {}
    h.parse_network_astrasim(network_file, network_parsed, VERSION)
@@ -153,6 +153,17 @@ def main(_):
 
    print("PARAMETERS: ", parameters)
 
+   flag_dict = {"knobs": str(FLAGS.knobs), "network": str(FLAGS.network), "system": str(FLAGS.system), "workload": str(FLAGS.workload_file)}
+
+   # write flags to json file for AstraSimEstimator to read
+   with open(os.path.join(proj_root_path, "bo_vars.json"), 'w') as file:
+      file.write('{\n')
+      for key, value in flag_dict.items():
+         file.write(f'"{key}": "{value}",\n')
+      file.seek(file.tell() - 2, os.SEEK_SET)
+      file.write('\n')
+      file.write('}')
+
    find_best_params_test(dummy_X, parameters,
                            FLAGS.num_iter,
                            FLAGS.random_state,
@@ -161,7 +172,6 @@ def main(_):
                            exp_log_dir,
                            dimension_count
                            )
-  
 
 if __name__ == '__main__':
     app.run(main)
