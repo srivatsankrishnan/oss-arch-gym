@@ -11,6 +11,7 @@ os.sys.path.insert(0, os.path.abspath('/../..'))
 
 #from configs import configs
 from configs.sims import DRAMSys_config
+from configs.sims import Timeloop_config
 import shutil
 from sims.Timeloop.process_params import TimeloopConfigParams
 from subprocess import Popen, PIPE
@@ -26,7 +27,7 @@ class helpers():
     def __init__(self):
         self.mem_control_basepath = DRAMSys_config.dram_mem_controller_config
         #self.sniper_basepath = arch_gym_configs.sniper_config
-        #self.timeloop_param_obj = TimeloopConfigParams(arch_gym_configs.timeloop_parameters)
+        self.timeloop_param_obj = TimeloopConfigParams(Timeloop_config.timeloop_parameters)
     
     def action_mapper(self, action, param):
         """
