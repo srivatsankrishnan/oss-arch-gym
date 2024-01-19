@@ -42,3 +42,9 @@ target_cycle_improv  = 0.2
 target_energy = 29206   * (1 - target_energy_improv)
 target_area   = 2.03    * (1 - target_area_improv)
 target_cycles = 7885704 * (1 - target_cycle_improv)
+
+##########################
+#   ACO  Configurations  #
+##########################
+# ACO
+aco_config = "default_astrasim.yaml"
