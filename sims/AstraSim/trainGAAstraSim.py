@@ -29,14 +29,17 @@ flags.DEFINE_string('summary_dir', 'test', 'Directory to save the summary.')
 flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation to use')
 flags.DEFINE_string('traject_dir','ga_trajectories', 'Directory to save the dataset.')
 flags.DEFINE_bool('use_envlogger', True, 'Whether to use envlogger.')
+flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
+flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
+flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
+flags.DEFINE_string('workload_file', None, "path to workload input file")
+# FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
+# FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
 FLAGS = flags.FLAGS
 
 # define AstraSim version
-# VERSION = 1
-# KNOBS_SPEC = "astrasim-archgym/dse/archgen_v1_knobs/archgen_v1_knobs_spec.py"
 VERSION = 2
-KNOBS_SPEC = "astrasim_220_example/knobs.py"
 
 # define helpers
 astraSim_helper = helpers()
@@ -87,7 +90,7 @@ def AstraSim_optimization_function(p):
 
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-    knobs_spec = os.path.join(proj_root_path, KNOBS_SPEC)
+    knobs_spec = os.path.join(proj_root_path, FLAGS.knobs)
 
     networks_folder = os.path.join(astrasim_archgym, "themis/inputs/network")
     systems_folder = os.path.join(astrasim_archgym, "themis/inputs/system")
@@ -107,14 +110,11 @@ def AstraSim_optimization_function(p):
             systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
         workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
     else:
-        network_file = os.path.join(proj_root_path, "astrasim_220_example/network_input.yml")
-        system_file = os.path.join(proj_root_path, "astrasim_220_example/system_input.json")
-        if GENERATE_WORKLOAD == "TRUE":
-            workload_file = os.path.join(proj_root_path, "astrasim_220_example/workload_cfg.json")
-        else:
-            workload_file = os.path.join(proj_root_path, "astrasim_220_example/workload-et/generated")
+        network_file = os.path.join(proj_root_path, FLAGS.network)
+        system_file = os.path.join(proj_root_path, FLAGS.system)
+        workload_file = os.path.join(proj_root_path, FLAGS.workload_file)
     
-    env = AstraSimWrapper.make_astraSim_env(rl_form='random_walker')
+    env = AstraSimWrapper.make_astraSim_env(knobs_spec=knobs_spec, network=network_file, system=system_file, workload=workload_file, rl_form='random_walker')
     fitness_hist = {}
 
     traject_dir, exp_log_dir = generate_run_directories()
@@ -232,7 +232,7 @@ def main(_):
 
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
-    knobs_spec = os.path.join(proj_root_path, KNOBS_SPEC)
+    knobs_spec = os.path.join(proj_root_path, FLAGS.knobs)
 
     networks_folder = os.path.join(astrasim_archgym, "themis/inputs/network")
 
@@ -240,7 +240,7 @@ def main(_):
     if VERSION == 1:
         network_file = os.path.join(networks_folder, "analytical/4d_ring_fc_ring_switch.json")
     else:
-        network_file = os.path.join(proj_root_path, "astrasim_220_example/network_input.yml")
+        network_file = os.path.join(proj_root_path, FLAGS.network)
 
     action_dict = {}
     action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
@@ -258,12 +258,6 @@ def main(_):
         precision=precision,
     )
 
-    """
-    "scheduling-policy": {"FIFO", "LIFO"},
-    "collective-optimization": {"localBWAware", "baseline"},
-    "intra-dimension-scheduling": {"FIFO", "SCF"},
-    "inter-dimension-scheduling": {"baseline", "themis"}
-    """
     
     best_x, best_y = ga.run()
     

@@ -150,7 +150,7 @@ class BaseBackend(ABC):
 class AstraSimBackend(BaseBackend):
 
     def __init__(self, dataset=None, optimizer=None, exp_name=None, traject_dir=None,
-                 log_dir=None, reward_formulation=None, use_envlogger=False, VERSION=2, KNOBS_SPEC=None):
+                 log_dir=None, reward_formulation=None, use_envlogger=False, VERSION=2, knobs_spec=None, network=None, system=None, workload=None):
         super().__init__(dataset, optimizer)
         self.exp_name = exp_name
         self.traject_dir = traject_dir
@@ -158,13 +158,13 @@ class AstraSimBackend(BaseBackend):
         self.reward_formulation = reward_formulation
         self.use_envlogger = use_envlogger
         self.VERSION = VERSION
-        self.KNOBS_SPEC = KNOBS_SPEC
+        self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
 
     def generate_model(self, path):
-        return DummyAstraSim(path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger, self.VERSION, self.KNOBS_SPEC)
+        return DummyAstraSim(path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger, self.VERSION, self.knobs_spec, self.network, self.system, self.workload)
 
     def reuse_model(self, old_model, new_model_path, distance):
-        return DummyAstraSim(new_model_path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger, self.VERSION, self.KNOBS_SPEC)
+        return DummyAstraSim(new_model_path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger, self.VERSION, self.knobs_spec, self.network, self.system, self.workload)
 
     def train_model(self, model):
         return model
@@ -347,8 +347,7 @@ class DummySniper():
 
 class DummyAstraSim():
 
-    def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger, VERSION, KNOBS_SPEC):
-        self.env = AstraSimEnv()
+    def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger, VERSION, knobs_spec, network, system, workload):
         self.helper = helpers()
         self.fitness_hist = {}
 
@@ -358,16 +357,20 @@ class DummyAstraSim():
         self.reward_formulation = reward_formulation
         self.use_envlogger = use_envlogger
         self.VERSION = VERSION
-        self.KNOBS_SPEC = KNOBS_SPEC
+        self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
 
         self.settings_file_path = os.path.realpath(__file__)
         self.settings_dir_path = os.path.dirname(self.settings_file_path)
         self.proj_root_path = os.path.dirname(os.path.dirname(os.path.dirname(self.settings_dir_path)))
         self.proj_dir_path = os.path.dirname(os.path.dirname(os.path.dirname(self.settings_dir_path)))
+        self.astrasim = os.path.join(self.proj_dir_path, "sims/AstraSim")
 
         self.astrasim_archgym = os.path.join(
-            self.proj_dir_path, "sims/AstraSim/astrasim-archgym")
-        self.knobs_spec = os.path.join(self.proj_root_path, self.KNOBS_SPEC)
+            self.astrasim, "astrasim-archgym")
+        self.knobs = os.path.join(self.astrasim, self.knobs_spec)
+        print("KNOBS SPEC: ", self.knobs)
+
+        self.env = AstraSimEnv(knobs_spec=self.knobs, network=network, system=system, workload=workload)
 
         self.systems_folder = os.path.join(
             self.astrasim_archgym, "themis/inputs/system")
@@ -377,7 +380,7 @@ class DummyAstraSim():
             self.astrasim_archgym, "themis/inputs/workload")
 
         # parse knobs
-        system_knob, network_knob, workload_knob = self.helper.parse_knobs_astrasim(self.knobs_spec)
+        system_knob, network_knob, workload_knob = self.helper.parse_knobs_astrasim(self.knobs)
         if workload_knob == {}:
             GENERATE_WORKLOAD = "FALSE"
         else:
@@ -392,12 +395,9 @@ class DummyAstraSim():
                 self.workload_folder, "all_reduce/allreduce_0.65.txt"
             )
         else:
-            self.network_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_220_example/network_input.yml")
-            self.system_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_220_example/system_input.json")
-            if GENERATE_WORKLOAD == "TRUE":
-                self.workload_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_220_example/workload_cfg.json")
-            else:
-                self.workload_file = os.path.join(self.proj_root_path, "sims/AstraSim/astrasim_220_example/workload-et/generated")
+            self.network_file = os.path.join(self.astrasim, self.network)
+            self.system_file = os.path.join(self.astrasim, self.system)
+            self.workload_file = os.path.join(self.astrasim, self.workload)
 
         # SET UP ACTION DICT
         self.action_dict = {}
@@ -501,7 +501,7 @@ class DummyAstraSim():
         '''
 
         env_wrapper = make_astraSim_env(
-            reward_formulation=self.reward_formulation, rl_form="aco")
+            knobs_spec=self.knobs, network=self.network_file, system=self.system_file, workload=self.workload_file, reward_formulation=self.reward_formulation, rl_form="aco")
 
         if self.use_envlogger:
             # check if trajectory directory exists

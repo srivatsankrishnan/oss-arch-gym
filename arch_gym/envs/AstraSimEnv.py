@@ -22,17 +22,15 @@ sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
 parameter_knobs= os.path.join(sim_path, "frontend/parameter_knobs.py")
 
 # define AstraSim version
-# VERSION = 1
-# knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
 VERSION = 2
-knobs_spec = os.path.join(sim_path, "astrasim_220_example/knobs.py")
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):
-    def __init__(self, rl_form="sa1", max_steps=5, num_agents=1, reward_formulation="None", reward_scaling=1,):
+    def __init__(self, knobs_spec, network, system, workload, rl_form="sa1", max_steps=5, num_agents=1, reward_formulation="None", reward_scaling=1,):
         self.rl_form = rl_form
         self.helpers = helpers()
-        self.system_knobs, self.network_knobs, self.workload_knobs = self.helpers.parse_knobs_astrasim(knobs_spec)
+        self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
+        self.system_knobs, self.network_knobs, self.workload_knobs = self.helpers.parse_knobs_astrasim(self.knobs_spec)
 
         # only generate workload file if workload knobs given
         if self.workload_knobs == {}:
@@ -72,7 +70,7 @@ class AstraSimEnv(gym.Env):
             self.exe_path = os.path.join(sim_path, "astrasim_220_example/run.sh")
             self.network_config = os.path.join(sim_path, "astrasim_220_example/network.yml")
             self.system_config = os.path.join(sim_path, "astrasim_220_example/system.json")
-            self.astrasim_binary = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Unaware")
+            self.astrasim_binary = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Aware")
 
         # FILE = INITIAL INPUTS
         if VERSION == 1:
@@ -80,12 +78,9 @@ class AstraSimEnv(gym.Env):
             self.system_file = os.path.join(self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
             self.workload_file = os.path.join(self.workloads_folder, "all_reduce/allreduce_0.65.txt")
         else:
-            self.network_file = os.path.join(sim_path, "astrasim_220_example/network_input.yml")
-            self.system_file = os.path.join(sim_path, "astrasim_220_example/system_input.json")
-            if self.generate_workload == "TRUE":
-                self.workload_file = os.path.join(sim_path, "astrasim_220_example/workload_cfg.json")
-            else:
-                self.workload_file = os.path.join(sim_path, "astrasim_220_example/workload-et/generated")
+            self.network_file = os.path.join(sim_path, self.network)
+            self.system_file = os.path.join(sim_path, self.system)
+            self.workload_file = os.path.join(sim_path, self.workload)
         
         self.param_len = 0
         self.dimension = 0

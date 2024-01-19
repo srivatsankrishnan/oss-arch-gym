@@ -26,13 +26,17 @@ flags.DEFINE_integer('depth', 10, 'Depth of the network.')
 flags.DEFINE_string('summary_dir', '.', 'Directory to store summaries.')
 flags.DEFINE_string('reward_formulation', 'power', 'Reward formulation to use.')
 flags.DEFINE_bool('use_envlogger', True, 'Use EnvLogger to log environment data.')
+flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
+flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
+flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
+flags.DEFINE_string('workload_file', None, "path to workload input file")
+# FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
+# FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
+
 FLAGS = flags.FLAGS
 
 # define AstraSim version
-# VERSION = 1
-# KNOBS_SPEC = "astrasim-archgym/dse/archgen_v1_knobs/archgen_v1_knobs_spec.py"
 VERSION = 2
-KNOBS_SPEC = "sims/AstraSim/astrasim_220_example/knobs.py"
 
 def main(_):
     # Dummy "training" input for POC
@@ -62,7 +66,10 @@ def main(_):
                             reward_formulation= FLAGS.reward_formulation,
                             use_envlogger=FLAGS.use_envlogger,
                             VERSION=VERSION,
-                            KNOBS_SPEC=KNOBS_SPEC)
+                            knobs_spec=FLAGS.knobs,
+                            network=FLAGS.network,
+                            system=FLAGS.system,
+                            workload=FLAGS.workload_file)
     deepswarm = DeepSwarm(backend=backend)
     
     topology = deepswarm.find_topology()
