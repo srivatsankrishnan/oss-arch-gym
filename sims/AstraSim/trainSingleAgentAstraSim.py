@@ -71,6 +71,12 @@ _RUN_DISTRIBUTED = flags.DEFINE_bool(
 # Experimental feature to scale RL policy parameters. Ideally want to keep it same as number
 # of agents used in multi-agent training.
 flags.DEFINE_integer("params_scaling", 1, "Number of training steps")
+flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
+flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
+flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
+flags.DEFINE_string('workload_file', None, "path to workload input file")
+# FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
+# FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
 def get_directory_name():
     _EXP_NAME = 'Algo_{}_rlform_{}_num_steps_{}_seed_{}_lr_{}_entropy_{}'.format(_RL_AGO.value, _RL_FORM.value,_NUM_STEPS.value, _SEED.value, _LEARNING_RATE.value, _ENTROPY_COST.value)
@@ -128,11 +134,13 @@ def build_experiment_config():
 
     if(FLAGS.rl_form == 'tdm'):
         env = AstraSimWrapper.make_astraSim_env(
+            knobs_spec=FLAGS.knobs, network=FLAGS.network, system=FLAGS.system, workload=FLAGS.workload_file, 
             reward_formulation = _REWARD_FORM.value,
             reward_scaling = _REWARD_SCALE.value
             )
     else:
         env = AstraSimWrapper.make_astraSim_env(
+            knobs_spec=FLAGS.knobs, network=FLAGS.network, system=FLAGS.system, workload=FLAGS.workload_file, 
             rl_form=FLAGS.rl_form,
             reward_formulation = _REWARD_FORM.value,
             reward_scaling = _REWARD_SCALE.value)
