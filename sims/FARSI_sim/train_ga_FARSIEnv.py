@@ -41,7 +41,7 @@ from absl import app
 from absl import logging
 
 os.sys.path.insert(0, os.path.abspath('../../'))
-from configs import arch_gym_configs
+#from configs import arch_gym_configs
 from arch_gym.envs.envHelpers import helpers
 from arch_gym.envs import FARSI_sim_wrapper
 import envlogger

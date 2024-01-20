@@ -273,7 +273,8 @@ replay_folder_base = os.path.join(home_dir, 'data_collection/data/replayer')
 database_csv_folder = os.path.join(home_dir, 'specs/database_csvs/')  # where all the library input are located
 
 axis_unit = {"area": "mm2", "power": "mW", "latency": "s"}
-database_data_dir = os.path.join(home_dir, "specs", "database_data")
+#database_data_dir = os.path.join(home_dir, "specs", "database_data")
+database_data_dir = os.path.join(home_dir, "oss-arch-gym", "Project_FARSI", "specs", "database_data")
 transaction_base_simulation = False   # do not set to true. It doesn't work
 
 
