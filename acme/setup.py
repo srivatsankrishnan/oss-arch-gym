@@ -58,8 +58,8 @@ core_requirements = [
 
 jax_requirements = [
     'chex',
-    'jax==0.4.1',  # Update when TF2.9 is release.
-    'jaxlib==0.4.1',  # Update when TF2.9 is release.
+    'jax==0.4.1',
+    'jaxlib==0.4.1',
     'dm-haiku==0.0.10',
     #'flax',
     'optax',

@@ -7,7 +7,7 @@ import yaml
 import json
 from datetime import date, datetime
 os.sys.path.insert(0, os.path.abspath('../../'))
-from configs import arch_gym_configs
+from configs.sims import Timeloop_config
 
 from absl import flags
 from absl import app
@@ -164,9 +164,9 @@ def run_task(task):
         reward_formulation = task['reward_formulation']
 
         aco_agent_config_file = os.path.join(
-                                arch_gym_configs.proj_root_path,
+                                Timeloop_config.proj_root_path,
                                 "settings",
-                                arch_gym_configs.aco_config)
+                                Timeloop_config.aco_config)
         aco_hyperparams = {"evaporation": evaporation,
                             "ant_count": ant_count,
                             "greediness": greediness,
@@ -275,7 +275,6 @@ def run_task(task):
 
 def main(_):
     taskList = []
-    sim_config = arch_gym_configs.sim_config
 
     if FLAGS.algo == 'rw':
         task = {'algo': FLAGS.algo,

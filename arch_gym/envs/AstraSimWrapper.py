@@ -13,6 +13,7 @@
 # limitations under the License.
 
 """Wraps an OpenAI Gym environment to be used as a dm_env environment."""
+import os
 import sys
 from typing import Any, Dict, List, Optional
 
@@ -24,6 +25,10 @@ import gym
 from gym import spaces
 import numpy as np
 import tree
+
+os.sys.path.insert(0, os.path.abspath('../../'))
+os.sys.path.insert(0, os.path.abspath('../../arch_gym'))
+os.sys.path.insert(0, os.path.abspath('../../arch_gym/envs'))
 
 from AstraSimEnv import AstraSimEnv
 from envHelpers import helpers
