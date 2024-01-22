@@ -1,0 +1,72 @@
+DeepSwarm:
+    save_folder:
+    metrics: loss
+    max_depth: 32
+    reuse_patience: 1
+
+    aco:
+        pheromone:
+            start: 0.1
+            decay: 0.1
+            evaporation: 0.1
+            verbose: False
+        greediness: 0.5
+        ant_count: 128
+
+
+Nodes:
+    # Single Node/Network Implementation
+    InputNode:
+        type: Input
+        attributes: 
+            name: ["Input"]
+            value: [None]
+        transitions:
+            ArchParamsNode: 1.0
+
+    ArchParamsNode:
+        type: ArchParams
+        attributes:
+            pe_allocation_0: [0, 1]
+            pe_allocation_1: [0, 1]
+            pe_allocation_2: [0, 1]
+            mem_allocation_0: [0, 1, 2, 3]
+            mem_allocation_1: [0, 1, 2, 3]
+            mem_allocation_2: [0, 1, 2, 3]
+            bus_allocation_0: [0, 1, 2, 3]
+            bus_allocation_1: [0, 1, 2, 3]
+            bus_allocation_2: [0, 1, 2, 3]
+            pe_to_bus_connection_0: [0, 1, 2]
+            pe_to_bus_connection_1: [0, 1, 2]
+            pe_to_bus_connection_2: [0, 1, 2]
+            bus_to_bus_connection_0: [-1, 0, 1, 2]
+            bus_to_bus_connection_1: [-1, 0, 1, 2]
+            bus_to_bus_connection_2: [-1, 0, 1, 2]
+            bus_to_mem_connection_0: [-1, 0, 1, 2]
+            bus_to_mem_connection_1: [-1, 0, 1, 2]
+            bus_to_mem_connection_2: [-1, 0, 1, 2]
+            task_to_pe_mapping_0: [0, 1, 2]
+            task_to_pe_mapping_1: [0, 1, 2]
+            task_to_pe_mapping_2: [0, 1, 2]
+            task_to_pe_mapping_3: [0, 1, 2]
+            task_to_pe_mapping_4: [0, 1, 2]
+            task_to_pe_mapping_5: [0, 1, 2]
+            task_to_pe_mapping_6: [0, 1, 2]
+            task_to_pe_mapping_7: [0, 1, 2]
+            task_to_mem_mapping_0: [0, 1, 2]
+            task_to_mem_mapping_1: [0, 1, 2]
+            task_to_mem_mapping_2: [0, 1, 2]
+            task_to_mem_mapping_3: [0, 1, 2]
+            task_to_mem_mapping_4: [0, 1, 2]
+            task_to_mem_mapping_5: [0, 1, 2]
+            task_to_mem_mapping_6: [0, 1, 2]
+            task_to_mem_mapping_7: [0, 1, 2]
+        transitions:
+            OutputNode: 1.0
+
+    OutputNode:
+        type: Output
+        attributes:
+            name: ["Output"]
+            value: [None]
+        transitions: {}

@@ -29,3 +29,38 @@ if [ $1 == 'viz' ]; then
     pip install -r requirements-algorithms.txt
     pip install -r requirements-benchmarks.txt
 fi
+
+#install Project_FARSI submodule
+
+if [ $1  == 'farsi' ]; then
+
+    # first, delete the current Project_FARSI folder if any
+
+    git submodule add https://github.com/facebookresearch/Project_FARSI.git Project_FARSI
+
+    git submodule update --init Project_FARSI
+
+    echo "---Submodule Project_FARSI has been created!---"
+
+    cd Project_FARSI && git clone https://github.com/zaddan/cacti_for_FARSI.git && cd ..
+
+    echo "---Downloaded cacti_for_FARSI---"
+    
+
+    #Use the environment_FARSI.yml file to update the conda env dependencies
+    echo "---Updating the conda env with additional dependencies for FARSI---"
+    cd sims/FARSI_sim && conda env update -f environment_FARSI.yml && cd ../..
+
+    sudo apt update && sudo apt install -y build-essential && cd Project_FARSI/cacti_for_FARSI && make clean && make
+
+    cd ../..
+
+    echo "---INSTALLING ACME: ---"
+
+    cd acme && pip install .[jax,tf,testing,envs] && cd ..
+
+    echo "---ACME installation completed!---"
+
+    sudo apt-get update && sudo apt-get -y install libgmp-dev && pip install scikit-optimize
+
+fi
