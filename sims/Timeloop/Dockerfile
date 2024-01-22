@@ -26,7 +26,7 @@ RUN touch /home/workspace/.nointro
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 
 #RUN conda install
-RUN git clone --recursive https://github.com/varun-k-s/oss-arch-gym.git
+RUN git clone --recursive https://github.com/srivatsankrishnan/oss-arch-gym.git
 RUN chown -R 1000:root /home/workspace && chmod -R 775 /home/workspace
 RUN cd oss-arch-gym && conda env create -f environment.yml
 
