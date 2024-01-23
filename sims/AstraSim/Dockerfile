@@ -2,28 +2,24 @@ FROM continuumio/miniconda3
 RUN if ! id -u 1000; then useradd -m -u 1000 clouduser; fi
 RUN mkdir /workdir
 WORKDIR /workdir
-RUN echo "recloning arch-gym rep22"
-#RUN git clone --recursive https://srivatsankrishnan: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@github.com/srivatsankrishnan/arch-gym.git
-# RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
-RUN git clone https://github.com/changhai0109/oss-arch-gym 
+RUN echo "recloning arch-gym rep223"
+RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
 RUN cd oss-arch-gym && git checkout automate-rw
+
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init
-WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim-archgym/
+WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/
 RUN git submodule update --init
-WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim-archgym/astra-sim
+WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim
 RUN cp ../../.replace_gitmodules/astrasim.gitmodules .gitmodules && git submodule update --init
-WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim-archgym/astra-sim/extern/network_backend/analytical
+WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/extern/network_backend/analytical
 RUN cp ../../../../../.replace_gitmodules/astra-network-analytical.gitmodules .gitmodules && git submodule update --init
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init --recursive
 WORKDIR /workdir
 
-# RUN cd oss-arch-gym && git checkout automate-rw
-# RUN cd oss-arch-gym && git submodule update --init --recursive
-# RUN cd oss-arch-gym && git checkout automate-rw && git submodule update --init --recursive
 RUN apt-get update && apt-get -y install protobuf-compiler libprotobuf-dev python3-protobuf cmake gcc g++
-RUN cd oss-arch-gym/sims/AstraSim/astrasim-archgym/astra-sim/ && ./build/astra_analytical/build.sh
+RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/ && ./build/astra_analytical/build.sh
 
 # RUN cd oss-arch-gym
 RUN cd oss-arch-gym && conda env create -f environment.yml
@@ -33,14 +29,6 @@ SHELL ["/bin/bash", "--login", "-c"]
 
 RUN cd oss-arch-gym/acme && pip install .[orbax-checkpoint,orbax-export]
 RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install envlogger[tfds] scons && apt-get update && apt-get -y install libgmp-dev && pip install scikit-optimize sympy plotly && conda install --channel conda-forge pygraphviz
-# WORKDIR /workdir/oss-arch-gym/acme
-# RUN pip install jax
-# RUN pip install tf
-# # RUN pip install testing
-# RUN pip install envs
-# # RUN pip install .[jax,tf,testing,envs]
-# RUN pip install envlogger[tfds] scons && apt-get update && apt-get -y install libgmp-dev && pip install scikit-optimize sympy plotly && conda install --channel conda-forge pygraphviz
-# WORKDIR /workdir
 
 RUN chown -R 1000:root /workdir && chmod -R 775 /workdir
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim
