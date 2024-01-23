@@ -17,6 +17,7 @@ WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim-archgym/astra-sim/extern/ne
 RUN cp ../../../../../.replace_gitmodules/astra-network-analytical.gitmodules .gitmodules && git submodule update --init
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init --recursive
+WORKDIR /workdir
 
 # RUN cd oss-arch-gym && git checkout automate-rw
 # RUN cd oss-arch-gym && git submodule update --init --recursive
