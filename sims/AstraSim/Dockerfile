@@ -5,7 +5,8 @@ WORKDIR /workdir
 RUN echo "recloning arch-gym rep22"
 #RUN git clone --recursive https://srivatsankrishnan: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@github.com/srivatsankrishnan/arch-gym.git
 # RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
-RUN git clone https://github.com/changhai0109/oss-arch-gym
+RUN git clone https://github.com/changhai0109/oss-arch-gym 
+RUN cd oss-arch-gym && git checkout automate-rw
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim-archgym/
