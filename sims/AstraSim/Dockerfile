@@ -22,6 +22,7 @@ WORKDIR /workdir
 # RUN cd oss-arch-gym && git checkout automate-rw
 # RUN cd oss-arch-gym && git submodule update --init --recursive
 # RUN cd oss-arch-gym && git checkout automate-rw && git submodule update --init --recursive
+RUN apt-get update && apt-get -y install protobuf-compiler libprotobuf-dev python3-protobuf cmake gcc g++
 RUN cd oss-arch-gym/sims/AstraSim/astrasim-archgym/astra-sim/ && ./build/astra_analytical/build.sh
 
 # RUN cd oss-arch-gym
