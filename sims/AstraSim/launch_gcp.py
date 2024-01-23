@@ -6,7 +6,7 @@ import os
 import yaml
 import json
 from datetime import date, datetime
-os.sys.path.insert(0, os.path.abspath('../../../../'))
+os.sys.path.insert(0, os.path.abspath('../../'))
 from configs import arch_gym_configs
 
 from absl import flags
@@ -19,6 +19,10 @@ flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
 flags.DEFINE_string('summary_dir', '', 'Directory to store the summary')
 flags.DEFINE_integer('num_iter', 10, 'Number of iterations')
 flags.DEFINE_string('reward_formulation', 'energy', 'Reward formulation to use')
+flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
+flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
+flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
+flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
 
 
 # BO
