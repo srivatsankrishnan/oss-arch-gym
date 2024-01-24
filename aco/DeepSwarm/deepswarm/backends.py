@@ -365,8 +365,7 @@ class DummyAstraSim():
         self.proj_dir_path = os.path.dirname(os.path.dirname(os.path.dirname(self.settings_dir_path)))
         self.astrasim = os.path.join(self.proj_dir_path, "sims/AstraSim")
 
-        self.astrasim_archgym = os.path.join(
-            self.astrasim, "astrasim-archgym")
+        self.astrasim_archgym = os.path.join(self.astrasim, "astrasim-archgym")
         self.knobs = os.path.join(self.astrasim, self.knobs_spec)
         print("KNOBS SPEC: ", self.knobs)
 
@@ -512,8 +511,7 @@ class DummyAstraSim():
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
 
-        env = self.wrap_in_envlogger(
-            env_wrapper, self.traject_dir, self.use_envlogger)
+        env = self.wrap_in_envlogger(env_wrapper, self.traject_dir, self.use_envlogger)
         env.reset()
 
         step_type, reward, discount, info = env.step(self.action_dict)
@@ -531,9 +529,11 @@ class DummyAstraSim():
 
     def log_fitness_to_csv(self):
         df_traj = pd.DataFrame([self.fitness_hist])
+        timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
+        df_traj.insert(0, 'timestamp', timestamp)
+
         filename = os.path.join(self.log_dir, self.exp_name + "_traj.csv")
-        df_traj.to_csv(filename,
-                       index=False, header=False, mode='a')
+        df_traj.to_csv(filename, index=False, header=False, mode='a')
 
         df_rewards = pd.DataFrame([self.fitness_hist['reward']])
         filename = os.path.join(self.log_dir, self.exp_name + "_rewards.csv")

@@ -214,10 +214,14 @@ class AstraSimEstimator(BaseEstimator):
 
     
     def log_fitness_to_csv(self, filename):
+        timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
+
         df = pd.DataFrame([self.fitness_hist['reward']])
+        df.insert(0, 'timestamp', timestamp)
         csvfile = os.path.join(filename, "fitness.csv")
         df.to_csv(csvfile, index=False, header=False, mode='a')
 
         df = pd.DataFrame([self.fitness_hist])
+        df.insert(0, 'timestamp', timestamp)
         csvfile = os.path.join(filename, "actions.csv")
         df.to_csv(csvfile, index=False, header=False, mode='a')

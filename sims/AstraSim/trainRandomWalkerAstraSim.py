@@ -21,12 +21,9 @@ flags.DEFINE_string('workload', 'resnet18', 'Which AstraSim workload to run?')
 flags.DEFINE_integer('num_steps', 50, 'Number of training steps.')
 flags.DEFINE_integer('num_episodes', 1, 'Number of training episodes.')
 flags.DEFINE_bool('use_envlogger', True, 'Use envlogger to log the data.')
-flags.DEFINE_string('traject_dir',
-                    'random_walker_trajectories',
-                    'Directory to save the dataset.')
-flags.DEFINE_string('summary_dir', ".", 'Directory to save the dataset.')
-flags.DEFINE_string('reward_formulation', 'latency',
-                    'Which reward formulation to use?')
+flags.DEFINE_string('traject_dir', 'random_walker_trajectories', 'Directory to save the dataset.')
+flags.DEFINE_string('summary_dir', "./all_logs/", 'Directory to save the dataset.')
+flags.DEFINE_string('reward_formulation', 'cycles', 'Which reward formulation to use?')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
@@ -39,17 +36,15 @@ FLAGS = flags.FLAGS
 # define AstraSim version
 VERSION = 2
 
-def generate_random_actions(action_dict, system_knob, network_knob, workload_knob):
+def generate_random_actions(action_dict, system_knob, network_knob, workload_knob, dimension):
     dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
     print("ACTION DICT: ", action_dict)
-    if VERSION == 1:
-        dimension = action_dict['network']["dimensions-count"]
-    else:
-        dimension = len(action_dict['network']["topology"])
 
     for dict_type, dict_name in dicts:
         knobs = dict_type.keys()
         for knob in knobs:
+            if knob == "dimensions-count":
+                continue
             if isinstance(dict_type[knob][0], set):
                 if dict_type[knob][1] == "FALSE":
                     list_sorted = sorted(list(dict_type[knob][0]))
@@ -77,15 +72,21 @@ def generate_random_actions(action_dict, system_knob, network_knob, workload_kno
 
 
 def log_results_to_csv(filename, fitness_dict):
+    # timestamp: date_hour_min_sec
+    timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
+
     df = pd.DataFrame([fitness_dict['reward']])
+    df.insert(0, 'timestamp', timestamp)
     csvfile = os.path.join(filename, "rewards.csv")
     df.to_csv(csvfile, index=False, header=False, mode='a')
 
     df = pd.DataFrame([fitness_dict['action']])
+    df.insert(0, 'timestamp', timestamp)
     csvfile = os.path.join(filename, "actions.csv")
     df.to_csv(csvfile, index=False, header=False, mode='a')
 
     df = pd.DataFrame([fitness_dict['obs']])
+    df.insert(0, 'timestamp', timestamp)
     csvfile = os.path.join(filename, "observations.csv")
     df.to_csv(csvfile, index=False, header=False, mode='a')
 
@@ -151,14 +152,13 @@ def main(_):
     # env = AstraSimEnv.AstraSimEnv(rl_form='random_walker')
 
     # experiment name
-    exp_name = str(FLAGS.workload)+"_num_steps_" + \
-        str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
+    exp_name = str(FLAGS.workload)+"_num_steps_" + str(FLAGS.num_steps) + "_num_episodes_" + str(FLAGS.num_episodes)
+    # set exp name to the timestamp
+    # exp_name = str(int(time.time()))
     # append logs to base path
-    log_path = os.path.join(
-        FLAGS.summary_dir, 'random_walker_logs', FLAGS.reward_formulation, exp_name)
+    log_path = os.path.join(FLAGS.summary_dir, 'random_walker_logs', FLAGS.reward_formulation, exp_name)
     # get the current working directory and append the exp name
-    traject_dir = os.path.join(
-        FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
+    traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
     # check if log_path exists else create it
     if not os.path.exists(log_path):
         os.makedirs(log_path)
@@ -178,6 +178,16 @@ def main(_):
     action_dict['system'] = astrasim_helper.parse_system_astrasim(system_file, action_dict, VERSION)
     action_dict['network'] = astrasim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
 
+    if VERSION == 1:
+        dimension = action_dict['network']["dimensions-count"]
+    else:
+        dimension = len(action_dict['network']["topology"])
+
+    if "dimensions-count" in network_knob:
+        list_sorted = sorted(list(network_knob["dimensions-count"][0]))
+        dimension = random.choice(list_sorted)
+        action_dict['network']["dimensions-count"] = dimension
+
     # only generate workload if knobs exist
     if GENERATE_WORKLOAD == "TRUE":
         action_dict['workload'] = astrasim_helper.parse_workload_astrasim(workload_file, action_dict, VERSION)
@@ -191,7 +201,8 @@ def main(_):
 
         for step in range(FLAGS.num_steps):
             # pass into generate_random_actions(dimension, knobs)
-            action_dict = generate_random_actions(action_dict, system_knob, network_knob, workload_knob)
+            action_dict = generate_random_actions(action_dict, system_knob, network_knob, workload_knob, dimension)
+            print("DIMENSION: ", dimension)
 
             # step_result wrapped in TimeStep object
             step_result = env.step(action_dict)

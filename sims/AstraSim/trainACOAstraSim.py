@@ -18,13 +18,13 @@ from absl import app
 flags.DEFINE_float('evaporation', 0.1, 'Evaporation value for pheromone.')
 flags.DEFINE_integer('ant_count', 2, 'Number of Ants.')
 flags.DEFINE_float('greediness', 0.5, 'How greedy you want the ants to be?.')
-flags.DEFINE_string('traject_dir', 'aco_trajectories', 'Directory to trajectory data.')
-flags.DEFINE_string('aco_log_dir', 'aco_logs', 'Directory to store logs.')
+flags.DEFINE_string('traject_dir', './all_logs/aco_trajectories', 'Directory to trajectory data.')
+flags.DEFINE_string('aco_log_dir', './all_logs/aco_logs', 'Directory to store logs.')
 flags.DEFINE_string('workload', 'stream.stl', 'Which workload to run')
 flags.DEFINE_string('exp_config_file', 'exp_config.ini', 'Experiment config file.')
 flags.DEFINE_integer('depth', 10, 'Depth of the network.')
 flags.DEFINE_string('summary_dir', '.', 'Directory to store summaries.')
-flags.DEFINE_string('reward_formulation', 'power', 'Reward formulation to use.')
+flags.DEFINE_string('reward_formulation', 'cycles', 'Reward formulation to use.')
 flags.DEFINE_bool('use_envlogger', True, 'Use EnvLogger to log environment data.')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
@@ -54,10 +54,6 @@ def main(_):
     
     # create log directory (current dir + log_dir)
     log_dir = os.path.join(FLAGS.summary_dir, FLAGS.aco_log_dir, FLAGS.reward_formulation, exp_name)
-
-    print("Trajectory directory:", traject_dir)
-    print("Log directory:", log_dir)
-    print("Experiment name:", exp_name)
     
     backend = AstraSimBackend(dataset, 
                             exp_name=exp_name,

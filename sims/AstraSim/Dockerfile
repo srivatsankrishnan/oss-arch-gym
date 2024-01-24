@@ -2,7 +2,7 @@ FROM continuumio/miniconda3
 RUN if ! id -u 1000; then useradd -m -u 1000 clouduser; fi
 RUN mkdir /workdir
 WORKDIR /workdir
-RUN echo "recloning arch-gym rep223"
+RUN echo "recloning arch-gym rep2234"
 RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
 RUN cd oss-arch-gym && git checkout automate-rw
 
@@ -33,4 +33,4 @@ RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install en
 RUN chown -R 1000:root /workdir && chmod -R 775 /workdir
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim
 
-# ENTRYPOINT ["conda", "run", "-n", "arch-gym"]
+ENTRYPOINT ["conda", "run", "-n", "arch-gym", "python", "launch_gcp.py"]

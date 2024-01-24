@@ -958,13 +958,10 @@ class helpers():
             WORKLOAD_KNOBS = parsed_dicts['WORKLOAD_KNOBS']
         
         return SYSTEM_KNOBS, NETWORK_KNOBS, WORKLOAD_KNOBS
-    
-    """TODO: Parameter_spec version of parse_knobs_astrasim"""
-    # parses knobs that we want to experiment with
-    def actual_parse_knobs_astrasim(self, knobs_spec):
-        SYSTEM_KNOBS = {}
-        NETWORK_KNOBS = {}
-        WORKLOAD_KNOBS = {}
+
+    # parses contraints from knobs file
+    def parse_constraints_astrasim(self, knobs_spec):
+        CONSTRAINTS = {}
 
         with open(knobs_spec, 'r') as file:
             file_contents = file.read()
@@ -973,15 +970,10 @@ class helpers():
             # Evaluate the file contents and store the dictionaries in the parsed_dicts dictionary
             exec(file_contents, parsed_dicts)
 
-            # Access the dictionaries
-            SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
-            NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
-            WORKLOAD_KNOBS = parsed_dicts['WORKLOAD_KNOBS']
+            # Access constraints
             CONSTRAINTS = parsed_dicts['CONSTRAINTS']
-        
-        return SYSTEM_KNOBS, NETWORK_KNOBS, WORKLOAD_KNOBS, CONSTRAINTS
 
-    # TODO: define getting a 
+        return CONSTRAINTS
 
     def convert_knob_ga_astrasim(self, knob):
         knob_split = knob.split("-")

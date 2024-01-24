@@ -48,8 +48,8 @@ _REWARD_FORM = flags.DEFINE_string('reward_form', 'both', 'Reward form.')
 _REWARD_SCALE = flags.DEFINE_string('reward_scale', 'false', 'Scale reward.')
 
 # Hyperparameters for each RL algorithm
-_NUM_STEPS = flags.DEFINE_integer('num_steps', 100, 'Number of training steps.')
-_EVAL_EVERY = flags.DEFINE_integer('eval_every', 50, 'Number of evaluation steps.')
+_NUM_STEPS = flags.DEFINE_integer('num_steps', 1, 'Number of training steps.')
+_EVAL_EVERY = flags.DEFINE_integer('eval_every', 1, 'Number of evaluation steps.')
 _EVAL_EPISODES = flags.DEFINE_integer('eval_episodes', 1, 'Number of evaluation episode.')
 _SEED = flags.DEFINE_integer('seed', 1, 'Random seed.')
 _LEARNING_RATE = flags.DEFINE_float('learning_rate', 1e-5, 'Learning rate.')
@@ -61,9 +61,9 @@ _PPO_CLIPPING_EPSILON = flags.DEFINE_float('ppo_clipping_epsilon', 0.2, 'PPO cli
 _CLIP_VALUE = flags.DEFINE_bool('clip_value', False, 'Clip value.')
 
 # Experiment setup related parameters
-_SUMMARYDIR = flags.DEFINE_string('summarydir', './logs', 'Directory to save summaries.')
-_ENVLOGGER_DIR = flags.DEFINE_string('envlogger_dir', 'trajectory', 'Directory to save envlogger.')
-_USE_ENVLOGGER = flags.DEFINE_bool('use_envlogger', False, 'Use envlogger.')
+_SUMMARYDIR = flags.DEFINE_string('summarydir', './all_logs', 'Directory to save summaries.')
+_ENVLOGGER_DIR = flags.DEFINE_string('envlogger_dir', './rl_directory', 'Directory to save envlogger.')
+_USE_ENVLOGGER = flags.DEFINE_bool('use_envlogger', True, 'Use envlogger.')
 _RUN_DISTRIBUTED = flags.DEFINE_bool(
     'run_distributed', False, 'Should an agent be executed in a '
     'distributed way (the default is a single-threaded agent)')
@@ -103,7 +103,7 @@ def _logger_factory(logger_label: str, steps_key: Optional[str] = None, task_ins
   _EXP_NAME = get_directory_name()
   if logger_label == 'actor':
       terminal_logger = TerminalLogger(label=logger_label, print_fn=logging.info)
-      summarydir = os.path.join(FLAGS.summarydir,_EXP_NAME, logger_label)
+      summarydir = os.path.join(FLAGS.summarydir, "rl_logs", _EXP_NAME, logger_label)
       tb_logger = TFSummaryLogger(summarydir, label=logger_label, steps_key=steps_key)
       csv_logger = CSVLogger(summarydir, label=logger_label)
       serialize_fn = base.to_numpy
@@ -111,7 +111,7 @@ def _logger_factory(logger_label: str, steps_key: Optional[str] = None, task_ins
       return logger
   elif logger_label == 'learner':
       terminal_logger = TerminalLogger(label=logger_label, print_fn=logging.info)
-      summarydir = os.path.join(FLAGS.summarydir,_EXP_NAME, logger_label)
+      summarydir = os.path.join(FLAGS.summarydir,"rl_logs", _EXP_NAME, logger_label)
       tb_logger = TFSummaryLogger(summarydir, label=logger_label, steps_key=steps_key)
       csv_logger = CSVLogger(summarydir, label=logger_label)
       serialize_fn = base.to_numpy
@@ -119,7 +119,7 @@ def _logger_factory(logger_label: str, steps_key: Optional[str] = None, task_ins
       return logger
   elif logger_label == 'evaluator':
       terminal_logger = TerminalLogger(label=logger_label, print_fn=logging.info)
-      summarydir = os.path.join(FLAGS.summarydir,_EXP_NAME, logger_label)
+      summarydir = os.path.join(FLAGS.summarydir,"rl_logs", _EXP_NAME, logger_label)
       tb_logger = TFSummaryLogger(summarydir, label=logger_label, steps_key=steps_key)
       csv_logger = CSVLogger(summarydir, label=logger_label)
       serialize_fn = base.to_numpy

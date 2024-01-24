@@ -25,9 +25,10 @@ flags.DEFINE_integer('num_agents', 4, 'Number of agents.')
 flags.DEFINE_float('prob_mutation', 0.1, 'Probability of mutation.')
 flags.DEFINE_string('workload','resnet18', 'ML model name')
 flags.DEFINE_integer('layer_id', 2, 'Layer id')
-flags.DEFINE_string('summary_dir', 'test', 'Directory to save the summary.')
-flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation to use')
-flags.DEFINE_string('traject_dir','ga_trajectories', 'Directory to save the dataset.')
+flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
+flags.DEFINE_string('reward_formulation', 'cycles', 'Reward formulation to use')
+flags.DEFINE_string('traject_dir','./all_logs/ga_trajectories', 'Directory to save the dataset.')
+flags.DEFINE_string('log_dir_ga', './all_logs/ga_logs', 'Directory to store logs.')
 flags.DEFINE_bool('use_envlogger', True, 'Whether to use envlogger.')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
@@ -51,17 +52,20 @@ def generate_run_directories():
     traject_dir = os.path.join(FLAGS.summary_dir, FLAGS.traject_dir, FLAGS.reward_formulation, exp_name)
     
     # log directories for storing exp csvs
-    exp_log_dir = os.path.join(FLAGS.summary_dir,"ga_logs",FLAGS.reward_formulation, exp_name)
+    exp_log_dir = os.path.join(FLAGS.summary_dir, FLAGS.log_dir_ga, FLAGS.reward_formulation, exp_name)
 
     return traject_dir, exp_log_dir
 
 
 def log_fitness_to_csv(filename, fitness_dict):
+        timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
         df = pd.DataFrame([fitness_dict['reward']])
+        df.insert(0, 'timestamp', timestamp)
         csvfile = os.path.join(filename, "fitness.csv")
         df.to_csv(csvfile, index=False, header=False, mode='a')
 
         df = pd.DataFrame([fitness_dict['action']])
+        df.insert(0, 'timestamp', timestamp)
         csvfile = os.path.join(filename, "actions.csv")
         df.to_csv(csvfile, index=False, header=False, mode='a')
 
@@ -168,7 +172,7 @@ def AstraSim_optimization_function(p):
 
     # Convert dictionary to dataframe
     fitness_df = pd.DataFrame([fitness_dict], columns=["action", "reward", "obs"])
-
+    fitness_df.insert(0, 'timestamp', timestamp)
     # check if exp_log_dir exists
     if not os.path.exists(exp_log_dir):
         os.makedirs(exp_log_dir)
@@ -274,8 +278,10 @@ def main(_):
     arr = [a.squeeze().tolist() for a in ga.all_history_Y]
 
     print(arr)
-    
+    timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
+
     Y_history = pd.DataFrame(arr)
+    Y_history.insert(0, 'timestamp', timestamp)
     Y_history.to_csv(os.path.join(exp_log_dir, "Y_history.csv"))
 
     fig, ax = plt.subplots(2, 1)
@@ -285,9 +291,11 @@ def main(_):
     
     # save the best_x and best_y to a csv file
     best_x = pd.DataFrame(best_x)
+    best_x.insert(0, 'timestamp', timestamp)
     best_x.to_csv(os.path.join(exp_log_dir, "best_x.csv"))
 
     best_y = pd.DataFrame(best_y)
+    best_y.insert(0, 'timestamp', timestamp)
     best_y.to_csv(os.path.join(exp_log_dir, "best_y.csv"))
 
 
