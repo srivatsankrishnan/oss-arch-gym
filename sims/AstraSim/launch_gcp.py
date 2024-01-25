@@ -16,9 +16,9 @@ FLAGS = flags.FLAGS
 
 flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
 flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
-flags.DEFINE_string('summary_dir', '', 'Directory to store the summary')
-flags.DEFINE_integer('num_iter', 10, 'Number of iterations')
-flags.DEFINE_string('reward_formulation', 'energy', 'Reward formulation to use')
+flags.DEFINE_string('summary_dir', './all_logs', 'Directory to store the summary')
+flags.DEFINE_integer('num_iter', 1, 'Number of iterations')
+flags.DEFINE_string('reward_formulation', 'cycles', 'Reward formulation to use')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
@@ -106,13 +106,15 @@ def run_task(task):
         num_iter = task["num_iter"]
         summary_dir = task["summary_dir"]
         reward_formulation = task["reward_formulation"]
+        use_envlogger = task["use_envlogger"]
         knobs = task["knobs"]
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
         unqiue_ids = [algo, workload, str(prob_mut), str(num_agents)]
     elif (algo == "rw"):
-        num_iter = task["num_iter"]
+        num_steps = task["num_steps"]
+        use_envlogger = task["use_envlogger"]
         summary_dir = task["summary_dir"]
         reward_formulation = task["reward_formulation"]
         unqiue_ids = [algo, workload]
@@ -125,6 +127,7 @@ def run_task(task):
         rand_state = task["rand_state"]
         summary_dir = task["summary_dir"]
         reward_formulation = task["reward_formulation"]
+        use_envlogger = task["use_envlogger"]
         knobs = task["knobs"]
         network = task["network"]
         system = task["system"]
@@ -137,6 +140,7 @@ def run_task(task):
         greediness = task["greediness"]
         summary_dir = task["summary_dir"]
         reward_formulation = task["reward_formulation"]
+        use_envlogger = task["use_envlogger"]
         depth = task["num_iter"]
         knobs = task["knobs"]
         network = task["network"]
@@ -179,6 +183,7 @@ def run_task(task):
             "--num_agents=" + str(num_agents) + " "\
             "--summary_dir=" + str(summary_dir) + " "\
             "--reward_formulation=" + str(reward_formulation) + " "\
+            "--use_envlogger=" + str(use_envlogger) + " "\
             "--knobs=" + str(knobs) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
@@ -189,9 +194,10 @@ def run_task(task):
         print("train_randomwalker_astra_sim")
         cmd = "python trainRandomWalkerAstraSim.py " + \
             "--workload=" + str(workload) + " " \
-            "--num_steps=" + str(num_iter) + " " \
-            "--summary_dir=" + str(summary_dir) + " "\
-            "--reward_formulation=" + str(reward_formulation) + " "\
+            "--num_steps=" + str(num_steps) + " " \
+            "--use_envlogger=" + str(use_envlogger) + " " \
+            "--summary_dir=" + str(summary_dir) + " " \
+            "--reward_formulation=" + str(reward_formulation) + " " \
             "--knobs=" + str(knobs) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
@@ -205,6 +211,7 @@ def run_task(task):
             "--random_state=" + str(rand_state) + " " \
             "--summary_dir=" + str(summary_dir) + " " \
             "--reward_formulation=" + str(reward_formulation) + " "\
+            "--use_envlogger=" + str(use_envlogger) + " "\
             "--knobs=" + str(knobs) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
@@ -230,6 +237,7 @@ def run_task(task):
             "--greediness=" + str(greediness) + " " \
             "--summary_dir=" + str(summary_dir) + " "\
             "--reward_formulation=" + str(reward_formulation) + " "\
+            "--use_envlogger=" + str(use_envlogger) + " "\
             "--knobs=" + str(knobs) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
@@ -280,6 +288,7 @@ def main(_):
                 "prob_mut": FLAGS.prob_mutation,
                 'summary_dir': FLAGS.summary_dir,
                 'reward_formulation': FLAGS.reward_formulation,
+                'use_envlogger': FLAGS.use_envlogger,
                 "knobs": FLAGS.knobs,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
@@ -288,7 +297,8 @@ def main(_):
     elif FLAGS.algo == "rw":
         task = {"algo": FLAGS.algo,
                 "workload": FLAGS.workload, 
-                "num_iter": FLAGS.num_iter, 
+                "num_steps": FLAGS.num_steps, 
+                "use_envlogger": FLAGS.use_envlogger,
                 'summary_dir': FLAGS.summary_dir,
                 'reward_formulation': FLAGS.reward_formulation,
                 "knobs": FLAGS.knobs,
@@ -303,6 +313,7 @@ def main(_):
                 "rand_state": FLAGS.rand_state,
                 'summary_dir': FLAGS.summary_dir,
                 'reward_formulation': FLAGS.reward_formulation,
+                'use_envlogger': FLAGS.use_envlogger,
                 "knobs": FLAGS.knobs,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
@@ -317,6 +328,7 @@ def main(_):
                 "greediness": FLAGS.greediness,
                 'summary_dir': FLAGS.summary_dir,
                 'reward_formulation': FLAGS.reward_formulation,
+                'use_envlogger': FLAGS.use_envlogger,
                 "knobs": FLAGS.knobs,
                 "network": FLAGS.network,
                 "system": FLAGS.system,

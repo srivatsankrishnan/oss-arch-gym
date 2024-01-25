@@ -1,0 +1,6526 @@
+ˆˆ
+in_emb_x@0_COMP0€€€ `
+‰ˆ
+in_emb_w@0_COMP0€€Ä`
+-Šˆ
+in_emb_y@0_COMP ‹ˆ
+ Œˆ
+0€€ˆï3`€€€€€ñ,‹ˆ
+in_emb_y@0_X1COMM ˆˆ
+hppp€€€,Œˆ
+in_emb_y@0_X2_COMM ‰ˆ
+hppp€€â	$ˆ
+in_emb_dy@0_COMP Èˆ
+0€€€`
+.ˆ
+in_emb_dw@0_COMP ˆ
+ ˆ
+0€€ˆï3`€€€€€ñ.ˆ
+in_emb_dw@0_X2_COMM ˆˆ
+hppp€€€.ˆ
+in_emb_dx@0_COMP ‘ˆ
+ ˆ
+0€€ˆï3`€€€€€ñ-‘ˆ
+in_emb_dx@0_X2_COMM ‰ˆ
+hppp€€â	$’ˆ
+out_emb_x@0_COMP ì™
+0€€€`
+“ˆ
+out_emb_w@0_COMP0€€â	`
+.”ˆ
+out_emb_y@0_COMP •ˆ
+ –ˆ
+0€€ÄÛ`€€€€À¸-•ˆ
+out_emb_y@0_X1COMM ’ˆ
+hppp€€€È-–ˆ
+out_emb_y@0_X2_COMM “ˆ
+hppp€€ñ%—ˆ
+out_emb_dy@0_COMP ”ˆ
+0€€€`
+/˜ˆ
+out_emb_dw@0_COMP ™ˆ
+ —ˆ
+0€€ÄÛ`€€€€À¸/™ˆ
+out_emb_dw@0_X2_COMM ’ˆ
+hppp€€€È/šˆ
+out_emb_dx@0_COMP ›ˆ
+ —ˆ
+0€€ÄÛ`€€€€À¸.›ˆ
+out_emb_dx@0_X2_COMM “ˆ
+hppp€€ñ(œˆ
+stack_0_mha_x@0_COMP Šˆ
+0€€€`
+$ˆ
+stack_0_mha_wq@0_COMP0€€â	`
+$ˆ
+stack_0_mha_wk@0_COMP0€€â	`
+$Ÿˆ
+stack_0_mha_wv@0_COMP0€€â	`
+2 ˆ
+stack_0_mha_q@0_COMP ¡ˆ
+ ¢ˆ
+0€€ÄÛ`€€€€À¸1¡ˆ
+stack_0_mha_q@0_X1COMM œˆ
+hppp€€€È1¢ˆ
+stack_0_mha_q@0_X2_COMM ˆ
+hppp€€ñ2£ˆ
+stack_0_mha_k@0_COMP ¤ˆ
+ ¥ˆ
+0€€ÄÛ`€€€€À¸1¤ˆ
+stack_0_mha_k@0_X1COMM œˆ
+hppp€€€È1¥ˆ
+stack_0_mha_k@0_X2_COMM ˆ
+hppp€€ñ2¦ˆ
+stack_0_mha_v@0_COMP §ˆ
+ ¨ˆ
+0€€ÄÛ`€€€€À¸1§ˆ
+stack_0_mha_v@0_X1COMM œˆ
+hppp€€€È1¨ˆ
+stack_0_mha_v@0_X2_COMM Ÿˆ
+hppp€€ñ2©ˆ
+stack_0_mha_qk@0_COMP  ˆ
+ £ˆ
+0€€€C`€€€€À3ªˆ
+stack_0_mha_qkv@0_COMP ©ˆ
+ ¦ˆ
+0€€€C`€€€€À6«ˆ
+stack_0_mha_qkv_reshape@0_COMP ªˆ
+0€€€Ø`€€€È2¬ˆ
+stack_0_mha_res@0_COMP «ˆ
+ œˆ
+0€€€Ø`€€€È/­ˆ
+stack_0_mha_norm@0_COMP ¬ˆ
+0€€€`€€€è-®ˆ
+stack_0_mha_d_norm@0_COMP áˆ
+0€€€`
+0¯ˆ
+stack_0_mha_d_res@0_COMP ®ˆ
+0€€€`€€€è4°ˆ
+ stack_0_mha_d_qkv_reshape@0_COMP ¯ˆ
+0€€€`
+0±ˆ
+stack_0_mha_d_qkv@0_COMP °ˆ
+0€€€Ø`€€€È4²ˆ
+stack_0_mha_d_qk@0_COMP ±ˆ
+ ¦ˆ
+0€€€C`€€€€À3³ˆ
+stack_0_mha_d_v@0_COMP ±ˆ
+ ©ˆ
+0€€€C`€€€€À3´ˆ
+stack_0_mha_d_q@0_COMP ²ˆ
+ £ˆ
+0€€€C`€€€€À3µˆ
+stack_0_mha_d_k@0_COMP ²ˆ
+  ˆ
+0€€€C`€€€€À5¶ˆ
+stack_0_mha_d_wq@0_COMP ·ˆ
+ ´ˆ
+0€€ÄÛ`€€€€À¸5·ˆ
+stack_0_mha_d_wq@0_X2_COMM œˆ
+hppp€€€È5¸ˆ
+stack_0_mha_d_wk@0_COMP ¹ˆ
+ µˆ
+0€€ÄÛ`€€€€À¸5¹ˆ
+stack_0_mha_d_wk@0_X2_COMM œˆ
+hppp€€€È5ºˆ
+stack_0_mha_d_wv@0_COMP »ˆ
+ ³ˆ
+0€€ÄÛ`€€€€À¸5»ˆ
+stack_0_mha_d_wv@0_X2_COMM œˆ
+hppp€€€È5¼ˆ
+stack_0_mha_d_x1@0_COMP ½ˆ
+ ´ˆ
+0€€ÄÛ`€€€€À¸4½ˆ
+stack_0_mha_d_x1@0_X2_COMM ˆ
+hppp€€ñ5¾ˆ
+stack_0_mha_d_x2@0_COMP ¿ˆ
+ µˆ
+0€€ÄÛ`€€€€À¸4¿ˆ
+stack_0_mha_d_x2@0_X2_COMM ˆ
+hppp€€ñ5Àˆ
+stack_0_mha_d_x3@0_COMP Áˆ
+ ³ˆ
+0€€ÄÛ`€€€€À¸4Áˆ
+stack_0_mha_d_x3@0_X2_COMM Ÿˆ
+hppp€€ñ+Âˆ
+stack_0_mha_d_x4@0_COMP ¯ˆ
+0€€€`
+4Ãˆ
+stack_0_mha_d_x12@0_COMP Äˆ
+ Åˆ
+0€€€Ø`€€€È5Äˆ
+stack_0_mha_d_x12@0_X1COMM ¼ˆ
+hppp€€€€6Åˆ
+stack_0_mha_d_x12@0_X2_COMM ¾ˆ
+hppp€€€€4Æˆ
+stack_0_mha_d_x34@0_COMP Çˆ
+ Âˆ
+0€€€Ø`€€€È5Çˆ
+stack_0_mha_d_x34@0_X1COMM Àˆ
+hppp€€€€2Èˆ
+stack_0_mha_d_x@0_COMP Ãˆ
+ Æˆ
+0€€€Ø`€€€È)Éˆ
+stack_0_ffn_x0@0_COMP ­ˆ
+0€€€`
+$Êˆ
+stack_0_ffn_w1@0_COMP0€€ˆ'`
+3Ëˆ
+stack_0_ffn_x1@0_COMP Ìˆ
+ Íˆ
+0€€î`€€€€€â	2Ìˆ
+stack_0_ffn_x1@0_X1COMM Éˆ
+hppp€€€È2Íˆ
+stack_0_ffn_x1@0_X2_COMM Êˆ
+hppp€€Ä$Îˆ
+stack_0_ffn_w2@0_COMP0€€ˆ'`
+3Ïˆ
+stack_0_ffn_x2@0_COMP Ğˆ
+ Ëˆ
+0€€î`€€€€€â	2Ğˆ
+stack_0_ffn_x2@0_X2_COMM Îˆ
+hppp€€Ä2Ñˆ
+stack_0_ffn_res@0_COMP Òˆ
+ Éˆ
+0€€€Ø`€€€È3Òˆ
+stack_0_ffn_res@0_X1COMM Ïˆ
+hppp€€€€/Óˆ
+stack_0_ffn_norm@0_COMP Ñˆ
+0€€€`€€€è,Ôˆ
+stack_0_ffn_dnorm@0_COMP ‰
+0€€€`
+/Õˆ
+stack_0_ffn_dres@0_COMP Ôˆ
+0€€€`€€€è*Öˆ
+stack_0_ffn_dx2@0_COMP Õˆ
+0€€€`
+4×ˆ
+stack_0_ffn_dw2@0_COMP Øˆ
+ Ëˆ
+0€€î`€€€€€â	3Øˆ
+stack_0_ffn_dw2@0_X1COMM Öˆ
+hppp€€€È4Ùˆ
+stack_0_ffn_dx1@0_COMP Úˆ
+ Ûˆ
+0€€î`€€€€€â	3Úˆ
+stack_0_ffn_dx1@0_X1COMM Öˆ
+hppp€€€È3Ûˆ
+stack_0_ffn_dx1@0_X2_COMM Îˆ
+hppp€€Ä4Üˆ
+stack_0_ffn_dw1@0_COMP İˆ
+ Ùˆ
+0€€î`€€€€€â	4İˆ
+stack_0_ffn_dw1@0_X2_COMM Éˆ
+hppp€€€È+Şˆ
+stack_0_ffn_dx00@0_COMP Õˆ
+0€€€`
+5ßˆ
+stack_0_ffn_dx01@0_COMP àˆ
+ Ùˆ
+0€€î`€€€€€â	4àˆ
+stack_0_ffn_dx01@0_X2_COMM Êˆ
+hppp€€Ä2áˆ
+stack_0_ffn_dx0@0_COMP âˆ
+ Şˆ
+0€€€Ø`€€€È4âˆ
+stack_0_ffn_dx0@0_X2_COMM ßˆ
+hppp€€€€(ãˆ
+stack_1_mha_x@0_COMP Óˆ
+0€€€`
+$äˆ
+stack_1_mha_wq@0_COMP0€€â	`
+$åˆ
+stack_1_mha_wk@0_COMP0€€â	`
+$æˆ
+stack_1_mha_wv@0_COMP0€€â	`
+2çˆ
+stack_1_mha_q@0_COMP èˆ
+ éˆ
+0€€ÄÛ`€€€€À¸1èˆ
+stack_1_mha_q@0_X1COMM ãˆ
+hppp€€€È1éˆ
+stack_1_mha_q@0_X2_COMM äˆ
+hppp€€ñ2êˆ
+stack_1_mha_k@0_COMP ëˆ
+ ìˆ
+0€€ÄÛ`€€€€À¸1ëˆ
+stack_1_mha_k@0_X1COMM ãˆ
+hppp€€€È1ìˆ
+stack_1_mha_k@0_X2_COMM åˆ
+hppp€€ñ2íˆ
+stack_1_mha_v@0_COMP îˆ
+ ïˆ
+0€€ÄÛ`€€€€À¸1îˆ
+stack_1_mha_v@0_X1COMM ãˆ
+hppp€€€È1ïˆ
+stack_1_mha_v@0_X2_COMM æˆ
+hppp€€ñ2ğˆ
+stack_1_mha_qk@0_COMP çˆ
+ êˆ
+0€€€C`€€€€À3ñˆ
+stack_1_mha_qkv@0_COMP ğˆ
+ íˆ
+0€€€C`€€€€À6òˆ
+stack_1_mha_qkv_reshape@0_COMP ñˆ
+0€€€Ø`€€€È2óˆ
+stack_1_mha_res@0_COMP òˆ
+ ãˆ
+0€€€Ø`€€€È/ôˆ
+stack_1_mha_norm@0_COMP óˆ
+0€€€`€€€è-õˆ
+stack_1_mha_d_norm@0_COMP ¨‰
+0€€€`
+0öˆ
+stack_1_mha_d_res@0_COMP õˆ
+0€€€`€€€è4÷ˆ
+ stack_1_mha_d_qkv_reshape@0_COMP öˆ
+0€€€`
+0øˆ
+stack_1_mha_d_qkv@0_COMP ÷ˆ
+0€€€Ø`€€€È4ùˆ
+stack_1_mha_d_qk@0_COMP øˆ
+ íˆ
+0€€€C`€€€€À3úˆ
+stack_1_mha_d_v@0_COMP øˆ
+ ğˆ
+0€€€C`€€€€À3ûˆ
+stack_1_mha_d_q@0_COMP ùˆ
+ êˆ
+0€€€C`€€€€À3üˆ
+stack_1_mha_d_k@0_COMP ùˆ
+ çˆ
+0€€€C`€€€€À5ıˆ
+stack_1_mha_d_wq@0_COMP şˆ
+ ûˆ
+0€€ÄÛ`€€€€À¸5şˆ
+stack_1_mha_d_wq@0_X2_COMM ãˆ
+hppp€€€È5ÿˆ
+stack_1_mha_d_wk@0_COMP €‰
+ üˆ
+0€€ÄÛ`€€€€À¸5€‰
+stack_1_mha_d_wk@0_X2_COMM ãˆ
+hppp€€€È5‰
+stack_1_mha_d_wv@0_COMP ‚‰
+ úˆ
+0€€ÄÛ`€€€€À¸5‚‰
+stack_1_mha_d_wv@0_X2_COMM ãˆ
+hppp€€€È5ƒ‰
+stack_1_mha_d_x1@0_COMP „‰
+ ûˆ
+0€€ÄÛ`€€€€À¸4„‰
+stack_1_mha_d_x1@0_X2_COMM äˆ
+hppp€€ñ5…‰
+stack_1_mha_d_x2@0_COMP †‰
+ üˆ
+0€€ÄÛ`€€€€À¸4†‰
+stack_1_mha_d_x2@0_X2_COMM åˆ
+hppp€€ñ5‡‰
+stack_1_mha_d_x3@0_COMP ˆ‰
+ úˆ
+0€€ÄÛ`€€€€À¸4ˆ‰
+stack_1_mha_d_x3@0_X2_COMM æˆ
+hppp€€ñ+‰‰
+stack_1_mha_d_x4@0_COMP öˆ
+0€€€`
+4Š‰
+stack_1_mha_d_x12@0_COMP ‹‰
+ Œ‰
+0€€€Ø`€€€È5‹‰
+stack_1_mha_d_x12@0_X1COMM ƒ‰
+hppp€€€€6Œ‰
+stack_1_mha_d_x12@0_X2_COMM …‰
+hppp€€€€4‰
+stack_1_mha_d_x34@0_COMP ‰
+ ‰‰
+0€€€Ø`€€€È5‰
+stack_1_mha_d_x34@0_X1COMM ‡‰
+hppp€€€€2‰
+stack_1_mha_d_x@0_COMP Š‰
+ ‰
+0€€€Ø`€€€È)‰
+stack_1_ffn_x0@0_COMP ôˆ
+0€€€`
+$‘‰
+stack_1_ffn_w1@0_COMP0€€ˆ'`
+3’‰
+stack_1_ffn_x1@0_COMP “‰
+ ”‰
+0€€î`€€€€€â	2“‰
+stack_1_ffn_x1@0_X1COMM ‰
+hppp€€€È2”‰
+stack_1_ffn_x1@0_X2_COMM ‘‰
+hppp€€Ä$•‰
+stack_1_ffn_w2@0_COMP0€€ˆ'`
+3–‰
+stack_1_ffn_x2@0_COMP —‰
+ ’‰
+0€€î`€€€€€â	2—‰
+stack_1_ffn_x2@0_X2_COMM •‰
+hppp€€Ä2˜‰
+stack_1_ffn_res@0_COMP ™‰
+ ‰
+0€€€Ø`€€€È3™‰
+stack_1_ffn_res@0_X1COMM –‰
+hppp€€€€/š‰
+stack_1_ffn_norm@0_COMP ˜‰
+0€€€`€€€è,›‰
+stack_1_ffn_dnorm@0_COMP Ö‰
+0€€€`
+/œ‰
+stack_1_ffn_dres@0_COMP ›‰
+0€€€`€€€è*‰
+stack_1_ffn_dx2@0_COMP œ‰
+0€€€`
+4‰
+stack_1_ffn_dw2@0_COMP Ÿ‰
+ ’‰
+0€€î`€€€€€â	3Ÿ‰
+stack_1_ffn_dw2@0_X1COMM ‰
+hppp€€€È4 ‰
+stack_1_ffn_dx1@0_COMP ¡‰
+ ¢‰
+0€€î`€€€€€â	3¡‰
+stack_1_ffn_dx1@0_X1COMM ‰
+hppp€€€È3¢‰
+stack_1_ffn_dx1@0_X2_COMM •‰
+hppp€€Ä4£‰
+stack_1_ffn_dw1@0_COMP ¤‰
+  ‰
+0€€î`€€€€€â	4¤‰
+stack_1_ffn_dw1@0_X2_COMM ‰
+hppp€€€È+¥‰
+stack_1_ffn_dx00@0_COMP œ‰
+0€€€`
+5¦‰
+stack_1_ffn_dx01@0_COMP §‰
+  ‰
+0€€î`€€€€€â	4§‰
+stack_1_ffn_dx01@0_X2_COMM ‘‰
+hppp€€Ä2¨‰
+stack_1_ffn_dx0@0_COMP ©‰
+ ¥‰
+0€€€Ø`€€€È4©‰
+stack_1_ffn_dx0@0_X2_COMM ¦‰
+hppp€€€€(ª‰
+stack_2_mha_x@0_COMP š‰
+0€€€`
+$«‰
+stack_2_mha_wq@0_COMP0€€â	`
+$¬‰
+stack_2_mha_wk@0_COMP0€€â	`
+$­‰
+stack_2_mha_wv@0_COMP0€€â	`
+2®‰
+stack_2_mha_q@0_COMP ¯‰
+ °‰
+0€€ÄÛ`€€€€À¸1¯‰
+stack_2_mha_q@0_X1COMM ª‰
+hppp€€€È1°‰
+stack_2_mha_q@0_X2_COMM «‰
+hppp€€ñ2±‰
+stack_2_mha_k@0_COMP ²‰
+ ³‰
+0€€ÄÛ`€€€€À¸1²‰
+stack_2_mha_k@0_X1COMM ª‰
+hppp€€€È1³‰
+stack_2_mha_k@0_X2_COMM ¬‰
+hppp€€ñ2´‰
+stack_2_mha_v@0_COMP µ‰
+ ¶‰
+0€€ÄÛ`€€€€À¸1µ‰
+stack_2_mha_v@0_X1COMM ª‰
+hppp€€€È1¶‰
+stack_2_mha_v@0_X2_COMM ­‰
+hppp€€ñ2·‰
+stack_2_mha_qk@0_COMP ®‰
+ ±‰
+0€€€C`€€€€À3¸‰
+stack_2_mha_qkv@0_COMP ·‰
+ ´‰
+0€€€C`€€€€À6¹‰
+stack_2_mha_qkv_reshape@0_COMP ¸‰
+0€€€Ø`€€€È2º‰
+stack_2_mha_res@0_COMP ¹‰
+ ª‰
+0€€€Ø`€€€È/»‰
+stack_2_mha_norm@0_COMP º‰
+0€€€`€€€è-¼‰
+stack_2_mha_d_norm@0_COMP ï‰
+0€€€`
+0½‰
+stack_2_mha_d_res@0_COMP ¼‰
+0€€€`€€€è4¾‰
+ stack_2_mha_d_qkv_reshape@0_COMP ½‰
+0€€€`
+0¿‰
+stack_2_mha_d_qkv@0_COMP ¾‰
+0€€€Ø`€€€È4À‰
+stack_2_mha_d_qk@0_COMP ¿‰
+ ´‰
+0€€€C`€€€€À3Á‰
+stack_2_mha_d_v@0_COMP ¿‰
+ ·‰
+0€€€C`€€€€À3Â‰
+stack_2_mha_d_q@0_COMP À‰
+ ±‰
+0€€€C`€€€€À3Ã‰
+stack_2_mha_d_k@0_COMP À‰
+ ®‰
+0€€€C`€€€€À5Ä‰
+stack_2_mha_d_wq@0_COMP Å‰
+ Â‰
+0€€ÄÛ`€€€€À¸5Å‰
+stack_2_mha_d_wq@0_X2_COMM ª‰
+hppp€€€È5Æ‰
+stack_2_mha_d_wk@0_COMP Ç‰
+ Ã‰
+0€€ÄÛ`€€€€À¸5Ç‰
+stack_2_mha_d_wk@0_X2_COMM ª‰
+hppp€€€È5È‰
+stack_2_mha_d_wv@0_COMP É‰
+ Á‰
+0€€ÄÛ`€€€€À¸5É‰
+stack_2_mha_d_wv@0_X2_COMM ª‰
+hppp€€€È5Ê‰
+stack_2_mha_d_x1@0_COMP Ë‰
+ Â‰
+0€€ÄÛ`€€€€À¸4Ë‰
+stack_2_mha_d_x1@0_X2_COMM «‰
+hppp€€ñ5Ì‰
+stack_2_mha_d_x2@0_COMP Í‰
+ Ã‰
+0€€ÄÛ`€€€€À¸4Í‰
+stack_2_mha_d_x2@0_X2_COMM ¬‰
+hppp€€ñ5Î‰
+stack_2_mha_d_x3@0_COMP Ï‰
+ Á‰
+0€€ÄÛ`€€€€À¸4Ï‰
+stack_2_mha_d_x3@0_X2_COMM ­‰
+hppp€€ñ+Ğ‰
+stack_2_mha_d_x4@0_COMP ½‰
+0€€€`
+4Ñ‰
+stack_2_mha_d_x12@0_COMP Ò‰
+ Ó‰
+0€€€Ø`€€€È5Ò‰
+stack_2_mha_d_x12@0_X1COMM Ê‰
+hppp€€€€6Ó‰
+stack_2_mha_d_x12@0_X2_COMM Ì‰
+hppp€€€€4Ô‰
+stack_2_mha_d_x34@0_COMP Õ‰
+ Ğ‰
+0€€€Ø`€€€È5Õ‰
+stack_2_mha_d_x34@0_X1COMM Î‰
+hppp€€€€2Ö‰
+stack_2_mha_d_x@0_COMP Ñ‰
+ Ô‰
+0€€€Ø`€€€È)×‰
+stack_2_ffn_x0@0_COMP »‰
+0€€€`
+$Ø‰
+stack_2_ffn_w1@0_COMP0€€ˆ'`
+3Ù‰
+stack_2_ffn_x1@0_COMP Ú‰
+ Û‰
+0€€î`€€€€€â	2Ú‰
+stack_2_ffn_x1@0_X1COMM ×‰
+hppp€€€È2Û‰
+stack_2_ffn_x1@0_X2_COMM Ø‰
+hppp€€Ä$Ü‰
+stack_2_ffn_w2@0_COMP0€€ˆ'`
+3İ‰
+stack_2_ffn_x2@0_COMP Ş‰
+ Ù‰
+0€€î`€€€€€â	2Ş‰
+stack_2_ffn_x2@0_X2_COMM Ü‰
+hppp€€Ä2ß‰
+stack_2_ffn_res@0_COMP à‰
+ ×‰
+0€€€Ø`€€€È3à‰
+stack_2_ffn_res@0_X1COMM İ‰
+hppp€€€€/á‰
+stack_2_ffn_norm@0_COMP ß‰
+0€€€`€€€è,â‰
+stack_2_ffn_dnorm@0_COMP Š
+0€€€`
+/ã‰
+stack_2_ffn_dres@0_COMP â‰
+0€€€`€€€è*ä‰
+stack_2_ffn_dx2@0_COMP ã‰
+0€€€`
+4å‰
+stack_2_ffn_dw2@0_COMP æ‰
+ Ù‰
+0€€î`€€€€€â	3æ‰
+stack_2_ffn_dw2@0_X1COMM ä‰
+hppp€€€È4ç‰
+stack_2_ffn_dx1@0_COMP è‰
+ é‰
+0€€î`€€€€€â	3è‰
+stack_2_ffn_dx1@0_X1COMM ä‰
+hppp€€€È3é‰
+stack_2_ffn_dx1@0_X2_COMM Ü‰
+hppp€€Ä4ê‰
+stack_2_ffn_dw1@0_COMP ë‰
+ ç‰
+0€€î`€€€€€â	4ë‰
+stack_2_ffn_dw1@0_X2_COMM ×‰
+hppp€€€È+ì‰
+stack_2_ffn_dx00@0_COMP ã‰
+0€€€`
+5í‰
+stack_2_ffn_dx01@0_COMP î‰
+ ç‰
+0€€î`€€€€€â	4î‰
+stack_2_ffn_dx01@0_X2_COMM Ø‰
+hppp€€Ä2ï‰
+stack_2_ffn_dx0@0_COMP ğ‰
+ ì‰
+0€€€Ø`€€€È4ğ‰
+stack_2_ffn_dx0@0_X2_COMM í‰
+hppp€€€€(ñ‰
+stack_3_mha_x@0_COMP á‰
+0€€€`
+$ò‰
+stack_3_mha_wq@0_COMP0€€â	`
+$ó‰
+stack_3_mha_wk@0_COMP0€€â	`
+$ô‰
+stack_3_mha_wv@0_COMP0€€â	`
+2õ‰
+stack_3_mha_q@0_COMP ö‰
+ ÷‰
+0€€ÄÛ`€€€€À¸1ö‰
+stack_3_mha_q@0_X1COMM ñ‰
+hppp€€€È1÷‰
+stack_3_mha_q@0_X2_COMM ò‰
+hppp€€ñ2ø‰
+stack_3_mha_k@0_COMP ù‰
+ ú‰
+0€€ÄÛ`€€€€À¸1ù‰
+stack_3_mha_k@0_X1COMM ñ‰
+hppp€€€È1ú‰
+stack_3_mha_k@0_X2_COMM ó‰
+hppp€€ñ2û‰
+stack_3_mha_v@0_COMP ü‰
+ ı‰
+0€€ÄÛ`€€€€À¸1ü‰
+stack_3_mha_v@0_X1COMM ñ‰
+hppp€€€È1ı‰
+stack_3_mha_v@0_X2_COMM ô‰
+hppp€€ñ2ş‰
+stack_3_mha_qk@0_COMP õ‰
+ ø‰
+0€€€C`€€€€À3ÿ‰
+stack_3_mha_qkv@0_COMP ş‰
+ û‰
+0€€€C`€€€€À6€Š
+stack_3_mha_qkv_reshape@0_COMP ÿ‰
+0€€€Ø`€€€È2Š
+stack_3_mha_res@0_COMP €Š
+ ñ‰
+0€€€Ø`€€€È/‚Š
+stack_3_mha_norm@0_COMP Š
+0€€€`€€€è-ƒŠ
+stack_3_mha_d_norm@0_COMP ¶Š
+0€€€`
+0„Š
+stack_3_mha_d_res@0_COMP ƒŠ
+0€€€`€€€è4…Š
+ stack_3_mha_d_qkv_reshape@0_COMP „Š
+0€€€`
+0†Š
+stack_3_mha_d_qkv@0_COMP …Š
+0€€€Ø`€€€È4‡Š
+stack_3_mha_d_qk@0_COMP †Š
+ û‰
+0€€€C`€€€€À3ˆŠ
+stack_3_mha_d_v@0_COMP †Š
+ ş‰
+0€€€C`€€€€À3‰Š
+stack_3_mha_d_q@0_COMP ‡Š
+ ø‰
+0€€€C`€€€€À3ŠŠ
+stack_3_mha_d_k@0_COMP ‡Š
+ õ‰
+0€€€C`€€€€À5‹Š
+stack_3_mha_d_wq@0_COMP ŒŠ
+ ‰Š
+0€€ÄÛ`€€€€À¸5ŒŠ
+stack_3_mha_d_wq@0_X2_COMM ñ‰
+hppp€€€È5Š
+stack_3_mha_d_wk@0_COMP Š
+ ŠŠ
+0€€ÄÛ`€€€€À¸5Š
+stack_3_mha_d_wk@0_X2_COMM ñ‰
+hppp€€€È5Š
+stack_3_mha_d_wv@0_COMP Š
+ ˆŠ
+0€€ÄÛ`€€€€À¸5Š
+stack_3_mha_d_wv@0_X2_COMM ñ‰
+hppp€€€È5‘Š
+stack_3_mha_d_x1@0_COMP ’Š
+ ‰Š
+0€€ÄÛ`€€€€À¸4’Š
+stack_3_mha_d_x1@0_X2_COMM ò‰
+hppp€€ñ5“Š
+stack_3_mha_d_x2@0_COMP ”Š
+ ŠŠ
+0€€ÄÛ`€€€€À¸4”Š
+stack_3_mha_d_x2@0_X2_COMM ó‰
+hppp€€ñ5•Š
+stack_3_mha_d_x3@0_COMP –Š
+ ˆŠ
+0€€ÄÛ`€€€€À¸4–Š
+stack_3_mha_d_x3@0_X2_COMM ô‰
+hppp€€ñ+—Š
+stack_3_mha_d_x4@0_COMP „Š
+0€€€`
+4˜Š
+stack_3_mha_d_x12@0_COMP ™Š
+ šŠ
+0€€€Ø`€€€È5™Š
+stack_3_mha_d_x12@0_X1COMM ‘Š
+hppp€€€€6šŠ
+stack_3_mha_d_x12@0_X2_COMM “Š
+hppp€€€€4›Š
+stack_3_mha_d_x34@0_COMP œŠ
+ —Š
+0€€€Ø`€€€È5œŠ
+stack_3_mha_d_x34@0_X1COMM •Š
+hppp€€€€2Š
+stack_3_mha_d_x@0_COMP ˜Š
+ ›Š
+0€€€Ø`€€€È)Š
+stack_3_ffn_x0@0_COMP ‚Š
+0€€€`
+$ŸŠ
+stack_3_ffn_w1@0_COMP0€€ˆ'`
+3 Š
+stack_3_ffn_x1@0_COMP ¡Š
+ ¢Š
+0€€î`€€€€€â	2¡Š
+stack_3_ffn_x1@0_X1COMM Š
+hppp€€€È2¢Š
+stack_3_ffn_x1@0_X2_COMM ŸŠ
+hppp€€Ä$£Š
+stack_3_ffn_w2@0_COMP0€€ˆ'`
+3¤Š
+stack_3_ffn_x2@0_COMP ¥Š
+  Š
+0€€î`€€€€€â	2¥Š
+stack_3_ffn_x2@0_X2_COMM £Š
+hppp€€Ä2¦Š
+stack_3_ffn_res@0_COMP §Š
+ Š
+0€€€Ø`€€€È3§Š
+stack_3_ffn_res@0_X1COMM ¤Š
+hppp€€€€/¨Š
+stack_3_ffn_norm@0_COMP ¦Š
+0€€€`€€€è,©Š
+stack_3_ffn_dnorm@0_COMP äŠ
+0€€€`
+/ªŠ
+stack_3_ffn_dres@0_COMP ©Š
+0€€€`€€€è*«Š
+stack_3_ffn_dx2@0_COMP ªŠ
+0€€€`
+4¬Š
+stack_3_ffn_dw2@0_COMP ­Š
+  Š
+0€€î`€€€€€â	3­Š
+stack_3_ffn_dw2@0_X1COMM «Š
+hppp€€€È4®Š
+stack_3_ffn_dx1@0_COMP ¯Š
+ °Š
+0€€î`€€€€€â	3¯Š
+stack_3_ffn_dx1@0_X1COMM «Š
+hppp€€€È3°Š
+stack_3_ffn_dx1@0_X2_COMM £Š
+hppp€€Ä4±Š
+stack_3_ffn_dw1@0_COMP ²Š
+ ®Š
+0€€î`€€€€€â	4²Š
+stack_3_ffn_dw1@0_X2_COMM Š
+hppp€€€È+³Š
+stack_3_ffn_dx00@0_COMP ªŠ
+0€€€`
+5´Š
+stack_3_ffn_dx01@0_COMP µŠ
+ ®Š
+0€€î`€€€€€â	4µŠ
+stack_3_ffn_dx01@0_X2_COMM ŸŠ
+hppp€€Ä2¶Š
+stack_3_ffn_dx0@0_COMP ·Š
+ ³Š
+0€€€Ø`€€€È4·Š
+stack_3_ffn_dx0@0_X2_COMM ´Š
+hppp€€€€(¸Š
+stack_4_mha_x@0_COMP ¨Š
+0€€€`
+$¹Š
+stack_4_mha_wq@0_COMP0€€â	`
+$ºŠ
+stack_4_mha_wk@0_COMP0€€â	`
+$»Š
+stack_4_mha_wv@0_COMP0€€â	`
+2¼Š
+stack_4_mha_q@0_COMP ½Š
+ ¾Š
+0€€ÄÛ`€€€€À¸1½Š
+stack_4_mha_q@0_X1COMM ¸Š
+hppp€€€È1¾Š
+stack_4_mha_q@0_X2_COMM ¹Š
+hppp€€ñ2¿Š
+stack_4_mha_k@0_COMP ÀŠ
+ ÁŠ
+0€€ÄÛ`€€€€À¸1ÀŠ
+stack_4_mha_k@0_X1COMM ¸Š
+hppp€€€È1ÁŠ
+stack_4_mha_k@0_X2_COMM ºŠ
+hppp€€ñ2ÂŠ
+stack_4_mha_v@0_COMP ÃŠ
+ ÄŠ
+0€€ÄÛ`€€€€À¸1ÃŠ
+stack_4_mha_v@0_X1COMM ¸Š
+hppp€€€È1ÄŠ
+stack_4_mha_v@0_X2_COMM »Š
+hppp€€ñ2ÅŠ
+stack_4_mha_qk@0_COMP ¼Š
+ ¿Š
+0€€€C`€€€€À3ÆŠ
+stack_4_mha_qkv@0_COMP ÅŠ
+ ÂŠ
+0€€€C`€€€€À6ÇŠ
+stack_4_mha_qkv_reshape@0_COMP ÆŠ
+0€€€Ø`€€€È2ÈŠ
+stack_4_mha_res@0_COMP ÇŠ
+ ¸Š
+0€€€Ø`€€€È/ÉŠ
+stack_4_mha_norm@0_COMP ÈŠ
+0€€€`€€€è-ÊŠ
+stack_4_mha_d_norm@0_COMP ıŠ
+0€€€`
+0ËŠ
+stack_4_mha_d_res@0_COMP ÊŠ
+0€€€`€€€è4ÌŠ
+ stack_4_mha_d_qkv_reshape@0_COMP ËŠ
+0€€€`
+0ÍŠ
+stack_4_mha_d_qkv@0_COMP ÌŠ
+0€€€Ø`€€€È4ÎŠ
+stack_4_mha_d_qk@0_COMP ÍŠ
+ ÂŠ
+0€€€C`€€€€À3ÏŠ
+stack_4_mha_d_v@0_COMP ÍŠ
+ ÅŠ
+0€€€C`€€€€À3ĞŠ
+stack_4_mha_d_q@0_COMP ÎŠ
+ ¿Š
+0€€€C`€€€€À3ÑŠ
+stack_4_mha_d_k@0_COMP ÎŠ
+ ¼Š
+0€€€C`€€€€À5ÒŠ
+stack_4_mha_d_wq@0_COMP ÓŠ
+ ĞŠ
+0€€ÄÛ`€€€€À¸5ÓŠ
+stack_4_mha_d_wq@0_X2_COMM ¸Š
+hppp€€€È5ÔŠ
+stack_4_mha_d_wk@0_COMP ÕŠ
+ ÑŠ
+0€€ÄÛ`€€€€À¸5ÕŠ
+stack_4_mha_d_wk@0_X2_COMM ¸Š
+hppp€€€È5ÖŠ
+stack_4_mha_d_wv@0_COMP ×Š
+ ÏŠ
+0€€ÄÛ`€€€€À¸5×Š
+stack_4_mha_d_wv@0_X2_COMM ¸Š
+hppp€€€È5ØŠ
+stack_4_mha_d_x1@0_COMP ÙŠ
+ ĞŠ
+0€€ÄÛ`€€€€À¸4ÙŠ
+stack_4_mha_d_x1@0_X2_COMM ¹Š
+hppp€€ñ5ÚŠ
+stack_4_mha_d_x2@0_COMP ÛŠ
+ ÑŠ
+0€€ÄÛ`€€€€À¸4ÛŠ
+stack_4_mha_d_x2@0_X2_COMM ºŠ
+hppp€€ñ5ÜŠ
+stack_4_mha_d_x3@0_COMP İŠ
+ ÏŠ
+0€€ÄÛ`€€€€À¸4İŠ
+stack_4_mha_d_x3@0_X2_COMM »Š
+hppp€€ñ+ŞŠ
+stack_4_mha_d_x4@0_COMP ËŠ
+0€€€`
+4ßŠ
+stack_4_mha_d_x12@0_COMP àŠ
+ áŠ
+0€€€Ø`€€€È5àŠ
+stack_4_mha_d_x12@0_X1COMM ØŠ
+hppp€€€€6áŠ
+stack_4_mha_d_x12@0_X2_COMM ÚŠ
+hppp€€€€4âŠ
+stack_4_mha_d_x34@0_COMP ãŠ
+ ŞŠ
+0€€€Ø`€€€È5ãŠ
+stack_4_mha_d_x34@0_X1COMM ÜŠ
+hppp€€€€2äŠ
+stack_4_mha_d_x@0_COMP ßŠ
+ âŠ
+0€€€Ø`€€€È)åŠ
+stack_4_ffn_x0@0_COMP ÉŠ
+0€€€`
+$æŠ
+stack_4_ffn_w1@0_COMP0€€ˆ'`
+3çŠ
+stack_4_ffn_x1@0_COMP èŠ
+ éŠ
+0€€î`€€€€€â	2èŠ
+stack_4_ffn_x1@0_X1COMM åŠ
+hppp€€€È2éŠ
+stack_4_ffn_x1@0_X2_COMM æŠ
+hppp€€Ä$êŠ
+stack_4_ffn_w2@0_COMP0€€ˆ'`
+3ëŠ
+stack_4_ffn_x2@0_COMP ìŠ
+ çŠ
+0€€î`€€€€€â	2ìŠ
+stack_4_ffn_x2@0_X2_COMM êŠ
+hppp€€Ä2íŠ
+stack_4_ffn_res@0_COMP îŠ
+ åŠ
+0€€€Ø`€€€È3îŠ
+stack_4_ffn_res@0_X1COMM ëŠ
+hppp€€€€/ïŠ
+stack_4_ffn_norm@0_COMP íŠ
+0€€€`€€€è,ğŠ
+stack_4_ffn_dnorm@0_COMP «‹
+0€€€`
+/ñŠ
+stack_4_ffn_dres@0_COMP ğŠ
+0€€€`€€€è*òŠ
+stack_4_ffn_dx2@0_COMP ñŠ
+0€€€`
+4óŠ
+stack_4_ffn_dw2@0_COMP ôŠ
+ çŠ
+0€€î`€€€€€â	3ôŠ
+stack_4_ffn_dw2@0_X1COMM òŠ
+hppp€€€È4õŠ
+stack_4_ffn_dx1@0_COMP öŠ
+ ÷Š
+0€€î`€€€€€â	3öŠ
+stack_4_ffn_dx1@0_X1COMM òŠ
+hppp€€€È3÷Š
+stack_4_ffn_dx1@0_X2_COMM êŠ
+hppp€€Ä4øŠ
+stack_4_ffn_dw1@0_COMP ùŠ
+ õŠ
+0€€î`€€€€€â	4ùŠ
+stack_4_ffn_dw1@0_X2_COMM åŠ
+hppp€€€È+úŠ
+stack_4_ffn_dx00@0_COMP ñŠ
+0€€€`
+5ûŠ
+stack_4_ffn_dx01@0_COMP üŠ
+ õŠ
+0€€î`€€€€€â	4üŠ
+stack_4_ffn_dx01@0_X2_COMM æŠ
+hppp€€Ä2ıŠ
+stack_4_ffn_dx0@0_COMP şŠ
+ úŠ
+0€€€Ø`€€€È4şŠ
+stack_4_ffn_dx0@0_X2_COMM ûŠ
+hppp€€€€(ÿŠ
+stack_5_mha_x@0_COMP ïŠ
+0€€€`
+$€‹
+stack_5_mha_wq@0_COMP0€€â	`
+$‹
+stack_5_mha_wk@0_COMP0€€â	`
+$‚‹
+stack_5_mha_wv@0_COMP0€€â	`
+2ƒ‹
+stack_5_mha_q@0_COMP „‹
+ …‹
+0€€ÄÛ`€€€€À¸1„‹
+stack_5_mha_q@0_X1COMM ÿŠ
+hppp€€€È1…‹
+stack_5_mha_q@0_X2_COMM €‹
+hppp€€ñ2†‹
+stack_5_mha_k@0_COMP ‡‹
+ ˆ‹
+0€€ÄÛ`€€€€À¸1‡‹
+stack_5_mha_k@0_X1COMM ÿŠ
+hppp€€€È1ˆ‹
+stack_5_mha_k@0_X2_COMM ‹
+hppp€€ñ2‰‹
+stack_5_mha_v@0_COMP Š‹
+ ‹‹
+0€€ÄÛ`€€€€À¸1Š‹
+stack_5_mha_v@0_X1COMM ÿŠ
+hppp€€€È1‹‹
+stack_5_mha_v@0_X2_COMM ‚‹
+hppp€€ñ2Œ‹
+stack_5_mha_qk@0_COMP ƒ‹
+ †‹
+0€€€C`€€€€À3‹
+stack_5_mha_qkv@0_COMP Œ‹
+ ‰‹
+0€€€C`€€€€À6‹
+stack_5_mha_qkv_reshape@0_COMP ‹
+0€€€Ø`€€€È2‹
+stack_5_mha_res@0_COMP ‹
+ ÿŠ
+0€€€Ø`€€€È/‹
+stack_5_mha_norm@0_COMP ‹
+0€€€`€€€è-‘‹
+stack_5_mha_d_norm@0_COMP Ä‹
+0€€€`
+0’‹
+stack_5_mha_d_res@0_COMP ‘‹
+0€€€`€€€è4“‹
+ stack_5_mha_d_qkv_reshape@0_COMP ’‹
+0€€€`
+0”‹
+stack_5_mha_d_qkv@0_COMP “‹
+0€€€Ø`€€€È4•‹
+stack_5_mha_d_qk@0_COMP ”‹
+ ‰‹
+0€€€C`€€€€À3–‹
+stack_5_mha_d_v@0_COMP ”‹
+ Œ‹
+0€€€C`€€€€À3—‹
+stack_5_mha_d_q@0_COMP •‹
+ †‹
+0€€€C`€€€€À3˜‹
+stack_5_mha_d_k@0_COMP •‹
+ ƒ‹
+0€€€C`€€€€À5™‹
+stack_5_mha_d_wq@0_COMP š‹
+ —‹
+0€€ÄÛ`€€€€À¸5š‹
+stack_5_mha_d_wq@0_X2_COMM ÿŠ
+hppp€€€È5›‹
+stack_5_mha_d_wk@0_COMP œ‹
+ ˜‹
+0€€ÄÛ`€€€€À¸5œ‹
+stack_5_mha_d_wk@0_X2_COMM ÿŠ
+hppp€€€È5‹
+stack_5_mha_d_wv@0_COMP ‹
+ –‹
+0€€ÄÛ`€€€€À¸5‹
+stack_5_mha_d_wv@0_X2_COMM ÿŠ
+hppp€€€È5Ÿ‹
+stack_5_mha_d_x1@0_COMP  ‹
+ —‹
+0€€ÄÛ`€€€€À¸4 ‹
+stack_5_mha_d_x1@0_X2_COMM €‹
+hppp€€ñ5¡‹
+stack_5_mha_d_x2@0_COMP ¢‹
+ ˜‹
+0€€ÄÛ`€€€€À¸4¢‹
+stack_5_mha_d_x2@0_X2_COMM ‹
+hppp€€ñ5£‹
+stack_5_mha_d_x3@0_COMP ¤‹
+ –‹
+0€€ÄÛ`€€€€À¸4¤‹
+stack_5_mha_d_x3@0_X2_COMM ‚‹
+hppp€€ñ+¥‹
+stack_5_mha_d_x4@0_COMP ’‹
+0€€€`
+4¦‹
+stack_5_mha_d_x12@0_COMP §‹
+ ¨‹
+0€€€Ø`€€€È5§‹
+stack_5_mha_d_x12@0_X1COMM Ÿ‹
+hppp€€€€6¨‹
+stack_5_mha_d_x12@0_X2_COMM ¡‹
+hppp€€€€4©‹
+stack_5_mha_d_x34@0_COMP ª‹
+ ¥‹
+0€€€Ø`€€€È5ª‹
+stack_5_mha_d_x34@0_X1COMM £‹
+hppp€€€€2«‹
+stack_5_mha_d_x@0_COMP ¦‹
+ ©‹
+0€€€Ø`€€€È)¬‹
+stack_5_ffn_x0@0_COMP ‹
+0€€€`
+$­‹
+stack_5_ffn_w1@0_COMP0€€ˆ'`
+3®‹
+stack_5_ffn_x1@0_COMP ¯‹
+ °‹
+0€€î`€€€€€â	2¯‹
+stack_5_ffn_x1@0_X1COMM ¬‹
+hppp€€€È2°‹
+stack_5_ffn_x1@0_X2_COMM ­‹
+hppp€€Ä$±‹
+stack_5_ffn_w2@0_COMP0€€ˆ'`
+3²‹
+stack_5_ffn_x2@0_COMP ³‹
+ ®‹
+0€€î`€€€€€â	2³‹
+stack_5_ffn_x2@0_X2_COMM ±‹
+hppp€€Ä2´‹
+stack_5_ffn_res@0_COMP µ‹
+ ¬‹
+0€€€Ø`€€€È3µ‹
+stack_5_ffn_res@0_X1COMM ²‹
+hppp€€€€/¶‹
+stack_5_ffn_norm@0_COMP ´‹
+0€€€`€€€è,·‹
+stack_5_ffn_dnorm@0_COMP ò‹
+0€€€`
+/¸‹
+stack_5_ffn_dres@0_COMP ·‹
+0€€€`€€€è*¹‹
+stack_5_ffn_dx2@0_COMP ¸‹
+0€€€`
+4º‹
+stack_5_ffn_dw2@0_COMP »‹
+ ®‹
+0€€î`€€€€€â	3»‹
+stack_5_ffn_dw2@0_X1COMM ¹‹
+hppp€€€È4¼‹
+stack_5_ffn_dx1@0_COMP ½‹
+ ¾‹
+0€€î`€€€€€â	3½‹
+stack_5_ffn_dx1@0_X1COMM ¹‹
+hppp€€€È3¾‹
+stack_5_ffn_dx1@0_X2_COMM ±‹
+hppp€€Ä4¿‹
+stack_5_ffn_dw1@0_COMP À‹
+ ¼‹
+0€€î`€€€€€â	4À‹
+stack_5_ffn_dw1@0_X2_COMM ¬‹
+hppp€€€È+Á‹
+stack_5_ffn_dx00@0_COMP ¸‹
+0€€€`
+5Â‹
+stack_5_ffn_dx01@0_COMP Ã‹
+ ¼‹
+0€€î`€€€€€â	4Ã‹
+stack_5_ffn_dx01@0_X2_COMM ­‹
+hppp€€Ä2Ä‹
+stack_5_ffn_dx0@0_COMP Å‹
+ Á‹
+0€€€Ø`€€€È4Å‹
+stack_5_ffn_dx0@0_X2_COMM Â‹
+hppp€€€€(Æ‹
+stack_6_mha_x@0_COMP ¶‹
+0€€€`
+$Ç‹
+stack_6_mha_wq@0_COMP0€€â	`
+$È‹
+stack_6_mha_wk@0_COMP0€€â	`
+$É‹
+stack_6_mha_wv@0_COMP0€€â	`
+2Ê‹
+stack_6_mha_q@0_COMP Ë‹
+ Ì‹
+0€€ÄÛ`€€€€À¸1Ë‹
+stack_6_mha_q@0_X1COMM Æ‹
+hppp€€€È1Ì‹
+stack_6_mha_q@0_X2_COMM Ç‹
+hppp€€ñ2Í‹
+stack_6_mha_k@0_COMP Î‹
+ Ï‹
+0€€ÄÛ`€€€€À¸1Î‹
+stack_6_mha_k@0_X1COMM Æ‹
+hppp€€€È1Ï‹
+stack_6_mha_k@0_X2_COMM È‹
+hppp€€ñ2Ğ‹
+stack_6_mha_v@0_COMP Ñ‹
+ Ò‹
+0€€ÄÛ`€€€€À¸1Ñ‹
+stack_6_mha_v@0_X1COMM Æ‹
+hppp€€€È1Ò‹
+stack_6_mha_v@0_X2_COMM É‹
+hppp€€ñ2Ó‹
+stack_6_mha_qk@0_COMP Ê‹
+ Í‹
+0€€€C`€€€€À3Ô‹
+stack_6_mha_qkv@0_COMP Ó‹
+ Ğ‹
+0€€€C`€€€€À6Õ‹
+stack_6_mha_qkv_reshape@0_COMP Ô‹
+0€€€Ø`€€€È2Ö‹
+stack_6_mha_res@0_COMP Õ‹
+ Æ‹
+0€€€Ø`€€€È/×‹
+stack_6_mha_norm@0_COMP Ö‹
+0€€€`€€€è-Ø‹
+stack_6_mha_d_norm@0_COMP ‹Œ
+0€€€`
+0Ù‹
+stack_6_mha_d_res@0_COMP Ø‹
+0€€€`€€€è4Ú‹
+ stack_6_mha_d_qkv_reshape@0_COMP Ù‹
+0€€€`
+0Û‹
+stack_6_mha_d_qkv@0_COMP Ú‹
+0€€€Ø`€€€È4Ü‹
+stack_6_mha_d_qk@0_COMP Û‹
+ Ğ‹
+0€€€C`€€€€À3İ‹
+stack_6_mha_d_v@0_COMP Û‹
+ Ó‹
+0€€€C`€€€€À3Ş‹
+stack_6_mha_d_q@0_COMP Ü‹
+ Í‹
+0€€€C`€€€€À3ß‹
+stack_6_mha_d_k@0_COMP Ü‹
+ Ê‹
+0€€€C`€€€€À5à‹
+stack_6_mha_d_wq@0_COMP á‹
+ Ş‹
+0€€ÄÛ`€€€€À¸5á‹
+stack_6_mha_d_wq@0_X2_COMM Æ‹
+hppp€€€È5â‹
+stack_6_mha_d_wk@0_COMP ã‹
+ ß‹
+0€€ÄÛ`€€€€À¸5ã‹
+stack_6_mha_d_wk@0_X2_COMM Æ‹
+hppp€€€È5ä‹
+stack_6_mha_d_wv@0_COMP å‹
+ İ‹
+0€€ÄÛ`€€€€À¸5å‹
+stack_6_mha_d_wv@0_X2_COMM Æ‹
+hppp€€€È5æ‹
+stack_6_mha_d_x1@0_COMP ç‹
+ Ş‹
+0€€ÄÛ`€€€€À¸4ç‹
+stack_6_mha_d_x1@0_X2_COMM Ç‹
+hppp€€ñ5è‹
+stack_6_mha_d_x2@0_COMP é‹
+ ß‹
+0€€ÄÛ`€€€€À¸4é‹
+stack_6_mha_d_x2@0_X2_COMM È‹
+hppp€€ñ5ê‹
+stack_6_mha_d_x3@0_COMP ë‹
+ İ‹
+0€€ÄÛ`€€€€À¸4ë‹
+stack_6_mha_d_x3@0_X2_COMM É‹
+hppp€€ñ+ì‹
+stack_6_mha_d_x4@0_COMP Ù‹
+0€€€`
+4í‹
+stack_6_mha_d_x12@0_COMP î‹
+ ï‹
+0€€€Ø`€€€È5î‹
+stack_6_mha_d_x12@0_X1COMM æ‹
+hppp€€€€6ï‹
+stack_6_mha_d_x12@0_X2_COMM è‹
+hppp€€€€4ğ‹
+stack_6_mha_d_x34@0_COMP ñ‹
+ ì‹
+0€€€Ø`€€€È5ñ‹
+stack_6_mha_d_x34@0_X1COMM ê‹
+hppp€€€€2ò‹
+stack_6_mha_d_x@0_COMP í‹
+ ğ‹
+0€€€Ø`€€€È)ó‹
+stack_6_ffn_x0@0_COMP ×‹
+0€€€`
+$ô‹
+stack_6_ffn_w1@0_COMP0€€ˆ'`
+3õ‹
+stack_6_ffn_x1@0_COMP ö‹
+ ÷‹
+0€€î`€€€€€â	2ö‹
+stack_6_ffn_x1@0_X1COMM ó‹
+hppp€€€È2÷‹
+stack_6_ffn_x1@0_X2_COMM ô‹
+hppp€€Ä$ø‹
+stack_6_ffn_w2@0_COMP0€€ˆ'`
+3ù‹
+stack_6_ffn_x2@0_COMP ú‹
+ õ‹
+0€€î`€€€€€â	2ú‹
+stack_6_ffn_x2@0_X2_COMM ø‹
+hppp€€Ä2û‹
+stack_6_ffn_res@0_COMP ü‹
+ ó‹
+0€€€Ø`€€€È3ü‹
+stack_6_ffn_res@0_X1COMM ù‹
+hppp€€€€/ı‹
+stack_6_ffn_norm@0_COMP û‹
+0€€€`€€€è,ş‹
+stack_6_ffn_dnorm@0_COMP ¹Œ
+0€€€`
+/ÿ‹
+stack_6_ffn_dres@0_COMP ş‹
+0€€€`€€€è*€Œ
+stack_6_ffn_dx2@0_COMP ÿ‹
+0€€€`
+4Œ
+stack_6_ffn_dw2@0_COMP ‚Œ
+ õ‹
+0€€î`€€€€€â	3‚Œ
+stack_6_ffn_dw2@0_X1COMM €Œ
+hppp€€€È4ƒŒ
+stack_6_ffn_dx1@0_COMP „Œ
+ …Œ
+0€€î`€€€€€â	3„Œ
+stack_6_ffn_dx1@0_X1COMM €Œ
+hppp€€€È3…Œ
+stack_6_ffn_dx1@0_X2_COMM ø‹
+hppp€€Ä4†Œ
+stack_6_ffn_dw1@0_COMP ‡Œ
+ ƒŒ
+0€€î`€€€€€â	4‡Œ
+stack_6_ffn_dw1@0_X2_COMM ó‹
+hppp€€€È+ˆŒ
+stack_6_ffn_dx00@0_COMP ÿ‹
+0€€€`
+5‰Œ
+stack_6_ffn_dx01@0_COMP ŠŒ
+ ƒŒ
+0€€î`€€€€€â	4ŠŒ
+stack_6_ffn_dx01@0_X2_COMM ô‹
+hppp€€Ä2‹Œ
+stack_6_ffn_dx0@0_COMP ŒŒ
+ ˆŒ
+0€€€Ø`€€€È4ŒŒ
+stack_6_ffn_dx0@0_X2_COMM ‰Œ
+hppp€€€€(Œ
+stack_7_mha_x@0_COMP ı‹
+0€€€`
+$Œ
+stack_7_mha_wq@0_COMP0€€â	`
+$Œ
+stack_7_mha_wk@0_COMP0€€â	`
+$Œ
+stack_7_mha_wv@0_COMP0€€â	`
+2‘Œ
+stack_7_mha_q@0_COMP ’Œ
+ “Œ
+0€€ÄÛ`€€€€À¸1’Œ
+stack_7_mha_q@0_X1COMM Œ
+hppp€€€È1“Œ
+stack_7_mha_q@0_X2_COMM Œ
+hppp€€ñ2”Œ
+stack_7_mha_k@0_COMP •Œ
+ –Œ
+0€€ÄÛ`€€€€À¸1•Œ
+stack_7_mha_k@0_X1COMM Œ
+hppp€€€È1–Œ
+stack_7_mha_k@0_X2_COMM Œ
+hppp€€ñ2—Œ
+stack_7_mha_v@0_COMP ˜Œ
+ ™Œ
+0€€ÄÛ`€€€€À¸1˜Œ
+stack_7_mha_v@0_X1COMM Œ
+hppp€€€È1™Œ
+stack_7_mha_v@0_X2_COMM Œ
+hppp€€ñ2šŒ
+stack_7_mha_qk@0_COMP ‘Œ
+ ”Œ
+0€€€C`€€€€À3›Œ
+stack_7_mha_qkv@0_COMP šŒ
+ —Œ
+0€€€C`€€€€À6œŒ
+stack_7_mha_qkv_reshape@0_COMP ›Œ
+0€€€Ø`€€€È2Œ
+stack_7_mha_res@0_COMP œŒ
+ Œ
+0€€€Ø`€€€È/Œ
+stack_7_mha_norm@0_COMP Œ
+0€€€`€€€è-ŸŒ
+stack_7_mha_d_norm@0_COMP ÒŒ
+0€€€`
+0 Œ
+stack_7_mha_d_res@0_COMP ŸŒ
+0€€€`€€€è4¡Œ
+ stack_7_mha_d_qkv_reshape@0_COMP  Œ
+0€€€`
+0¢Œ
+stack_7_mha_d_qkv@0_COMP ¡Œ
+0€€€Ø`€€€È4£Œ
+stack_7_mha_d_qk@0_COMP ¢Œ
+ —Œ
+0€€€C`€€€€À3¤Œ
+stack_7_mha_d_v@0_COMP ¢Œ
+ šŒ
+0€€€C`€€€€À3¥Œ
+stack_7_mha_d_q@0_COMP £Œ
+ ”Œ
+0€€€C`€€€€À3¦Œ
+stack_7_mha_d_k@0_COMP £Œ
+ ‘Œ
+0€€€C`€€€€À5§Œ
+stack_7_mha_d_wq@0_COMP ¨Œ
+ ¥Œ
+0€€ÄÛ`€€€€À¸5¨Œ
+stack_7_mha_d_wq@0_X2_COMM Œ
+hppp€€€È5©Œ
+stack_7_mha_d_wk@0_COMP ªŒ
+ ¦Œ
+0€€ÄÛ`€€€€À¸5ªŒ
+stack_7_mha_d_wk@0_X2_COMM Œ
+hppp€€€È5«Œ
+stack_7_mha_d_wv@0_COMP ¬Œ
+ ¤Œ
+0€€ÄÛ`€€€€À¸5¬Œ
+stack_7_mha_d_wv@0_X2_COMM Œ
+hppp€€€È5­Œ
+stack_7_mha_d_x1@0_COMP ®Œ
+ ¥Œ
+0€€ÄÛ`€€€€À¸4®Œ
+stack_7_mha_d_x1@0_X2_COMM Œ
+hppp€€ñ5¯Œ
+stack_7_mha_d_x2@0_COMP °Œ
+ ¦Œ
+0€€ÄÛ`€€€€À¸4°Œ
+stack_7_mha_d_x2@0_X2_COMM Œ
+hppp€€ñ5±Œ
+stack_7_mha_d_x3@0_COMP ²Œ
+ ¤Œ
+0€€ÄÛ`€€€€À¸4²Œ
+stack_7_mha_d_x3@0_X2_COMM Œ
+hppp€€ñ+³Œ
+stack_7_mha_d_x4@0_COMP  Œ
+0€€€`
+4´Œ
+stack_7_mha_d_x12@0_COMP µŒ
+ ¶Œ
+0€€€Ø`€€€È5µŒ
+stack_7_mha_d_x12@0_X1COMM ­Œ
+hppp€€€€6¶Œ
+stack_7_mha_d_x12@0_X2_COMM ¯Œ
+hppp€€€€4·Œ
+stack_7_mha_d_x34@0_COMP ¸Œ
+ ³Œ
+0€€€Ø`€€€È5¸Œ
+stack_7_mha_d_x34@0_X1COMM ±Œ
+hppp€€€€2¹Œ
+stack_7_mha_d_x@0_COMP ´Œ
+ ·Œ
+0€€€Ø`€€€È)ºŒ
+stack_7_ffn_x0@0_COMP Œ
+0€€€`
+$»Œ
+stack_7_ffn_w1@0_COMP0€€ˆ'`
+3¼Œ
+stack_7_ffn_x1@0_COMP ½Œ
+ ¾Œ
+0€€î`€€€€€â	2½Œ
+stack_7_ffn_x1@0_X1COMM ºŒ
+hppp€€€È2¾Œ
+stack_7_ffn_x1@0_X2_COMM »Œ
+hppp€€Ä$¿Œ
+stack_7_ffn_w2@0_COMP0€€ˆ'`
+3ÀŒ
+stack_7_ffn_x2@0_COMP ÁŒ
+ ¼Œ
+0€€î`€€€€€â	2ÁŒ
+stack_7_ffn_x2@0_X2_COMM ¿Œ
+hppp€€Ä2ÂŒ
+stack_7_ffn_res@0_COMP ÃŒ
+ ºŒ
+0€€€Ø`€€€È3ÃŒ
+stack_7_ffn_res@0_X1COMM ÀŒ
+hppp€€€€/ÄŒ
+stack_7_ffn_norm@0_COMP ÂŒ
+0€€€`€€€è,ÅŒ
+stack_7_ffn_dnorm@0_COMP €
+0€€€`
+/ÆŒ
+stack_7_ffn_dres@0_COMP ÅŒ
+0€€€`€€€è*ÇŒ
+stack_7_ffn_dx2@0_COMP ÆŒ
+0€€€`
+4ÈŒ
+stack_7_ffn_dw2@0_COMP ÉŒ
+ ¼Œ
+0€€î`€€€€€â	3ÉŒ
+stack_7_ffn_dw2@0_X1COMM ÇŒ
+hppp€€€È4ÊŒ
+stack_7_ffn_dx1@0_COMP ËŒ
+ ÌŒ
+0€€î`€€€€€â	3ËŒ
+stack_7_ffn_dx1@0_X1COMM ÇŒ
+hppp€€€È3ÌŒ
+stack_7_ffn_dx1@0_X2_COMM ¿Œ
+hppp€€Ä4ÍŒ
+stack_7_ffn_dw1@0_COMP ÎŒ
+ ÊŒ
+0€€î`€€€€€â	4ÎŒ
+stack_7_ffn_dw1@0_X2_COMM ºŒ
+hppp€€€È+ÏŒ
+stack_7_ffn_dx00@0_COMP ÆŒ
+0€€€`
+5ĞŒ
+stack_7_ffn_dx01@0_COMP ÑŒ
+ ÊŒ
+0€€î`€€€€€â	4ÑŒ
+stack_7_ffn_dx01@0_X2_COMM »Œ
+hppp€€Ä2ÒŒ
+stack_7_ffn_dx0@0_COMP ÓŒ
+ ÏŒ
+0€€€Ø`€€€È4ÓŒ
+stack_7_ffn_dx0@0_X2_COMM ĞŒ
+hppp€€€€(ÔŒ
+stack_8_mha_x@0_COMP ÄŒ
+0€€€`
+$ÕŒ
+stack_8_mha_wq@0_COMP0€€â	`
+$ÖŒ
+stack_8_mha_wk@0_COMP0€€â	`
+$×Œ
+stack_8_mha_wv@0_COMP0€€â	`
+2ØŒ
+stack_8_mha_q@0_COMP ÙŒ
+ ÚŒ
+0€€ÄÛ`€€€€À¸1ÙŒ
+stack_8_mha_q@0_X1COMM ÔŒ
+hppp€€€È1ÚŒ
+stack_8_mha_q@0_X2_COMM ÕŒ
+hppp€€ñ2ÛŒ
+stack_8_mha_k@0_COMP ÜŒ
+ İŒ
+0€€ÄÛ`€€€€À¸1ÜŒ
+stack_8_mha_k@0_X1COMM ÔŒ
+hppp€€€È1İŒ
+stack_8_mha_k@0_X2_COMM ÖŒ
+hppp€€ñ2ŞŒ
+stack_8_mha_v@0_COMP ßŒ
+ àŒ
+0€€ÄÛ`€€€€À¸1ßŒ
+stack_8_mha_v@0_X1COMM ÔŒ
+hppp€€€È1àŒ
+stack_8_mha_v@0_X2_COMM ×Œ
+hppp€€ñ2áŒ
+stack_8_mha_qk@0_COMP ØŒ
+ ÛŒ
+0€€€C`€€€€À3âŒ
+stack_8_mha_qkv@0_COMP áŒ
+ ŞŒ
+0€€€C`€€€€À6ãŒ
+stack_8_mha_qkv_reshape@0_COMP âŒ
+0€€€Ø`€€€È2äŒ
+stack_8_mha_res@0_COMP ãŒ
+ ÔŒ
+0€€€Ø`€€€È/åŒ
+stack_8_mha_norm@0_COMP äŒ
+0€€€`€€€è-æŒ
+stack_8_mha_d_norm@0_COMP ™
+0€€€`
+0çŒ
+stack_8_mha_d_res@0_COMP æŒ
+0€€€`€€€è4èŒ
+ stack_8_mha_d_qkv_reshape@0_COMP çŒ
+0€€€`
+0éŒ
+stack_8_mha_d_qkv@0_COMP èŒ
+0€€€Ø`€€€È4êŒ
+stack_8_mha_d_qk@0_COMP éŒ
+ ŞŒ
+0€€€C`€€€€À3ëŒ
+stack_8_mha_d_v@0_COMP éŒ
+ áŒ
+0€€€C`€€€€À3ìŒ
+stack_8_mha_d_q@0_COMP êŒ
+ ÛŒ
+0€€€C`€€€€À3íŒ
+stack_8_mha_d_k@0_COMP êŒ
+ ØŒ
+0€€€C`€€€€À5îŒ
+stack_8_mha_d_wq@0_COMP ïŒ
+ ìŒ
+0€€ÄÛ`€€€€À¸5ïŒ
+stack_8_mha_d_wq@0_X2_COMM ÔŒ
+hppp€€€È5ğŒ
+stack_8_mha_d_wk@0_COMP ñŒ
+ íŒ
+0€€ÄÛ`€€€€À¸5ñŒ
+stack_8_mha_d_wk@0_X2_COMM ÔŒ
+hppp€€€È5òŒ
+stack_8_mha_d_wv@0_COMP óŒ
+ ëŒ
+0€€ÄÛ`€€€€À¸5óŒ
+stack_8_mha_d_wv@0_X2_COMM ÔŒ
+hppp€€€È5ôŒ
+stack_8_mha_d_x1@0_COMP õŒ
+ ìŒ
+0€€ÄÛ`€€€€À¸4õŒ
+stack_8_mha_d_x1@0_X2_COMM ÕŒ
+hppp€€ñ5öŒ
+stack_8_mha_d_x2@0_COMP ÷Œ
+ íŒ
+0€€ÄÛ`€€€€À¸4÷Œ
+stack_8_mha_d_x2@0_X2_COMM ÖŒ
+hppp€€ñ5øŒ
+stack_8_mha_d_x3@0_COMP ùŒ
+ ëŒ
+0€€ÄÛ`€€€€À¸4ùŒ
+stack_8_mha_d_x3@0_X2_COMM ×Œ
+hppp€€ñ+úŒ
+stack_8_mha_d_x4@0_COMP çŒ
+0€€€`
+4ûŒ
+stack_8_mha_d_x12@0_COMP üŒ
+ ıŒ
+0€€€Ø`€€€È5üŒ
+stack_8_mha_d_x12@0_X1COMM ôŒ
+hppp€€€€6ıŒ
+stack_8_mha_d_x12@0_X2_COMM öŒ
+hppp€€€€4şŒ
+stack_8_mha_d_x34@0_COMP ÿŒ
+ úŒ
+0€€€Ø`€€€È5ÿŒ
+stack_8_mha_d_x34@0_X1COMM øŒ
+hppp€€€€2€
+stack_8_mha_d_x@0_COMP ûŒ
+ şŒ
+0€€€Ø`€€€È)
+stack_8_ffn_x0@0_COMP åŒ
+0€€€`
+$‚
+stack_8_ffn_w1@0_COMP0€€ˆ'`
+3ƒ
+stack_8_ffn_x1@0_COMP „
+ …
+0€€î`€€€€€â	2„
+stack_8_ffn_x1@0_X1COMM 
+hppp€€€È2…
+stack_8_ffn_x1@0_X2_COMM ‚
+hppp€€Ä$†
+stack_8_ffn_w2@0_COMP0€€ˆ'`
+3‡
+stack_8_ffn_x2@0_COMP ˆ
+ ƒ
+0€€î`€€€€€â	2ˆ
+stack_8_ffn_x2@0_X2_COMM †
+hppp€€Ä2‰
+stack_8_ffn_res@0_COMP Š
+ 
+0€€€Ø`€€€È3Š
+stack_8_ffn_res@0_X1COMM ‡
+hppp€€€€/‹
+stack_8_ffn_norm@0_COMP ‰
+0€€€`€€€è,Œ
+stack_8_ffn_dnorm@0_COMP Ç
+0€€€`
+/
+stack_8_ffn_dres@0_COMP Œ
+0€€€`€€€è*
+stack_8_ffn_dx2@0_COMP 
+0€€€`
+4
+stack_8_ffn_dw2@0_COMP 
+ ƒ
+0€€î`€€€€€â	3
+stack_8_ffn_dw2@0_X1COMM 
+hppp€€€È4‘
+stack_8_ffn_dx1@0_COMP ’
+ “
+0€€î`€€€€€â	3’
+stack_8_ffn_dx1@0_X1COMM 
+hppp€€€È3“
+stack_8_ffn_dx1@0_X2_COMM †
+hppp€€Ä4”
+stack_8_ffn_dw1@0_COMP •
+ ‘
+0€€î`€€€€€â	4•
+stack_8_ffn_dw1@0_X2_COMM 
+hppp€€€È+–
+stack_8_ffn_dx00@0_COMP 
+0€€€`
+5—
+stack_8_ffn_dx01@0_COMP ˜
+ ‘
+0€€î`€€€€€â	4˜
+stack_8_ffn_dx01@0_X2_COMM ‚
+hppp€€Ä2™
+stack_8_ffn_dx0@0_COMP š
+ –
+0€€€Ø`€€€È4š
+stack_8_ffn_dx0@0_X2_COMM —
+hppp€€€€(›
+stack_9_mha_x@0_COMP ‹
+0€€€`
+$œ
+stack_9_mha_wq@0_COMP0€€â	`
+$
+stack_9_mha_wk@0_COMP0€€â	`
+$
+stack_9_mha_wv@0_COMP0€€â	`
+2Ÿ
+stack_9_mha_q@0_COMP  
+ ¡
+0€€ÄÛ`€€€€À¸1 
+stack_9_mha_q@0_X1COMM ›
+hppp€€€È1¡
+stack_9_mha_q@0_X2_COMM œ
+hppp€€ñ2¢
+stack_9_mha_k@0_COMP £
+ ¤
+0€€ÄÛ`€€€€À¸1£
+stack_9_mha_k@0_X1COMM ›
+hppp€€€È1¤
+stack_9_mha_k@0_X2_COMM 
+hppp€€ñ2¥
+stack_9_mha_v@0_COMP ¦
+ §
+0€€ÄÛ`€€€€À¸1¦
+stack_9_mha_v@0_X1COMM ›
+hppp€€€È1§
+stack_9_mha_v@0_X2_COMM 
+hppp€€ñ2¨
+stack_9_mha_qk@0_COMP Ÿ
+ ¢
+0€€€C`€€€€À3©
+stack_9_mha_qkv@0_COMP ¨
+ ¥
+0€€€C`€€€€À6ª
+stack_9_mha_qkv_reshape@0_COMP ©
+0€€€Ø`€€€È2«
+stack_9_mha_res@0_COMP ª
+ ›
+0€€€Ø`€€€È/¬
+stack_9_mha_norm@0_COMP «
+0€€€`€€€è-­
+stack_9_mha_d_norm@0_COMP à
+0€€€`
+0®
+stack_9_mha_d_res@0_COMP ­
+0€€€`€€€è4¯
+ stack_9_mha_d_qkv_reshape@0_COMP ®
+0€€€`
+0°
+stack_9_mha_d_qkv@0_COMP ¯
+0€€€Ø`€€€È4±
+stack_9_mha_d_qk@0_COMP °
+ ¥
+0€€€C`€€€€À3²
+stack_9_mha_d_v@0_COMP °
+ ¨
+0€€€C`€€€€À3³
+stack_9_mha_d_q@0_COMP ±
+ ¢
+0€€€C`€€€€À3´
+stack_9_mha_d_k@0_COMP ±
+ Ÿ
+0€€€C`€€€€À5µ
+stack_9_mha_d_wq@0_COMP ¶
+ ³
+0€€ÄÛ`€€€€À¸5¶
+stack_9_mha_d_wq@0_X2_COMM ›
+hppp€€€È5·
+stack_9_mha_d_wk@0_COMP ¸
+ ´
+0€€ÄÛ`€€€€À¸5¸
+stack_9_mha_d_wk@0_X2_COMM ›
+hppp€€€È5¹
+stack_9_mha_d_wv@0_COMP º
+ ²
+0€€ÄÛ`€€€€À¸5º
+stack_9_mha_d_wv@0_X2_COMM ›
+hppp€€€È5»
+stack_9_mha_d_x1@0_COMP ¼
+ ³
+0€€ÄÛ`€€€€À¸4¼
+stack_9_mha_d_x1@0_X2_COMM œ
+hppp€€ñ5½
+stack_9_mha_d_x2@0_COMP ¾
+ ´
+0€€ÄÛ`€€€€À¸4¾
+stack_9_mha_d_x2@0_X2_COMM 
+hppp€€ñ5¿
+stack_9_mha_d_x3@0_COMP À
+ ²
+0€€ÄÛ`€€€€À¸4À
+stack_9_mha_d_x3@0_X2_COMM 
+hppp€€ñ+Á
+stack_9_mha_d_x4@0_COMP ®
+0€€€`
+4Â
+stack_9_mha_d_x12@0_COMP Ã
+ Ä
+0€€€Ø`€€€È5Ã
+stack_9_mha_d_x12@0_X1COMM »
+hppp€€€€6Ä
+stack_9_mha_d_x12@0_X2_COMM ½
+hppp€€€€4Å
+stack_9_mha_d_x34@0_COMP Æ
+ Á
+0€€€Ø`€€€È5Æ
+stack_9_mha_d_x34@0_X1COMM ¿
+hppp€€€€2Ç
+stack_9_mha_d_x@0_COMP Â
+ Å
+0€€€Ø`€€€È)È
+stack_9_ffn_x0@0_COMP ¬
+0€€€`
+$É
+stack_9_ffn_w1@0_COMP0€€ˆ'`
+3Ê
+stack_9_ffn_x1@0_COMP Ë
+ Ì
+0€€î`€€€€€â	2Ë
+stack_9_ffn_x1@0_X1COMM È
+hppp€€€È2Ì
+stack_9_ffn_x1@0_X2_COMM É
+hppp€€Ä$Í
+stack_9_ffn_w2@0_COMP0€€ˆ'`
+3Î
+stack_9_ffn_x2@0_COMP Ï
+ Ê
+0€€î`€€€€€â	2Ï
+stack_9_ffn_x2@0_X2_COMM Í
+hppp€€Ä2Ğ
+stack_9_ffn_res@0_COMP Ñ
+ È
+0€€€Ø`€€€È3Ñ
+stack_9_ffn_res@0_X1COMM Î
+hppp€€€€/Ò
+stack_9_ffn_norm@0_COMP Ğ
+0€€€`€€€è,Ó
+stack_9_ffn_dnorm@0_COMP 
+0€€€`
+/Ô
+stack_9_ffn_dres@0_COMP Ó
+0€€€`€€€è*Õ
+stack_9_ffn_dx2@0_COMP Ô
+0€€€`
+4Ö
+stack_9_ffn_dw2@0_COMP ×
+ Ê
+0€€î`€€€€€â	3×
+stack_9_ffn_dw2@0_X1COMM Õ
+hppp€€€È4Ø
+stack_9_ffn_dx1@0_COMP Ù
+ Ú
+0€€î`€€€€€â	3Ù
+stack_9_ffn_dx1@0_X1COMM Õ
+hppp€€€È3Ú
+stack_9_ffn_dx1@0_X2_COMM Í
+hppp€€Ä4Û
+stack_9_ffn_dw1@0_COMP Ü
+ Ø
+0€€î`€€€€€â	4Ü
+stack_9_ffn_dw1@0_X2_COMM È
+hppp€€€È+İ
+stack_9_ffn_dx00@0_COMP Ô
+0€€€`
+5Ş
+stack_9_ffn_dx01@0_COMP ß
+ Ø
+0€€î`€€€€€â	4ß
+stack_9_ffn_dx01@0_X2_COMM É
+hppp€€Ä2à
+stack_9_ffn_dx0@0_COMP á
+ İ
+0€€€Ø`€€€È4á
+stack_9_ffn_dx0@0_X2_COMM Ş
+hppp€€€€)â
+stack_10_mha_x@0_COMP Ò
+0€€€`
+%ã
+stack_10_mha_wq@0_COMP0€€â	`
+%ä
+stack_10_mha_wk@0_COMP0€€â	`
+%å
+stack_10_mha_wv@0_COMP0€€â	`
+3æ
+stack_10_mha_q@0_COMP ç
+ è
+0€€ÄÛ`€€€€À¸2ç
+stack_10_mha_q@0_X1COMM â
+hppp€€€È2è
+stack_10_mha_q@0_X2_COMM ã
+hppp€€ñ3é
+stack_10_mha_k@0_COMP ê
+ ë
+0€€ÄÛ`€€€€À¸2ê
+stack_10_mha_k@0_X1COMM â
+hppp€€€È2ë
+stack_10_mha_k@0_X2_COMM ä
+hppp€€ñ3ì
+stack_10_mha_v@0_COMP í
+ î
+0€€ÄÛ`€€€€À¸2í
+stack_10_mha_v@0_X1COMM â
+hppp€€€È2î
+stack_10_mha_v@0_X2_COMM å
+hppp€€ñ3ï
+stack_10_mha_qk@0_COMP æ
+ é
+0€€€C`€€€€À4ğ
+stack_10_mha_qkv@0_COMP ï
+ ì
+0€€€C`€€€€À7ñ
+stack_10_mha_qkv_reshape@0_COMP ğ
+0€€€Ø`€€€È3ò
+stack_10_mha_res@0_COMP ñ
+ â
+0€€€Ø`€€€È0ó
+stack_10_mha_norm@0_COMP ò
+0€€€`€€€è.ô
+stack_10_mha_d_norm@0_COMP §
+0€€€`
+1õ
+stack_10_mha_d_res@0_COMP ô
+0€€€`€€€è5ö
+!stack_10_mha_d_qkv_reshape@0_COMP õ
+0€€€`
+1÷
+stack_10_mha_d_qkv@0_COMP ö
+0€€€Ø`€€€È5ø
+stack_10_mha_d_qk@0_COMP ÷
+ ì
+0€€€C`€€€€À4ù
+stack_10_mha_d_v@0_COMP ÷
+ ï
+0€€€C`€€€€À4ú
+stack_10_mha_d_q@0_COMP ø
+ é
+0€€€C`€€€€À4û
+stack_10_mha_d_k@0_COMP ø
+ æ
+0€€€C`€€€€À6ü
+stack_10_mha_d_wq@0_COMP ı
+ ú
+0€€ÄÛ`€€€€À¸6ı
+stack_10_mha_d_wq@0_X2_COMM â
+hppp€€€È6ş
+stack_10_mha_d_wk@0_COMP ÿ
+ û
+0€€ÄÛ`€€€€À¸6ÿ
+stack_10_mha_d_wk@0_X2_COMM â
+hppp€€€È6€
+stack_10_mha_d_wv@0_COMP 
+ ù
+0€€ÄÛ`€€€€À¸6
+stack_10_mha_d_wv@0_X2_COMM â
+hppp€€€È6‚
+stack_10_mha_d_x1@0_COMP ƒ
+ ú
+0€€ÄÛ`€€€€À¸5ƒ
+stack_10_mha_d_x1@0_X2_COMM ã
+hppp€€ñ6„
+stack_10_mha_d_x2@0_COMP …
+ û
+0€€ÄÛ`€€€€À¸5…
+stack_10_mha_d_x2@0_X2_COMM ä
+hppp€€ñ6†
+stack_10_mha_d_x3@0_COMP ‡
+ ù
+0€€ÄÛ`€€€€À¸5‡
+stack_10_mha_d_x3@0_X2_COMM å
+hppp€€ñ,ˆ
+stack_10_mha_d_x4@0_COMP õ
+0€€€`
+5‰
+stack_10_mha_d_x12@0_COMP Š
+ ‹
+0€€€Ø`€€€È6Š
+stack_10_mha_d_x12@0_X1COMM ‚
+hppp€€€€7‹
+stack_10_mha_d_x12@0_X2_COMM „
+hppp€€€€5Œ
+stack_10_mha_d_x34@0_COMP 
+ ˆ
+0€€€Ø`€€€È6
+stack_10_mha_d_x34@0_X1COMM †
+hppp€€€€3
+stack_10_mha_d_x@0_COMP ‰
+ Œ
+0€€€Ø`€€€È*
+stack_10_ffn_x0@0_COMP ó
+0€€€`
+%
+stack_10_ffn_w1@0_COMP0€€ˆ'`
+4‘
+stack_10_ffn_x1@0_COMP ’
+ “
+0€€î`€€€€€â	3’
+stack_10_ffn_x1@0_X1COMM 
+hppp€€€È3“
+stack_10_ffn_x1@0_X2_COMM 
+hppp€€Ä%”
+stack_10_ffn_w2@0_COMP0€€ˆ'`
+4•
+stack_10_ffn_x2@0_COMP –
+ ‘
+0€€î`€€€€€â	3–
+stack_10_ffn_x2@0_X2_COMM ”
+hppp€€Ä3—
+stack_10_ffn_res@0_COMP ˜
+ 
+0€€€Ø`€€€È4˜
+stack_10_ffn_res@0_X1COMM •
+hppp€€€€0™
+stack_10_ffn_norm@0_COMP —
+0€€€`€€€è-š
+stack_10_ffn_dnorm@0_COMP Õ
+0€€€`
+0›
+stack_10_ffn_dres@0_COMP š
+0€€€`€€€è+œ
+stack_10_ffn_dx2@0_COMP ›
+0€€€`
+5
+stack_10_ffn_dw2@0_COMP 
+ ‘
+0€€î`€€€€€â	4
+stack_10_ffn_dw2@0_X1COMM œ
+hppp€€€È5Ÿ
+stack_10_ffn_dx1@0_COMP  
+ ¡
+0€€î`€€€€€â	4 
+stack_10_ffn_dx1@0_X1COMM œ
+hppp€€€È4¡
+stack_10_ffn_dx1@0_X2_COMM ”
+hppp€€Ä5¢
+stack_10_ffn_dw1@0_COMP £
+ Ÿ
+0€€î`€€€€€â	5£
+stack_10_ffn_dw1@0_X2_COMM 
+hppp€€€È,¤
+stack_10_ffn_dx00@0_COMP ›
+0€€€`
+6¥
+stack_10_ffn_dx01@0_COMP ¦
+ Ÿ
+0€€î`€€€€€â	5¦
+stack_10_ffn_dx01@0_X2_COMM 
+hppp€€Ä3§
+stack_10_ffn_dx0@0_COMP ¨
+ ¤
+0€€€Ø`€€€È5¨
+stack_10_ffn_dx0@0_X2_COMM ¥
+hppp€€€€)©
+stack_11_mha_x@0_COMP ™
+0€€€`
+%ª
+stack_11_mha_wq@0_COMP0€€â	`
+%«
+stack_11_mha_wk@0_COMP0€€â	`
+%¬
+stack_11_mha_wv@0_COMP0€€â	`
+3­
+stack_11_mha_q@0_COMP ®
+ ¯
+0€€ÄÛ`€€€€À¸2®
+stack_11_mha_q@0_X1COMM ©
+hppp€€€È2¯
+stack_11_mha_q@0_X2_COMM ª
+hppp€€ñ3°
+stack_11_mha_k@0_COMP ±
+ ²
+0€€ÄÛ`€€€€À¸2±
+stack_11_mha_k@0_X1COMM ©
+hppp€€€È2²
+stack_11_mha_k@0_X2_COMM «
+hppp€€ñ3³
+stack_11_mha_v@0_COMP ´
+ µ
+0€€ÄÛ`€€€€À¸2´
+stack_11_mha_v@0_X1COMM ©
+hppp€€€È2µ
+stack_11_mha_v@0_X2_COMM ¬
+hppp€€ñ3¶
+stack_11_mha_qk@0_COMP ­
+ °
+0€€€C`€€€€À4·
+stack_11_mha_qkv@0_COMP ¶
+ ³
+0€€€C`€€€€À7¸
+stack_11_mha_qkv_reshape@0_COMP ·
+0€€€Ø`€€€È3¹
+stack_11_mha_res@0_COMP ¸
+ ©
+0€€€Ø`€€€È0º
+stack_11_mha_norm@0_COMP ¹
+0€€€`€€€è.»
+stack_11_mha_d_norm@0_COMP î
+0€€€`
+1¼
+stack_11_mha_d_res@0_COMP »
+0€€€`€€€è5½
+!stack_11_mha_d_qkv_reshape@0_COMP ¼
+0€€€`
+1¾
+stack_11_mha_d_qkv@0_COMP ½
+0€€€Ø`€€€È5¿
+stack_11_mha_d_qk@0_COMP ¾
+ ³
+0€€€C`€€€€À4À
+stack_11_mha_d_v@0_COMP ¾
+ ¶
+0€€€C`€€€€À4Á
+stack_11_mha_d_q@0_COMP ¿
+ °
+0€€€C`€€€€À4Â
+stack_11_mha_d_k@0_COMP ¿
+ ­
+0€€€C`€€€€À6Ã
+stack_11_mha_d_wq@0_COMP Ä
+ Á
+0€€ÄÛ`€€€€À¸6Ä
+stack_11_mha_d_wq@0_X2_COMM ©
+hppp€€€È6Å
+stack_11_mha_d_wk@0_COMP Æ
+ Â
+0€€ÄÛ`€€€€À¸6Æ
+stack_11_mha_d_wk@0_X2_COMM ©
+hppp€€€È6Ç
+stack_11_mha_d_wv@0_COMP È
+ À
+0€€ÄÛ`€€€€À¸6È
+stack_11_mha_d_wv@0_X2_COMM ©
+hppp€€€È6É
+stack_11_mha_d_x1@0_COMP Ê
+ Á
+0€€ÄÛ`€€€€À¸5Ê
+stack_11_mha_d_x1@0_X2_COMM ª
+hppp€€ñ6Ë
+stack_11_mha_d_x2@0_COMP Ì
+ Â
+0€€ÄÛ`€€€€À¸5Ì
+stack_11_mha_d_x2@0_X2_COMM «
+hppp€€ñ6Í
+stack_11_mha_d_x3@0_COMP Î
+ À
+0€€ÄÛ`€€€€À¸5Î
+stack_11_mha_d_x3@0_X2_COMM ¬
+hppp€€ñ,Ï
+stack_11_mha_d_x4@0_COMP ¼
+0€€€`
+5Ğ
+stack_11_mha_d_x12@0_COMP Ñ
+ Ò
+0€€€Ø`€€€È6Ñ
+stack_11_mha_d_x12@0_X1COMM É
+hppp€€€€7Ò
+stack_11_mha_d_x12@0_X2_COMM Ë
+hppp€€€€5Ó
+stack_11_mha_d_x34@0_COMP Ô
+ Ï
+0€€€Ø`€€€È6Ô
+stack_11_mha_d_x34@0_X1COMM Í
+hppp€€€€3Õ
+stack_11_mha_d_x@0_COMP Ğ
+ Ó
+0€€€Ø`€€€È*Ö
+stack_11_ffn_x0@0_COMP º
+0€€€`
+%×
+stack_11_ffn_w1@0_COMP0€€ˆ'`
+4Ø
+stack_11_ffn_x1@0_COMP Ù
+ Ú
+0€€î`€€€€€â	3Ù
+stack_11_ffn_x1@0_X1COMM Ö
+hppp€€€È3Ú
+stack_11_ffn_x1@0_X2_COMM ×
+hppp€€Ä%Û
+stack_11_ffn_w2@0_COMP0€€ˆ'`
+4Ü
+stack_11_ffn_x2@0_COMP İ
+ Ø
+0€€î`€€€€€â	3İ
+stack_11_ffn_x2@0_X2_COMM Û
+hppp€€Ä3Ş
+stack_11_ffn_res@0_COMP ß
+ Ö
+0€€€Ø`€€€È4ß
+stack_11_ffn_res@0_X1COMM Ü
+hppp€€€€0à
+stack_11_ffn_norm@0_COMP Ş
+0€€€`€€€è-á
+stack_11_ffn_dnorm@0_COMP œ
+0€€€`
+0â
+stack_11_ffn_dres@0_COMP á
+0€€€`€€€è+ã
+stack_11_ffn_dx2@0_COMP â
+0€€€`
+5ä
+stack_11_ffn_dw2@0_COMP å
+ Ø
+0€€î`€€€€€â	4å
+stack_11_ffn_dw2@0_X1COMM ã
+hppp€€€È5æ
+stack_11_ffn_dx1@0_COMP ç
+ è
+0€€î`€€€€€â	4ç
+stack_11_ffn_dx1@0_X1COMM ã
+hppp€€€È4è
+stack_11_ffn_dx1@0_X2_COMM Û
+hppp€€Ä5é
+stack_11_ffn_dw1@0_COMP ê
+ æ
+0€€î`€€€€€â	5ê
+stack_11_ffn_dw1@0_X2_COMM Ö
+hppp€€€È,ë
+stack_11_ffn_dx00@0_COMP â
+0€€€`
+6ì
+stack_11_ffn_dx01@0_COMP í
+ æ
+0€€î`€€€€€â	5í
+stack_11_ffn_dx01@0_X2_COMM ×
+hppp€€Ä3î
+stack_11_ffn_dx0@0_COMP ï
+ ë
+0€€€Ø`€€€È5ï
+stack_11_ffn_dx0@0_X2_COMM ì
+hppp€€€€)ğ
+stack_12_mha_x@0_COMP à
+0€€€`
+%ñ
+stack_12_mha_wq@0_COMP0€€â	`
+%ò
+stack_12_mha_wk@0_COMP0€€â	`
+%ó
+stack_12_mha_wv@0_COMP0€€â	`
+3ô
+stack_12_mha_q@0_COMP õ
+ ö
+0€€ÄÛ`€€€€À¸2õ
+stack_12_mha_q@0_X1COMM ğ
+hppp€€€È2ö
+stack_12_mha_q@0_X2_COMM ñ
+hppp€€ñ3÷
+stack_12_mha_k@0_COMP ø
+ ù
+0€€ÄÛ`€€€€À¸2ø
+stack_12_mha_k@0_X1COMM ğ
+hppp€€€È2ù
+stack_12_mha_k@0_X2_COMM ò
+hppp€€ñ3ú
+stack_12_mha_v@0_COMP û
+ ü
+0€€ÄÛ`€€€€À¸2û
+stack_12_mha_v@0_X1COMM ğ
+hppp€€€È2ü
+stack_12_mha_v@0_X2_COMM ó
+hppp€€ñ3ı
+stack_12_mha_qk@0_COMP ô
+ ÷
+0€€€C`€€€€À4ş
+stack_12_mha_qkv@0_COMP ı
+ ú
+0€€€C`€€€€À7ÿ
+stack_12_mha_qkv_reshape@0_COMP ş
+0€€€Ø`€€€È3€
+stack_12_mha_res@0_COMP ÿ
+ ğ
+0€€€Ø`€€€È0
+stack_12_mha_norm@0_COMP €
+0€€€`€€€è.‚
+stack_12_mha_d_norm@0_COMP µ
+0€€€`
+1ƒ
+stack_12_mha_d_res@0_COMP ‚
+0€€€`€€€è5„
+!stack_12_mha_d_qkv_reshape@0_COMP ƒ
+0€€€`
+1…
+stack_12_mha_d_qkv@0_COMP „
+0€€€Ø`€€€È5†
+stack_12_mha_d_qk@0_COMP …
+ ú
+0€€€C`€€€€À4‡
+stack_12_mha_d_v@0_COMP …
+ ı
+0€€€C`€€€€À4ˆ
+stack_12_mha_d_q@0_COMP †
+ ÷
+0€€€C`€€€€À4‰
+stack_12_mha_d_k@0_COMP †
+ ô
+0€€€C`€€€€À6Š
+stack_12_mha_d_wq@0_COMP ‹
+ ˆ
+0€€ÄÛ`€€€€À¸6‹
+stack_12_mha_d_wq@0_X2_COMM ğ
+hppp€€€È6Œ
+stack_12_mha_d_wk@0_COMP 
+ ‰
+0€€ÄÛ`€€€€À¸6
+stack_12_mha_d_wk@0_X2_COMM ğ
+hppp€€€È6
+stack_12_mha_d_wv@0_COMP 
+ ‡
+0€€ÄÛ`€€€€À¸6
+stack_12_mha_d_wv@0_X2_COMM ğ
+hppp€€€È6
+stack_12_mha_d_x1@0_COMP ‘
+ ˆ
+0€€ÄÛ`€€€€À¸5‘
+stack_12_mha_d_x1@0_X2_COMM ñ
+hppp€€ñ6’
+stack_12_mha_d_x2@0_COMP “
+ ‰
+0€€ÄÛ`€€€€À¸5“
+stack_12_mha_d_x2@0_X2_COMM ò
+hppp€€ñ6”
+stack_12_mha_d_x3@0_COMP •
+ ‡
+0€€ÄÛ`€€€€À¸5•
+stack_12_mha_d_x3@0_X2_COMM ó
+hppp€€ñ,–
+stack_12_mha_d_x4@0_COMP ƒ
+0€€€`
+5—
+stack_12_mha_d_x12@0_COMP ˜
+ ™
+0€€€Ø`€€€È6˜
+stack_12_mha_d_x12@0_X1COMM 
+hppp€€€€7™
+stack_12_mha_d_x12@0_X2_COMM ’
+hppp€€€€5š
+stack_12_mha_d_x34@0_COMP ›
+ –
+0€€€Ø`€€€È6›
+stack_12_mha_d_x34@0_X1COMM ”
+hppp€€€€3œ
+stack_12_mha_d_x@0_COMP —
+ š
+0€€€Ø`€€€È*
+stack_12_ffn_x0@0_COMP 
+0€€€`
+%
+stack_12_ffn_w1@0_COMP0€€ˆ'`
+4Ÿ
+stack_12_ffn_x1@0_COMP  
+ ¡
+0€€î`€€€€€â	3 
+stack_12_ffn_x1@0_X1COMM 
+hppp€€€È3¡
+stack_12_ffn_x1@0_X2_COMM 
+hppp€€Ä%¢
+stack_12_ffn_w2@0_COMP0€€ˆ'`
+4£
+stack_12_ffn_x2@0_COMP ¤
+ Ÿ
+0€€î`€€€€€â	3¤
+stack_12_ffn_x2@0_X2_COMM ¢
+hppp€€Ä3¥
+stack_12_ffn_res@0_COMP ¦
+ 
+0€€€Ø`€€€È4¦
+stack_12_ffn_res@0_X1COMM £
+hppp€€€€0§
+stack_12_ffn_norm@0_COMP ¥
+0€€€`€€€è-¨
+stack_12_ffn_dnorm@0_COMP ã
+0€€€`
+0©
+stack_12_ffn_dres@0_COMP ¨
+0€€€`€€€è+ª
+stack_12_ffn_dx2@0_COMP ©
+0€€€`
+5«
+stack_12_ffn_dw2@0_COMP ¬
+ Ÿ
+0€€î`€€€€€â	4¬
+stack_12_ffn_dw2@0_X1COMM ª
+hppp€€€È5­
+stack_12_ffn_dx1@0_COMP ®
+ ¯
+0€€î`€€€€€â	4®
+stack_12_ffn_dx1@0_X1COMM ª
+hppp€€€È4¯
+stack_12_ffn_dx1@0_X2_COMM ¢
+hppp€€Ä5°
+stack_12_ffn_dw1@0_COMP ±
+ ­
+0€€î`€€€€€â	5±
+stack_12_ffn_dw1@0_X2_COMM 
+hppp€€€È,²
+stack_12_ffn_dx00@0_COMP ©
+0€€€`
+6³
+stack_12_ffn_dx01@0_COMP ´
+ ­
+0€€î`€€€€€â	5´
+stack_12_ffn_dx01@0_X2_COMM 
+hppp€€Ä3µ
+stack_12_ffn_dx0@0_COMP ¶
+ ²
+0€€€Ø`€€€È5¶
+stack_12_ffn_dx0@0_X2_COMM ³
+hppp€€€€)·
+stack_13_mha_x@0_COMP §
+0€€€`
+%¸
+stack_13_mha_wq@0_COMP0€€â	`
+%¹
+stack_13_mha_wk@0_COMP0€€â	`
+%º
+stack_13_mha_wv@0_COMP0€€â	`
+3»
+stack_13_mha_q@0_COMP ¼
+ ½
+0€€ÄÛ`€€€€À¸2¼
+stack_13_mha_q@0_X1COMM ·
+hppp€€€È2½
+stack_13_mha_q@0_X2_COMM ¸
+hppp€€ñ3¾
+stack_13_mha_k@0_COMP ¿
+ À
+0€€ÄÛ`€€€€À¸2¿
+stack_13_mha_k@0_X1COMM ·
+hppp€€€È2À
+stack_13_mha_k@0_X2_COMM ¹
+hppp€€ñ3Á
+stack_13_mha_v@0_COMP Â
+ Ã
+0€€ÄÛ`€€€€À¸2Â
+stack_13_mha_v@0_X1COMM ·
+hppp€€€È2Ã
+stack_13_mha_v@0_X2_COMM º
+hppp€€ñ3Ä
+stack_13_mha_qk@0_COMP »
+ ¾
+0€€€C`€€€€À4Å
+stack_13_mha_qkv@0_COMP Ä
+ Á
+0€€€C`€€€€À7Æ
+stack_13_mha_qkv_reshape@0_COMP Å
+0€€€Ø`€€€È3Ç
+stack_13_mha_res@0_COMP Æ
+ ·
+0€€€Ø`€€€È0È
+stack_13_mha_norm@0_COMP Ç
+0€€€`€€€è.É
+stack_13_mha_d_norm@0_COMP ü
+0€€€`
+1Ê
+stack_13_mha_d_res@0_COMP É
+0€€€`€€€è5Ë
+!stack_13_mha_d_qkv_reshape@0_COMP Ê
+0€€€`
+1Ì
+stack_13_mha_d_qkv@0_COMP Ë
+0€€€Ø`€€€È5Í
+stack_13_mha_d_qk@0_COMP Ì
+ Á
+0€€€C`€€€€À4Î
+stack_13_mha_d_v@0_COMP Ì
+ Ä
+0€€€C`€€€€À4Ï
+stack_13_mha_d_q@0_COMP Í
+ ¾
+0€€€C`€€€€À4Ğ
+stack_13_mha_d_k@0_COMP Í
+ »
+0€€€C`€€€€À6Ñ
+stack_13_mha_d_wq@0_COMP Ò
+ Ï
+0€€ÄÛ`€€€€À¸6Ò
+stack_13_mha_d_wq@0_X2_COMM ·
+hppp€€€È6Ó
+stack_13_mha_d_wk@0_COMP Ô
+ Ğ
+0€€ÄÛ`€€€€À¸6Ô
+stack_13_mha_d_wk@0_X2_COMM ·
+hppp€€€È6Õ
+stack_13_mha_d_wv@0_COMP Ö
+ Î
+0€€ÄÛ`€€€€À¸6Ö
+stack_13_mha_d_wv@0_X2_COMM ·
+hppp€€€È6×
+stack_13_mha_d_x1@0_COMP Ø
+ Ï
+0€€ÄÛ`€€€€À¸5Ø
+stack_13_mha_d_x1@0_X2_COMM ¸
+hppp€€ñ6Ù
+stack_13_mha_d_x2@0_COMP Ú
+ Ğ
+0€€ÄÛ`€€€€À¸5Ú
+stack_13_mha_d_x2@0_X2_COMM ¹
+hppp€€ñ6Û
+stack_13_mha_d_x3@0_COMP Ü
+ Î
+0€€ÄÛ`€€€€À¸5Ü
+stack_13_mha_d_x3@0_X2_COMM º
+hppp€€ñ,İ
+stack_13_mha_d_x4@0_COMP Ê
+0€€€`
+5Ş
+stack_13_mha_d_x12@0_COMP ß
+ à
+0€€€Ø`€€€È6ß
+stack_13_mha_d_x12@0_X1COMM ×
+hppp€€€€7à
+stack_13_mha_d_x12@0_X2_COMM Ù
+hppp€€€€5á
+stack_13_mha_d_x34@0_COMP â
+ İ
+0€€€Ø`€€€È6â
+stack_13_mha_d_x34@0_X1COMM Û
+hppp€€€€3ã
+stack_13_mha_d_x@0_COMP Ş
+ á
+0€€€Ø`€€€È*ä
+stack_13_ffn_x0@0_COMP È
+0€€€`
+%å
+stack_13_ffn_w1@0_COMP0€€ˆ'`
+4æ
+stack_13_ffn_x1@0_COMP ç
+ è
+0€€î`€€€€€â	3ç
+stack_13_ffn_x1@0_X1COMM ä
+hppp€€€È3è
+stack_13_ffn_x1@0_X2_COMM å
+hppp€€Ä%é
+stack_13_ffn_w2@0_COMP0€€ˆ'`
+4ê
+stack_13_ffn_x2@0_COMP ë
+ æ
+0€€î`€€€€€â	3ë
+stack_13_ffn_x2@0_X2_COMM é
+hppp€€Ä3ì
+stack_13_ffn_res@0_COMP í
+ ä
+0€€€Ø`€€€È4í
+stack_13_ffn_res@0_X1COMM ê
+hppp€€€€0î
+stack_13_ffn_norm@0_COMP ì
+0€€€`€€€è-ï
+stack_13_ffn_dnorm@0_COMP ª
+0€€€`
+0ğ
+stack_13_ffn_dres@0_COMP ï
+0€€€`€€€è+ñ
+stack_13_ffn_dx2@0_COMP ğ
+0€€€`
+5ò
+stack_13_ffn_dw2@0_COMP ó
+ æ
+0€€î`€€€€€â	4ó
+stack_13_ffn_dw2@0_X1COMM ñ
+hppp€€€È5ô
+stack_13_ffn_dx1@0_COMP õ
+ ö
+0€€î`€€€€€â	4õ
+stack_13_ffn_dx1@0_X1COMM ñ
+hppp€€€È4ö
+stack_13_ffn_dx1@0_X2_COMM é
+hppp€€Ä5÷
+stack_13_ffn_dw1@0_COMP ø
+ ô
+0€€î`€€€€€â	5ø
+stack_13_ffn_dw1@0_X2_COMM ä
+hppp€€€È,ù
+stack_13_ffn_dx00@0_COMP ğ
+0€€€`
+6ú
+stack_13_ffn_dx01@0_COMP û
+ ô
+0€€î`€€€€€â	5û
+stack_13_ffn_dx01@0_X2_COMM å
+hppp€€Ä3ü
+stack_13_ffn_dx0@0_COMP ı
+ ù
+0€€€Ø`€€€È5ı
+stack_13_ffn_dx0@0_X2_COMM ú
+hppp€€€€)ş
+stack_14_mha_x@0_COMP î
+0€€€`
+%ÿ
+stack_14_mha_wq@0_COMP0€€â	`
+%€
+stack_14_mha_wk@0_COMP0€€â	`
+%
+stack_14_mha_wv@0_COMP0€€â	`
+3‚
+stack_14_mha_q@0_COMP ƒ
+ „
+0€€ÄÛ`€€€€À¸2ƒ
+stack_14_mha_q@0_X1COMM ş
+hppp€€€È2„
+stack_14_mha_q@0_X2_COMM ÿ
+hppp€€ñ3…
+stack_14_mha_k@0_COMP †
+ ‡
+0€€ÄÛ`€€€€À¸2†
+stack_14_mha_k@0_X1COMM ş
+hppp€€€È2‡
+stack_14_mha_k@0_X2_COMM €
+hppp€€ñ3ˆ
+stack_14_mha_v@0_COMP ‰
+ Š
+0€€ÄÛ`€€€€À¸2‰
+stack_14_mha_v@0_X1COMM ş
+hppp€€€È2Š
+stack_14_mha_v@0_X2_COMM 
+hppp€€ñ3‹
+stack_14_mha_qk@0_COMP ‚
+ …
+0€€€C`€€€€À4Œ
+stack_14_mha_qkv@0_COMP ‹
+ ˆ
+0€€€C`€€€€À7
+stack_14_mha_qkv_reshape@0_COMP Œ
+0€€€Ø`€€€È3
+stack_14_mha_res@0_COMP 
+ ş
+0€€€Ø`€€€È0
+stack_14_mha_norm@0_COMP 
+0€€€`€€€è.
+stack_14_mha_d_norm@0_COMP Ã
+0€€€`
+1‘
+stack_14_mha_d_res@0_COMP 
+0€€€`€€€è5’
+!stack_14_mha_d_qkv_reshape@0_COMP ‘
+0€€€`
+1“
+stack_14_mha_d_qkv@0_COMP ’
+0€€€Ø`€€€È5”
+stack_14_mha_d_qk@0_COMP “
+ ˆ
+0€€€C`€€€€À4•
+stack_14_mha_d_v@0_COMP “
+ ‹
+0€€€C`€€€€À4–
+stack_14_mha_d_q@0_COMP ”
+ …
+0€€€C`€€€€À4—
+stack_14_mha_d_k@0_COMP ”
+ ‚
+0€€€C`€€€€À6˜
+stack_14_mha_d_wq@0_COMP ™
+ –
+0€€ÄÛ`€€€€À¸6™
+stack_14_mha_d_wq@0_X2_COMM ş
+hppp€€€È6š
+stack_14_mha_d_wk@0_COMP ›
+ —
+0€€ÄÛ`€€€€À¸6›
+stack_14_mha_d_wk@0_X2_COMM ş
+hppp€€€È6œ
+stack_14_mha_d_wv@0_COMP 
+ •
+0€€ÄÛ`€€€€À¸6
+stack_14_mha_d_wv@0_X2_COMM ş
+hppp€€€È6
+stack_14_mha_d_x1@0_COMP Ÿ
+ –
+0€€ÄÛ`€€€€À¸5Ÿ
+stack_14_mha_d_x1@0_X2_COMM ÿ
+hppp€€ñ6 
+stack_14_mha_d_x2@0_COMP ¡
+ —
+0€€ÄÛ`€€€€À¸5¡
+stack_14_mha_d_x2@0_X2_COMM €
+hppp€€ñ6¢
+stack_14_mha_d_x3@0_COMP £
+ •
+0€€ÄÛ`€€€€À¸5£
+stack_14_mha_d_x3@0_X2_COMM 
+hppp€€ñ,¤
+stack_14_mha_d_x4@0_COMP ‘
+0€€€`
+5¥
+stack_14_mha_d_x12@0_COMP ¦
+ §
+0€€€Ø`€€€È6¦
+stack_14_mha_d_x12@0_X1COMM 
+hppp€€€€7§
+stack_14_mha_d_x12@0_X2_COMM  
+hppp€€€€5¨
+stack_14_mha_d_x34@0_COMP ©
+ ¤
+0€€€Ø`€€€È6©
+stack_14_mha_d_x34@0_X1COMM ¢
+hppp€€€€3ª
+stack_14_mha_d_x@0_COMP ¥
+ ¨
+0€€€Ø`€€€È*«
+stack_14_ffn_x0@0_COMP 
+0€€€`
+%¬
+stack_14_ffn_w1@0_COMP0€€ˆ'`
+4­
+stack_14_ffn_x1@0_COMP ®
+ ¯
+0€€î`€€€€€â	3®
+stack_14_ffn_x1@0_X1COMM «
+hppp€€€È3¯
+stack_14_ffn_x1@0_X2_COMM ¬
+hppp€€Ä%°
+stack_14_ffn_w2@0_COMP0€€ˆ'`
+4±
+stack_14_ffn_x2@0_COMP ²
+ ­
+0€€î`€€€€€â	3²
+stack_14_ffn_x2@0_X2_COMM °
+hppp€€Ä3³
+stack_14_ffn_res@0_COMP ´
+ «
+0€€€Ø`€€€È4´
+stack_14_ffn_res@0_X1COMM ±
+hppp€€€€0µ
+stack_14_ffn_norm@0_COMP ³
+0€€€`€€€è-¶
+stack_14_ffn_dnorm@0_COMP ñ
+0€€€`
+0·
+stack_14_ffn_dres@0_COMP ¶
+0€€€`€€€è+¸
+stack_14_ffn_dx2@0_COMP ·
+0€€€`
+5¹
+stack_14_ffn_dw2@0_COMP º
+ ­
+0€€î`€€€€€â	4º
+stack_14_ffn_dw2@0_X1COMM ¸
+hppp€€€È5»
+stack_14_ffn_dx1@0_COMP ¼
+ ½
+0€€î`€€€€€â	4¼
+stack_14_ffn_dx1@0_X1COMM ¸
+hppp€€€È4½
+stack_14_ffn_dx1@0_X2_COMM °
+hppp€€Ä5¾
+stack_14_ffn_dw1@0_COMP ¿
+ »
+0€€î`€€€€€â	5¿
+stack_14_ffn_dw1@0_X2_COMM «
+hppp€€€È,À
+stack_14_ffn_dx00@0_COMP ·
+0€€€`
+6Á
+stack_14_ffn_dx01@0_COMP Â
+ »
+0€€î`€€€€€â	5Â
+stack_14_ffn_dx01@0_X2_COMM ¬
+hppp€€Ä3Ã
+stack_14_ffn_dx0@0_COMP Ä
+ À
+0€€€Ø`€€€È5Ä
+stack_14_ffn_dx0@0_X2_COMM Á
+hppp€€€€)Å
+stack_15_mha_x@0_COMP µ
+0€€€`
+%Æ
+stack_15_mha_wq@0_COMP0€€â	`
+%Ç
+stack_15_mha_wk@0_COMP0€€â	`
+%È
+stack_15_mha_wv@0_COMP0€€â	`
+3É
+stack_15_mha_q@0_COMP Ê
+ Ë
+0€€ÄÛ`€€€€À¸2Ê
+stack_15_mha_q@0_X1COMM Å
+hppp€€€È2Ë
+stack_15_mha_q@0_X2_COMM Æ
+hppp€€ñ3Ì
+stack_15_mha_k@0_COMP Í
+ Î
+0€€ÄÛ`€€€€À¸2Í
+stack_15_mha_k@0_X1COMM Å
+hppp€€€È2Î
+stack_15_mha_k@0_X2_COMM Ç
+hppp€€ñ3Ï
+stack_15_mha_v@0_COMP Ğ
+ Ñ
+0€€ÄÛ`€€€€À¸2Ğ
+stack_15_mha_v@0_X1COMM Å
+hppp€€€È2Ñ
+stack_15_mha_v@0_X2_COMM È
+hppp€€ñ3Ò
+stack_15_mha_qk@0_COMP É
+ Ì
+0€€€C`€€€€À4Ó
+stack_15_mha_qkv@0_COMP Ò
+ Ï
+0€€€C`€€€€À7Ô
+stack_15_mha_qkv_reshape@0_COMP Ó
+0€€€Ø`€€€È3Õ
+stack_15_mha_res@0_COMP Ô
+ Å
+0€€€Ø`€€€È0Ö
+stack_15_mha_norm@0_COMP Õ
+0€€€`€€€è.×
+stack_15_mha_d_norm@0_COMP Š‘
+0€€€`
+1Ø
+stack_15_mha_d_res@0_COMP ×
+0€€€`€€€è5Ù
+!stack_15_mha_d_qkv_reshape@0_COMP Ø
+0€€€`
+1Ú
+stack_15_mha_d_qkv@0_COMP Ù
+0€€€Ø`€€€È5Û
+stack_15_mha_d_qk@0_COMP Ú
+ Ï
+0€€€C`€€€€À4Ü
+stack_15_mha_d_v@0_COMP Ú
+ Ò
+0€€€C`€€€€À4İ
+stack_15_mha_d_q@0_COMP Û
+ Ì
+0€€€C`€€€€À4Ş
+stack_15_mha_d_k@0_COMP Û
+ É
+0€€€C`€€€€À6ß
+stack_15_mha_d_wq@0_COMP à
+ İ
+0€€ÄÛ`€€€€À¸6à
+stack_15_mha_d_wq@0_X2_COMM Å
+hppp€€€È6á
+stack_15_mha_d_wk@0_COMP â
+ Ş
+0€€ÄÛ`€€€€À¸6â
+stack_15_mha_d_wk@0_X2_COMM Å
+hppp€€€È6ã
+stack_15_mha_d_wv@0_COMP ä
+ Ü
+0€€ÄÛ`€€€€À¸6ä
+stack_15_mha_d_wv@0_X2_COMM Å
+hppp€€€È6å
+stack_15_mha_d_x1@0_COMP æ
+ İ
+0€€ÄÛ`€€€€À¸5æ
+stack_15_mha_d_x1@0_X2_COMM Æ
+hppp€€ñ6ç
+stack_15_mha_d_x2@0_COMP è
+ Ş
+0€€ÄÛ`€€€€À¸5è
+stack_15_mha_d_x2@0_X2_COMM Ç
+hppp€€ñ6é
+stack_15_mha_d_x3@0_COMP ê
+ Ü
+0€€ÄÛ`€€€€À¸5ê
+stack_15_mha_d_x3@0_X2_COMM È
+hppp€€ñ,ë
+stack_15_mha_d_x4@0_COMP Ø
+0€€€`
+5ì
+stack_15_mha_d_x12@0_COMP í
+ î
+0€€€Ø`€€€È6í
+stack_15_mha_d_x12@0_X1COMM å
+hppp€€€€7î
+stack_15_mha_d_x12@0_X2_COMM ç
+hppp€€€€5ï
+stack_15_mha_d_x34@0_COMP ğ
+ ë
+0€€€Ø`€€€È6ğ
+stack_15_mha_d_x34@0_X1COMM é
+hppp€€€€3ñ
+stack_15_mha_d_x@0_COMP ì
+ ï
+0€€€Ø`€€€È*ò
+stack_15_ffn_x0@0_COMP Ö
+0€€€`
+%ó
+stack_15_ffn_w1@0_COMP0€€ˆ'`
+4ô
+stack_15_ffn_x1@0_COMP õ
+ ö
+0€€î`€€€€€â	3õ
+stack_15_ffn_x1@0_X1COMM ò
+hppp€€€È3ö
+stack_15_ffn_x1@0_X2_COMM ó
+hppp€€Ä%÷
+stack_15_ffn_w2@0_COMP0€€ˆ'`
+4ø
+stack_15_ffn_x2@0_COMP ù
+ ô
+0€€î`€€€€€â	3ù
+stack_15_ffn_x2@0_X2_COMM ÷
+hppp€€Ä3ú
+stack_15_ffn_res@0_COMP û
+ ò
+0€€€Ø`€€€È4û
+stack_15_ffn_res@0_X1COMM ø
+hppp€€€€0ü
+stack_15_ffn_norm@0_COMP ú
+0€€€`€€€è-ı
+stack_15_ffn_dnorm@0_COMP ¸‘
+0€€€`
+0ş
+stack_15_ffn_dres@0_COMP ı
+0€€€`€€€è+ÿ
+stack_15_ffn_dx2@0_COMP ş
+0€€€`
+5€‘
+stack_15_ffn_dw2@0_COMP ‘
+ ô
+0€€î`€€€€€â	4‘
+stack_15_ffn_dw2@0_X1COMM ÿ
+hppp€€€È5‚‘
+stack_15_ffn_dx1@0_COMP ƒ‘
+ „‘
+0€€î`€€€€€â	4ƒ‘
+stack_15_ffn_dx1@0_X1COMM ÿ
+hppp€€€È4„‘
+stack_15_ffn_dx1@0_X2_COMM ÷
+hppp€€Ä5…‘
+stack_15_ffn_dw1@0_COMP †‘
+ ‚‘
+0€€î`€€€€€â	5†‘
+stack_15_ffn_dw1@0_X2_COMM ò
+hppp€€€È,‡‘
+stack_15_ffn_dx00@0_COMP ş
+0€€€`
+6ˆ‘
+stack_15_ffn_dx01@0_COMP ‰‘
+ ‚‘
+0€€î`€€€€€â	5‰‘
+stack_15_ffn_dx01@0_X2_COMM ó
+hppp€€Ä3Š‘
+stack_15_ffn_dx0@0_COMP ‹‘
+ ‡‘
+0€€€Ø`€€€È5‹‘
+stack_15_ffn_dx0@0_X2_COMM ˆ‘
+hppp€€€€)Œ‘
+stack_16_mha_x@0_COMP ü
+0€€€`
+%‘
+stack_16_mha_wq@0_COMP0€€â	`
+%‘
+stack_16_mha_wk@0_COMP0€€â	`
+%‘
+stack_16_mha_wv@0_COMP0€€â	`
+3‘
+stack_16_mha_q@0_COMP ‘‘
+ ’‘
+0€€ÄÛ`€€€€À¸2‘‘
+stack_16_mha_q@0_X1COMM Œ‘
+hppp€€€È2’‘
+stack_16_mha_q@0_X2_COMM ‘
+hppp€€ñ3“‘
+stack_16_mha_k@0_COMP ”‘
+ •‘
+0€€ÄÛ`€€€€À¸2”‘
+stack_16_mha_k@0_X1COMM Œ‘
+hppp€€€È2•‘
+stack_16_mha_k@0_X2_COMM ‘
+hppp€€ñ3–‘
+stack_16_mha_v@0_COMP —‘
+ ˜‘
+0€€ÄÛ`€€€€À¸2—‘
+stack_16_mha_v@0_X1COMM Œ‘
+hppp€€€È2˜‘
+stack_16_mha_v@0_X2_COMM ‘
+hppp€€ñ3™‘
+stack_16_mha_qk@0_COMP ‘
+ “‘
+0€€€C`€€€€À4š‘
+stack_16_mha_qkv@0_COMP ™‘
+ –‘
+0€€€C`€€€€À7›‘
+stack_16_mha_qkv_reshape@0_COMP š‘
+0€€€Ø`€€€È3œ‘
+stack_16_mha_res@0_COMP ›‘
+ Œ‘
+0€€€Ø`€€€È0‘
+stack_16_mha_norm@0_COMP œ‘
+0€€€`€€€è.‘
+stack_16_mha_d_norm@0_COMP Ñ‘
+0€€€`
+1Ÿ‘
+stack_16_mha_d_res@0_COMP ‘
+0€€€`€€€è5 ‘
+!stack_16_mha_d_qkv_reshape@0_COMP Ÿ‘
+0€€€`
+1¡‘
+stack_16_mha_d_qkv@0_COMP  ‘
+0€€€Ø`€€€È5¢‘
+stack_16_mha_d_qk@0_COMP ¡‘
+ –‘
+0€€€C`€€€€À4£‘
+stack_16_mha_d_v@0_COMP ¡‘
+ ™‘
+0€€€C`€€€€À4¤‘
+stack_16_mha_d_q@0_COMP ¢‘
+ “‘
+0€€€C`€€€€À4¥‘
+stack_16_mha_d_k@0_COMP ¢‘
+ ‘
+0€€€C`€€€€À6¦‘
+stack_16_mha_d_wq@0_COMP §‘
+ ¤‘
+0€€ÄÛ`€€€€À¸6§‘
+stack_16_mha_d_wq@0_X2_COMM Œ‘
+hppp€€€È6¨‘
+stack_16_mha_d_wk@0_COMP ©‘
+ ¥‘
+0€€ÄÛ`€€€€À¸6©‘
+stack_16_mha_d_wk@0_X2_COMM Œ‘
+hppp€€€È6ª‘
+stack_16_mha_d_wv@0_COMP «‘
+ £‘
+0€€ÄÛ`€€€€À¸6«‘
+stack_16_mha_d_wv@0_X2_COMM Œ‘
+hppp€€€È6¬‘
+stack_16_mha_d_x1@0_COMP ­‘
+ ¤‘
+0€€ÄÛ`€€€€À¸5­‘
+stack_16_mha_d_x1@0_X2_COMM ‘
+hppp€€ñ6®‘
+stack_16_mha_d_x2@0_COMP ¯‘
+ ¥‘
+0€€ÄÛ`€€€€À¸5¯‘
+stack_16_mha_d_x2@0_X2_COMM ‘
+hppp€€ñ6°‘
+stack_16_mha_d_x3@0_COMP ±‘
+ £‘
+0€€ÄÛ`€€€€À¸5±‘
+stack_16_mha_d_x3@0_X2_COMM ‘
+hppp€€ñ,²‘
+stack_16_mha_d_x4@0_COMP Ÿ‘
+0€€€`
+5³‘
+stack_16_mha_d_x12@0_COMP ´‘
+ µ‘
+0€€€Ø`€€€È6´‘
+stack_16_mha_d_x12@0_X1COMM ¬‘
+hppp€€€€7µ‘
+stack_16_mha_d_x12@0_X2_COMM ®‘
+hppp€€€€5¶‘
+stack_16_mha_d_x34@0_COMP ·‘
+ ²‘
+0€€€Ø`€€€È6·‘
+stack_16_mha_d_x34@0_X1COMM °‘
+hppp€€€€3¸‘
+stack_16_mha_d_x@0_COMP ³‘
+ ¶‘
+0€€€Ø`€€€È*¹‘
+stack_16_ffn_x0@0_COMP ‘
+0€€€`
+%º‘
+stack_16_ffn_w1@0_COMP0€€ˆ'`
+4»‘
+stack_16_ffn_x1@0_COMP ¼‘
+ ½‘
+0€€î`€€€€€â	3¼‘
+stack_16_ffn_x1@0_X1COMM ¹‘
+hppp€€€È3½‘
+stack_16_ffn_x1@0_X2_COMM º‘
+hppp€€Ä%¾‘
+stack_16_ffn_w2@0_COMP0€€ˆ'`
+4¿‘
+stack_16_ffn_x2@0_COMP À‘
+ »‘
+0€€î`€€€€€â	3À‘
+stack_16_ffn_x2@0_X2_COMM ¾‘
+hppp€€Ä3Á‘
+stack_16_ffn_res@0_COMP Â‘
+ ¹‘
+0€€€Ø`€€€È4Â‘
+stack_16_ffn_res@0_X1COMM ¿‘
+hppp€€€€0Ã‘
+stack_16_ffn_norm@0_COMP Á‘
+0€€€`€€€è-Ä‘
+stack_16_ffn_dnorm@0_COMP ÿ‘
+0€€€`
+0Å‘
+stack_16_ffn_dres@0_COMP Ä‘
+0€€€`€€€è+Æ‘
+stack_16_ffn_dx2@0_COMP Å‘
+0€€€`
+5Ç‘
+stack_16_ffn_dw2@0_COMP È‘
+ »‘
+0€€î`€€€€€â	4È‘
+stack_16_ffn_dw2@0_X1COMM Æ‘
+hppp€€€È5É‘
+stack_16_ffn_dx1@0_COMP Ê‘
+ Ë‘
+0€€î`€€€€€â	4Ê‘
+stack_16_ffn_dx1@0_X1COMM Æ‘
+hppp€€€È4Ë‘
+stack_16_ffn_dx1@0_X2_COMM ¾‘
+hppp€€Ä5Ì‘
+stack_16_ffn_dw1@0_COMP Í‘
+ É‘
+0€€î`€€€€€â	5Í‘
+stack_16_ffn_dw1@0_X2_COMM ¹‘
+hppp€€€È,Î‘
+stack_16_ffn_dx00@0_COMP Å‘
+0€€€`
+6Ï‘
+stack_16_ffn_dx01@0_COMP Ğ‘
+ É‘
+0€€î`€€€€€â	5Ğ‘
+stack_16_ffn_dx01@0_X2_COMM º‘
+hppp€€Ä3Ñ‘
+stack_16_ffn_dx0@0_COMP Ò‘
+ Î‘
+0€€€Ø`€€€È5Ò‘
+stack_16_ffn_dx0@0_X2_COMM Ï‘
+hppp€€€€)Ó‘
+stack_17_mha_x@0_COMP Ã‘
+0€€€`
+%Ô‘
+stack_17_mha_wq@0_COMP0€€â	`
+%Õ‘
+stack_17_mha_wk@0_COMP0€€â	`
+%Ö‘
+stack_17_mha_wv@0_COMP0€€â	`
+3×‘
+stack_17_mha_q@0_COMP Ø‘
+ Ù‘
+0€€ÄÛ`€€€€À¸2Ø‘
+stack_17_mha_q@0_X1COMM Ó‘
+hppp€€€È2Ù‘
+stack_17_mha_q@0_X2_COMM Ô‘
+hppp€€ñ3Ú‘
+stack_17_mha_k@0_COMP Û‘
+ Ü‘
+0€€ÄÛ`€€€€À¸2Û‘
+stack_17_mha_k@0_X1COMM Ó‘
+hppp€€€È2Ü‘
+stack_17_mha_k@0_X2_COMM Õ‘
+hppp€€ñ3İ‘
+stack_17_mha_v@0_COMP Ş‘
+ ß‘
+0€€ÄÛ`€€€€À¸2Ş‘
+stack_17_mha_v@0_X1COMM Ó‘
+hppp€€€È2ß‘
+stack_17_mha_v@0_X2_COMM Ö‘
+hppp€€ñ3à‘
+stack_17_mha_qk@0_COMP ×‘
+ Ú‘
+0€€€C`€€€€À4á‘
+stack_17_mha_qkv@0_COMP à‘
+ İ‘
+0€€€C`€€€€À7â‘
+stack_17_mha_qkv_reshape@0_COMP á‘
+0€€€Ø`€€€È3ã‘
+stack_17_mha_res@0_COMP â‘
+ Ó‘
+0€€€Ø`€€€È0ä‘
+stack_17_mha_norm@0_COMP ã‘
+0€€€`€€€è.å‘
+stack_17_mha_d_norm@0_COMP ˜’
+0€€€`
+1æ‘
+stack_17_mha_d_res@0_COMP å‘
+0€€€`€€€è5ç‘
+!stack_17_mha_d_qkv_reshape@0_COMP æ‘
+0€€€`
+1è‘
+stack_17_mha_d_qkv@0_COMP ç‘
+0€€€Ø`€€€È5é‘
+stack_17_mha_d_qk@0_COMP è‘
+ İ‘
+0€€€C`€€€€À4ê‘
+stack_17_mha_d_v@0_COMP è‘
+ à‘
+0€€€C`€€€€À4ë‘
+stack_17_mha_d_q@0_COMP é‘
+ Ú‘
+0€€€C`€€€€À4ì‘
+stack_17_mha_d_k@0_COMP é‘
+ ×‘
+0€€€C`€€€€À6í‘
+stack_17_mha_d_wq@0_COMP î‘
+ ë‘
+0€€ÄÛ`€€€€À¸6î‘
+stack_17_mha_d_wq@0_X2_COMM Ó‘
+hppp€€€È6ï‘
+stack_17_mha_d_wk@0_COMP ğ‘
+ ì‘
+0€€ÄÛ`€€€€À¸6ğ‘
+stack_17_mha_d_wk@0_X2_COMM Ó‘
+hppp€€€È6ñ‘
+stack_17_mha_d_wv@0_COMP ò‘
+ ê‘
+0€€ÄÛ`€€€€À¸6ò‘
+stack_17_mha_d_wv@0_X2_COMM Ó‘
+hppp€€€È6ó‘
+stack_17_mha_d_x1@0_COMP ô‘
+ ë‘
+0€€ÄÛ`€€€€À¸5ô‘
+stack_17_mha_d_x1@0_X2_COMM Ô‘
+hppp€€ñ6õ‘
+stack_17_mha_d_x2@0_COMP ö‘
+ ì‘
+0€€ÄÛ`€€€€À¸5ö‘
+stack_17_mha_d_x2@0_X2_COMM Õ‘
+hppp€€ñ6÷‘
+stack_17_mha_d_x3@0_COMP ø‘
+ ê‘
+0€€ÄÛ`€€€€À¸5ø‘
+stack_17_mha_d_x3@0_X2_COMM Ö‘
+hppp€€ñ,ù‘
+stack_17_mha_d_x4@0_COMP æ‘
+0€€€`
+5ú‘
+stack_17_mha_d_x12@0_COMP û‘
+ ü‘
+0€€€Ø`€€€È6û‘
+stack_17_mha_d_x12@0_X1COMM ó‘
+hppp€€€€7ü‘
+stack_17_mha_d_x12@0_X2_COMM õ‘
+hppp€€€€5ı‘
+stack_17_mha_d_x34@0_COMP ş‘
+ ù‘
+0€€€Ø`€€€È6ş‘
+stack_17_mha_d_x34@0_X1COMM ÷‘
+hppp€€€€3ÿ‘
+stack_17_mha_d_x@0_COMP ú‘
+ ı‘
+0€€€Ø`€€€È*€’
+stack_17_ffn_x0@0_COMP ä‘
+0€€€`
+%’
+stack_17_ffn_w1@0_COMP0€€ˆ'`
+4‚’
+stack_17_ffn_x1@0_COMP ƒ’
+ „’
+0€€î`€€€€€â	3ƒ’
+stack_17_ffn_x1@0_X1COMM €’
+hppp€€€È3„’
+stack_17_ffn_x1@0_X2_COMM ’
+hppp€€Ä%…’
+stack_17_ffn_w2@0_COMP0€€ˆ'`
+4†’
+stack_17_ffn_x2@0_COMP ‡’
+ ‚’
+0€€î`€€€€€â	3‡’
+stack_17_ffn_x2@0_X2_COMM …’
+hppp€€Ä3ˆ’
+stack_17_ffn_res@0_COMP ‰’
+ €’
+0€€€Ø`€€€È4‰’
+stack_17_ffn_res@0_X1COMM †’
+hppp€€€€0Š’
+stack_17_ffn_norm@0_COMP ˆ’
+0€€€`€€€è-‹’
+stack_17_ffn_dnorm@0_COMP Æ’
+0€€€`
+0Œ’
+stack_17_ffn_dres@0_COMP ‹’
+0€€€`€€€è+’
+stack_17_ffn_dx2@0_COMP Œ’
+0€€€`
+5’
+stack_17_ffn_dw2@0_COMP ’
+ ‚’
+0€€î`€€€€€â	4’
+stack_17_ffn_dw2@0_X1COMM ’
+hppp€€€È5’
+stack_17_ffn_dx1@0_COMP ‘’
+ ’’
+0€€î`€€€€€â	4‘’
+stack_17_ffn_dx1@0_X1COMM ’
+hppp€€€È4’’
+stack_17_ffn_dx1@0_X2_COMM …’
+hppp€€Ä5“’
+stack_17_ffn_dw1@0_COMP ”’
+ ’
+0€€î`€€€€€â	5”’
+stack_17_ffn_dw1@0_X2_COMM €’
+hppp€€€È,•’
+stack_17_ffn_dx00@0_COMP Œ’
+0€€€`
+6–’
+stack_17_ffn_dx01@0_COMP —’
+ ’
+0€€î`€€€€€â	5—’
+stack_17_ffn_dx01@0_X2_COMM ’
+hppp€€Ä3˜’
+stack_17_ffn_dx0@0_COMP ™’
+ •’
+0€€€Ø`€€€È5™’
+stack_17_ffn_dx0@0_X2_COMM –’
+hppp€€€€)š’
+stack_18_mha_x@0_COMP Š’
+0€€€`
+%›’
+stack_18_mha_wq@0_COMP0€€â	`
+%œ’
+stack_18_mha_wk@0_COMP0€€â	`
+%’
+stack_18_mha_wv@0_COMP0€€â	`
+3’
+stack_18_mha_q@0_COMP Ÿ’
+  ’
+0€€ÄÛ`€€€€À¸2Ÿ’
+stack_18_mha_q@0_X1COMM š’
+hppp€€€È2 ’
+stack_18_mha_q@0_X2_COMM ›’
+hppp€€ñ3¡’
+stack_18_mha_k@0_COMP ¢’
+ £’
+0€€ÄÛ`€€€€À¸2¢’
+stack_18_mha_k@0_X1COMM š’
+hppp€€€È2£’
+stack_18_mha_k@0_X2_COMM œ’
+hppp€€ñ3¤’
+stack_18_mha_v@0_COMP ¥’
+ ¦’
+0€€ÄÛ`€€€€À¸2¥’
+stack_18_mha_v@0_X1COMM š’
+hppp€€€È2¦’
+stack_18_mha_v@0_X2_COMM ’
+hppp€€ñ3§’
+stack_18_mha_qk@0_COMP ’
+ ¡’
+0€€€C`€€€€À4¨’
+stack_18_mha_qkv@0_COMP §’
+ ¤’
+0€€€C`€€€€À7©’
+stack_18_mha_qkv_reshape@0_COMP ¨’
+0€€€Ø`€€€È3ª’
+stack_18_mha_res@0_COMP ©’
+ š’
+0€€€Ø`€€€È0«’
+stack_18_mha_norm@0_COMP ª’
+0€€€`€€€è.¬’
+stack_18_mha_d_norm@0_COMP ß’
+0€€€`
+1­’
+stack_18_mha_d_res@0_COMP ¬’
+0€€€`€€€è5®’
+!stack_18_mha_d_qkv_reshape@0_COMP ­’
+0€€€`
+1¯’
+stack_18_mha_d_qkv@0_COMP ®’
+0€€€Ø`€€€È5°’
+stack_18_mha_d_qk@0_COMP ¯’
+ ¤’
+0€€€C`€€€€À4±’
+stack_18_mha_d_v@0_COMP ¯’
+ §’
+0€€€C`€€€€À4²’
+stack_18_mha_d_q@0_COMP °’
+ ¡’
+0€€€C`€€€€À4³’
+stack_18_mha_d_k@0_COMP °’
+ ’
+0€€€C`€€€€À6´’
+stack_18_mha_d_wq@0_COMP µ’
+ ²’
+0€€ÄÛ`€€€€À¸6µ’
+stack_18_mha_d_wq@0_X2_COMM š’
+hppp€€€È6¶’
+stack_18_mha_d_wk@0_COMP ·’
+ ³’
+0€€ÄÛ`€€€€À¸6·’
+stack_18_mha_d_wk@0_X2_COMM š’
+hppp€€€È6¸’
+stack_18_mha_d_wv@0_COMP ¹’
+ ±’
+0€€ÄÛ`€€€€À¸6¹’
+stack_18_mha_d_wv@0_X2_COMM š’
+hppp€€€È6º’
+stack_18_mha_d_x1@0_COMP »’
+ ²’
+0€€ÄÛ`€€€€À¸5»’
+stack_18_mha_d_x1@0_X2_COMM ›’
+hppp€€ñ6¼’
+stack_18_mha_d_x2@0_COMP ½’
+ ³’
+0€€ÄÛ`€€€€À¸5½’
+stack_18_mha_d_x2@0_X2_COMM œ’
+hppp€€ñ6¾’
+stack_18_mha_d_x3@0_COMP ¿’
+ ±’
+0€€ÄÛ`€€€€À¸5¿’
+stack_18_mha_d_x3@0_X2_COMM ’
+hppp€€ñ,À’
+stack_18_mha_d_x4@0_COMP ­’
+0€€€`
+5Á’
+stack_18_mha_d_x12@0_COMP Â’
+ Ã’
+0€€€Ø`€€€È6Â’
+stack_18_mha_d_x12@0_X1COMM º’
+hppp€€€€7Ã’
+stack_18_mha_d_x12@0_X2_COMM ¼’
+hppp€€€€5Ä’
+stack_18_mha_d_x34@0_COMP Å’
+ À’
+0€€€Ø`€€€È6Å’
+stack_18_mha_d_x34@0_X1COMM ¾’
+hppp€€€€3Æ’
+stack_18_mha_d_x@0_COMP Á’
+ Ä’
+0€€€Ø`€€€È*Ç’
+stack_18_ffn_x0@0_COMP «’
+0€€€`
+%È’
+stack_18_ffn_w1@0_COMP0€€ˆ'`
+4É’
+stack_18_ffn_x1@0_COMP Ê’
+ Ë’
+0€€î`€€€€€â	3Ê’
+stack_18_ffn_x1@0_X1COMM Ç’
+hppp€€€È3Ë’
+stack_18_ffn_x1@0_X2_COMM È’
+hppp€€Ä%Ì’
+stack_18_ffn_w2@0_COMP0€€ˆ'`
+4Í’
+stack_18_ffn_x2@0_COMP Î’
+ É’
+0€€î`€€€€€â	3Î’
+stack_18_ffn_x2@0_X2_COMM Ì’
+hppp€€Ä3Ï’
+stack_18_ffn_res@0_COMP Ğ’
+ Ç’
+0€€€Ø`€€€È4Ğ’
+stack_18_ffn_res@0_X1COMM Í’
+hppp€€€€0Ñ’
+stack_18_ffn_norm@0_COMP Ï’
+0€€€`€€€è-Ò’
+stack_18_ffn_dnorm@0_COMP “
+0€€€`
+0Ó’
+stack_18_ffn_dres@0_COMP Ò’
+0€€€`€€€è+Ô’
+stack_18_ffn_dx2@0_COMP Ó’
+0€€€`
+5Õ’
+stack_18_ffn_dw2@0_COMP Ö’
+ É’
+0€€î`€€€€€â	4Ö’
+stack_18_ffn_dw2@0_X1COMM Ô’
+hppp€€€È5×’
+stack_18_ffn_dx1@0_COMP Ø’
+ Ù’
+0€€î`€€€€€â	4Ø’
+stack_18_ffn_dx1@0_X1COMM Ô’
+hppp€€€È4Ù’
+stack_18_ffn_dx1@0_X2_COMM Ì’
+hppp€€Ä5Ú’
+stack_18_ffn_dw1@0_COMP Û’
+ ×’
+0€€î`€€€€€â	5Û’
+stack_18_ffn_dw1@0_X2_COMM Ç’
+hppp€€€È,Ü’
+stack_18_ffn_dx00@0_COMP Ó’
+0€€€`
+6İ’
+stack_18_ffn_dx01@0_COMP Ş’
+ ×’
+0€€î`€€€€€â	5Ş’
+stack_18_ffn_dx01@0_X2_COMM È’
+hppp€€Ä3ß’
+stack_18_ffn_dx0@0_COMP à’
+ Ü’
+0€€€Ø`€€€È5à’
+stack_18_ffn_dx0@0_X2_COMM İ’
+hppp€€€€)á’
+stack_19_mha_x@0_COMP Ñ’
+0€€€`
+%â’
+stack_19_mha_wq@0_COMP0€€â	`
+%ã’
+stack_19_mha_wk@0_COMP0€€â	`
+%ä’
+stack_19_mha_wv@0_COMP0€€â	`
+3å’
+stack_19_mha_q@0_COMP æ’
+ ç’
+0€€ÄÛ`€€€€À¸2æ’
+stack_19_mha_q@0_X1COMM á’
+hppp€€€È2ç’
+stack_19_mha_q@0_X2_COMM â’
+hppp€€ñ3è’
+stack_19_mha_k@0_COMP é’
+ ê’
+0€€ÄÛ`€€€€À¸2é’
+stack_19_mha_k@0_X1COMM á’
+hppp€€€È2ê’
+stack_19_mha_k@0_X2_COMM ã’
+hppp€€ñ3ë’
+stack_19_mha_v@0_COMP ì’
+ í’
+0€€ÄÛ`€€€€À¸2ì’
+stack_19_mha_v@0_X1COMM á’
+hppp€€€È2í’
+stack_19_mha_v@0_X2_COMM ä’
+hppp€€ñ3î’
+stack_19_mha_qk@0_COMP å’
+ è’
+0€€€C`€€€€À4ï’
+stack_19_mha_qkv@0_COMP î’
+ ë’
+0€€€C`€€€€À7ğ’
+stack_19_mha_qkv_reshape@0_COMP ï’
+0€€€Ø`€€€È3ñ’
+stack_19_mha_res@0_COMP ğ’
+ á’
+0€€€Ø`€€€È0ò’
+stack_19_mha_norm@0_COMP ñ’
+0€€€`€€€è.ó’
+stack_19_mha_d_norm@0_COMP ¦“
+0€€€`
+1ô’
+stack_19_mha_d_res@0_COMP ó’
+0€€€`€€€è5õ’
+!stack_19_mha_d_qkv_reshape@0_COMP ô’
+0€€€`
+1ö’
+stack_19_mha_d_qkv@0_COMP õ’
+0€€€Ø`€€€È5÷’
+stack_19_mha_d_qk@0_COMP ö’
+ ë’
+0€€€C`€€€€À4ø’
+stack_19_mha_d_v@0_COMP ö’
+ î’
+0€€€C`€€€€À4ù’
+stack_19_mha_d_q@0_COMP ÷’
+ è’
+0€€€C`€€€€À4ú’
+stack_19_mha_d_k@0_COMP ÷’
+ å’
+0€€€C`€€€€À6û’
+stack_19_mha_d_wq@0_COMP ü’
+ ù’
+0€€ÄÛ`€€€€À¸6ü’
+stack_19_mha_d_wq@0_X2_COMM á’
+hppp€€€È6ı’
+stack_19_mha_d_wk@0_COMP ş’
+ ú’
+0€€ÄÛ`€€€€À¸6ş’
+stack_19_mha_d_wk@0_X2_COMM á’
+hppp€€€È6ÿ’
+stack_19_mha_d_wv@0_COMP €“
+ ø’
+0€€ÄÛ`€€€€À¸6€“
+stack_19_mha_d_wv@0_X2_COMM á’
+hppp€€€È6“
+stack_19_mha_d_x1@0_COMP ‚“
+ ù’
+0€€ÄÛ`€€€€À¸5‚“
+stack_19_mha_d_x1@0_X2_COMM â’
+hppp€€ñ6ƒ“
+stack_19_mha_d_x2@0_COMP „“
+ ú’
+0€€ÄÛ`€€€€À¸5„“
+stack_19_mha_d_x2@0_X2_COMM ã’
+hppp€€ñ6…“
+stack_19_mha_d_x3@0_COMP †“
+ ø’
+0€€ÄÛ`€€€€À¸5†“
+stack_19_mha_d_x3@0_X2_COMM ä’
+hppp€€ñ,‡“
+stack_19_mha_d_x4@0_COMP ô’
+0€€€`
+5ˆ“
+stack_19_mha_d_x12@0_COMP ‰“
+ Š“
+0€€€Ø`€€€È6‰“
+stack_19_mha_d_x12@0_X1COMM “
+hppp€€€€7Š“
+stack_19_mha_d_x12@0_X2_COMM ƒ“
+hppp€€€€5‹“
+stack_19_mha_d_x34@0_COMP Œ“
+ ‡“
+0€€€Ø`€€€È6Œ“
+stack_19_mha_d_x34@0_X1COMM …“
+hppp€€€€3“
+stack_19_mha_d_x@0_COMP ˆ“
+ ‹“
+0€€€Ø`€€€È*“
+stack_19_ffn_x0@0_COMP ò’
+0€€€`
+%“
+stack_19_ffn_w1@0_COMP0€€ˆ'`
+4“
+stack_19_ffn_x1@0_COMP ‘“
+ ’“
+0€€î`€€€€€â	3‘“
+stack_19_ffn_x1@0_X1COMM “
+hppp€€€È3’“
+stack_19_ffn_x1@0_X2_COMM “
+hppp€€Ä%““
+stack_19_ffn_w2@0_COMP0€€ˆ'`
+4”“
+stack_19_ffn_x2@0_COMP •“
+ “
+0€€î`€€€€€â	3•“
+stack_19_ffn_x2@0_X2_COMM ““
+hppp€€Ä3–“
+stack_19_ffn_res@0_COMP —“
+ “
+0€€€Ø`€€€È4—“
+stack_19_ffn_res@0_X1COMM ”“
+hppp€€€€0˜“
+stack_19_ffn_norm@0_COMP –“
+0€€€`€€€è-™“
+stack_19_ffn_dnorm@0_COMP Ô“
+0€€€`
+0š“
+stack_19_ffn_dres@0_COMP ™“
+0€€€`€€€è+›“
+stack_19_ffn_dx2@0_COMP š“
+0€€€`
+5œ“
+stack_19_ffn_dw2@0_COMP “
+ “
+0€€î`€€€€€â	4“
+stack_19_ffn_dw2@0_X1COMM ›“
+hppp€€€È5“
+stack_19_ffn_dx1@0_COMP Ÿ“
+  “
+0€€î`€€€€€â	4Ÿ“
+stack_19_ffn_dx1@0_X1COMM ›“
+hppp€€€È4 “
+stack_19_ffn_dx1@0_X2_COMM ““
+hppp€€Ä5¡“
+stack_19_ffn_dw1@0_COMP ¢“
+ “
+0€€î`€€€€€â	5¢“
+stack_19_ffn_dw1@0_X2_COMM “
+hppp€€€È,£“
+stack_19_ffn_dx00@0_COMP š“
+0€€€`
+6¤“
+stack_19_ffn_dx01@0_COMP ¥“
+ “
+0€€î`€€€€€â	5¥“
+stack_19_ffn_dx01@0_X2_COMM “
+hppp€€Ä3¦“
+stack_19_ffn_dx0@0_COMP §“
+ £“
+0€€€Ø`€€€È5§“
+stack_19_ffn_dx0@0_X2_COMM ¤“
+hppp€€€€)¨“
+stack_20_mha_x@0_COMP ˜“
+0€€€`
+%©“
+stack_20_mha_wq@0_COMP0€€â	`
+%ª“
+stack_20_mha_wk@0_COMP0€€â	`
+%«“
+stack_20_mha_wv@0_COMP0€€â	`
+3¬“
+stack_20_mha_q@0_COMP ­“
+ ®“
+0€€ÄÛ`€€€€À¸2­“
+stack_20_mha_q@0_X1COMM ¨“
+hppp€€€È2®“
+stack_20_mha_q@0_X2_COMM ©“
+hppp€€ñ3¯“
+stack_20_mha_k@0_COMP °“
+ ±“
+0€€ÄÛ`€€€€À¸2°“
+stack_20_mha_k@0_X1COMM ¨“
+hppp€€€È2±“
+stack_20_mha_k@0_X2_COMM ª“
+hppp€€ñ3²“
+stack_20_mha_v@0_COMP ³“
+ ´“
+0€€ÄÛ`€€€€À¸2³“
+stack_20_mha_v@0_X1COMM ¨“
+hppp€€€È2´“
+stack_20_mha_v@0_X2_COMM «“
+hppp€€ñ3µ“
+stack_20_mha_qk@0_COMP ¬“
+ ¯“
+0€€€C`€€€€À4¶“
+stack_20_mha_qkv@0_COMP µ“
+ ²“
+0€€€C`€€€€À7·“
+stack_20_mha_qkv_reshape@0_COMP ¶“
+0€€€Ø`€€€È3¸“
+stack_20_mha_res@0_COMP ·“
+ ¨“
+0€€€Ø`€€€È0¹“
+stack_20_mha_norm@0_COMP ¸“
+0€€€`€€€è.º“
+stack_20_mha_d_norm@0_COMP í“
+0€€€`
+1»“
+stack_20_mha_d_res@0_COMP º“
+0€€€`€€€è5¼“
+!stack_20_mha_d_qkv_reshape@0_COMP »“
+0€€€`
+1½“
+stack_20_mha_d_qkv@0_COMP ¼“
+0€€€Ø`€€€È5¾“
+stack_20_mha_d_qk@0_COMP ½“
+ ²“
+0€€€C`€€€€À4¿“
+stack_20_mha_d_v@0_COMP ½“
+ µ“
+0€€€C`€€€€À4À“
+stack_20_mha_d_q@0_COMP ¾“
+ ¯“
+0€€€C`€€€€À4Á“
+stack_20_mha_d_k@0_COMP ¾“
+ ¬“
+0€€€C`€€€€À6Â“
+stack_20_mha_d_wq@0_COMP Ã“
+ À“
+0€€ÄÛ`€€€€À¸6Ã“
+stack_20_mha_d_wq@0_X2_COMM ¨“
+hppp€€€È6Ä“
+stack_20_mha_d_wk@0_COMP Å“
+ Á“
+0€€ÄÛ`€€€€À¸6Å“
+stack_20_mha_d_wk@0_X2_COMM ¨“
+hppp€€€È6Æ“
+stack_20_mha_d_wv@0_COMP Ç“
+ ¿“
+0€€ÄÛ`€€€€À¸6Ç“
+stack_20_mha_d_wv@0_X2_COMM ¨“
+hppp€€€È6È“
+stack_20_mha_d_x1@0_COMP É“
+ À“
+0€€ÄÛ`€€€€À¸5É“
+stack_20_mha_d_x1@0_X2_COMM ©“
+hppp€€ñ6Ê“
+stack_20_mha_d_x2@0_COMP Ë“
+ Á“
+0€€ÄÛ`€€€€À¸5Ë“
+stack_20_mha_d_x2@0_X2_COMM ª“
+hppp€€ñ6Ì“
+stack_20_mha_d_x3@0_COMP Í“
+ ¿“
+0€€ÄÛ`€€€€À¸5Í“
+stack_20_mha_d_x3@0_X2_COMM «“
+hppp€€ñ,Î“
+stack_20_mha_d_x4@0_COMP »“
+0€€€`
+5Ï“
+stack_20_mha_d_x12@0_COMP Ğ“
+ Ñ“
+0€€€Ø`€€€È6Ğ“
+stack_20_mha_d_x12@0_X1COMM È“
+hppp€€€€7Ñ“
+stack_20_mha_d_x12@0_X2_COMM Ê“
+hppp€€€€5Ò“
+stack_20_mha_d_x34@0_COMP Ó“
+ Î“
+0€€€Ø`€€€È6Ó“
+stack_20_mha_d_x34@0_X1COMM Ì“
+hppp€€€€3Ô“
+stack_20_mha_d_x@0_COMP Ï“
+ Ò“
+0€€€Ø`€€€È*Õ“
+stack_20_ffn_x0@0_COMP ¹“
+0€€€`
+%Ö“
+stack_20_ffn_w1@0_COMP0€€ˆ'`
+4×“
+stack_20_ffn_x1@0_COMP Ø“
+ Ù“
+0€€î`€€€€€â	3Ø“
+stack_20_ffn_x1@0_X1COMM Õ“
+hppp€€€È3Ù“
+stack_20_ffn_x1@0_X2_COMM Ö“
+hppp€€Ä%Ú“
+stack_20_ffn_w2@0_COMP0€€ˆ'`
+4Û“
+stack_20_ffn_x2@0_COMP Ü“
+ ×“
+0€€î`€€€€€â	3Ü“
+stack_20_ffn_x2@0_X2_COMM Ú“
+hppp€€Ä3İ“
+stack_20_ffn_res@0_COMP Ş“
+ Õ“
+0€€€Ø`€€€È4Ş“
+stack_20_ffn_res@0_X1COMM Û“
+hppp€€€€0ß“
+stack_20_ffn_norm@0_COMP İ“
+0€€€`€€€è-à“
+stack_20_ffn_dnorm@0_COMP ›”
+0€€€`
+0á“
+stack_20_ffn_dres@0_COMP à“
+0€€€`€€€è+â“
+stack_20_ffn_dx2@0_COMP á“
+0€€€`
+5ã“
+stack_20_ffn_dw2@0_COMP ä“
+ ×“
+0€€î`€€€€€â	4ä“
+stack_20_ffn_dw2@0_X1COMM â“
+hppp€€€È5å“
+stack_20_ffn_dx1@0_COMP æ“
+ ç“
+0€€î`€€€€€â	4æ“
+stack_20_ffn_dx1@0_X1COMM â“
+hppp€€€È4ç“
+stack_20_ffn_dx1@0_X2_COMM Ú“
+hppp€€Ä5è“
+stack_20_ffn_dw1@0_COMP é“
+ å“
+0€€î`€€€€€â	5é“
+stack_20_ffn_dw1@0_X2_COMM Õ“
+hppp€€€È,ê“
+stack_20_ffn_dx00@0_COMP á“
+0€€€`
+6ë“
+stack_20_ffn_dx01@0_COMP ì“
+ å“
+0€€î`€€€€€â	5ì“
+stack_20_ffn_dx01@0_X2_COMM Ö“
+hppp€€Ä3í“
+stack_20_ffn_dx0@0_COMP î“
+ ê“
+0€€€Ø`€€€È5î“
+stack_20_ffn_dx0@0_X2_COMM ë“
+hppp€€€€)ï“
+stack_21_mha_x@0_COMP ß“
+0€€€`
+%ğ“
+stack_21_mha_wq@0_COMP0€€â	`
+%ñ“
+stack_21_mha_wk@0_COMP0€€â	`
+%ò“
+stack_21_mha_wv@0_COMP0€€â	`
+3ó“
+stack_21_mha_q@0_COMP ô“
+ õ“
+0€€ÄÛ`€€€€À¸2ô“
+stack_21_mha_q@0_X1COMM ï“
+hppp€€€È2õ“
+stack_21_mha_q@0_X2_COMM ğ“
+hppp€€ñ3ö“
+stack_21_mha_k@0_COMP ÷“
+ ø“
+0€€ÄÛ`€€€€À¸2÷“
+stack_21_mha_k@0_X1COMM ï“
+hppp€€€È2ø“
+stack_21_mha_k@0_X2_COMM ñ“
+hppp€€ñ3ù“
+stack_21_mha_v@0_COMP ú“
+ û“
+0€€ÄÛ`€€€€À¸2ú“
+stack_21_mha_v@0_X1COMM ï“
+hppp€€€È2û“
+stack_21_mha_v@0_X2_COMM ò“
+hppp€€ñ3ü“
+stack_21_mha_qk@0_COMP ó“
+ ö“
+0€€€C`€€€€À4ı“
+stack_21_mha_qkv@0_COMP ü“
+ ù“
+0€€€C`€€€€À7ş“
+stack_21_mha_qkv_reshape@0_COMP ı“
+0€€€Ø`€€€È3ÿ“
+stack_21_mha_res@0_COMP ş“
+ ï“
+0€€€Ø`€€€È0€”
+stack_21_mha_norm@0_COMP ÿ“
+0€€€`€€€è.”
+stack_21_mha_d_norm@0_COMP ´”
+0€€€`
+1‚”
+stack_21_mha_d_res@0_COMP ”
+0€€€`€€€è5ƒ”
+!stack_21_mha_d_qkv_reshape@0_COMP ‚”
+0€€€`
+1„”
+stack_21_mha_d_qkv@0_COMP ƒ”
+0€€€Ø`€€€È5…”
+stack_21_mha_d_qk@0_COMP „”
+ ù“
+0€€€C`€€€€À4†”
+stack_21_mha_d_v@0_COMP „”
+ ü“
+0€€€C`€€€€À4‡”
+stack_21_mha_d_q@0_COMP …”
+ ö“
+0€€€C`€€€€À4ˆ”
+stack_21_mha_d_k@0_COMP …”
+ ó“
+0€€€C`€€€€À6‰”
+stack_21_mha_d_wq@0_COMP Š”
+ ‡”
+0€€ÄÛ`€€€€À¸6Š”
+stack_21_mha_d_wq@0_X2_COMM ï“
+hppp€€€È6‹”
+stack_21_mha_d_wk@0_COMP Œ”
+ ˆ”
+0€€ÄÛ`€€€€À¸6Œ”
+stack_21_mha_d_wk@0_X2_COMM ï“
+hppp€€€È6”
+stack_21_mha_d_wv@0_COMP ”
+ †”
+0€€ÄÛ`€€€€À¸6”
+stack_21_mha_d_wv@0_X2_COMM ï“
+hppp€€€È6”
+stack_21_mha_d_x1@0_COMP ”
+ ‡”
+0€€ÄÛ`€€€€À¸5”
+stack_21_mha_d_x1@0_X2_COMM ğ“
+hppp€€ñ6‘”
+stack_21_mha_d_x2@0_COMP ’”
+ ˆ”
+0€€ÄÛ`€€€€À¸5’”
+stack_21_mha_d_x2@0_X2_COMM ñ“
+hppp€€ñ6“”
+stack_21_mha_d_x3@0_COMP ””
+ †”
+0€€ÄÛ`€€€€À¸5””
+stack_21_mha_d_x3@0_X2_COMM ò“
+hppp€€ñ,•”
+stack_21_mha_d_x4@0_COMP ‚”
+0€€€`
+5–”
+stack_21_mha_d_x12@0_COMP —”
+ ˜”
+0€€€Ø`€€€È6—”
+stack_21_mha_d_x12@0_X1COMM ”
+hppp€€€€7˜”
+stack_21_mha_d_x12@0_X2_COMM ‘”
+hppp€€€€5™”
+stack_21_mha_d_x34@0_COMP š”
+ •”
+0€€€Ø`€€€È6š”
+stack_21_mha_d_x34@0_X1COMM “”
+hppp€€€€3›”
+stack_21_mha_d_x@0_COMP –”
+ ™”
+0€€€Ø`€€€È*œ”
+stack_21_ffn_x0@0_COMP €”
+0€€€`
+%”
+stack_21_ffn_w1@0_COMP0€€ˆ'`
+4”
+stack_21_ffn_x1@0_COMP Ÿ”
+  ”
+0€€î`€€€€€â	3Ÿ”
+stack_21_ffn_x1@0_X1COMM œ”
+hppp€€€È3 ”
+stack_21_ffn_x1@0_X2_COMM ”
+hppp€€Ä%¡”
+stack_21_ffn_w2@0_COMP0€€ˆ'`
+4¢”
+stack_21_ffn_x2@0_COMP £”
+ ”
+0€€î`€€€€€â	3£”
+stack_21_ffn_x2@0_X2_COMM ¡”
+hppp€€Ä3¤”
+stack_21_ffn_res@0_COMP ¥”
+ œ”
+0€€€Ø`€€€È4¥”
+stack_21_ffn_res@0_X1COMM ¢”
+hppp€€€€0¦”
+stack_21_ffn_norm@0_COMP ¤”
+0€€€`€€€è-§”
+stack_21_ffn_dnorm@0_COMP â”
+0€€€`
+0¨”
+stack_21_ffn_dres@0_COMP §”
+0€€€`€€€è+©”
+stack_21_ffn_dx2@0_COMP ¨”
+0€€€`
+5ª”
+stack_21_ffn_dw2@0_COMP «”
+ ”
+0€€î`€€€€€â	4«”
+stack_21_ffn_dw2@0_X1COMM ©”
+hppp€€€È5¬”
+stack_21_ffn_dx1@0_COMP ­”
+ ®”
+0€€î`€€€€€â	4­”
+stack_21_ffn_dx1@0_X1COMM ©”
+hppp€€€È4®”
+stack_21_ffn_dx1@0_X2_COMM ¡”
+hppp€€Ä5¯”
+stack_21_ffn_dw1@0_COMP °”
+ ¬”
+0€€î`€€€€€â	5°”
+stack_21_ffn_dw1@0_X2_COMM œ”
+hppp€€€È,±”
+stack_21_ffn_dx00@0_COMP ¨”
+0€€€`
+6²”
+stack_21_ffn_dx01@0_COMP ³”
+ ¬”
+0€€î`€€€€€â	5³”
+stack_21_ffn_dx01@0_X2_COMM ”
+hppp€€Ä3´”
+stack_21_ffn_dx0@0_COMP µ”
+ ±”
+0€€€Ø`€€€È5µ”
+stack_21_ffn_dx0@0_X2_COMM ²”
+hppp€€€€)¶”
+stack_22_mha_x@0_COMP ¦”
+0€€€`
+%·”
+stack_22_mha_wq@0_COMP0€€â	`
+%¸”
+stack_22_mha_wk@0_COMP0€€â	`
+%¹”
+stack_22_mha_wv@0_COMP0€€â	`
+3º”
+stack_22_mha_q@0_COMP »”
+ ¼”
+0€€ÄÛ`€€€€À¸2»”
+stack_22_mha_q@0_X1COMM ¶”
+hppp€€€È2¼”
+stack_22_mha_q@0_X2_COMM ·”
+hppp€€ñ3½”
+stack_22_mha_k@0_COMP ¾”
+ ¿”
+0€€ÄÛ`€€€€À¸2¾”
+stack_22_mha_k@0_X1COMM ¶”
+hppp€€€È2¿”
+stack_22_mha_k@0_X2_COMM ¸”
+hppp€€ñ3À”
+stack_22_mha_v@0_COMP Á”
+ Â”
+0€€ÄÛ`€€€€À¸2Á”
+stack_22_mha_v@0_X1COMM ¶”
+hppp€€€È2Â”
+stack_22_mha_v@0_X2_COMM ¹”
+hppp€€ñ3Ã”
+stack_22_mha_qk@0_COMP º”
+ ½”
+0€€€C`€€€€À4Ä”
+stack_22_mha_qkv@0_COMP Ã”
+ À”
+0€€€C`€€€€À7Å”
+stack_22_mha_qkv_reshape@0_COMP Ä”
+0€€€Ø`€€€È3Æ”
+stack_22_mha_res@0_COMP Å”
+ ¶”
+0€€€Ø`€€€È0Ç”
+stack_22_mha_norm@0_COMP Æ”
+0€€€`€€€è.È”
+stack_22_mha_d_norm@0_COMP û”
+0€€€`
+1É”
+stack_22_mha_d_res@0_COMP È”
+0€€€`€€€è5Ê”
+!stack_22_mha_d_qkv_reshape@0_COMP É”
+0€€€`
+1Ë”
+stack_22_mha_d_qkv@0_COMP Ê”
+0€€€Ø`€€€È5Ì”
+stack_22_mha_d_qk@0_COMP Ë”
+ À”
+0€€€C`€€€€À4Í”
+stack_22_mha_d_v@0_COMP Ë”
+ Ã”
+0€€€C`€€€€À4Î”
+stack_22_mha_d_q@0_COMP Ì”
+ ½”
+0€€€C`€€€€À4Ï”
+stack_22_mha_d_k@0_COMP Ì”
+ º”
+0€€€C`€€€€À6Ğ”
+stack_22_mha_d_wq@0_COMP Ñ”
+ Î”
+0€€ÄÛ`€€€€À¸6Ñ”
+stack_22_mha_d_wq@0_X2_COMM ¶”
+hppp€€€È6Ò”
+stack_22_mha_d_wk@0_COMP Ó”
+ Ï”
+0€€ÄÛ`€€€€À¸6Ó”
+stack_22_mha_d_wk@0_X2_COMM ¶”
+hppp€€€È6Ô”
+stack_22_mha_d_wv@0_COMP Õ”
+ Í”
+0€€ÄÛ`€€€€À¸6Õ”
+stack_22_mha_d_wv@0_X2_COMM ¶”
+hppp€€€È6Ö”
+stack_22_mha_d_x1@0_COMP ×”
+ Î”
+0€€ÄÛ`€€€€À¸5×”
+stack_22_mha_d_x1@0_X2_COMM ·”
+hppp€€ñ6Ø”
+stack_22_mha_d_x2@0_COMP Ù”
+ Ï”
+0€€ÄÛ`€€€€À¸5Ù”
+stack_22_mha_d_x2@0_X2_COMM ¸”
+hppp€€ñ6Ú”
+stack_22_mha_d_x3@0_COMP Û”
+ Í”
+0€€ÄÛ`€€€€À¸5Û”
+stack_22_mha_d_x3@0_X2_COMM ¹”
+hppp€€ñ,Ü”
+stack_22_mha_d_x4@0_COMP É”
+0€€€`
+5İ”
+stack_22_mha_d_x12@0_COMP Ş”
+ ß”
+0€€€Ø`€€€È6Ş”
+stack_22_mha_d_x12@0_X1COMM Ö”
+hppp€€€€7ß”
+stack_22_mha_d_x12@0_X2_COMM Ø”
+hppp€€€€5à”
+stack_22_mha_d_x34@0_COMP á”
+ Ü”
+0€€€Ø`€€€È6á”
+stack_22_mha_d_x34@0_X1COMM Ú”
+hppp€€€€3â”
+stack_22_mha_d_x@0_COMP İ”
+ à”
+0€€€Ø`€€€È*ã”
+stack_22_ffn_x0@0_COMP Ç”
+0€€€`
+%ä”
+stack_22_ffn_w1@0_COMP0€€ˆ'`
+4å”
+stack_22_ffn_x1@0_COMP æ”
+ ç”
+0€€î`€€€€€â	3æ”
+stack_22_ffn_x1@0_X1COMM ã”
+hppp€€€È3ç”
+stack_22_ffn_x1@0_X2_COMM ä”
+hppp€€Ä%è”
+stack_22_ffn_w2@0_COMP0€€ˆ'`
+4é”
+stack_22_ffn_x2@0_COMP ê”
+ å”
+0€€î`€€€€€â	3ê”
+stack_22_ffn_x2@0_X2_COMM è”
+hppp€€Ä3ë”
+stack_22_ffn_res@0_COMP ì”
+ ã”
+0€€€Ø`€€€È4ì”
+stack_22_ffn_res@0_X1COMM é”
+hppp€€€€0í”
+stack_22_ffn_norm@0_COMP ë”
+0€€€`€€€è-î”
+stack_22_ffn_dnorm@0_COMP ©•
+0€€€`
+0ï”
+stack_22_ffn_dres@0_COMP î”
+0€€€`€€€è+ğ”
+stack_22_ffn_dx2@0_COMP ï”
+0€€€`
+5ñ”
+stack_22_ffn_dw2@0_COMP ò”
+ å”
+0€€î`€€€€€â	4ò”
+stack_22_ffn_dw2@0_X1COMM ğ”
+hppp€€€È5ó”
+stack_22_ffn_dx1@0_COMP ô”
+ õ”
+0€€î`€€€€€â	4ô”
+stack_22_ffn_dx1@0_X1COMM ğ”
+hppp€€€È4õ”
+stack_22_ffn_dx1@0_X2_COMM è”
+hppp€€Ä5ö”
+stack_22_ffn_dw1@0_COMP ÷”
+ ó”
+0€€î`€€€€€â	5÷”
+stack_22_ffn_dw1@0_X2_COMM ã”
+hppp€€€È,ø”
+stack_22_ffn_dx00@0_COMP ï”
+0€€€`
+6ù”
+stack_22_ffn_dx01@0_COMP ú”
+ ó”
+0€€î`€€€€€â	5ú”
+stack_22_ffn_dx01@0_X2_COMM ä”
+hppp€€Ä3û”
+stack_22_ffn_dx0@0_COMP ü”
+ ø”
+0€€€Ø`€€€È5ü”
+stack_22_ffn_dx0@0_X2_COMM ù”
+hppp€€€€)ı”
+stack_23_mha_x@0_COMP í”
+0€€€`
+%ş”
+stack_23_mha_wq@0_COMP0€€â	`
+%ÿ”
+stack_23_mha_wk@0_COMP0€€â	`
+%€•
+stack_23_mha_wv@0_COMP0€€â	`
+3•
+stack_23_mha_q@0_COMP ‚•
+ ƒ•
+0€€ÄÛ`€€€€À¸2‚•
+stack_23_mha_q@0_X1COMM ı”
+hppp€€€È2ƒ•
+stack_23_mha_q@0_X2_COMM ş”
+hppp€€ñ3„•
+stack_23_mha_k@0_COMP …•
+ †•
+0€€ÄÛ`€€€€À¸2…•
+stack_23_mha_k@0_X1COMM ı”
+hppp€€€È2†•
+stack_23_mha_k@0_X2_COMM ÿ”
+hppp€€ñ3‡•
+stack_23_mha_v@0_COMP ˆ•
+ ‰•
+0€€ÄÛ`€€€€À¸2ˆ•
+stack_23_mha_v@0_X1COMM ı”
+hppp€€€È2‰•
+stack_23_mha_v@0_X2_COMM €•
+hppp€€ñ3Š•
+stack_23_mha_qk@0_COMP •
+ „•
+0€€€C`€€€€À4‹•
+stack_23_mha_qkv@0_COMP Š•
+ ‡•
+0€€€C`€€€€À7Œ•
+stack_23_mha_qkv_reshape@0_COMP ‹•
+0€€€Ø`€€€È3•
+stack_23_mha_res@0_COMP Œ•
+ ı”
+0€€€Ø`€€€È0•
+stack_23_mha_norm@0_COMP •
+0€€€`€€€è.•
+stack_23_mha_d_norm@0_COMP Â•
+0€€€`
+1•
+stack_23_mha_d_res@0_COMP •
+0€€€`€€€è5‘•
+!stack_23_mha_d_qkv_reshape@0_COMP •
+0€€€`
+1’•
+stack_23_mha_d_qkv@0_COMP ‘•
+0€€€Ø`€€€È5“•
+stack_23_mha_d_qk@0_COMP ’•
+ ‡•
+0€€€C`€€€€À4”•
+stack_23_mha_d_v@0_COMP ’•
+ Š•
+0€€€C`€€€€À4••
+stack_23_mha_d_q@0_COMP “•
+ „•
+0€€€C`€€€€À4–•
+stack_23_mha_d_k@0_COMP “•
+ •
+0€€€C`€€€€À6—•
+stack_23_mha_d_wq@0_COMP ˜•
+ ••
+0€€ÄÛ`€€€€À¸6˜•
+stack_23_mha_d_wq@0_X2_COMM ı”
+hppp€€€È6™•
+stack_23_mha_d_wk@0_COMP š•
+ –•
+0€€ÄÛ`€€€€À¸6š•
+stack_23_mha_d_wk@0_X2_COMM ı”
+hppp€€€È6›•
+stack_23_mha_d_wv@0_COMP œ•
+ ”•
+0€€ÄÛ`€€€€À¸6œ•
+stack_23_mha_d_wv@0_X2_COMM ı”
+hppp€€€È6•
+stack_23_mha_d_x1@0_COMP •
+ ••
+0€€ÄÛ`€€€€À¸5•
+stack_23_mha_d_x1@0_X2_COMM ş”
+hppp€€ñ6Ÿ•
+stack_23_mha_d_x2@0_COMP  •
+ –•
+0€€ÄÛ`€€€€À¸5 •
+stack_23_mha_d_x2@0_X2_COMM ÿ”
+hppp€€ñ6¡•
+stack_23_mha_d_x3@0_COMP ¢•
+ ”•
+0€€ÄÛ`€€€€À¸5¢•
+stack_23_mha_d_x3@0_X2_COMM €•
+hppp€€ñ,£•
+stack_23_mha_d_x4@0_COMP •
+0€€€`
+5¤•
+stack_23_mha_d_x12@0_COMP ¥•
+ ¦•
+0€€€Ø`€€€È6¥•
+stack_23_mha_d_x12@0_X1COMM •
+hppp€€€€7¦•
+stack_23_mha_d_x12@0_X2_COMM Ÿ•
+hppp€€€€5§•
+stack_23_mha_d_x34@0_COMP ¨•
+ £•
+0€€€Ø`€€€È6¨•
+stack_23_mha_d_x34@0_X1COMM ¡•
+hppp€€€€3©•
+stack_23_mha_d_x@0_COMP ¤•
+ §•
+0€€€Ø`€€€È*ª•
+stack_23_ffn_x0@0_COMP •
+0€€€`
+%«•
+stack_23_ffn_w1@0_COMP0€€ˆ'`
+4¬•
+stack_23_ffn_x1@0_COMP ­•
+ ®•
+0€€î`€€€€€â	3­•
+stack_23_ffn_x1@0_X1COMM ª•
+hppp€€€È3®•
+stack_23_ffn_x1@0_X2_COMM «•
+hppp€€Ä%¯•
+stack_23_ffn_w2@0_COMP0€€ˆ'`
+4°•
+stack_23_ffn_x2@0_COMP ±•
+ ¬•
+0€€î`€€€€€â	3±•
+stack_23_ffn_x2@0_X2_COMM ¯•
+hppp€€Ä3²•
+stack_23_ffn_res@0_COMP ³•
+ ª•
+0€€€Ø`€€€È4³•
+stack_23_ffn_res@0_X1COMM °•
+hppp€€€€0´•
+stack_23_ffn_norm@0_COMP ²•
+0€€€`€€€è-µ•
+stack_23_ffn_dnorm@0_COMP ğ•
+0€€€`
+0¶•
+stack_23_ffn_dres@0_COMP µ•
+0€€€`€€€è+·•
+stack_23_ffn_dx2@0_COMP ¶•
+0€€€`
+5¸•
+stack_23_ffn_dw2@0_COMP ¹•
+ ¬•
+0€€î`€€€€€â	4¹•
+stack_23_ffn_dw2@0_X1COMM ·•
+hppp€€€È5º•
+stack_23_ffn_dx1@0_COMP »•
+ ¼•
+0€€î`€€€€€â	4»•
+stack_23_ffn_dx1@0_X1COMM ·•
+hppp€€€È4¼•
+stack_23_ffn_dx1@0_X2_COMM ¯•
+hppp€€Ä5½•
+stack_23_ffn_dw1@0_COMP ¾•
+ º•
+0€€î`€€€€€â	5¾•
+stack_23_ffn_dw1@0_X2_COMM ª•
+hppp€€€È,¿•
+stack_23_ffn_dx00@0_COMP ¶•
+0€€€`
+6À•
+stack_23_ffn_dx01@0_COMP Á•
+ º•
+0€€î`€€€€€â	5Á•
+stack_23_ffn_dx01@0_X2_COMM «•
+hppp€€Ä3Â•
+stack_23_ffn_dx0@0_COMP Ã•
+ ¿•
+0€€€Ø`€€€È5Ã•
+stack_23_ffn_dx0@0_X2_COMM À•
+hppp€€€€)Ä•
+stack_24_mha_x@0_COMP ´•
+0€€€`
+%Å•
+stack_24_mha_wq@0_COMP0€€â	`
+%Æ•
+stack_24_mha_wk@0_COMP0€€â	`
+%Ç•
+stack_24_mha_wv@0_COMP0€€â	`
+3È•
+stack_24_mha_q@0_COMP É•
+ Ê•
+0€€ÄÛ`€€€€À¸2É•
+stack_24_mha_q@0_X1COMM Ä•
+hppp€€€È2Ê•
+stack_24_mha_q@0_X2_COMM Å•
+hppp€€ñ3Ë•
+stack_24_mha_k@0_COMP Ì•
+ Í•
+0€€ÄÛ`€€€€À¸2Ì•
+stack_24_mha_k@0_X1COMM Ä•
+hppp€€€È2Í•
+stack_24_mha_k@0_X2_COMM Æ•
+hppp€€ñ3Î•
+stack_24_mha_v@0_COMP Ï•
+ Ğ•
+0€€ÄÛ`€€€€À¸2Ï•
+stack_24_mha_v@0_X1COMM Ä•
+hppp€€€È2Ğ•
+stack_24_mha_v@0_X2_COMM Ç•
+hppp€€ñ3Ñ•
+stack_24_mha_qk@0_COMP È•
+ Ë•
+0€€€C`€€€€À4Ò•
+stack_24_mha_qkv@0_COMP Ñ•
+ Î•
+0€€€C`€€€€À7Ó•
+stack_24_mha_qkv_reshape@0_COMP Ò•
+0€€€Ø`€€€È3Ô•
+stack_24_mha_res@0_COMP Ó•
+ Ä•
+0€€€Ø`€€€È0Õ•
+stack_24_mha_norm@0_COMP Ô•
+0€€€`€€€è.Ö•
+stack_24_mha_d_norm@0_COMP ‰–
+0€€€`
+1×•
+stack_24_mha_d_res@0_COMP Ö•
+0€€€`€€€è5Ø•
+!stack_24_mha_d_qkv_reshape@0_COMP ×•
+0€€€`
+1Ù•
+stack_24_mha_d_qkv@0_COMP Ø•
+0€€€Ø`€€€È5Ú•
+stack_24_mha_d_qk@0_COMP Ù•
+ Î•
+0€€€C`€€€€À4Û•
+stack_24_mha_d_v@0_COMP Ù•
+ Ñ•
+0€€€C`€€€€À4Ü•
+stack_24_mha_d_q@0_COMP Ú•
+ Ë•
+0€€€C`€€€€À4İ•
+stack_24_mha_d_k@0_COMP Ú•
+ È•
+0€€€C`€€€€À6Ş•
+stack_24_mha_d_wq@0_COMP ß•
+ Ü•
+0€€ÄÛ`€€€€À¸6ß•
+stack_24_mha_d_wq@0_X2_COMM Ä•
+hppp€€€È6à•
+stack_24_mha_d_wk@0_COMP á•
+ İ•
+0€€ÄÛ`€€€€À¸6á•
+stack_24_mha_d_wk@0_X2_COMM Ä•
+hppp€€€È6â•
+stack_24_mha_d_wv@0_COMP ã•
+ Û•
+0€€ÄÛ`€€€€À¸6ã•
+stack_24_mha_d_wv@0_X2_COMM Ä•
+hppp€€€È6ä•
+stack_24_mha_d_x1@0_COMP å•
+ Ü•
+0€€ÄÛ`€€€€À¸5å•
+stack_24_mha_d_x1@0_X2_COMM Å•
+hppp€€ñ6æ•
+stack_24_mha_d_x2@0_COMP ç•
+ İ•
+0€€ÄÛ`€€€€À¸5ç•
+stack_24_mha_d_x2@0_X2_COMM Æ•
+hppp€€ñ6è•
+stack_24_mha_d_x3@0_COMP é•
+ Û•
+0€€ÄÛ`€€€€À¸5é•
+stack_24_mha_d_x3@0_X2_COMM Ç•
+hppp€€ñ,ê•
+stack_24_mha_d_x4@0_COMP ×•
+0€€€`
+5ë•
+stack_24_mha_d_x12@0_COMP ì•
+ í•
+0€€€Ø`€€€È6ì•
+stack_24_mha_d_x12@0_X1COMM ä•
+hppp€€€€7í•
+stack_24_mha_d_x12@0_X2_COMM æ•
+hppp€€€€5î•
+stack_24_mha_d_x34@0_COMP ï•
+ ê•
+0€€€Ø`€€€È6ï•
+stack_24_mha_d_x34@0_X1COMM è•
+hppp€€€€3ğ•
+stack_24_mha_d_x@0_COMP ë•
+ î•
+0€€€Ø`€€€È*ñ•
+stack_24_ffn_x0@0_COMP Õ•
+0€€€`
+%ò•
+stack_24_ffn_w1@0_COMP0€€ˆ'`
+4ó•
+stack_24_ffn_x1@0_COMP ô•
+ õ•
+0€€î`€€€€€â	3ô•
+stack_24_ffn_x1@0_X1COMM ñ•
+hppp€€€È3õ•
+stack_24_ffn_x1@0_X2_COMM ò•
+hppp€€Ä%ö•
+stack_24_ffn_w2@0_COMP0€€ˆ'`
+4÷•
+stack_24_ffn_x2@0_COMP ø•
+ ó•
+0€€î`€€€€€â	3ø•
+stack_24_ffn_x2@0_X2_COMM ö•
+hppp€€Ä3ù•
+stack_24_ffn_res@0_COMP ú•
+ ñ•
+0€€€Ø`€€€È4ú•
+stack_24_ffn_res@0_X1COMM ÷•
+hppp€€€€0û•
+stack_24_ffn_norm@0_COMP ù•
+0€€€`€€€è-ü•
+stack_24_ffn_dnorm@0_COMP ·–
+0€€€`
+0ı•
+stack_24_ffn_dres@0_COMP ü•
+0€€€`€€€è+ş•
+stack_24_ffn_dx2@0_COMP ı•
+0€€€`
+5ÿ•
+stack_24_ffn_dw2@0_COMP €–
+ ó•
+0€€î`€€€€€â	4€–
+stack_24_ffn_dw2@0_X1COMM ş•
+hppp€€€È5–
+stack_24_ffn_dx1@0_COMP ‚–
+ ƒ–
+0€€î`€€€€€â	4‚–
+stack_24_ffn_dx1@0_X1COMM ş•
+hppp€€€È4ƒ–
+stack_24_ffn_dx1@0_X2_COMM ö•
+hppp€€Ä5„–
+stack_24_ffn_dw1@0_COMP …–
+ –
+0€€î`€€€€€â	5…–
+stack_24_ffn_dw1@0_X2_COMM ñ•
+hppp€€€È,†–
+stack_24_ffn_dx00@0_COMP ı•
+0€€€`
+6‡–
+stack_24_ffn_dx01@0_COMP ˆ–
+ –
+0€€î`€€€€€â	5ˆ–
+stack_24_ffn_dx01@0_X2_COMM ò•
+hppp€€Ä3‰–
+stack_24_ffn_dx0@0_COMP Š–
+ †–
+0€€€Ø`€€€È5Š–
+stack_24_ffn_dx0@0_X2_COMM ‡–
+hppp€€€€)‹–
+stack_25_mha_x@0_COMP û•
+0€€€`
+%Œ–
+stack_25_mha_wq@0_COMP0€€â	`
+%–
+stack_25_mha_wk@0_COMP0€€â	`
+%–
+stack_25_mha_wv@0_COMP0€€â	`
+3–
+stack_25_mha_q@0_COMP –
+ ‘–
+0€€ÄÛ`€€€€À¸2–
+stack_25_mha_q@0_X1COMM ‹–
+hppp€€€È2‘–
+stack_25_mha_q@0_X2_COMM Œ–
+hppp€€ñ3’–
+stack_25_mha_k@0_COMP “–
+ ”–
+0€€ÄÛ`€€€€À¸2“–
+stack_25_mha_k@0_X1COMM ‹–
+hppp€€€È2”–
+stack_25_mha_k@0_X2_COMM –
+hppp€€ñ3•–
+stack_25_mha_v@0_COMP ––
+ —–
+0€€ÄÛ`€€€€À¸2––
+stack_25_mha_v@0_X1COMM ‹–
+hppp€€€È2—–
+stack_25_mha_v@0_X2_COMM –
+hppp€€ñ3˜–
+stack_25_mha_qk@0_COMP –
+ ’–
+0€€€C`€€€€À4™–
+stack_25_mha_qkv@0_COMP ˜–
+ •–
+0€€€C`€€€€À7š–
+stack_25_mha_qkv_reshape@0_COMP ™–
+0€€€Ø`€€€È3›–
+stack_25_mha_res@0_COMP š–
+ ‹–
+0€€€Ø`€€€È0œ–
+stack_25_mha_norm@0_COMP ›–
+0€€€`€€€è.–
+stack_25_mha_d_norm@0_COMP Ğ–
+0€€€`
+1–
+stack_25_mha_d_res@0_COMP –
+0€€€`€€€è5Ÿ–
+!stack_25_mha_d_qkv_reshape@0_COMP –
+0€€€`
+1 –
+stack_25_mha_d_qkv@0_COMP Ÿ–
+0€€€Ø`€€€È5¡–
+stack_25_mha_d_qk@0_COMP  –
+ •–
+0€€€C`€€€€À4¢–
+stack_25_mha_d_v@0_COMP  –
+ ˜–
+0€€€C`€€€€À4£–
+stack_25_mha_d_q@0_COMP ¡–
+ ’–
+0€€€C`€€€€À4¤–
+stack_25_mha_d_k@0_COMP ¡–
+ –
+0€€€C`€€€€À6¥–
+stack_25_mha_d_wq@0_COMP ¦–
+ £–
+0€€ÄÛ`€€€€À¸6¦–
+stack_25_mha_d_wq@0_X2_COMM ‹–
+hppp€€€È6§–
+stack_25_mha_d_wk@0_COMP ¨–
+ ¤–
+0€€ÄÛ`€€€€À¸6¨–
+stack_25_mha_d_wk@0_X2_COMM ‹–
+hppp€€€È6©–
+stack_25_mha_d_wv@0_COMP ª–
+ ¢–
+0€€ÄÛ`€€€€À¸6ª–
+stack_25_mha_d_wv@0_X2_COMM ‹–
+hppp€€€È6«–
+stack_25_mha_d_x1@0_COMP ¬–
+ £–
+0€€ÄÛ`€€€€À¸5¬–
+stack_25_mha_d_x1@0_X2_COMM Œ–
+hppp€€ñ6­–
+stack_25_mha_d_x2@0_COMP ®–
+ ¤–
+0€€ÄÛ`€€€€À¸5®–
+stack_25_mha_d_x2@0_X2_COMM –
+hppp€€ñ6¯–
+stack_25_mha_d_x3@0_COMP °–
+ ¢–
+0€€ÄÛ`€€€€À¸5°–
+stack_25_mha_d_x3@0_X2_COMM –
+hppp€€ñ,±–
+stack_25_mha_d_x4@0_COMP –
+0€€€`
+5²–
+stack_25_mha_d_x12@0_COMP ³–
+ ´–
+0€€€Ø`€€€È6³–
+stack_25_mha_d_x12@0_X1COMM «–
+hppp€€€€7´–
+stack_25_mha_d_x12@0_X2_COMM ­–
+hppp€€€€5µ–
+stack_25_mha_d_x34@0_COMP ¶–
+ ±–
+0€€€Ø`€€€È6¶–
+stack_25_mha_d_x34@0_X1COMM ¯–
+hppp€€€€3·–
+stack_25_mha_d_x@0_COMP ²–
+ µ–
+0€€€Ø`€€€È*¸–
+stack_25_ffn_x0@0_COMP œ–
+0€€€`
+%¹–
+stack_25_ffn_w1@0_COMP0€€ˆ'`
+4º–
+stack_25_ffn_x1@0_COMP »–
+ ¼–
+0€€î`€€€€€â	3»–
+stack_25_ffn_x1@0_X1COMM ¸–
+hppp€€€È3¼–
+stack_25_ffn_x1@0_X2_COMM ¹–
+hppp€€Ä%½–
+stack_25_ffn_w2@0_COMP0€€ˆ'`
+4¾–
+stack_25_ffn_x2@0_COMP ¿–
+ º–
+0€€î`€€€€€â	3¿–
+stack_25_ffn_x2@0_X2_COMM ½–
+hppp€€Ä3À–
+stack_25_ffn_res@0_COMP Á–
+ ¸–
+0€€€Ø`€€€È4Á–
+stack_25_ffn_res@0_X1COMM ¾–
+hppp€€€€0Â–
+stack_25_ffn_norm@0_COMP À–
+0€€€`€€€è-Ã–
+stack_25_ffn_dnorm@0_COMP ş–
+0€€€`
+0Ä–
+stack_25_ffn_dres@0_COMP Ã–
+0€€€`€€€è+Å–
+stack_25_ffn_dx2@0_COMP Ä–
+0€€€`
+5Æ–
+stack_25_ffn_dw2@0_COMP Ç–
+ º–
+0€€î`€€€€€â	4Ç–
+stack_25_ffn_dw2@0_X1COMM Å–
+hppp€€€È5È–
+stack_25_ffn_dx1@0_COMP É–
+ Ê–
+0€€î`€€€€€â	4É–
+stack_25_ffn_dx1@0_X1COMM Å–
+hppp€€€È4Ê–
+stack_25_ffn_dx1@0_X2_COMM ½–
+hppp€€Ä5Ë–
+stack_25_ffn_dw1@0_COMP Ì–
+ È–
+0€€î`€€€€€â	5Ì–
+stack_25_ffn_dw1@0_X2_COMM ¸–
+hppp€€€È,Í–
+stack_25_ffn_dx00@0_COMP Ä–
+0€€€`
+6Î–
+stack_25_ffn_dx01@0_COMP Ï–
+ È–
+0€€î`€€€€€â	5Ï–
+stack_25_ffn_dx01@0_X2_COMM ¹–
+hppp€€Ä3Ğ–
+stack_25_ffn_dx0@0_COMP Ñ–
+ Í–
+0€€€Ø`€€€È5Ñ–
+stack_25_ffn_dx0@0_X2_COMM Î–
+hppp€€€€)Ò–
+stack_26_mha_x@0_COMP Â–
+0€€€`
+%Ó–
+stack_26_mha_wq@0_COMP0€€â	`
+%Ô–
+stack_26_mha_wk@0_COMP0€€â	`
+%Õ–
+stack_26_mha_wv@0_COMP0€€â	`
+3Ö–
+stack_26_mha_q@0_COMP ×–
+ Ø–
+0€€ÄÛ`€€€€À¸2×–
+stack_26_mha_q@0_X1COMM Ò–
+hppp€€€È2Ø–
+stack_26_mha_q@0_X2_COMM Ó–
+hppp€€ñ3Ù–
+stack_26_mha_k@0_COMP Ú–
+ Û–
+0€€ÄÛ`€€€€À¸2Ú–
+stack_26_mha_k@0_X1COMM Ò–
+hppp€€€È2Û–
+stack_26_mha_k@0_X2_COMM Ô–
+hppp€€ñ3Ü–
+stack_26_mha_v@0_COMP İ–
+ Ş–
+0€€ÄÛ`€€€€À¸2İ–
+stack_26_mha_v@0_X1COMM Ò–
+hppp€€€È2Ş–
+stack_26_mha_v@0_X2_COMM Õ–
+hppp€€ñ3ß–
+stack_26_mha_qk@0_COMP Ö–
+ Ù–
+0€€€C`€€€€À4à–
+stack_26_mha_qkv@0_COMP ß–
+ Ü–
+0€€€C`€€€€À7á–
+stack_26_mha_qkv_reshape@0_COMP à–
+0€€€Ø`€€€È3â–
+stack_26_mha_res@0_COMP á–
+ Ò–
+0€€€Ø`€€€È0ã–
+stack_26_mha_norm@0_COMP â–
+0€€€`€€€è.ä–
+stack_26_mha_d_norm@0_COMP ——
+0€€€`
+1å–
+stack_26_mha_d_res@0_COMP ä–
+0€€€`€€€è5æ–
+!stack_26_mha_d_qkv_reshape@0_COMP å–
+0€€€`
+1ç–
+stack_26_mha_d_qkv@0_COMP æ–
+0€€€Ø`€€€È5è–
+stack_26_mha_d_qk@0_COMP ç–
+ Ü–
+0€€€C`€€€€À4é–
+stack_26_mha_d_v@0_COMP ç–
+ ß–
+0€€€C`€€€€À4ê–
+stack_26_mha_d_q@0_COMP è–
+ Ù–
+0€€€C`€€€€À4ë–
+stack_26_mha_d_k@0_COMP è–
+ Ö–
+0€€€C`€€€€À6ì–
+stack_26_mha_d_wq@0_COMP í–
+ ê–
+0€€ÄÛ`€€€€À¸6í–
+stack_26_mha_d_wq@0_X2_COMM Ò–
+hppp€€€È6î–
+stack_26_mha_d_wk@0_COMP ï–
+ ë–
+0€€ÄÛ`€€€€À¸6ï–
+stack_26_mha_d_wk@0_X2_COMM Ò–
+hppp€€€È6ğ–
+stack_26_mha_d_wv@0_COMP ñ–
+ é–
+0€€ÄÛ`€€€€À¸6ñ–
+stack_26_mha_d_wv@0_X2_COMM Ò–
+hppp€€€È6ò–
+stack_26_mha_d_x1@0_COMP ó–
+ ê–
+0€€ÄÛ`€€€€À¸5ó–
+stack_26_mha_d_x1@0_X2_COMM Ó–
+hppp€€ñ6ô–
+stack_26_mha_d_x2@0_COMP õ–
+ ë–
+0€€ÄÛ`€€€€À¸5õ–
+stack_26_mha_d_x2@0_X2_COMM Ô–
+hppp€€ñ6ö–
+stack_26_mha_d_x3@0_COMP ÷–
+ é–
+0€€ÄÛ`€€€€À¸5÷–
+stack_26_mha_d_x3@0_X2_COMM Õ–
+hppp€€ñ,ø–
+stack_26_mha_d_x4@0_COMP å–
+0€€€`
+5ù–
+stack_26_mha_d_x12@0_COMP ú–
+ û–
+0€€€Ø`€€€È6ú–
+stack_26_mha_d_x12@0_X1COMM ò–
+hppp€€€€7û–
+stack_26_mha_d_x12@0_X2_COMM ô–
+hppp€€€€5ü–
+stack_26_mha_d_x34@0_COMP ı–
+ ø–
+0€€€Ø`€€€È6ı–
+stack_26_mha_d_x34@0_X1COMM ö–
+hppp€€€€3ş–
+stack_26_mha_d_x@0_COMP ù–
+ ü–
+0€€€Ø`€€€È*ÿ–
+stack_26_ffn_x0@0_COMP ã–
+0€€€`
+%€—
+stack_26_ffn_w1@0_COMP0€€ˆ'`
+4—
+stack_26_ffn_x1@0_COMP ‚—
+ ƒ—
+0€€î`€€€€€â	3‚—
+stack_26_ffn_x1@0_X1COMM ÿ–
+hppp€€€È3ƒ—
+stack_26_ffn_x1@0_X2_COMM €—
+hppp€€Ä%„—
+stack_26_ffn_w2@0_COMP0€€ˆ'`
+4…—
+stack_26_ffn_x2@0_COMP †—
+ —
+0€€î`€€€€€â	3†—
+stack_26_ffn_x2@0_X2_COMM „—
+hppp€€Ä3‡—
+stack_26_ffn_res@0_COMP ˆ—
+ ÿ–
+0€€€Ø`€€€È4ˆ—
+stack_26_ffn_res@0_X1COMM …—
+hppp€€€€0‰—
+stack_26_ffn_norm@0_COMP ‡—
+0€€€`€€€è-Š—
+stack_26_ffn_dnorm@0_COMP Å—
+0€€€`
+0‹—
+stack_26_ffn_dres@0_COMP Š—
+0€€€`€€€è+Œ—
+stack_26_ffn_dx2@0_COMP ‹—
+0€€€`
+5—
+stack_26_ffn_dw2@0_COMP —
+ —
+0€€î`€€€€€â	4—
+stack_26_ffn_dw2@0_X1COMM Œ—
+hppp€€€È5—
+stack_26_ffn_dx1@0_COMP —
+ ‘—
+0€€î`€€€€€â	4—
+stack_26_ffn_dx1@0_X1COMM Œ—
+hppp€€€È4‘—
+stack_26_ffn_dx1@0_X2_COMM „—
+hppp€€Ä5’—
+stack_26_ffn_dw1@0_COMP “—
+ —
+0€€î`€€€€€â	5“—
+stack_26_ffn_dw1@0_X2_COMM ÿ–
+hppp€€€È,”—
+stack_26_ffn_dx00@0_COMP ‹—
+0€€€`
+6•—
+stack_26_ffn_dx01@0_COMP –—
+ —
+0€€î`€€€€€â	5–—
+stack_26_ffn_dx01@0_X2_COMM €—
+hppp€€Ä3——
+stack_26_ffn_dx0@0_COMP ˜—
+ ”—
+0€€€Ø`€€€È5˜—
+stack_26_ffn_dx0@0_X2_COMM •—
+hppp€€€€)™—
+stack_27_mha_x@0_COMP ‰—
+0€€€`
+%š—
+stack_27_mha_wq@0_COMP0€€â	`
+%›—
+stack_27_mha_wk@0_COMP0€€â	`
+%œ—
+stack_27_mha_wv@0_COMP0€€â	`
+3—
+stack_27_mha_q@0_COMP —
+ Ÿ—
+0€€ÄÛ`€€€€À¸2—
+stack_27_mha_q@0_X1COMM ™—
+hppp€€€È2Ÿ—
+stack_27_mha_q@0_X2_COMM š—
+hppp€€ñ3 —
+stack_27_mha_k@0_COMP ¡—
+ ¢—
+0€€ÄÛ`€€€€À¸2¡—
+stack_27_mha_k@0_X1COMM ™—
+hppp€€€È2¢—
+stack_27_mha_k@0_X2_COMM ›—
+hppp€€ñ3£—
+stack_27_mha_v@0_COMP ¤—
+ ¥—
+0€€ÄÛ`€€€€À¸2¤—
+stack_27_mha_v@0_X1COMM ™—
+hppp€€€È2¥—
+stack_27_mha_v@0_X2_COMM œ—
+hppp€€ñ3¦—
+stack_27_mha_qk@0_COMP —
+  —
+0€€€C`€€€€À4§—
+stack_27_mha_qkv@0_COMP ¦—
+ £—
+0€€€C`€€€€À7¨—
+stack_27_mha_qkv_reshape@0_COMP §—
+0€€€Ø`€€€È3©—
+stack_27_mha_res@0_COMP ¨—
+ ™—
+0€€€Ø`€€€È0ª—
+stack_27_mha_norm@0_COMP ©—
+0€€€`€€€è.«—
+stack_27_mha_d_norm@0_COMP Ş—
+0€€€`
+1¬—
+stack_27_mha_d_res@0_COMP «—
+0€€€`€€€è5­—
+!stack_27_mha_d_qkv_reshape@0_COMP ¬—
+0€€€`
+1®—
+stack_27_mha_d_qkv@0_COMP ­—
+0€€€Ø`€€€È5¯—
+stack_27_mha_d_qk@0_COMP ®—
+ £—
+0€€€C`€€€€À4°—
+stack_27_mha_d_v@0_COMP ®—
+ ¦—
+0€€€C`€€€€À4±—
+stack_27_mha_d_q@0_COMP ¯—
+  —
+0€€€C`€€€€À4²—
+stack_27_mha_d_k@0_COMP ¯—
+ —
+0€€€C`€€€€À6³—
+stack_27_mha_d_wq@0_COMP ´—
+ ±—
+0€€ÄÛ`€€€€À¸6´—
+stack_27_mha_d_wq@0_X2_COMM ™—
+hppp€€€È6µ—
+stack_27_mha_d_wk@0_COMP ¶—
+ ²—
+0€€ÄÛ`€€€€À¸6¶—
+stack_27_mha_d_wk@0_X2_COMM ™—
+hppp€€€È6·—
+stack_27_mha_d_wv@0_COMP ¸—
+ °—
+0€€ÄÛ`€€€€À¸6¸—
+stack_27_mha_d_wv@0_X2_COMM ™—
+hppp€€€È6¹—
+stack_27_mha_d_x1@0_COMP º—
+ ±—
+0€€ÄÛ`€€€€À¸5º—
+stack_27_mha_d_x1@0_X2_COMM š—
+hppp€€ñ6»—
+stack_27_mha_d_x2@0_COMP ¼—
+ ²—
+0€€ÄÛ`€€€€À¸5¼—
+stack_27_mha_d_x2@0_X2_COMM ›—
+hppp€€ñ6½—
+stack_27_mha_d_x3@0_COMP ¾—
+ °—
+0€€ÄÛ`€€€€À¸5¾—
+stack_27_mha_d_x3@0_X2_COMM œ—
+hppp€€ñ,¿—
+stack_27_mha_d_x4@0_COMP ¬—
+0€€€`
+5À—
+stack_27_mha_d_x12@0_COMP Á—
+ Â—
+0€€€Ø`€€€È6Á—
+stack_27_mha_d_x12@0_X1COMM ¹—
+hppp€€€€7Â—
+stack_27_mha_d_x12@0_X2_COMM »—
+hppp€€€€5Ã—
+stack_27_mha_d_x34@0_COMP Ä—
+ ¿—
+0€€€Ø`€€€È6Ä—
+stack_27_mha_d_x34@0_X1COMM ½—
+hppp€€€€3Å—
+stack_27_mha_d_x@0_COMP À—
+ Ã—
+0€€€Ø`€€€È*Æ—
+stack_27_ffn_x0@0_COMP ª—
+0€€€`
+%Ç—
+stack_27_ffn_w1@0_COMP0€€ˆ'`
+4È—
+stack_27_ffn_x1@0_COMP É—
+ Ê—
+0€€î`€€€€€â	3É—
+stack_27_ffn_x1@0_X1COMM Æ—
+hppp€€€È3Ê—
+stack_27_ffn_x1@0_X2_COMM Ç—
+hppp€€Ä%Ë—
+stack_27_ffn_w2@0_COMP0€€ˆ'`
+4Ì—
+stack_27_ffn_x2@0_COMP Í—
+ È—
+0€€î`€€€€€â	3Í—
+stack_27_ffn_x2@0_X2_COMM Ë—
+hppp€€Ä3Î—
+stack_27_ffn_res@0_COMP Ï—
+ Æ—
+0€€€Ø`€€€È4Ï—
+stack_27_ffn_res@0_X1COMM Ì—
+hppp€€€€0Ğ—
+stack_27_ffn_norm@0_COMP Î—
+0€€€`€€€è-Ñ—
+stack_27_ffn_dnorm@0_COMP Œ˜
+0€€€`
+0Ò—
+stack_27_ffn_dres@0_COMP Ñ—
+0€€€`€€€è+Ó—
+stack_27_ffn_dx2@0_COMP Ò—
+0€€€`
+5Ô—
+stack_27_ffn_dw2@0_COMP Õ—
+ È—
+0€€î`€€€€€â	4Õ—
+stack_27_ffn_dw2@0_X1COMM Ó—
+hppp€€€È5Ö—
+stack_27_ffn_dx1@0_COMP ×—
+ Ø—
+0€€î`€€€€€â	4×—
+stack_27_ffn_dx1@0_X1COMM Ó—
+hppp€€€È4Ø—
+stack_27_ffn_dx1@0_X2_COMM Ë—
+hppp€€Ä5Ù—
+stack_27_ffn_dw1@0_COMP Ú—
+ Ö—
+0€€î`€€€€€â	5Ú—
+stack_27_ffn_dw1@0_X2_COMM Æ—
+hppp€€€È,Û—
+stack_27_ffn_dx00@0_COMP Ò—
+0€€€`
+6Ü—
+stack_27_ffn_dx01@0_COMP İ—
+ Ö—
+0€€î`€€€€€â	5İ—
+stack_27_ffn_dx01@0_X2_COMM Ç—
+hppp€€Ä3Ş—
+stack_27_ffn_dx0@0_COMP ß—
+ Û—
+0€€€Ø`€€€È5ß—
+stack_27_ffn_dx0@0_X2_COMM Ü—
+hppp€€€€)à—
+stack_28_mha_x@0_COMP Ğ—
+0€€€`
+%á—
+stack_28_mha_wq@0_COMP0€€â	`
+%â—
+stack_28_mha_wk@0_COMP0€€â	`
+%ã—
+stack_28_mha_wv@0_COMP0€€â	`
+3ä—
+stack_28_mha_q@0_COMP å—
+ æ—
+0€€ÄÛ`€€€€À¸2å—
+stack_28_mha_q@0_X1COMM à—
+hppp€€€È2æ—
+stack_28_mha_q@0_X2_COMM á—
+hppp€€ñ3ç—
+stack_28_mha_k@0_COMP è—
+ é—
+0€€ÄÛ`€€€€À¸2è—
+stack_28_mha_k@0_X1COMM à—
+hppp€€€È2é—
+stack_28_mha_k@0_X2_COMM â—
+hppp€€ñ3ê—
+stack_28_mha_v@0_COMP ë—
+ ì—
+0€€ÄÛ`€€€€À¸2ë—
+stack_28_mha_v@0_X1COMM à—
+hppp€€€È2ì—
+stack_28_mha_v@0_X2_COMM ã—
+hppp€€ñ3í—
+stack_28_mha_qk@0_COMP ä—
+ ç—
+0€€€C`€€€€À4î—
+stack_28_mha_qkv@0_COMP í—
+ ê—
+0€€€C`€€€€À7ï—
+stack_28_mha_qkv_reshape@0_COMP î—
+0€€€Ø`€€€È3ğ—
+stack_28_mha_res@0_COMP ï—
+ à—
+0€€€Ø`€€€È0ñ—
+stack_28_mha_norm@0_COMP ğ—
+0€€€`€€€è.ò—
+stack_28_mha_d_norm@0_COMP ¥˜
+0€€€`
+1ó—
+stack_28_mha_d_res@0_COMP ò—
+0€€€`€€€è5ô—
+!stack_28_mha_d_qkv_reshape@0_COMP ó—
+0€€€`
+1õ—
+stack_28_mha_d_qkv@0_COMP ô—
+0€€€Ø`€€€È5ö—
+stack_28_mha_d_qk@0_COMP õ—
+ ê—
+0€€€C`€€€€À4÷—
+stack_28_mha_d_v@0_COMP õ—
+ í—
+0€€€C`€€€€À4ø—
+stack_28_mha_d_q@0_COMP ö—
+ ç—
+0€€€C`€€€€À4ù—
+stack_28_mha_d_k@0_COMP ö—
+ ä—
+0€€€C`€€€€À6ú—
+stack_28_mha_d_wq@0_COMP û—
+ ø—
+0€€ÄÛ`€€€€À¸6û—
+stack_28_mha_d_wq@0_X2_COMM à—
+hppp€€€È6ü—
+stack_28_mha_d_wk@0_COMP ı—
+ ù—
+0€€ÄÛ`€€€€À¸6ı—
+stack_28_mha_d_wk@0_X2_COMM à—
+hppp€€€È6ş—
+stack_28_mha_d_wv@0_COMP ÿ—
+ ÷—
+0€€ÄÛ`€€€€À¸6ÿ—
+stack_28_mha_d_wv@0_X2_COMM à—
+hppp€€€È6€˜
+stack_28_mha_d_x1@0_COMP ˜
+ ø—
+0€€ÄÛ`€€€€À¸5˜
+stack_28_mha_d_x1@0_X2_COMM á—
+hppp€€ñ6‚˜
+stack_28_mha_d_x2@0_COMP ƒ˜
+ ù—
+0€€ÄÛ`€€€€À¸5ƒ˜
+stack_28_mha_d_x2@0_X2_COMM â—
+hppp€€ñ6„˜
+stack_28_mha_d_x3@0_COMP …˜
+ ÷—
+0€€ÄÛ`€€€€À¸5…˜
+stack_28_mha_d_x3@0_X2_COMM ã—
+hppp€€ñ,†˜
+stack_28_mha_d_x4@0_COMP ó—
+0€€€`
+5‡˜
+stack_28_mha_d_x12@0_COMP ˆ˜
+ ‰˜
+0€€€Ø`€€€È6ˆ˜
+stack_28_mha_d_x12@0_X1COMM €˜
+hppp€€€€7‰˜
+stack_28_mha_d_x12@0_X2_COMM ‚˜
+hppp€€€€5Š˜
+stack_28_mha_d_x34@0_COMP ‹˜
+ †˜
+0€€€Ø`€€€È6‹˜
+stack_28_mha_d_x34@0_X1COMM „˜
+hppp€€€€3Œ˜
+stack_28_mha_d_x@0_COMP ‡˜
+ Š˜
+0€€€Ø`€€€È*˜
+stack_28_ffn_x0@0_COMP ñ—
+0€€€`
+%˜
+stack_28_ffn_w1@0_COMP0€€ˆ'`
+4˜
+stack_28_ffn_x1@0_COMP ˜
+ ‘˜
+0€€î`€€€€€â	3˜
+stack_28_ffn_x1@0_X1COMM ˜
+hppp€€€È3‘˜
+stack_28_ffn_x1@0_X2_COMM ˜
+hppp€€Ä%’˜
+stack_28_ffn_w2@0_COMP0€€ˆ'`
+4“˜
+stack_28_ffn_x2@0_COMP ”˜
+ ˜
+0€€î`€€€€€â	3”˜
+stack_28_ffn_x2@0_X2_COMM ’˜
+hppp€€Ä3•˜
+stack_28_ffn_res@0_COMP –˜
+ ˜
+0€€€Ø`€€€È4–˜
+stack_28_ffn_res@0_X1COMM “˜
+hppp€€€€0—˜
+stack_28_ffn_norm@0_COMP •˜
+0€€€`€€€è-˜˜
+stack_28_ffn_dnorm@0_COMP Ó˜
+0€€€`
+0™˜
+stack_28_ffn_dres@0_COMP ˜˜
+0€€€`€€€è+š˜
+stack_28_ffn_dx2@0_COMP ™˜
+0€€€`
+5›˜
+stack_28_ffn_dw2@0_COMP œ˜
+ ˜
+0€€î`€€€€€â	4œ˜
+stack_28_ffn_dw2@0_X1COMM š˜
+hppp€€€È5˜
+stack_28_ffn_dx1@0_COMP ˜
+ Ÿ˜
+0€€î`€€€€€â	4˜
+stack_28_ffn_dx1@0_X1COMM š˜
+hppp€€€È4Ÿ˜
+stack_28_ffn_dx1@0_X2_COMM ’˜
+hppp€€Ä5 ˜
+stack_28_ffn_dw1@0_COMP ¡˜
+ ˜
+0€€î`€€€€€â	5¡˜
+stack_28_ffn_dw1@0_X2_COMM ˜
+hppp€€€È,¢˜
+stack_28_ffn_dx00@0_COMP ™˜
+0€€€`
+6£˜
+stack_28_ffn_dx01@0_COMP ¤˜
+ ˜
+0€€î`€€€€€â	5¤˜
+stack_28_ffn_dx01@0_X2_COMM ˜
+hppp€€Ä3¥˜
+stack_28_ffn_dx0@0_COMP ¦˜
+ ¢˜
+0€€€Ø`€€€È5¦˜
+stack_28_ffn_dx0@0_X2_COMM £˜
+hppp€€€€)§˜
+stack_29_mha_x@0_COMP —˜
+0€€€`
+%¨˜
+stack_29_mha_wq@0_COMP0€€â	`
+%©˜
+stack_29_mha_wk@0_COMP0€€â	`
+%ª˜
+stack_29_mha_wv@0_COMP0€€â	`
+3«˜
+stack_29_mha_q@0_COMP ¬˜
+ ­˜
+0€€ÄÛ`€€€€À¸2¬˜
+stack_29_mha_q@0_X1COMM §˜
+hppp€€€È2­˜
+stack_29_mha_q@0_X2_COMM ¨˜
+hppp€€ñ3®˜
+stack_29_mha_k@0_COMP ¯˜
+ °˜
+0€€ÄÛ`€€€€À¸2¯˜
+stack_29_mha_k@0_X1COMM §˜
+hppp€€€È2°˜
+stack_29_mha_k@0_X2_COMM ©˜
+hppp€€ñ3±˜
+stack_29_mha_v@0_COMP ²˜
+ ³˜
+0€€ÄÛ`€€€€À¸2²˜
+stack_29_mha_v@0_X1COMM §˜
+hppp€€€È2³˜
+stack_29_mha_v@0_X2_COMM ª˜
+hppp€€ñ3´˜
+stack_29_mha_qk@0_COMP «˜
+ ®˜
+0€€€C`€€€€À4µ˜
+stack_29_mha_qkv@0_COMP ´˜
+ ±˜
+0€€€C`€€€€À7¶˜
+stack_29_mha_qkv_reshape@0_COMP µ˜
+0€€€Ø`€€€È3·˜
+stack_29_mha_res@0_COMP ¶˜
+ §˜
+0€€€Ø`€€€È0¸˜
+stack_29_mha_norm@0_COMP ·˜
+0€€€`€€€è.¹˜
+stack_29_mha_d_norm@0_COMP ì˜
+0€€€`
+1º˜
+stack_29_mha_d_res@0_COMP ¹˜
+0€€€`€€€è5»˜
+!stack_29_mha_d_qkv_reshape@0_COMP º˜
+0€€€`
+1¼˜
+stack_29_mha_d_qkv@0_COMP »˜
+0€€€Ø`€€€È5½˜
+stack_29_mha_d_qk@0_COMP ¼˜
+ ±˜
+0€€€C`€€€€À4¾˜
+stack_29_mha_d_v@0_COMP ¼˜
+ ´˜
+0€€€C`€€€€À4¿˜
+stack_29_mha_d_q@0_COMP ½˜
+ ®˜
+0€€€C`€€€€À4À˜
+stack_29_mha_d_k@0_COMP ½˜
+ «˜
+0€€€C`€€€€À6Á˜
+stack_29_mha_d_wq@0_COMP Â˜
+ ¿˜
+0€€ÄÛ`€€€€À¸6Â˜
+stack_29_mha_d_wq@0_X2_COMM §˜
+hppp€€€È6Ã˜
+stack_29_mha_d_wk@0_COMP Ä˜
+ À˜
+0€€ÄÛ`€€€€À¸6Ä˜
+stack_29_mha_d_wk@0_X2_COMM §˜
+hppp€€€È6Å˜
+stack_29_mha_d_wv@0_COMP Æ˜
+ ¾˜
+0€€ÄÛ`€€€€À¸6Æ˜
+stack_29_mha_d_wv@0_X2_COMM §˜
+hppp€€€È6Ç˜
+stack_29_mha_d_x1@0_COMP È˜
+ ¿˜
+0€€ÄÛ`€€€€À¸5È˜
+stack_29_mha_d_x1@0_X2_COMM ¨˜
+hppp€€ñ6É˜
+stack_29_mha_d_x2@0_COMP Ê˜
+ À˜
+0€€ÄÛ`€€€€À¸5Ê˜
+stack_29_mha_d_x2@0_X2_COMM ©˜
+hppp€€ñ6Ë˜
+stack_29_mha_d_x3@0_COMP Ì˜
+ ¾˜
+0€€ÄÛ`€€€€À¸5Ì˜
+stack_29_mha_d_x3@0_X2_COMM ª˜
+hppp€€ñ,Í˜
+stack_29_mha_d_x4@0_COMP º˜
+0€€€`
+5Î˜
+stack_29_mha_d_x12@0_COMP Ï˜
+ Ğ˜
+0€€€Ø`€€€È6Ï˜
+stack_29_mha_d_x12@0_X1COMM Ç˜
+hppp€€€€7Ğ˜
+stack_29_mha_d_x12@0_X2_COMM É˜
+hppp€€€€5Ñ˜
+stack_29_mha_d_x34@0_COMP Ò˜
+ Í˜
+0€€€Ø`€€€È6Ò˜
+stack_29_mha_d_x34@0_X1COMM Ë˜
+hppp€€€€3Ó˜
+stack_29_mha_d_x@0_COMP Î˜
+ Ñ˜
+0€€€Ø`€€€È*Ô˜
+stack_29_ffn_x0@0_COMP ¸˜
+0€€€`
+%Õ˜
+stack_29_ffn_w1@0_COMP0€€ˆ'`
+4Ö˜
+stack_29_ffn_x1@0_COMP ×˜
+ Ø˜
+0€€î`€€€€€â	3×˜
+stack_29_ffn_x1@0_X1COMM Ô˜
+hppp€€€È3Ø˜
+stack_29_ffn_x1@0_X2_COMM Õ˜
+hppp€€Ä%Ù˜
+stack_29_ffn_w2@0_COMP0€€ˆ'`
+4Ú˜
+stack_29_ffn_x2@0_COMP Û˜
+ Ö˜
+0€€î`€€€€€â	3Û˜
+stack_29_ffn_x2@0_X2_COMM Ù˜
+hppp€€Ä3Ü˜
+stack_29_ffn_res@0_COMP İ˜
+ Ô˜
+0€€€Ø`€€€È4İ˜
+stack_29_ffn_res@0_X1COMM Ú˜
+hppp€€€€0Ş˜
+stack_29_ffn_norm@0_COMP Ü˜
+0€€€`€€€è-ß˜
+stack_29_ffn_dnorm@0_COMP š™
+0€€€`
+0à˜
+stack_29_ffn_dres@0_COMP ß˜
+0€€€`€€€è+á˜
+stack_29_ffn_dx2@0_COMP à˜
+0€€€`
+5â˜
+stack_29_ffn_dw2@0_COMP ã˜
+ Ö˜
+0€€î`€€€€€â	4ã˜
+stack_29_ffn_dw2@0_X1COMM á˜
+hppp€€€È5ä˜
+stack_29_ffn_dx1@0_COMP å˜
+ æ˜
+0€€î`€€€€€â	4å˜
+stack_29_ffn_dx1@0_X1COMM á˜
+hppp€€€È4æ˜
+stack_29_ffn_dx1@0_X2_COMM Ù˜
+hppp€€Ä5ç˜
+stack_29_ffn_dw1@0_COMP è˜
+ ä˜
+0€€î`€€€€€â	5è˜
+stack_29_ffn_dw1@0_X2_COMM Ô˜
+hppp€€€È,é˜
+stack_29_ffn_dx00@0_COMP à˜
+0€€€`
+6ê˜
+stack_29_ffn_dx01@0_COMP ë˜
+ ä˜
+0€€î`€€€€€â	5ë˜
+stack_29_ffn_dx01@0_X2_COMM Õ˜
+hppp€€Ä3ì˜
+stack_29_ffn_dx0@0_COMP í˜
+ é˜
+0€€€Ø`€€€È5í˜
+stack_29_ffn_dx0@0_X2_COMM ê˜
+hppp€€€€)î˜
+stack_30_mha_x@0_COMP Ş˜
+0€€€`
+%ï˜
+stack_30_mha_wq@0_COMP0€€â	`
+%ğ˜
+stack_30_mha_wk@0_COMP0€€â	`
+%ñ˜
+stack_30_mha_wv@0_COMP0€€â	`
+3ò˜
+stack_30_mha_q@0_COMP ó˜
+ ô˜
+0€€ÄÛ`€€€€À¸2ó˜
+stack_30_mha_q@0_X1COMM î˜
+hppp€€€È2ô˜
+stack_30_mha_q@0_X2_COMM ï˜
+hppp€€ñ3õ˜
+stack_30_mha_k@0_COMP ö˜
+ ÷˜
+0€€ÄÛ`€€€€À¸2ö˜
+stack_30_mha_k@0_X1COMM î˜
+hppp€€€È2÷˜
+stack_30_mha_k@0_X2_COMM ğ˜
+hppp€€ñ3ø˜
+stack_30_mha_v@0_COMP ù˜
+ ú˜
+0€€ÄÛ`€€€€À¸2ù˜
+stack_30_mha_v@0_X1COMM î˜
+hppp€€€È2ú˜
+stack_30_mha_v@0_X2_COMM ñ˜
+hppp€€ñ3û˜
+stack_30_mha_qk@0_COMP ò˜
+ õ˜
+0€€€C`€€€€À4ü˜
+stack_30_mha_qkv@0_COMP û˜
+ ø˜
+0€€€C`€€€€À7ı˜
+stack_30_mha_qkv_reshape@0_COMP ü˜
+0€€€Ø`€€€È3ş˜
+stack_30_mha_res@0_COMP ı˜
+ î˜
+0€€€Ø`€€€È0ÿ˜
+stack_30_mha_norm@0_COMP ş˜
+0€€€`€€€è.€™
+stack_30_mha_d_norm@0_COMP ³™
+0€€€`
+1™
+stack_30_mha_d_res@0_COMP €™
+0€€€`€€€è5‚™
+!stack_30_mha_d_qkv_reshape@0_COMP ™
+0€€€`
+1ƒ™
+stack_30_mha_d_qkv@0_COMP ‚™
+0€€€Ø`€€€È5„™
+stack_30_mha_d_qk@0_COMP ƒ™
+ ø˜
+0€€€C`€€€€À4…™
+stack_30_mha_d_v@0_COMP ƒ™
+ û˜
+0€€€C`€€€€À4†™
+stack_30_mha_d_q@0_COMP „™
+ õ˜
+0€€€C`€€€€À4‡™
+stack_30_mha_d_k@0_COMP „™
+ ò˜
+0€€€C`€€€€À6ˆ™
+stack_30_mha_d_wq@0_COMP ‰™
+ †™
+0€€ÄÛ`€€€€À¸6‰™
+stack_30_mha_d_wq@0_X2_COMM î˜
+hppp€€€È6Š™
+stack_30_mha_d_wk@0_COMP ‹™
+ ‡™
+0€€ÄÛ`€€€€À¸6‹™
+stack_30_mha_d_wk@0_X2_COMM î˜
+hppp€€€È6Œ™
+stack_30_mha_d_wv@0_COMP ™
+ …™
+0€€ÄÛ`€€€€À¸6™
+stack_30_mha_d_wv@0_X2_COMM î˜
+hppp€€€È6™
+stack_30_mha_d_x1@0_COMP ™
+ †™
+0€€ÄÛ`€€€€À¸5™
+stack_30_mha_d_x1@0_X2_COMM ï˜
+hppp€€ñ6™
+stack_30_mha_d_x2@0_COMP ‘™
+ ‡™
+0€€ÄÛ`€€€€À¸5‘™
+stack_30_mha_d_x2@0_X2_COMM ğ˜
+hppp€€ñ6’™
+stack_30_mha_d_x3@0_COMP “™
+ …™
+0€€ÄÛ`€€€€À¸5“™
+stack_30_mha_d_x3@0_X2_COMM ñ˜
+hppp€€ñ,”™
+stack_30_mha_d_x4@0_COMP ™
+0€€€`
+5•™
+stack_30_mha_d_x12@0_COMP –™
+ —™
+0€€€Ø`€€€È6–™
+stack_30_mha_d_x12@0_X1COMM ™
+hppp€€€€7—™
+stack_30_mha_d_x12@0_X2_COMM ™
+hppp€€€€5˜™
+stack_30_mha_d_x34@0_COMP ™™
+ ”™
+0€€€Ø`€€€È6™™
+stack_30_mha_d_x34@0_X1COMM ’™
+hppp€€€€3š™
+stack_30_mha_d_x@0_COMP •™
+ ˜™
+0€€€Ø`€€€È*›™
+stack_30_ffn_x0@0_COMP ÿ˜
+0€€€`
+%œ™
+stack_30_ffn_w1@0_COMP0€€ˆ'`
+4™
+stack_30_ffn_x1@0_COMP ™
+ Ÿ™
+0€€î`€€€€€â	3™
+stack_30_ffn_x1@0_X1COMM ›™
+hppp€€€È3Ÿ™
+stack_30_ffn_x1@0_X2_COMM œ™
+hppp€€Ä% ™
+stack_30_ffn_w2@0_COMP0€€ˆ'`
+4¡™
+stack_30_ffn_x2@0_COMP ¢™
+ ™
+0€€î`€€€€€â	3¢™
+stack_30_ffn_x2@0_X2_COMM  ™
+hppp€€Ä3£™
+stack_30_ffn_res@0_COMP ¤™
+ ›™
+0€€€Ø`€€€È4¤™
+stack_30_ffn_res@0_X1COMM ¡™
+hppp€€€€0¥™
+stack_30_ffn_norm@0_COMP £™
+0€€€`€€€è-¦™
+stack_30_ffn_dnorm@0_COMP á™
+0€€€`
+0§™
+stack_30_ffn_dres@0_COMP ¦™
+0€€€`€€€è+¨™
+stack_30_ffn_dx2@0_COMP §™
+0€€€`
+5©™
+stack_30_ffn_dw2@0_COMP ª™
+ ™
+0€€î`€€€€€â	4ª™
+stack_30_ffn_dw2@0_X1COMM ¨™
+hppp€€€È5«™
+stack_30_ffn_dx1@0_COMP ¬™
+ ­™
+0€€î`€€€€€â	4¬™
+stack_30_ffn_dx1@0_X1COMM ¨™
+hppp€€€È4­™
+stack_30_ffn_dx1@0_X2_COMM  ™
+hppp€€Ä5®™
+stack_30_ffn_dw1@0_COMP ¯™
+ «™
+0€€î`€€€€€â	5¯™
+stack_30_ffn_dw1@0_X2_COMM ›™
+hppp€€€È,°™
+stack_30_ffn_dx00@0_COMP §™
+0€€€`
+6±™
+stack_30_ffn_dx01@0_COMP ²™
+ «™
+0€€î`€€€€€â	5²™
+stack_30_ffn_dx01@0_X2_COMM œ™
+hppp€€Ä3³™
+stack_30_ffn_dx0@0_COMP ´™
+ °™
+0€€€Ø`€€€È5´™
+stack_30_ffn_dx0@0_X2_COMM ±™
+hppp€€€€)µ™
+stack_31_mha_x@0_COMP ¥™
+0€€€`
+%¶™
+stack_31_mha_wq@0_COMP0€€â	`
+%·™
+stack_31_mha_wk@0_COMP0€€â	`
+%¸™
+stack_31_mha_wv@0_COMP0€€â	`
+3¹™
+stack_31_mha_q@0_COMP º™
+ »™
+0€€ÄÛ`€€€€À¸2º™
+stack_31_mha_q@0_X1COMM µ™
+hppp€€€È2»™
+stack_31_mha_q@0_X2_COMM ¶™
+hppp€€ñ3¼™
+stack_31_mha_k@0_COMP ½™
+ ¾™
+0€€ÄÛ`€€€€À¸2½™
+stack_31_mha_k@0_X1COMM µ™
+hppp€€€È2¾™
+stack_31_mha_k@0_X2_COMM ·™
+hppp€€ñ3¿™
+stack_31_mha_v@0_COMP À™
+ Á™
+0€€ÄÛ`€€€€À¸2À™
+stack_31_mha_v@0_X1COMM µ™
+hppp€€€È2Á™
+stack_31_mha_v@0_X2_COMM ¸™
+hppp€€ñ3Â™
+stack_31_mha_qk@0_COMP ¹™
+ ¼™
+0€€€C`€€€€À4Ã™
+stack_31_mha_qkv@0_COMP Â™
+ ¿™
+0€€€C`€€€€À7Ä™
+stack_31_mha_qkv_reshape@0_COMP Ã™
+0€€€Ø`€€€È3Å™
+stack_31_mha_res@0_COMP Ä™
+ µ™
+0€€€Ø`€€€È0Æ™
+stack_31_mha_norm@0_COMP Å™
+0€€€`€€€è.Ç™
+stack_31_mha_d_norm@0_COMP û™
+0€€€`
+1È™
+stack_31_mha_d_res@0_COMP Ç™
+0€€€`€€€è5É™
+!stack_31_mha_d_qkv_reshape@0_COMP È™
+0€€€`
+1Ê™
+stack_31_mha_d_qkv@0_COMP É™
+0€€€Ø`€€€È5Ë™
+stack_31_mha_d_qk@0_COMP Ê™
+ ¿™
+0€€€C`€€€€À4Ì™
+stack_31_mha_d_v@0_COMP Ê™
+ Â™
+0€€€C`€€€€À4Í™
+stack_31_mha_d_q@0_COMP Ë™
+ ¼™
+0€€€C`€€€€À4Î™
+stack_31_mha_d_k@0_COMP Ë™
+ ¹™
+0€€€C`€€€€À6Ï™
+stack_31_mha_d_wq@0_COMP Ğ™
+ Í™
+0€€ÄÛ`€€€€À¸6Ğ™
+stack_31_mha_d_wq@0_X2_COMM µ™
+hppp€€€È6Ñ™
+stack_31_mha_d_wk@0_COMP Ò™
+ Î™
+0€€ÄÛ`€€€€À¸6Ò™
+stack_31_mha_d_wk@0_X2_COMM µ™
+hppp€€€È6Ó™
+stack_31_mha_d_wv@0_COMP Ô™
+ Ì™
+0€€ÄÛ`€€€€À¸6Ô™
+stack_31_mha_d_wv@0_X2_COMM µ™
+hppp€€€È6Õ™
+stack_31_mha_d_x1@0_COMP Ö™
+ Í™
+0€€ÄÛ`€€€€À¸5Ö™
+stack_31_mha_d_x1@0_X2_COMM ¶™
+hppp€€ñ6×™
+stack_31_mha_d_x2@0_COMP Ø™
+ Î™
+0€€ÄÛ`€€€€À¸5Ø™
+stack_31_mha_d_x2@0_X2_COMM ·™
+hppp€€ñ6Ù™
+stack_31_mha_d_x3@0_COMP Ú™
+ Ì™
+0€€ÄÛ`€€€€À¸5Ú™
+stack_31_mha_d_x3@0_X2_COMM ¸™
+hppp€€ñ,Û™
+stack_31_mha_d_x4@0_COMP È™
+0€€€`
+5Ü™
+stack_31_mha_d_x12@0_COMP İ™
+ Ş™
+0€€€Ø`€€€È6İ™
+stack_31_mha_d_x12@0_X1COMM Õ™
+hppp€€€€7Ş™
+stack_31_mha_d_x12@0_X2_COMM ×™
+hppp€€€€5ß™
+stack_31_mha_d_x34@0_COMP à™
+ Û™
+0€€€Ø`€€€È6à™
+stack_31_mha_d_x34@0_X1COMM Ù™
+hppp€€€€3á™
+stack_31_mha_d_x@0_COMP Ü™
+ ß™
+0€€€Ø`€€€È*â™
+stack_31_ffn_x0@0_COMP Æ™
+0€€€`
+%ã™
+stack_31_ffn_w1@0_COMP0€€ˆ'`
+4ä™
+stack_31_ffn_x1@0_COMP å™
+ æ™
+0€€î`€€€€€â	3å™
+stack_31_ffn_x1@0_X1COMM â™
+hppp€€€È3æ™
+stack_31_ffn_x1@0_X2_COMM ã™
+hppp€€Ä%ç™
+stack_31_ffn_w2@0_COMP0€€ˆ'`
+4è™
+stack_31_ffn_x2@0_COMP é™
+ ä™
+0€€î`€€€€€â	3é™
+stack_31_ffn_x2@0_X2_COMM ç™
+hppp€€Ä3ê™
+stack_31_ffn_res@0_COMP ë™
+ â™
+0€€€Ø`€€€È4ë™
+stack_31_ffn_res@0_X1COMM è™
+hppp€€€€0ì™
+stack_31_ffn_norm@0_COMP ê™
+0€€€`€€€è-í™
+stack_31_ffn_dnorm@0_COMP î™
+0€€€`
+6î™
+stack_31_ffn_dnorm@0_X1COMM šˆ
+hppp€€€€0ï™
+stack_31_ffn_dres@0_COMP í™
+0€€€`€€€è+ğ™
+stack_31_ffn_dx2@0_COMP ï™
+0€€€`
+5ñ™
+stack_31_ffn_dw2@0_COMP ò™
+ ä™
+0€€î`€€€€€â	4ò™
+stack_31_ffn_dw2@0_X1COMM ğ™
+hppp€€€È5ó™
+stack_31_ffn_dx1@0_COMP ô™
+ õ™
+0€€î`€€€€€â	4ô™
+stack_31_ffn_dx1@0_X1COMM ğ™
+hppp€€€È4õ™
+stack_31_ffn_dx1@0_X2_COMM ç™
+hppp€€Ä5ö™
+stack_31_ffn_dw1@0_COMP ÷™
+ ó™
+0€€î`€€€€€â	5÷™
+stack_31_ffn_dw1@0_X2_COMM â™
+hppp€€€È,ø™
+stack_31_ffn_dx00@0_COMP ï™
+0€€€`
+6ù™
+stack_31_ffn_dx01@0_COMP ú™
+ ó™
+0€€î`€€€€€â	5ú™
+stack_31_ffn_dx01@0_X2_COMM ã™
+hppp€€Ä3û™
+stack_31_ffn_dx0@0_COMP ü™
+ ø™
+0€€€Ø`€€€È5ü™
+stack_31_ffn_dx0@0_X2_COMM ù™
+hppp€€€€)ı™
+in_emb_w@1_COMP ş™
+ ‰ˆ
+0€€¦`€€â	,ş™
+in_emb_w@1_X2_COMM ˆ
+hppp€€ˆ'*ÿ™
+out_emb_w@1_COMP €š
+ “ˆ
+0€€Ó`€€ñ-€š
+out_emb_w@1_X2_COMM ˜ˆ
+hppp€€Ä/š
+stack_0_mha_wq@1_COMP ‚š
+ ˆ
+0€€Ó`€€ñ2‚š
+stack_0_mha_wq@1_X2_COMM ¶ˆ
+hppp€€Ä/ƒš
+stack_0_mha_wk@1_COMP „š
+ ˆ
+0€€Ó`€€ñ2„š
+stack_0_mha_wk@1_X2_COMM ¸ˆ
+hppp€€Ä/…š
+stack_0_mha_wv@1_COMP †š
+ Ÿˆ
+0€€Ó`€€ñ2†š
+stack_0_mha_wv@1_X2_COMM ºˆ
+hppp€€Ä/‡š
+stack_0_ffn_w1@1_COMP ˆš
+ Êˆ
+0€€Ì:`€€Ä2ˆš
+stack_0_ffn_w1@1_X2_COMM Üˆ
+hppp€€N/‰š
+stack_0_ffn_w2@1_COMP Šš
+ Îˆ
+0€€Ì:`€€Ä2Šš
+stack_0_ffn_w2@1_X2_COMM ×ˆ
+hppp€€N/‹š
+stack_1_mha_wq@1_COMP Œš
+ äˆ
+0€€Ó`€€ñ2Œš
+stack_1_mha_wq@1_X2_COMM ıˆ
+hppp€€Ä/š
+stack_1_mha_wk@1_COMP š
+ åˆ
+0€€Ó`€€ñ2š
+stack_1_mha_wk@1_X2_COMM ÿˆ
+hppp€€Ä/š
+stack_1_mha_wv@1_COMP š
+ æˆ
+0€€Ó`€€ñ2š
+stack_1_mha_wv@1_X2_COMM ‰
+hppp€€Ä/‘š
+stack_1_ffn_w1@1_COMP ’š
+ ‘‰
+0€€Ì:`€€Ä2’š
+stack_1_ffn_w1@1_X2_COMM £‰
+hppp€€N/“š
+stack_1_ffn_w2@1_COMP ”š
+ •‰
+0€€Ì:`€€Ä2”š
+stack_1_ffn_w2@1_X2_COMM ‰
+hppp€€N/•š
+stack_2_mha_wq@1_COMP –š
+ «‰
+0€€Ó`€€ñ2–š
+stack_2_mha_wq@1_X2_COMM Ä‰
+hppp€€Ä/—š
+stack_2_mha_wk@1_COMP ˜š
+ ¬‰
+0€€Ó`€€ñ2˜š
+stack_2_mha_wk@1_X2_COMM Æ‰
+hppp€€Ä/™š
+stack_2_mha_wv@1_COMP šš
+ ­‰
+0€€Ó`€€ñ2šš
+stack_2_mha_wv@1_X2_COMM È‰
+hppp€€Ä/›š
+stack_2_ffn_w1@1_COMP œš
+ Ø‰
+0€€Ì:`€€Ä2œš
+stack_2_ffn_w1@1_X2_COMM ê‰
+hppp€€N/š
+stack_2_ffn_w2@1_COMP š
+ Ü‰
+0€€Ì:`€€Ä2š
+stack_2_ffn_w2@1_X2_COMM å‰
+hppp€€N/Ÿš
+stack_3_mha_wq@1_COMP  š
+ ò‰
+0€€Ó`€€ñ2 š
+stack_3_mha_wq@1_X2_COMM ‹Š
+hppp€€Ä/¡š
+stack_3_mha_wk@1_COMP ¢š
+ ó‰
+0€€Ó`€€ñ2¢š
+stack_3_mha_wk@1_X2_COMM Š
+hppp€€Ä/£š
+stack_3_mha_wv@1_COMP ¤š
+ ô‰
+0€€Ó`€€ñ2¤š
+stack_3_mha_wv@1_X2_COMM Š
+hppp€€Ä/¥š
+stack_3_ffn_w1@1_COMP ¦š
+ ŸŠ
+0€€Ì:`€€Ä2¦š
+stack_3_ffn_w1@1_X2_COMM ±Š
+hppp€€N/§š
+stack_3_ffn_w2@1_COMP ¨š
+ £Š
+0€€Ì:`€€Ä2¨š
+stack_3_ffn_w2@1_X2_COMM ¬Š
+hppp€€N/©š
+stack_4_mha_wq@1_COMP ªš
+ ¹Š
+0€€Ó`€€ñ2ªš
+stack_4_mha_wq@1_X2_COMM ÒŠ
+hppp€€Ä/«š
+stack_4_mha_wk@1_COMP ¬š
+ ºŠ
+0€€Ó`€€ñ2¬š
+stack_4_mha_wk@1_X2_COMM ÔŠ
+hppp€€Ä/­š
+stack_4_mha_wv@1_COMP ®š
+ »Š
+0€€Ó`€€ñ2®š
+stack_4_mha_wv@1_X2_COMM ÖŠ
+hppp€€Ä/¯š
+stack_4_ffn_w1@1_COMP °š
+ æŠ
+0€€Ì:`€€Ä2°š
+stack_4_ffn_w1@1_X2_COMM øŠ
+hppp€€N/±š
+stack_4_ffn_w2@1_COMP ²š
+ êŠ
+0€€Ì:`€€Ä2²š
+stack_4_ffn_w2@1_X2_COMM óŠ
+hppp€€N/³š
+stack_5_mha_wq@1_COMP ´š
+ €‹
+0€€Ó`€€ñ2´š
+stack_5_mha_wq@1_X2_COMM ™‹
+hppp€€Ä/µš
+stack_5_mha_wk@1_COMP ¶š
+ ‹
+0€€Ó`€€ñ2¶š
+stack_5_mha_wk@1_X2_COMM ›‹
+hppp€€Ä/·š
+stack_5_mha_wv@1_COMP ¸š
+ ‚‹
+0€€Ó`€€ñ2¸š
+stack_5_mha_wv@1_X2_COMM ‹
+hppp€€Ä/¹š
+stack_5_ffn_w1@1_COMP ºš
+ ­‹
+0€€Ì:`€€Ä2ºš
+stack_5_ffn_w1@1_X2_COMM ¿‹
+hppp€€N/»š
+stack_5_ffn_w2@1_COMP ¼š
+ ±‹
+0€€Ì:`€€Ä2¼š
+stack_5_ffn_w2@1_X2_COMM º‹
+hppp€€N/½š
+stack_6_mha_wq@1_COMP ¾š
+ Ç‹
+0€€Ó`€€ñ2¾š
+stack_6_mha_wq@1_X2_COMM à‹
+hppp€€Ä/¿š
+stack_6_mha_wk@1_COMP Àš
+ È‹
+0€€Ó`€€ñ2Àš
+stack_6_mha_wk@1_X2_COMM â‹
+hppp€€Ä/Áš
+stack_6_mha_wv@1_COMP Âš
+ É‹
+0€€Ó`€€ñ2Âš
+stack_6_mha_wv@1_X2_COMM ä‹
+hppp€€Ä/Ãš
+stack_6_ffn_w1@1_COMP Äš
+ ô‹
+0€€Ì:`€€Ä2Äš
+stack_6_ffn_w1@1_X2_COMM †Œ
+hppp€€N/Åš
+stack_6_ffn_w2@1_COMP Æš
+ ø‹
+0€€Ì:`€€Ä2Æš
+stack_6_ffn_w2@1_X2_COMM Œ
+hppp€€N/Çš
+stack_7_mha_wq@1_COMP Èš
+ Œ
+0€€Ó`€€ñ2Èš
+stack_7_mha_wq@1_X2_COMM §Œ
+hppp€€Ä/Éš
+stack_7_mha_wk@1_COMP Êš
+ Œ
+0€€Ó`€€ñ2Êš
+stack_7_mha_wk@1_X2_COMM ©Œ
+hppp€€Ä/Ëš
+stack_7_mha_wv@1_COMP Ìš
+ Œ
+0€€Ó`€€ñ2Ìš
+stack_7_mha_wv@1_X2_COMM «Œ
+hppp€€Ä/Íš
+stack_7_ffn_w1@1_COMP Îš
+ »Œ
+0€€Ì:`€€Ä2Îš
+stack_7_ffn_w1@1_X2_COMM ÍŒ
+hppp€€N/Ïš
+stack_7_ffn_w2@1_COMP Ğš
+ ¿Œ
+0€€Ì:`€€Ä2Ğš
+stack_7_ffn_w2@1_X2_COMM ÈŒ
+hppp€€N/Ñš
+stack_8_mha_wq@1_COMP Òš
+ ÕŒ
+0€€Ó`€€ñ2Òš
+stack_8_mha_wq@1_X2_COMM îŒ
+hppp€€Ä/Óš
+stack_8_mha_wk@1_COMP Ôš
+ ÖŒ
+0€€Ó`€€ñ2Ôš
+stack_8_mha_wk@1_X2_COMM ğŒ
+hppp€€Ä/Õš
+stack_8_mha_wv@1_COMP Öš
+ ×Œ
+0€€Ó`€€ñ2Öš
+stack_8_mha_wv@1_X2_COMM òŒ
+hppp€€Ä/×š
+stack_8_ffn_w1@1_COMP Øš
+ ‚
+0€€Ì:`€€Ä2Øš
+stack_8_ffn_w1@1_X2_COMM ”
+hppp€€N/Ùš
+stack_8_ffn_w2@1_COMP Úš
+ †
+0€€Ì:`€€Ä2Úš
+stack_8_ffn_w2@1_X2_COMM 
+hppp€€N/Ûš
+stack_9_mha_wq@1_COMP Üš
+ œ
+0€€Ó`€€ñ2Üš
+stack_9_mha_wq@1_X2_COMM µ
+hppp€€Ä/İš
+stack_9_mha_wk@1_COMP Şš
+ 
+0€€Ó`€€ñ2Şš
+stack_9_mha_wk@1_X2_COMM ·
+hppp€€Ä/ßš
+stack_9_mha_wv@1_COMP àš
+ 
+0€€Ó`€€ñ2àš
+stack_9_mha_wv@1_X2_COMM ¹
+hppp€€Ä/áš
+stack_9_ffn_w1@1_COMP âš
+ É
+0€€Ì:`€€Ä2âš
+stack_9_ffn_w1@1_X2_COMM Û
+hppp€€N/ãš
+stack_9_ffn_w2@1_COMP äš
+ Í
+0€€Ì:`€€Ä2äš
+stack_9_ffn_w2@1_X2_COMM Ö
+hppp€€N0åš
+stack_10_mha_wq@1_COMP æš
+ ã
+0€€Ó`€€ñ3æš
+stack_10_mha_wq@1_X2_COMM ü
+hppp€€Ä0çš
+stack_10_mha_wk@1_COMP èš
+ ä
+0€€Ó`€€ñ3èš
+stack_10_mha_wk@1_X2_COMM ş
+hppp€€Ä0éš
+stack_10_mha_wv@1_COMP êš
+ å
+0€€Ó`€€ñ3êš
+stack_10_mha_wv@1_X2_COMM €
+hppp€€Ä0ëš
+stack_10_ffn_w1@1_COMP ìš
+ 
+0€€Ì:`€€Ä3ìš
+stack_10_ffn_w1@1_X2_COMM ¢
+hppp€€N0íš
+stack_10_ffn_w2@1_COMP îš
+ ”
+0€€Ì:`€€Ä3îš
+stack_10_ffn_w2@1_X2_COMM 
+hppp€€N0ïš
+stack_11_mha_wq@1_COMP ğš
+ ª
+0€€Ó`€€ñ3ğš
+stack_11_mha_wq@1_X2_COMM Ã
+hppp€€Ä0ñš
+stack_11_mha_wk@1_COMP òš
+ «
+0€€Ó`€€ñ3òš
+stack_11_mha_wk@1_X2_COMM Å
+hppp€€Ä0óš
+stack_11_mha_wv@1_COMP ôš
+ ¬
+0€€Ó`€€ñ3ôš
+stack_11_mha_wv@1_X2_COMM Ç
+hppp€€Ä0õš
+stack_11_ffn_w1@1_COMP öš
+ ×
+0€€Ì:`€€Ä3öš
+stack_11_ffn_w1@1_X2_COMM é
+hppp€€N0÷š
+stack_11_ffn_w2@1_COMP øš
+ Û
+0€€Ì:`€€Ä3øš
+stack_11_ffn_w2@1_X2_COMM ä
+hppp€€N0ùš
+stack_12_mha_wq@1_COMP úš
+ ñ
+0€€Ó`€€ñ3úš
+stack_12_mha_wq@1_X2_COMM Š
+hppp€€Ä0ûš
+stack_12_mha_wk@1_COMP üš
+ ò
+0€€Ó`€€ñ3üš
+stack_12_mha_wk@1_X2_COMM Œ
+hppp€€Ä0ıš
+stack_12_mha_wv@1_COMP şš
+ ó
+0€€Ó`€€ñ3şš
+stack_12_mha_wv@1_X2_COMM 
+hppp€€Ä0ÿš
+stack_12_ffn_w1@1_COMP €›
+ 
+0€€Ì:`€€Ä3€›
+stack_12_ffn_w1@1_X2_COMM °
+hppp€€N0›
+stack_12_ffn_w2@1_COMP ‚›
+ ¢
+0€€Ì:`€€Ä3‚›
+stack_12_ffn_w2@1_X2_COMM «
+hppp€€N0ƒ›
+stack_13_mha_wq@1_COMP „›
+ ¸
+0€€Ó`€€ñ3„›
+stack_13_mha_wq@1_X2_COMM Ñ
+hppp€€Ä0…›
+stack_13_mha_wk@1_COMP †›
+ ¹
+0€€Ó`€€ñ3†›
+stack_13_mha_wk@1_X2_COMM Ó
+hppp€€Ä0‡›
+stack_13_mha_wv@1_COMP ˆ›
+ º
+0€€Ó`€€ñ3ˆ›
+stack_13_mha_wv@1_X2_COMM Õ
+hppp€€Ä0‰›
+stack_13_ffn_w1@1_COMP Š›
+ å
+0€€Ì:`€€Ä3Š›
+stack_13_ffn_w1@1_X2_COMM ÷
+hppp€€N0‹›
+stack_13_ffn_w2@1_COMP Œ›
+ é
+0€€Ì:`€€Ä3Œ›
+stack_13_ffn_w2@1_X2_COMM ò
+hppp€€N0›
+stack_14_mha_wq@1_COMP ›
+ ÿ
+0€€Ó`€€ñ3›
+stack_14_mha_wq@1_X2_COMM ˜
+hppp€€Ä0›
+stack_14_mha_wk@1_COMP ›
+ €
+0€€Ó`€€ñ3›
+stack_14_mha_wk@1_X2_COMM š
+hppp€€Ä0‘›
+stack_14_mha_wv@1_COMP ’›
+ 
+0€€Ó`€€ñ3’›
+stack_14_mha_wv@1_X2_COMM œ
+hppp€€Ä0“›
+stack_14_ffn_w1@1_COMP ”›
+ ¬
+0€€Ì:`€€Ä3”›
+stack_14_ffn_w1@1_X2_COMM ¾
+hppp€€N0•›
+stack_14_ffn_w2@1_COMP –›
+ °
+0€€Ì:`€€Ä3–›
+stack_14_ffn_w2@1_X2_COMM ¹
+hppp€€N0—›
+stack_15_mha_wq@1_COMP ˜›
+ Æ
+0€€Ó`€€ñ3˜›
+stack_15_mha_wq@1_X2_COMM ß
+hppp€€Ä0™›
+stack_15_mha_wk@1_COMP š›
+ Ç
+0€€Ó`€€ñ3š›
+stack_15_mha_wk@1_X2_COMM á
+hppp€€Ä0››
+stack_15_mha_wv@1_COMP œ›
+ È
+0€€Ó`€€ñ3œ›
+stack_15_mha_wv@1_X2_COMM ã
+hppp€€Ä0›
+stack_15_ffn_w1@1_COMP ›
+ ó
+0€€Ì:`€€Ä3›
+stack_15_ffn_w1@1_X2_COMM …‘
+hppp€€N0Ÿ›
+stack_15_ffn_w2@1_COMP  ›
+ ÷
+0€€Ì:`€€Ä3 ›
+stack_15_ffn_w2@1_X2_COMM €‘
+hppp€€N0¡›
+stack_16_mha_wq@1_COMP ¢›
+ ‘
+0€€Ó`€€ñ3¢›
+stack_16_mha_wq@1_X2_COMM ¦‘
+hppp€€Ä0£›
+stack_16_mha_wk@1_COMP ¤›
+ ‘
+0€€Ó`€€ñ3¤›
+stack_16_mha_wk@1_X2_COMM ¨‘
+hppp€€Ä0¥›
+stack_16_mha_wv@1_COMP ¦›
+ ‘
+0€€Ó`€€ñ3¦›
+stack_16_mha_wv@1_X2_COMM ª‘
+hppp€€Ä0§›
+stack_16_ffn_w1@1_COMP ¨›
+ º‘
+0€€Ì:`€€Ä3¨›
+stack_16_ffn_w1@1_X2_COMM Ì‘
+hppp€€N0©›
+stack_16_ffn_w2@1_COMP ª›
+ ¾‘
+0€€Ì:`€€Ä3ª›
+stack_16_ffn_w2@1_X2_COMM Ç‘
+hppp€€N0«›
+stack_17_mha_wq@1_COMP ¬›
+ Ô‘
+0€€Ó`€€ñ3¬›
+stack_17_mha_wq@1_X2_COMM í‘
+hppp€€Ä0­›
+stack_17_mha_wk@1_COMP ®›
+ Õ‘
+0€€Ó`€€ñ3®›
+stack_17_mha_wk@1_X2_COMM ï‘
+hppp€€Ä0¯›
+stack_17_mha_wv@1_COMP °›
+ Ö‘
+0€€Ó`€€ñ3°›
+stack_17_mha_wv@1_X2_COMM ñ‘
+hppp€€Ä0±›
+stack_17_ffn_w1@1_COMP ²›
+ ’
+0€€Ì:`€€Ä3²›
+stack_17_ffn_w1@1_X2_COMM “’
+hppp€€N0³›
+stack_17_ffn_w2@1_COMP ´›
+ …’
+0€€Ì:`€€Ä3´›
+stack_17_ffn_w2@1_X2_COMM ’
+hppp€€N0µ›
+stack_18_mha_wq@1_COMP ¶›
+ ›’
+0€€Ó`€€ñ3¶›
+stack_18_mha_wq@1_X2_COMM ´’
+hppp€€Ä0·›
+stack_18_mha_wk@1_COMP ¸›
+ œ’
+0€€Ó`€€ñ3¸›
+stack_18_mha_wk@1_X2_COMM ¶’
+hppp€€Ä0¹›
+stack_18_mha_wv@1_COMP º›
+ ’
+0€€Ó`€€ñ3º›
+stack_18_mha_wv@1_X2_COMM ¸’
+hppp€€Ä0»›
+stack_18_ffn_w1@1_COMP ¼›
+ È’
+0€€Ì:`€€Ä3¼›
+stack_18_ffn_w1@1_X2_COMM Ú’
+hppp€€N0½›
+stack_18_ffn_w2@1_COMP ¾›
+ Ì’
+0€€Ì:`€€Ä3¾›
+stack_18_ffn_w2@1_X2_COMM Õ’
+hppp€€N0¿›
+stack_19_mha_wq@1_COMP À›
+ â’
+0€€Ó`€€ñ3À›
+stack_19_mha_wq@1_X2_COMM û’
+hppp€€Ä0Á›
+stack_19_mha_wk@1_COMP Â›
+ ã’
+0€€Ó`€€ñ3Â›
+stack_19_mha_wk@1_X2_COMM ı’
+hppp€€Ä0Ã›
+stack_19_mha_wv@1_COMP Ä›
+ ä’
+0€€Ó`€€ñ3Ä›
+stack_19_mha_wv@1_X2_COMM ÿ’
+hppp€€Ä0Å›
+stack_19_ffn_w1@1_COMP Æ›
+ “
+0€€Ì:`€€Ä3Æ›
+stack_19_ffn_w1@1_X2_COMM ¡“
+hppp€€N0Ç›
+stack_19_ffn_w2@1_COMP È›
+ ““
+0€€Ì:`€€Ä3È›
+stack_19_ffn_w2@1_X2_COMM œ“
+hppp€€N0É›
+stack_20_mha_wq@1_COMP Ê›
+ ©“
+0€€Ó`€€ñ3Ê›
+stack_20_mha_wq@1_X2_COMM Â“
+hppp€€Ä0Ë›
+stack_20_mha_wk@1_COMP Ì›
+ ª“
+0€€Ó`€€ñ3Ì›
+stack_20_mha_wk@1_X2_COMM Ä“
+hppp€€Ä0Í›
+stack_20_mha_wv@1_COMP Î›
+ «“
+0€€Ó`€€ñ3Î›
+stack_20_mha_wv@1_X2_COMM Æ“
+hppp€€Ä0Ï›
+stack_20_ffn_w1@1_COMP Ğ›
+ Ö“
+0€€Ì:`€€Ä3Ğ›
+stack_20_ffn_w1@1_X2_COMM è“
+hppp€€N0Ñ›
+stack_20_ffn_w2@1_COMP Ò›
+ Ú“
+0€€Ì:`€€Ä3Ò›
+stack_20_ffn_w2@1_X2_COMM ã“
+hppp€€N0Ó›
+stack_21_mha_wq@1_COMP Ô›
+ ğ“
+0€€Ó`€€ñ3Ô›
+stack_21_mha_wq@1_X2_COMM ‰”
+hppp€€Ä0Õ›
+stack_21_mha_wk@1_COMP Ö›
+ ñ“
+0€€Ó`€€ñ3Ö›
+stack_21_mha_wk@1_X2_COMM ‹”
+hppp€€Ä0×›
+stack_21_mha_wv@1_COMP Ø›
+ ò“
+0€€Ó`€€ñ3Ø›
+stack_21_mha_wv@1_X2_COMM ”
+hppp€€Ä0Ù›
+stack_21_ffn_w1@1_COMP Ú›
+ ”
+0€€Ì:`€€Ä3Ú›
+stack_21_ffn_w1@1_X2_COMM ¯”
+hppp€€N0Û›
+stack_21_ffn_w2@1_COMP Ü›
+ ¡”
+0€€Ì:`€€Ä3Ü›
+stack_21_ffn_w2@1_X2_COMM ª”
+hppp€€N0İ›
+stack_22_mha_wq@1_COMP Ş›
+ ·”
+0€€Ó`€€ñ3Ş›
+stack_22_mha_wq@1_X2_COMM Ğ”
+hppp€€Ä0ß›
+stack_22_mha_wk@1_COMP à›
+ ¸”
+0€€Ó`€€ñ3à›
+stack_22_mha_wk@1_X2_COMM Ò”
+hppp€€Ä0á›
+stack_22_mha_wv@1_COMP â›
+ ¹”
+0€€Ó`€€ñ3â›
+stack_22_mha_wv@1_X2_COMM Ô”
+hppp€€Ä0ã›
+stack_22_ffn_w1@1_COMP ä›
+ ä”
+0€€Ì:`€€Ä3ä›
+stack_22_ffn_w1@1_X2_COMM ö”
+hppp€€N0å›
+stack_22_ffn_w2@1_COMP æ›
+ è”
+0€€Ì:`€€Ä3æ›
+stack_22_ffn_w2@1_X2_COMM ñ”
+hppp€€N0ç›
+stack_23_mha_wq@1_COMP è›
+ ş”
+0€€Ó`€€ñ3è›
+stack_23_mha_wq@1_X2_COMM —•
+hppp€€Ä0é›
+stack_23_mha_wk@1_COMP ê›
+ ÿ”
+0€€Ó`€€ñ3ê›
+stack_23_mha_wk@1_X2_COMM ™•
+hppp€€Ä0ë›
+stack_23_mha_wv@1_COMP ì›
+ €•
+0€€Ó`€€ñ3ì›
+stack_23_mha_wv@1_X2_COMM ›•
+hppp€€Ä0í›
+stack_23_ffn_w1@1_COMP î›
+ «•
+0€€Ì:`€€Ä3î›
+stack_23_ffn_w1@1_X2_COMM ½•
+hppp€€N0ï›
+stack_23_ffn_w2@1_COMP ğ›
+ ¯•
+0€€Ì:`€€Ä3ğ›
+stack_23_ffn_w2@1_X2_COMM ¸•
+hppp€€N0ñ›
+stack_24_mha_wq@1_COMP ò›
+ Å•
+0€€Ó`€€ñ3ò›
+stack_24_mha_wq@1_X2_COMM Ş•
+hppp€€Ä0ó›
+stack_24_mha_wk@1_COMP ô›
+ Æ•
+0€€Ó`€€ñ3ô›
+stack_24_mha_wk@1_X2_COMM à•
+hppp€€Ä0õ›
+stack_24_mha_wv@1_COMP ö›
+ Ç•
+0€€Ó`€€ñ3ö›
+stack_24_mha_wv@1_X2_COMM â•
+hppp€€Ä0÷›
+stack_24_ffn_w1@1_COMP ø›
+ ò•
+0€€Ì:`€€Ä3ø›
+stack_24_ffn_w1@1_X2_COMM „–
+hppp€€N0ù›
+stack_24_ffn_w2@1_COMP ú›
+ ö•
+0€€Ì:`€€Ä3ú›
+stack_24_ffn_w2@1_X2_COMM ÿ•
+hppp€€N0û›
+stack_25_mha_wq@1_COMP ü›
+ Œ–
+0€€Ó`€€ñ3ü›
+stack_25_mha_wq@1_X2_COMM ¥–
+hppp€€Ä0ı›
+stack_25_mha_wk@1_COMP ş›
+ –
+0€€Ó`€€ñ3ş›
+stack_25_mha_wk@1_X2_COMM §–
+hppp€€Ä0ÿ›
+stack_25_mha_wv@1_COMP €œ
+ –
+0€€Ó`€€ñ3€œ
+stack_25_mha_wv@1_X2_COMM ©–
+hppp€€Ä0œ
+stack_25_ffn_w1@1_COMP ‚œ
+ ¹–
+0€€Ì:`€€Ä3‚œ
+stack_25_ffn_w1@1_X2_COMM Ë–
+hppp€€N0ƒœ
+stack_25_ffn_w2@1_COMP „œ
+ ½–
+0€€Ì:`€€Ä3„œ
+stack_25_ffn_w2@1_X2_COMM Æ–
+hppp€€N0…œ
+stack_26_mha_wq@1_COMP †œ
+ Ó–
+0€€Ó`€€ñ3†œ
+stack_26_mha_wq@1_X2_COMM ì–
+hppp€€Ä0‡œ
+stack_26_mha_wk@1_COMP ˆœ
+ Ô–
+0€€Ó`€€ñ3ˆœ
+stack_26_mha_wk@1_X2_COMM î–
+hppp€€Ä0‰œ
+stack_26_mha_wv@1_COMP Šœ
+ Õ–
+0€€Ó`€€ñ3Šœ
+stack_26_mha_wv@1_X2_COMM ğ–
+hppp€€Ä0‹œ
+stack_26_ffn_w1@1_COMP Œœ
+ €—
+0€€Ì:`€€Ä3Œœ
+stack_26_ffn_w1@1_X2_COMM ’—
+hppp€€N0œ
+stack_26_ffn_w2@1_COMP œ
+ „—
+0€€Ì:`€€Ä3œ
+stack_26_ffn_w2@1_X2_COMM —
+hppp€€N0œ
+stack_27_mha_wq@1_COMP œ
+ š—
+0€€Ó`€€ñ3œ
+stack_27_mha_wq@1_X2_COMM ³—
+hppp€€Ä0‘œ
+stack_27_mha_wk@1_COMP ’œ
+ ›—
+0€€Ó`€€ñ3’œ
+stack_27_mha_wk@1_X2_COMM µ—
+hppp€€Ä0“œ
+stack_27_mha_wv@1_COMP ”œ
+ œ—
+0€€Ó`€€ñ3”œ
+stack_27_mha_wv@1_X2_COMM ·—
+hppp€€Ä0•œ
+stack_27_ffn_w1@1_COMP –œ
+ Ç—
+0€€Ì:`€€Ä3–œ
+stack_27_ffn_w1@1_X2_COMM Ù—
+hppp€€N0—œ
+stack_27_ffn_w2@1_COMP ˜œ
+ Ë—
+0€€Ì:`€€Ä3˜œ
+stack_27_ffn_w2@1_X2_COMM Ô—
+hppp€€N0™œ
+stack_28_mha_wq@1_COMP šœ
+ á—
+0€€Ó`€€ñ3šœ
+stack_28_mha_wq@1_X2_COMM ú—
+hppp€€Ä0›œ
+stack_28_mha_wk@1_COMP œœ
+ â—
+0€€Ó`€€ñ3œœ
+stack_28_mha_wk@1_X2_COMM ü—
+hppp€€Ä0œ
+stack_28_mha_wv@1_COMP œ
+ ã—
+0€€Ó`€€ñ3œ
+stack_28_mha_wv@1_X2_COMM ş—
+hppp€€Ä0Ÿœ
+stack_28_ffn_w1@1_COMP  œ
+ ˜
+0€€Ì:`€€Ä3 œ
+stack_28_ffn_w1@1_X2_COMM  ˜
+hppp€€N0¡œ
+stack_28_ffn_w2@1_COMP ¢œ
+ ’˜
+0€€Ì:`€€Ä3¢œ
+stack_28_ffn_w2@1_X2_COMM ›˜
+hppp€€N0£œ
+stack_29_mha_wq@1_COMP ¤œ
+ ¨˜
+0€€Ó`€€ñ3¤œ
+stack_29_mha_wq@1_X2_COMM Á˜
+hppp€€Ä0¥œ
+stack_29_mha_wk@1_COMP ¦œ
+ ©˜
+0€€Ó`€€ñ3¦œ
+stack_29_mha_wk@1_X2_COMM Ã˜
+hppp€€Ä0§œ
+stack_29_mha_wv@1_COMP ¨œ
+ ª˜
+0€€Ó`€€ñ3¨œ
+stack_29_mha_wv@1_X2_COMM Å˜
+hppp€€Ä0©œ
+stack_29_ffn_w1@1_COMP ªœ
+ Õ˜
+0€€Ì:`€€Ä3ªœ
+stack_29_ffn_w1@1_X2_COMM ç˜
+hppp€€N0«œ
+stack_29_ffn_w2@1_COMP ¬œ
+ Ù˜
+0€€Ì:`€€Ä3¬œ
+stack_29_ffn_w2@1_X2_COMM â˜
+hppp€€N0­œ
+stack_30_mha_wq@1_COMP ®œ
+ ï˜
+0€€Ó`€€ñ3®œ
+stack_30_mha_wq@1_X2_COMM ˆ™
+hppp€€Ä0¯œ
+stack_30_mha_wk@1_COMP °œ
+ ğ˜
+0€€Ó`€€ñ3°œ
+stack_30_mha_wk@1_X2_COMM Š™
+hppp€€Ä0±œ
+stack_30_mha_wv@1_COMP ²œ
+ ñ˜
+0€€Ó`€€ñ3²œ
+stack_30_mha_wv@1_X2_COMM Œ™
+hppp€€Ä0³œ
+stack_30_ffn_w1@1_COMP ´œ
+ œ™
+0€€Ì:`€€Ä3´œ
+stack_30_ffn_w1@1_X2_COMM ®™
+hppp€€N0µœ
+stack_30_ffn_w2@1_COMP ¶œ
+  ™
+0€€Ì:`€€Ä3¶œ
+stack_30_ffn_w2@1_X2_COMM ©™
+hppp€€N0·œ
+stack_31_mha_wq@1_COMP ¸œ
+ ¶™
+0€€Ó`€€ñ3¸œ
+stack_31_mha_wq@1_X2_COMM Ï™
+hppp€€Ä0¹œ
+stack_31_mha_wk@1_COMP ºœ
+ ·™
+0€€Ó`€€ñ3ºœ
+stack_31_mha_wk@1_X2_COMM Ñ™
+hppp€€Ä0»œ
+stack_31_mha_wv@1_COMP ¼œ
+ ¸™
+0€€Ó`€€ñ3¼œ
+stack_31_mha_wv@1_X2_COMM Ó™
+hppp€€Ä0½œ
+stack_31_ffn_w1@1_COMP ¾œ
+ ã™
+0€€Ì:`€€Ä3¾œ
+stack_31_ffn_w1@1_X2_COMM ö™
+hppp€€N0¿œ
+stack_31_ffn_w2@1_COMP Àœ
+ ç™
+0€€Ì:`€€Ä3Àœ
+stack_31_ffn_w2@1_X2_COMM ñ™
+hppp€€N

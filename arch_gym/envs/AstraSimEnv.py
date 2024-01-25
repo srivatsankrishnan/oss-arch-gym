@@ -19,7 +19,6 @@ proj_dir_path = os.path.join(proj_root_path, "sims/AstraSim")
 astrasim_archgym = os.path.join(proj_dir_path, "astrasim-archgym")
 archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
 sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
-parameter_knobs= os.path.join(sim_path, "frontend/parameter_knobs.py")
 
 # define AstraSim version
 VERSION = 2
@@ -138,8 +137,7 @@ class AstraSimEnv(gym.Env):
 
         self.reset()
 
-        """TODO: constraints"""
-        _, _, _, self.constraints = self.helpers.actual_parse_knobs_astrasim(parameter_knobs)
+        self.constraints = self.helpers.parse_constraints_astrasim(self.knobs_spec)
         print("CONSTRAINTS: ", self.constraints)
         
 
@@ -300,6 +298,13 @@ class AstraSimEnv(gym.Env):
                 with open(self.system_config, 'w') as file:
                     file.write('{\n')
                     for key, value in action_dict["system"].items():
+                        # if "dimensions-count" in action_dict["network"]:
+                        #     print("KEY: ", key)
+                        #     if isinstance(value, list):
+                        #         print("VALUE: ", value)
+                        #         while len(value) != action_dict["network"]["dimensions-count"]:
+                        #             value.append(value[0])
+
                         if isinstance(value, str):
                             file.write(f'"{key}": "{value}",\n')
                         elif isinstance(value, list) and isinstance(value[0], str):
@@ -317,11 +322,17 @@ class AstraSimEnv(gym.Env):
             if "path" not in action_dict["network"]:
                 data = {}
                 for key, value in action_dict["network"].items():
+                    if key == "dimensions-count":
+                        continue
                     key_split = key.split("-")
                     key_converted = ""
                     for k in key_split:
                         key_converted += k 
                         key_converted += "_"
+                    # if "dimensions-count" in action_dict["network"]:
+                    #     if isinstance(value, list):
+                    #         while len(value) != action_dict["network"]["dimensions-count"]:
+                    #             value.append(value[0])
 
                     data[key_converted[:-1]] = value
 
@@ -344,9 +355,6 @@ class AstraSimEnv(gym.Env):
         self.counter += 1
 
 
-        """
-        TODO: add constraints
-        """
         operators = {"<=", ">=", "==", "<", ">"}
         command = {"product", "mult", "num"}
         self.constraints = []

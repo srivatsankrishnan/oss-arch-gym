@@ -1,16 +1,8 @@
 topology:
 - Ring
-- Ring
-- Ring
 npus_count:
-- 2
-- 8
-- 4
+- 64
 bandwidth:
-- 200.0
-- 100.0
 - 50.0
 latency:
-- 50.0
 - 500.0
-- 2000.0

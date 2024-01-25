@@ -14,7 +14,7 @@ if [ "$GENERATE" == "TRUE" ]; then
     python3 workload_cfg_to_et.py --workload_cfg=${WORKLOAD} --workload_et=workload-et/generated.%d.eg
     WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
 else
-    WORKLOAD=$4
+    WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
 fi
 
 MEMORY="${SCRIPT_DIR}/memory.json"

@@ -19,6 +19,7 @@ from configs import arch_gym_configs
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import time
 
 flags.DEFINE_integer('num_steps', 20, 'Number of training steps.')
 flags.DEFINE_integer('num_agents', 4, 'Number of agents.')
@@ -172,6 +173,7 @@ def AstraSim_optimization_function(p):
 
     # Convert dictionary to dataframe
     fitness_df = pd.DataFrame([fitness_dict], columns=["action", "reward", "obs"])
+    timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
     fitness_df.insert(0, 'timestamp', timestamp)
     # check if exp_log_dir exists
     if not os.path.exists(exp_log_dir):
@@ -284,10 +286,10 @@ def main(_):
     Y_history.insert(0, 'timestamp', timestamp)
     Y_history.to_csv(os.path.join(exp_log_dir, "Y_history.csv"))
 
-    fig, ax = plt.subplots(2, 1)
-    ax[0].plot(Y_history.index, Y_history.values, '.', color='red')
-    Y_history.min(axis=1).cummin().plot(kind='line')
-    plt.savefig(os.path.join(exp_log_dir, "Y_history.png"))
+    # fig, ax = plt.subplots(2, 1)
+    # ax[0].plot(Y_history.index.astype(str), Y_history.values.astype(str).flatten(), '.', color='red')
+    # Y_history.min(axis=1).cummin().plot(kind='line')
+    # plt.savefig(os.path.join(exp_log_dir, "Y_history.png"))
     
     # save the best_x and best_y to a csv file
     best_x = pd.DataFrame(best_x)
