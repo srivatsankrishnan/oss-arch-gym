@@ -10,6 +10,7 @@ os.sys.path.insert(0, os.path.abspath('../../'))
 print(os.sys.path)
 from aco.DeepSwarm.deepswarm.backends import Dataset, AstraSimBackend
 from aco.DeepSwarm.deepswarm.deepswarm import DeepSwarm
+from arch_gym.envs.envHelpers import helpers
 
 import configparser
 from absl import flags
@@ -30,6 +31,7 @@ flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spe
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
+flags.DEFINE_bool('congestion_aware', False, "astra-sim congestion aware or not")
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
@@ -37,6 +39,7 @@ FLAGS = flags.FLAGS
 
 # define AstraSim version
 VERSION = 2
+astraSim_helper = helpers()
 
 def main(_):
     # Dummy "training" input for POC
@@ -54,21 +57,53 @@ def main(_):
     
     # create log directory (current dir + log_dir)
     log_dir = os.path.join(FLAGS.summary_dir, FLAGS.aco_log_dir, FLAGS.reward_formulation, exp_name)
+
+    settings_file_path = os.path.realpath(__file__)
+    settings_dir_path = os.path.dirname(settings_file_path)
+    proj_root_path = os.path.abspath(settings_dir_path)
+
+    astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
+    archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
+    knobs_spec = os.path.join(proj_root_path, FLAGS.knobs)
+    networks_folder = os.path.join(astrasim_archgym, "themis/inputs/network")
+
+    system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
+
+    if VERSION == 1:
+        network_file = os.path.join(networks_folder, "analytical/4d_ring_fc_ring_switch.json")
+    else:
+        network_file = os.path.join(proj_root_path, FLAGS.network)
+
+    action_dict = {}
+    action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
+
+    if VERSION == 1:
+        dimension = action_dict['network']["dimensions-count"]
+    else:
+        dimension = len(action_dict['network']["topology"])
+
+    if "dimensions-count" in network_knob:
+        dimensions = sorted(list(network_knob["dimensions-count"][0]))
+    else:
+        dimensions = [dimension]
     
-    backend = AstraSimBackend(dataset, 
-                            exp_name=exp_name,
-                            log_dir=log_dir,
-                            traject_dir=traject_dir,
-                            reward_formulation= FLAGS.reward_formulation,
-                            use_envlogger=FLAGS.use_envlogger,
-                            VERSION=VERSION,
-                            knobs_spec=FLAGS.knobs,
-                            network=FLAGS.network,
-                            system=FLAGS.system,
-                            workload=FLAGS.workload_file)
-    deepswarm = DeepSwarm(backend=backend)
-    
-    topology = deepswarm.find_topology()
+    for d in dimensions:
+        backend = AstraSimBackend(dataset, 
+                                exp_name=exp_name,
+                                log_dir=log_dir,
+                                traject_dir=traject_dir,
+                                reward_formulation= FLAGS.reward_formulation,
+                                use_envlogger=FLAGS.use_envlogger,
+                                VERSION=VERSION,
+                                knobs_spec=FLAGS.knobs,
+                                network=FLAGS.network,
+                                system=FLAGS.system,
+                                workload=FLAGS.workload_file,
+                                congestion_aware=FLAGS.congestion_aware,
+                                dimension=d)
+        deepswarm = DeepSwarm(backend=backend)
+        
+        topology = deepswarm.find_topology()
     
     
 

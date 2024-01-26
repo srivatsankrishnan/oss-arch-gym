@@ -29,6 +29,7 @@ flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spe
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
+flags.DEFINE_bool('congestion_aware', False, "astra-sim congestion aware or not")
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
@@ -153,7 +154,8 @@ def main(_):
 
    print("PARAMETERS: ", parameters)
 
-   flag_dict = {"knobs": str(FLAGS.knobs), "network": str(FLAGS.network), "system": str(FLAGS.system), "workload": str(FLAGS.workload_file)}
+   flag_dict = {"knobs": str(FLAGS.knobs), "network": str(FLAGS.network), "system": str(FLAGS.system), "workload": str(FLAGS.workload_file), 
+               "reward_formulation": str(FLAGS.reward_formulation), "congestion_aware": FLAGS.congestion_aware, 'summary_dir': FLAGS.summary_dir}
 
    # write flags to json file for AstraSimEstimator to read
    with open(os.path.join(proj_root_path, "bo_vars.json"), 'w') as file:

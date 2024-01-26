@@ -67,6 +67,7 @@ class AstraSimEstimator(BaseEstimator):
             self.network_file = os.path.join(astrasim, flags["network"])
             self.system_file = os.path.join(astrasim, flags["system"])
             self.workload_file = os.path.join(astrasim, flags["workload"])
+            self.congestion_aware = True if flags["congestion_aware"] == "True" else False
 
         for param_key, _ in parameters.items():
             knob_reverted = self.helper.revert_knob_bo_astrasim(param_key)
@@ -77,8 +78,8 @@ class AstraSimEstimator(BaseEstimator):
         self.exp_name = exp_name
         self.traject_dir = traject_dir
         self.fitness_hist = []
-        self.exp_log_dir = os.path.join(os.getcwd(), "bo_logs")
-        self.reward_formulation = 'power'
+        self.exp_log_dir = os.path.join(os.getcwd(), f"{flags['summary_dir']}/bo_logs")
+        self.reward_formulation = flags['reward_formulation']
         
         print("[Experiment]: ", self.exp_name)
         print("[Trajectory Log path]: ", self.traject_dir)
@@ -151,10 +152,10 @@ class AstraSimEstimator(BaseEstimator):
             actual_action['workload'] = self.helper.parse_workload_astrasim(self.workload_file, actual_action, VERSION)
         else:
             actual_action['workload'] = {"path": self.workload_file}
+            
         actual_action['network'] = self.helper.parse_network_astrasim(self.network_file, actual_action, VERSION)
         actual_action['system'] = self.helper.parse_system_astrasim(self.system_file, actual_action, VERSION)
 
-        # ASSUMES dimension is specified by input files (otherwise randomized)
         if VERSION == 1:
             dimension = actual_action['network']["dimensions-count"]
         else:

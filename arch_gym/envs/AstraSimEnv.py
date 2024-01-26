@@ -25,7 +25,8 @@ VERSION = 2
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):
-    def __init__(self, knobs_spec, network, system, workload, rl_form="sa1", max_steps=5, num_agents=1, reward_formulation="None", reward_scaling=1,):
+    def __init__(self, knobs_spec, network, system, workload, rl_form="sa1", max_steps=5, 
+                num_agents=1, reward_formulation="None", reward_scaling=1, congestion_aware=False):
         self.rl_form = rl_form
         self.helpers = helpers()
         self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
@@ -69,7 +70,12 @@ class AstraSimEnv(gym.Env):
             self.exe_path = os.path.join(sim_path, "astrasim_220_example/run.sh")
             self.network_config = os.path.join(sim_path, "astrasim_220_example/network.yml")
             self.system_config = os.path.join(sim_path, "astrasim_220_example/system.json")
-            self.astrasim_binary = os.path.join(sim_path, "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Aware")
+            if congestion_aware:
+                self.astrasim_binary = os.path.join(sim_path, 
+                "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Aware")
+            else:
+                self.astrasim_binary = os.path.join(sim_path, 
+                "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Unaware")
 
         # FILE = INITIAL INPUTS
         if VERSION == 1:
@@ -259,6 +265,7 @@ class AstraSimEnv(gym.Env):
         print(action_dict)
         print("VERSION:")
         print(VERSION)
+        print("Congestion Aware: ", self.astrasim_binary)
         # load knobs
 
         if VERSION == 1:
@@ -298,12 +305,12 @@ class AstraSimEnv(gym.Env):
                 with open(self.system_config, 'w') as file:
                     file.write('{\n')
                     for key, value in action_dict["system"].items():
-                        # if "dimensions-count" in action_dict["network"]:
-                        #     print("KEY: ", key)
-                        #     if isinstance(value, list):
-                        #         print("VALUE: ", value)
-                        #         while len(value) != action_dict["network"]["dimensions-count"]:
-                        #             value.append(value[0])
+                        if "dimensions-count" in action_dict["network"]:
+                            if isinstance(value, list) and key not in self.system_knobs:
+                                while len(value) != action_dict["network"]["dimensions-count"]:
+                                    value.append(value[0])
+                                while len(value) > action_dict["network"]["dimensions-count"]:
+                                    value.pop()
 
                         if isinstance(value, str):
                             file.write(f'"{key}": "{value}",\n')
@@ -329,10 +336,12 @@ class AstraSimEnv(gym.Env):
                     for k in key_split:
                         key_converted += k 
                         key_converted += "_"
-                    # if "dimensions-count" in action_dict["network"]:
-                    #     if isinstance(value, list):
-                    #         while len(value) != action_dict["network"]["dimensions-count"]:
-                    #             value.append(value[0])
+                    if "dimensions-count" in action_dict["network"]:
+                        if isinstance(value, list) and key not in self.network_knobs:
+                            while len(value) < action_dict["network"]["dimensions-count"]:
+                                value.append(value[0])
+                            while len(value) > action_dict["network"]["dimensions-count"]:
+                                value.pop()
 
                     data[key_converted[:-1]] = value
 

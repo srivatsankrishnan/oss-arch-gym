@@ -75,6 +75,7 @@ flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spe
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
+flags.DEFINE_bool('congestion_aware', False, "astra-sim congestion aware or not")
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
@@ -136,14 +137,15 @@ def build_experiment_config():
         env = AstraSimWrapper.make_astraSim_env(
             knobs_spec=FLAGS.knobs, network=FLAGS.network, system=FLAGS.system, workload=FLAGS.workload_file, 
             reward_formulation = _REWARD_FORM.value,
-            reward_scaling = _REWARD_SCALE.value
-            )
+            reward_scaling = _REWARD_SCALE.value,
+            congestion_aware = FLAGS.congestion_aware)
     else:
         env = AstraSimWrapper.make_astraSim_env(
             knobs_spec=FLAGS.knobs, network=FLAGS.network, system=FLAGS.system, workload=FLAGS.workload_file, 
             rl_form=FLAGS.rl_form,
             reward_formulation = _REWARD_FORM.value,
-            reward_scaling = _REWARD_SCALE.value)
+            reward_scaling = _REWARD_SCALE.value, 
+            congestion_aware = FLAGS.congestion_aware)
     if FLAGS.use_envlogger:
         envlogger_dir = os.path.join(FLAGS.summarydir, get_directory_name(), FLAGS.envlogger_dir)
         if(not os.path.exists(envlogger_dir)):

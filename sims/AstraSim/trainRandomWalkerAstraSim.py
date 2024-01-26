@@ -28,6 +28,7 @@ flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spe
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
+flags.DEFINE_bool('congestion_aware', False, "astra-sim congestion aware or not")
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
@@ -37,6 +38,7 @@ FLAGS = flags.FLAGS
 VERSION = 2
 
 def generate_random_actions(action_dict, system_knob, network_knob, workload_knob, dimension):
+    print("DIMENSION: ", dimension)
     dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
     print("ACTION DICT: ", action_dict)
 
@@ -148,7 +150,8 @@ def main(_):
         system_file = os.path.join(proj_root_path, FLAGS.system)
         workload_file = os.path.join(proj_root_path, FLAGS.workload_file)
 
-    env = AstraSimWrapper.make_astraSim_env(knobs_spec=knobs_spec, network=network_file, system=system_file, workload=workload_file, rl_form='random_walker')
+    env = AstraSimWrapper.make_astraSim_env(knobs_spec=knobs_spec, network=network_file, system=system_file, 
+                                            workload=workload_file, rl_form='random_walker', congestion_aware=FLAGS.congestion_aware)
     # env = AstraSimEnv.AstraSimEnv(rl_form='random_walker')
 
     # experiment name

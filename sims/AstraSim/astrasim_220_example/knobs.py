@@ -10,14 +10,14 @@ SYSTEM_KNOBS = {
 
 
 NETWORK_KNOBS = {
-    'topology': ({"Ring", "Switch", "FullyConnected"}, 'TRUE')
+    'topology': ({"Ring", "Switch", "FullyConnected"}, 'TRUE'),
     # 'dimensions-count': ({1, 2, 3, 4}, 'N/A')
 }
 
 WORKLOAD_KNOBS = {
-    'num_npus': ((1, 64, 1), 'N/A'),
-	'dp': ((1, 8, 1), 'N/A'),
-	'weight_sharded': ((1, 4, 1), 'N/A')
+    # 'num_npus': ((64, 64, 1), 'N/A'),
+	# 'dp': ((1, 8, 1), 'N/A'),
+	# 'weight_sharded': ((1, 4, 1), 'N/A')
 }
 
-CONSTRAINTS = ['product network links-count >= num network dimensions-count']
+CONSTRAINTS = []

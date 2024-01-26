@@ -26,15 +26,16 @@ flags.DEFINE_integer('num_agents', 4, 'Number of agents.')
 flags.DEFINE_float('prob_mutation', 0.1, 'Probability of mutation.')
 flags.DEFINE_string('workload','resnet18', 'ML model name')
 flags.DEFINE_integer('layer_id', 2, 'Layer id')
-flags.DEFINE_string('summary_dir', '.', 'Directory to save the summary.')
+flags.DEFINE_string('summary_dir', './all_logs/', 'Directory to save the summary.')
 flags.DEFINE_string('reward_formulation', 'cycles', 'Reward formulation to use')
-flags.DEFINE_string('traject_dir','./all_logs/ga_trajectories', 'Directory to save the dataset.')
-flags.DEFINE_string('log_dir_ga', './all_logs/ga_logs', 'Directory to store logs.')
+flags.DEFINE_string('traject_dir','./ga_trajectories', 'Directory to save the dataset.')
+flags.DEFINE_string('log_dir_ga', './ga_logs', 'Directory to store logs.')
 flags.DEFINE_bool('use_envlogger', True, 'Whether to use envlogger.')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
+flags.DEFINE_bool('congestion_aware', False, "astra-sim congestion aware or not")
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
@@ -119,7 +120,8 @@ def AstraSim_optimization_function(p):
         system_file = os.path.join(proj_root_path, FLAGS.system)
         workload_file = os.path.join(proj_root_path, FLAGS.workload_file)
     
-    env = AstraSimWrapper.make_astraSim_env(knobs_spec=knobs_spec, network=network_file, system=system_file, workload=workload_file, rl_form='random_walker')
+    env = AstraSimWrapper.make_astraSim_env(knobs_spec=knobs_spec, network=network_file, system=system_file, 
+                                            workload=workload_file, rl_form='random_walker', congestion_aware=FLAGS.congestion_aware)
     fitness_hist = {}
 
     traject_dir, exp_log_dir = generate_run_directories()
@@ -185,17 +187,12 @@ def AstraSim_optimization_function(p):
     
     return -1 * reward
 
-def generate_bounds(action_dict, knobs_spec):
+def generate_bounds(action_dict, knobs_spec, dimension):
     # parse knobs
     system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
     dicts = [system_knob, network_knob, workload_knob]
 
     print("ACTION DICT: ", action_dict)
-
-    if VERSION == 1:
-        dimension = action_dict['network']["dimensions-count"]
-    else:
-        dimension = len(action_dict['network']["topology"])
 
     # initialize lower and upper bounds and precision
     lb, ub, precision = [], [], []
@@ -239,10 +236,10 @@ def main(_):
     astrasim_archgym = os.path.join(proj_root_path, "astrasim-archgym")
     archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
     knobs_spec = os.path.join(proj_root_path, FLAGS.knobs)
-
     networks_folder = os.path.join(astrasim_archgym, "themis/inputs/network")
 
-    # DEFINE NETWORK AND SYSTEM AND WORKLOAD
+    system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
+
     if VERSION == 1:
         network_file = os.path.join(networks_folder, "analytical/4d_ring_fc_ring_switch.json")
     else:
@@ -250,55 +247,70 @@ def main(_):
 
     action_dict = {}
     action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
-    lower_bound, upper_bound, precision = generate_bounds(action_dict, knobs_spec)
 
-    # encoding format: bounds have same order as modified parameters file
-    ga = GA(
-        func=AstraSim_optimization_function,
-        n_dim=len(lower_bound), 
-        size_pop=FLAGS.num_agents,
-        max_iter=FLAGS.num_steps,
-        prob_mut=FLAGS.prob_mutation,
-        lb=lower_bound, 
-        ub=upper_bound,
-        precision=precision,
-    )
+    if VERSION == 1:
+        dimension = action_dict['network']["dimensions-count"]
+    else:
+        dimension = len(action_dict['network']["topology"])
 
-    
-    best_x, best_y = ga.run()
-    
-    
-    # get directory names
-    _, exp_log_dir = generate_run_directories()
-    
-    # check if exp_log_dir exists
-    if not os.path.exists(exp_log_dir):
-        os.makedirs(exp_log_dir)
-    
-    print(ga.all_history_Y)
-    # Convert each array to a list and concatenate the resulting lists
-    arr = [a.squeeze().tolist() for a in ga.all_history_Y]
+    if "dimensions-count" in network_knob:
+        dimensions = sorted(list(network_knob["dimensions-count"][0]))
+    else:
+        dimensions = [dimension]
 
-    print(arr)
-    timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
+    for d in dimensions:
 
-    Y_history = pd.DataFrame(arr)
-    Y_history.insert(0, 'timestamp', timestamp)
-    Y_history.to_csv(os.path.join(exp_log_dir, "Y_history.csv"))
+        action_dict = {}
+        action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
+        lower_bound, upper_bound, precision = generate_bounds(action_dict, knobs_spec, d)
 
-    # fig, ax = plt.subplots(2, 1)
-    # ax[0].plot(Y_history.index.astype(str), Y_history.values.astype(str).flatten(), '.', color='red')
-    # Y_history.min(axis=1).cummin().plot(kind='line')
-    # plt.savefig(os.path.join(exp_log_dir, "Y_history.png"))
-    
-    # save the best_x and best_y to a csv file
-    best_x = pd.DataFrame(best_x)
-    best_x.insert(0, 'timestamp', timestamp)
-    best_x.to_csv(os.path.join(exp_log_dir, "best_x.csv"))
+        # encoding format: bounds have same order as modified parameters file
+        ga = GA(
+            func=AstraSim_optimization_function,
+            n_dim=len(lower_bound), 
+            size_pop=FLAGS.num_agents,
+            max_iter=FLAGS.num_steps,
+            prob_mut=FLAGS.prob_mutation,
+            lb=lower_bound, 
+            ub=upper_bound,
+            precision=precision,
+        )
 
-    best_y = pd.DataFrame(best_y)
-    best_y.insert(0, 'timestamp', timestamp)
-    best_y.to_csv(os.path.join(exp_log_dir, "best_y.csv"))
+        
+        best_x, best_y = ga.run()
+        
+        
+        # get directory names
+        _, exp_log_dir = generate_run_directories()
+        
+        # check if exp_log_dir exists
+        if not os.path.exists(exp_log_dir):
+            os.makedirs(exp_log_dir)
+        
+        print(ga.all_history_Y)
+        # Convert each array to a list and concatenate the resulting lists
+        arr = [a.squeeze().tolist() for a in ga.all_history_Y]
+
+        print(arr)
+        timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
+
+        Y_history = pd.DataFrame(arr)
+        Y_history.insert(0, 'timestamp', timestamp)
+        Y_history.to_csv(os.path.join(exp_log_dir, "Y_history.csv"))
+
+        # fig, ax = plt.subplots(2, 1)
+        # ax[0].plot(Y_history.index.astype(str), Y_history.values.astype(str).flatten(), '.', color='red')
+        # Y_history.min(axis=1).cummin().plot(kind='line')
+        # plt.savefig(os.path.join(exp_log_dir, "Y_history.png"))
+        
+        # save the best_x and best_y to a csv file
+        best_x = pd.DataFrame(best_x)
+        best_x.insert(0, 'timestamp', timestamp)
+        best_x.to_csv(os.path.join(exp_log_dir, "best_x.csv"))
+
+        best_y = pd.DataFrame(best_y)
+        best_y.insert(0, 'timestamp', timestamp)
+        best_y.to_csv(os.path.join(exp_log_dir, "best_y.csv"))
 
 
 if __name__ == '__main__':
