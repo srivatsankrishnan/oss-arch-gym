@@ -133,32 +133,36 @@ def main(_):
    else:
       dimensions = [dimension_count]
 
-   parameters = {"scheduling_policy": Categorical(["FIFO", "LIFO"])}
-   print("params_TEST: ", parameters)
+   # parameters = {"scheduling_policy": Categorical(["FIFO", "LIFO"])}
+   # print("params_TEST: ", parameters)
 
    # for d in dimensions:
-   # parameters = {}
-   # for dict_type in dicts:
-   #    for knob in dict_type.keys():
-   #       if knob == "dimensions-count":
-   #          continue
-   #       knob_converted = h.convert_knob_bo_astrasim(knob)
-   #       if isinstance(dict_type[knob][0], set):
-   #          if dict_type[knob][1] == "FALSE":
-   #             for i in range(1, d + 1):
-   #                knob_dimension = knob_converted + str(i)
-   #                list_sorted = sorted(list(dict_type[knob][0]))
-   #                parameters[knob_dimension] = Categorical(list_sorted)
-   #          else:
-   #             list_sorted = sorted(list(dict_type[knob][0]))
-   #             parameters[knob_converted] = Categorical(list_sorted)
-   #       else:
-   #          if dict_type[knob][1] == "FALSE":
-   #             for i in range(1, d + 1):
-   #                knob_dimension = knob_converted + str(i)
-   #                parameters[knob_dimension] = Integer(dict_type[knob][0][0], dict_type[knob][0][1])
-   #          else:
-   #             parameters[knob_converted] = Integer(dict_type[knob][0][0], dict_type[knob][0][1])
+   d = dimension_count
+   parameters = {}
+   for knobs_dict in dicts:
+      for knob in knobs_dict:
+         if knob == "dimensions-count":
+            continue
+         # converts hyphens to underscores
+         knob_converted = h.convert_knob_bo_astrasim(knob)
+         if isinstance(knobs_dict[knob][0], set):
+            if knobs_dict[knob][1] == "FALSE":
+               for i in range(1, d + 1):
+                  # 'topology': ({"Ring", "Switch", "FullyConnected"}, 'FALSE')
+                  knob_dimension = knob_converted + str(i)
+                  list_sorted = sorted(list(knobs_dict[knob][0]))
+                  parameters[knob_dimension] = Categorical(list_sorted)
+            else:
+               list_sorted = sorted(list(knobs_dict[knob][0]))
+               parameters[knob_converted] = Categorical(list_sorted)
+         else:
+            # 'num_npus': ((64, 64, 1), 'N/A'),
+            if knobs_dict[knob][1] == "FALSE":
+               for i in range(1, d + 1):
+                  knob_dimension = knob_converted + str(i)
+                  parameters[knob_dimension] = Integer(knobs_dict[knob][0][0], knobs_dict[knob][0][1])
+            else:
+               parameters[knob_converted] = Integer(knobs_dict[knob][0][0], knobs_dict[knob][0][1])
 
    # Construct the exp name from seed and num_iter
    exp_name = str(FLAGS.workload) + "_random_state_" + str(FLAGS.random_state) + "_num_iter_" + str(FLAGS.num_iter)

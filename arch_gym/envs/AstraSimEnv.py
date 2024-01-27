@@ -307,10 +307,14 @@ class AstraSimEnv(gym.Env):
                     for key, value in action_dict["system"].items():
                         if "dimensions-count" in action_dict["network"]:
                             if isinstance(value, list) and key not in self.system_knobs:
-                                while len(value) != action_dict["network"]["dimensions-count"]:
+                                print("dimensions-count: ", action_dict["network"]["dimensions-count"])
+                                print("key: ", key)
+                                print("value: ", value)
+                                while len(value) < action_dict["network"]["dimensions-count"]:
                                     value.append(value[0])
                                 while len(value) > action_dict["network"]["dimensions-count"]:
                                     value.pop()
+                                print("edited value: ", value)
 
                         if isinstance(value, str):
                             file.write(f'"{key}": "{value}",\n')
@@ -336,12 +340,18 @@ class AstraSimEnv(gym.Env):
                     for k in key_split:
                         key_converted += k 
                         key_converted += "_"
+                    print("HERE")
                     if "dimensions-count" in action_dict["network"]:
+                        print("REACHED")
                         if isinstance(value, list) and key not in self.network_knobs:
+                            print("dimensions-count: ", action_dict["network"]["dimensions-count"])
+                            print("key: ", key)
+                            print("network value: ", value)
                             while len(value) < action_dict["network"]["dimensions-count"]:
                                 value.append(value[0])
                             while len(value) > action_dict["network"]["dimensions-count"]:
                                 value.pop()
+                            print("network edited value: ", value)
 
                     data[key_converted[:-1]] = value
 
@@ -518,7 +528,7 @@ class AstraSimEnv(gym.Env):
 
                 return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
         else:
-            observations = [max_cycles]
+            observations = [np.format_float_scientific(max_cycles)]
             reward = self.calculate_reward(observations)
             print("reward: ", reward)
             

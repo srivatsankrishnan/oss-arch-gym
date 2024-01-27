@@ -23,9 +23,7 @@ VERSION = 2
 
 class AstraSimEstimator(BaseEstimator):
 
-    # def __init__(self, **params):
     def __init__(self, exp_name="test", traject_dir="traj", **params):
-    # def __init__(self, exp_name="test", traject_dir="traj", scheduling_policy="FIFO"):
         
         ''' All the default values of AstraSim should be initialized here. 
             Take all the parameters here and write it to the config files
@@ -71,21 +69,12 @@ class AstraSimEstimator(BaseEstimator):
             self.workload_file = os.path.join(astrasim, self.flags["workload"])
             self.congestion_aware = True if self.flags["congestion_aware"] == "True" else False
 
-        # for param_key, _ in parameters.items():
-        #     knob_reverted = self.helper.revert_knob_bo_astrasim(param_key)
-        #     print("knob_reverted: ", knob_reverted)
-        #     for knob_dict, _ in self.dicts:
-        #         if knob_reverted in knob_dict:
-        #             print("knob_reverted in knob_dict")
-        #             self.action_dict[param_key] = None
-        self.action_dict["scheduling_policy"] = params['scheduling_policy']
-        # self.parameters = parameters
+        for param_key, _ in params.items():
+            for knob_dict, _ in self.dicts:
+                self.action_dict[param_key] = params[param_key]
     
         self.exp_name = exp_name
         self.traject_dir = traject_dir
-        print("PARAMS: ", params)
-        # self.exp_name = params["exp_name"]
-        # self.traject_dir = params["traject_dir"]
 
         self.fitness_hist = []
         self.exp_log_dir = os.path.join(os.getcwd(), f"{self.flags['summary_dir']}/bo_logs")
