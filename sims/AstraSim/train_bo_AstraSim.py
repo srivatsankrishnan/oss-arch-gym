@@ -18,7 +18,7 @@ from absl import app
 
 flags.DEFINE_string('workload', 'resnet18', 'Workload trace file')
 flags.DEFINE_integer('layer_id', 2, 'Layer id')
-flags.DEFINE_integer('num_iter', 16, 'Number of training steps.')
+flags.DEFINE_integer('num_iter', 1, 'Number of training steps.')
 flags.DEFINE_integer('random_state', 2, 'Random state.')
 flags.DEFINE_string('traject_dir', 'bo_trajectories', 'Directory to store data.')
 flags.DEFINE_string('exp_config_file', 'exp_config.ini', 'Experiment config file.')
@@ -51,7 +51,15 @@ def scorer(estimator, X, y=None):
 
 def find_best_params_test(X, parameters, n_iter, seed, exp_name, traject_dir, exp_log_dir, dimension_count):
    
-   model = bo.AstraSimEstimator(exp_name=exp_name, traject_dir=traject_dir, **parameters)
+   # model = bo.AstraSimEstimator(exp_name=exp_name, traject_dir=traject_dir, **parameters)
+
+   model = bo.AstraSimEstimator(exp_name, traject_dir, **parameters)
+
+   # model_params = parameters.copy()
+   # model_params["exp_name"] = exp_name
+   # model_params["traject_dir"] = traject_dir
+   # print("model_params: ", model_params)
+   # model = bo.AstraSimEstimator(**model_params)
 
    # use config parser to update its parameters
    config = configparser.ConfigParser()
@@ -120,26 +128,37 @@ def main(_):
    else:
       dimension_count = len(network_parsed['network']["topology"])
 
-   parameters = {}
-   for dict_type in dicts:
-      for knob in dict_type.keys():
-         knob_converted = h.convert_knob_bo_astrasim(knob)
-         if isinstance(dict_type[knob][0], set):
-            if dict_type[knob][1] == "FALSE":
-               for i in range(1, dimension_count + 1):
-                  knob_dimension = knob_converted + str(i)
-                  list_sorted = sorted(list(dict_type[knob][0]))
-                  parameters[knob_dimension] = Categorical(list_sorted)
-            else:
-               list_sorted = sorted(list(dict_type[knob][0]))
-               parameters[knob_converted] = Categorical(list_sorted)
-         else:
-            if dict_type[knob][1] == "FALSE":
-               for i in range(1, dimension_count + 1):
-                  knob_dimension = knob_converted + str(i)
-                  parameters[knob_dimension] = Integer(dict_type[knob][0][0], dict_type[knob][0][1])
-            else:
-               parameters[knob_converted] = Integer(dict_type[knob][0][0], dict_type[knob][0][1])
+   if "dimensions-count" in network_knob:
+      dimensions = sorted(list(network_knob["dimensions-count"][0]))
+   else:
+      dimensions = [dimension_count]
+
+   parameters = {"scheduling_policy": Categorical(["FIFO", "LIFO"])}
+   print("params_TEST: ", parameters)
+
+   # for d in dimensions:
+   # parameters = {}
+   # for dict_type in dicts:
+   #    for knob in dict_type.keys():
+   #       if knob == "dimensions-count":
+   #          continue
+   #       knob_converted = h.convert_knob_bo_astrasim(knob)
+   #       if isinstance(dict_type[knob][0], set):
+   #          if dict_type[knob][1] == "FALSE":
+   #             for i in range(1, d + 1):
+   #                knob_dimension = knob_converted + str(i)
+   #                list_sorted = sorted(list(dict_type[knob][0]))
+   #                parameters[knob_dimension] = Categorical(list_sorted)
+   #          else:
+   #             list_sorted = sorted(list(dict_type[knob][0]))
+   #             parameters[knob_converted] = Categorical(list_sorted)
+   #       else:
+   #          if dict_type[knob][1] == "FALSE":
+   #             for i in range(1, d + 1):
+   #                knob_dimension = knob_converted + str(i)
+   #                parameters[knob_dimension] = Integer(dict_type[knob][0][0], dict_type[knob][0][1])
+   #          else:
+   #             parameters[knob_converted] = Integer(dict_type[knob][0][0], dict_type[knob][0][1])
 
    # Construct the exp name from seed and num_iter
    exp_name = str(FLAGS.workload) + "_random_state_" + str(FLAGS.random_state) + "_num_iter_" + str(FLAGS.num_iter)
@@ -152,10 +171,15 @@ def main(_):
 
    print("Trajectory directory: " + traject_dir)
 
-   print("PARAMETERS: ", parameters)
+   # print("PARAMETERS: ", parameters)
+
+   # flag_dict = {"knobs": str(FLAGS.knobs), "network": str(FLAGS.network), "system": str(FLAGS.system), "workload": str(FLAGS.workload_file), 
+   #             "reward_formulation": str(FLAGS.reward_formulation), "congestion_aware": FLAGS.congestion_aware, 'summary_dir': FLAGS.summary_dir, 'dimension': d}
+
 
    flag_dict = {"knobs": str(FLAGS.knobs), "network": str(FLAGS.network), "system": str(FLAGS.system), "workload": str(FLAGS.workload_file), 
-               "reward_formulation": str(FLAGS.reward_formulation), "congestion_aware": FLAGS.congestion_aware, 'summary_dir': FLAGS.summary_dir}
+               "reward_formulation": str(FLAGS.reward_formulation), "congestion_aware": FLAGS.congestion_aware, 'summary_dir': FLAGS.summary_dir, 'dimension': dimension_count}
+
 
    # write flags to json file for AstraSimEstimator to read
    with open(os.path.join(proj_root_path, "bo_vars.json"), 'w') as file:

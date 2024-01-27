@@ -23,7 +23,9 @@ VERSION = 2
 
 class AstraSimEstimator(BaseEstimator):
 
-    def __init__(self, exp_name="test", traject_dir="traj", **parameters):
+    # def __init__(self, **params):
+    def __init__(self, exp_name="test", traject_dir="traj", **params):
+    # def __init__(self, exp_name="test", traject_dir="traj", scheduling_policy="FIFO"):
         
         ''' All the default values of AstraSim should be initialized here. 
             Take all the parameters here and write it to the config files
@@ -41,9 +43,9 @@ class AstraSimEstimator(BaseEstimator):
 
         flag_path = os.path.join(astrasim, "bo_vars.json")
         f = open(flag_path)
-        flags = json.load(f)
+        self.flags = json.load(f)
 
-        self.knobs_spec = os.path.join(astrasim, flags["knobs"])
+        self.knobs_spec = os.path.join(astrasim, self.flags["knobs"])
 
         self.helper = helpers()
         self.action_dict = {}
@@ -64,22 +66,30 @@ class AstraSimEstimator(BaseEstimator):
                 systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
             self.workload_file = os.path.join(workloads_folder, "all_reduce/allreduce_0.65.txt")
         else:
-            self.network_file = os.path.join(astrasim, flags["network"])
-            self.system_file = os.path.join(astrasim, flags["system"])
-            self.workload_file = os.path.join(astrasim, flags["workload"])
-            self.congestion_aware = True if flags["congestion_aware"] == "True" else False
+            self.network_file = os.path.join(astrasim, self.flags["network"])
+            self.system_file = os.path.join(astrasim, self.flags["system"])
+            self.workload_file = os.path.join(astrasim, self.flags["workload"])
+            self.congestion_aware = True if self.flags["congestion_aware"] == "True" else False
 
-        for param_key, _ in parameters.items():
-            knob_reverted = self.helper.revert_knob_bo_astrasim(param_key)
-            for dict_type, _ in self.dicts:
-                if knob_reverted in dict_type.keys():
-                    self.action_dict[param_key] = 0
+        # for param_key, _ in parameters.items():
+        #     knob_reverted = self.helper.revert_knob_bo_astrasim(param_key)
+        #     print("knob_reverted: ", knob_reverted)
+        #     for knob_dict, _ in self.dicts:
+        #         if knob_reverted in knob_dict:
+        #             print("knob_reverted in knob_dict")
+        #             self.action_dict[param_key] = None
+        self.action_dict["scheduling_policy"] = params['scheduling_policy']
+        # self.parameters = parameters
     
         self.exp_name = exp_name
         self.traject_dir = traject_dir
+        print("PARAMS: ", params)
+        # self.exp_name = params["exp_name"]
+        # self.traject_dir = params["traject_dir"]
+
         self.fitness_hist = []
-        self.exp_log_dir = os.path.join(os.getcwd(), f"{flags['summary_dir']}/bo_logs")
-        self.reward_formulation = flags['reward_formulation']
+        self.exp_log_dir = os.path.join(os.getcwd(), f"{self.flags['summary_dir']}/bo_logs")
+        self.reward_formulation = self.flags['reward_formulation']
         
         print("[Experiment]: ", self.exp_name)
         print("[Trajectory Log path]: ", self.traject_dir)
@@ -131,8 +141,8 @@ class AstraSimEstimator(BaseEstimator):
         reward_formulation = config.get("experiment_configuration", "reward_formulation")
         use_envlogger = config.get("experiment_configuration", "use_envlogger")
 
-        env_wrapper = make_astraSim_env(knobs_spec=self.knobs_spec, network=self.network_file, system=self.system_file, workload=self.workload_file, reward_formulation = reward_formulation,
-            rl_form = 'bo')
+        env_wrapper = make_astraSim_env(knobs_spec=self.knobs_spec, network=self.network_file, system=self.system_file, workload=self.workload_file, 
+                                        reward_formulation = reward_formulation, rl_form = 'bo', congestion_aware=self.congestion_aware)
         
         # check if trajectory directory exists
         if use_envlogger == 'True':
@@ -152,24 +162,32 @@ class AstraSimEstimator(BaseEstimator):
             actual_action['workload'] = self.helper.parse_workload_astrasim(self.workload_file, actual_action, VERSION)
         else:
             actual_action['workload'] = {"path": self.workload_file}
-            
+
         actual_action['network'] = self.helper.parse_network_astrasim(self.network_file, actual_action, VERSION)
         actual_action['system'] = self.helper.parse_system_astrasim(self.system_file, actual_action, VERSION)
 
-        if VERSION == 1:
-            dimension = actual_action['network']["dimensions-count"]
-        else:
-            dimension = len(actual_action['network']["topology"])
+        dimension = int(self.flags["dimension"])
 
-        for dict_type, dict_name in self.dicts:
-            for knob in dict_type.keys():
+        for knob_dict, dict_name in self.dicts:
+            for knob in knob_dict:
+                if knob == "dimensions-count":
+                    actual_action[dict_name]["dimensions-count"] = dimension
+                    continue
+                # action_dict has underscore, actual_action has hyphens
                 knob_converted = self.helper.convert_knob_bo_astrasim(knob)
-                if dict_type[knob][1] == "FALSE":
+                if knob_dict[knob][1] == "FALSE":
                     actual_action[dict_name][knob] = [self.action_dict[knob_converted + str(i)] for i in range(1, dimension+1)]
-                elif dict_type[knob][1] == "TRUE":
+                elif knob_dict[knob][1] == "TRUE":
                     actual_action[dict_name][knob] = [self.action_dict[knob_converted] for _ in range(dimension)]
                 else:
                     actual_action[dict_name][knob] = self.action_dict[knob_converted]
+
+        # print("DIMENSION: ", actual_action["network"]["dimensions-count"])
+
+        # actual_action["network"] = {"path": self.network_file}
+        # actual_action["workload"] = {"path": self.workload_file}
+        # actual_action["system"] = self.helper.parse_system_astrasim(self.system_file, actual_action, VERSION)
+        # actual_action["system"]["scheduling-policy"] = self.action_dict["scheduling_policy"]
 
         _, reward, _, info = env.step(actual_action)
 
@@ -195,17 +213,27 @@ class AstraSimEstimator(BaseEstimator):
         return NotImplementedError
 
     def get_params(self, deep=False):
+        # param_dict = {}
+        # for knob in self.action_dict:
+        #     param_dict[knob] = self.action_dict[knob]
+        # print("get_params: ", param_dict, self.action_dict)
+        # return param_dict
         param_dict = {}
-        for knob in self.action_dict.keys():
+        for knob in self.action_dict:
             param_dict[knob] = self.action_dict[knob]
-
         return param_dict
+
+        # return {
+        #     "scheduling_policy": self.action_dict["scheduling_policy"]
+        # }
       
     def set_params(self, **params):
+        # _params = params
+        # self.action_dict["scheduling_policy"] = _params["scheduling_policy"]
+        # return self
         _params = params
-        for knob in _params.keys():
+        for knob in _params:
             self.action_dict[knob] = _params[knob]
-
         return self
 
 
