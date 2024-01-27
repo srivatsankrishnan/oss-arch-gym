@@ -843,25 +843,30 @@ class helpers():
         print("action_decoder_rl_astraSim decoded", act_decoded)
         return act_decoded
 
+    def setAstraSimGADimension(self, dimension):
+        self.dimension = dimension
 
-    def action_decoder_ga_astraSim(self, act_encoded, system_knob, network_knob, workload_knob, dimension):
+
+    def action_decoder_ga_astraSim(self, act_encoded, system_knob, network_knob, workload_knob):
         act_decoded = {"system": {}, "network": {}, "workload": {}}
         dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
 
         counter = 0
         for dict_type, dict_name in dicts:
-            knobs = dict_type.keys()
-            for knob in knobs:
+            for knob in dict_type:
+                if knob == "dimensions-count":
+                    act_decoded[dict_name]["dimensions-count"] = self.dimension
+                    continue
                 if isinstance(dict_type[knob][0], set):
                     if dict_type[knob][1] == "FALSE":
                         list_sorted = sorted(list(dict_type[knob][0]))
                         act_decoded[dict_name][knob] = [list_sorted[int(i)]
-                            for i in act_encoded[counter : counter + dimension]]
-                        counter += dimension
+                            for i in act_encoded[counter : counter + self.dimension]]
+                        counter += self.dimension
                     elif dict_type[knob][1] == "TRUE":
                         list_sorted = sorted(list(dict_type[knob][0]))
                         i = int(act_encoded[counter])
-                        act_decoded[dict_name][knob] = [list_sorted[i] for _ in range(dimension)]
+                        act_decoded[dict_name][knob] = [list_sorted[i] for _ in range(self.dimension)]
                         counter += 1
                     else:
                         list_sorted = sorted(list(dict_type[knob][0]))
@@ -870,10 +875,10 @@ class helpers():
                         counter += 1
                 else:
                     if dict_type[knob][1] == "FALSE":
-                        act_decoded[dict_name][knob] = act_encoded[counter : counter + dimension]
-                        counter += dimension
+                        act_decoded[dict_name][knob] = act_encoded[counter : counter + self.dimension]
+                        counter += self.dimension
                     elif dict_type[knob][1] == "TRUE":
-                        act_decoded[dict_name][knob] = [act_encoded[counter] for _ in range(dimension)]
+                        act_decoded[dict_name][knob] = [act_encoded[counter] for _ in range(self.dimension)]
                         counter += 1
                     else:
                         act_decoded[dict_name][knob] = act_encoded[counter]

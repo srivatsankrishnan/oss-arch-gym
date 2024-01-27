@@ -173,11 +173,6 @@ class AstraSimEstimator(BaseEstimator):
 
         # print("DIMENSION: ", actual_action["network"]["dimensions-count"])
 
-        # actual_action["network"] = {"path": self.network_file}
-        # actual_action["workload"] = {"path": self.workload_file}
-        # actual_action["system"] = self.helper.parse_system_astrasim(self.system_file, actual_action, VERSION)
-        # actual_action["system"]["scheduling-policy"] = self.action_dict["scheduling_policy"]
-
         _, reward, _, info = env.step(actual_action)
 
         self.fitness_hist['reward'] = reward

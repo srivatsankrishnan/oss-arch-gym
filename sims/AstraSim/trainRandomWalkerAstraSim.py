@@ -43,9 +43,9 @@ def generate_random_actions(action_dict, system_knob, network_knob, workload_kno
     print("ACTION DICT: ", action_dict)
 
     for dict_type, dict_name in dicts:
-        knobs = dict_type.keys()
-        for knob in knobs:
+        for knob in dict_type:
             if knob == "dimensions-count":
+                action_dict[dict_name]["dimensions-count"] = dimension
                 continue
             if isinstance(dict_type[knob][0], set):
                 if dict_type[knob][1] == "FALSE":
@@ -186,11 +186,6 @@ def main(_):
     else:
         dimension = len(action_dict['network']["topology"])
 
-    if "dimensions-count" in network_knob:
-        list_sorted = sorted(list(network_knob["dimensions-count"][0]))
-        dimension = random.choice(list_sorted)
-        action_dict['network']["dimensions-count"] = dimension
-
     # only generate workload if knobs exist
     if GENERATE_WORKLOAD == "TRUE":
         action_dict['workload'] = astrasim_helper.parse_workload_astrasim(workload_file, action_dict, VERSION)
@@ -204,6 +199,10 @@ def main(_):
 
         for step in range(FLAGS.num_steps):
             # pass into generate_random_actions(dimension, knobs)
+            if "dimensions-count" in network_knob:
+                list_sorted = sorted(list(network_knob["dimensions-count"][0]))
+                dimension = random.choice(list_sorted)
+                action_dict['network']["dimensions-count"] = dimension
             action_dict = generate_random_actions(action_dict, system_knob, network_knob, workload_knob, dimension)
             print("DIMENSION: ", dimension)
 

@@ -10,7 +10,7 @@
 topology: [ Ring, FullyConnected, Switch ]  # Ring, Switch, FullyConnected
 
 # 2 x 8 x 4 = 64 NPUs
-npus_count: [ 2, 8, 4 ]  # number of NPUs
+npus_count: [ 2, 4, 4 ]  # number of NPUs
 
 # Bandwidth per each dimension and direction (per link)
 bandwidth: [ 200.0, 100.0, 50.0 ]  # GB/s

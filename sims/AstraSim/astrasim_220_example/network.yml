@@ -1,16 +1,20 @@
 topology:
 - Ring
-- Ring
-- Ring
+- Switch
+- Switch
+- Switch
 npus_count:
 - 2
-- 8
 - 4
+- 4
+- 2
 bandwidth:
 - 200.0
 - 100.0
 - 50.0
+- 200.0
 latency:
 - 50.0
 - 500.0
 - 2000.0
+- 50.0

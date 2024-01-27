@@ -21,8 +21,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import time
 
-flags.DEFINE_integer('num_steps', 20, 'Number of training steps.')
-flags.DEFINE_integer('num_agents', 4, 'Number of agents.')
+flags.DEFINE_integer('num_steps', 5, 'Number of training steps.')
+flags.DEFINE_integer('num_agents', 2, 'Number of agents.')
 flags.DEFINE_float('prob_mutation', 0.1, 'Probability of mutation.')
 flags.DEFINE_string('workload','resnet18', 'ML model name')
 flags.DEFINE_integer('layer_id', 2, 'Layer id')
@@ -153,12 +153,12 @@ def AstraSim_optimization_function(p):
     action_dict['system'] = astraSim_helper.parse_system_astrasim(system_file, action_dict, VERSION)
     action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
 
-    if VERSION == 1:
-        dimension = action_dict['network']["dimensions-count"]
-    else:
-        dimension = len(action_dict['network']["topology"])
+    print("P TEST: ", p)
+    print("ACTION DICT TEST: ", action_dict)
+    print("DIMENSION TEST: ", astraSim_helper.dimension)
 
-    action_dict_decoded = astraSim_helper.action_decoder_ga_astraSim(p, system_knob, network_knob, workload_knob, dimension)
+
+    action_dict_decoded = astraSim_helper.action_decoder_ga_astraSim(p, system_knob, network_knob, workload_knob)
     
     # change all variables decoded into action_dict
     for sect in action_dict_decoded:
@@ -187,18 +187,18 @@ def AstraSim_optimization_function(p):
     
     return -1 * reward
 
-def generate_bounds(action_dict, knobs_spec, dimension):
+def generate_bounds(knobs_spec, dimension):
     # parse knobs
     system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
     dicts = [system_knob, network_knob, workload_knob]
-
-    print("ACTION DICT: ", action_dict)
 
     # initialize lower and upper bounds and precision
     lb, ub, precision = [], [], []
     for dict_type in dicts:
         knobs = dict_type.keys()
         for knob in knobs:
+            if knob == "dimensions-count":
+                continue
             if isinstance(dict_type[knob][0], set):
                 if dict_type[knob][1] == "FALSE":
                     lb += [0] * dimension
@@ -259,10 +259,12 @@ def main(_):
         dimensions = [dimension]
 
     for d in dimensions:
+        
+        astraSim_helper.setAstraSimGADimension(d)
 
-        action_dict = {}
-        action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
-        lower_bound, upper_bound, precision = generate_bounds(action_dict, knobs_spec, d)
+        print("ITERATION: ", d)
+
+        lower_bound, upper_bound, precision = generate_bounds(knobs_spec, d)
 
         # encoding format: bounds have same order as modified parameters file
         ga = GA(
