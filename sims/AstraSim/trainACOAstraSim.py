@@ -17,7 +17,7 @@ import subprocess
 from absl import flags
 from absl import app
 
-flags.DEFINE_integer('ant_count', 1, 'Number of Ants.')
+flags.DEFINE_integer('ant_count', 2, 'Number of Ants.')
 flags.DEFINE_float('greediness', 0.5, 'How greedy you want the ants to be?.')
 flags.DEFINE_float('decay', 0.1, 'Decay rate for pheromone.')
 flags.DEFINE_float('evaporation', 0.25, 'Evaporation value for pheromone.')

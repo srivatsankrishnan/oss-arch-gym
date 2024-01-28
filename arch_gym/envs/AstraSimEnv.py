@@ -25,8 +25,8 @@ VERSION = 2
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):
-    def __init__(self, knobs_spec, network, system, workload, rl_form="sa1", max_steps=5, 
-                num_agents=1, reward_formulation="None", reward_scaling=1, congestion_aware=False):
+    def __init__(self, knobs_spec, network, system, workload, rl_form=None, max_steps=5, 
+                num_agents=1, reward_formulation="None", reward_scaling=1, congestion_aware=False, dimension=None):
         self.rl_form = rl_form
         self.helpers = helpers()
         self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
@@ -89,10 +89,14 @@ class AstraSimEnv(gym.Env):
         
         self.param_len = 0
         self.dimension = 0
-        if VERSION == 1:
+        # if dimension is given, then it's a tunable knob
+        if dimension:
+            self.dimension = dimension
+        elif VERSION == 1:
             with open(self.network_file, 'r') as file:
                 data = json.load(file)
                 self.dimension = data["dimensions-count"]
+        # if dimension is not a tunable knob, then it's constant
         else:
             data = yaml.load(open(self.network_file), Loader=yaml.Loader)
             self.dimension = len(data["topology"])
@@ -108,6 +112,8 @@ class AstraSimEnv(gym.Env):
         print("self.param_len: ", self.param_len)
         print("network knobs: ", self.network_knobs)
         for key in self.network_knobs:
+            if key == "dimensions-count":
+                continue
             if self.network_knobs[key][1] == "FALSE":
                 self.param_len += self.dimension
             else:
@@ -215,27 +221,27 @@ class AstraSimEnv(gym.Env):
     def step(self, action_dict):
 
         """ RL """
+        # [0.5, 0.5, 0.5]
         if not isinstance(action_dict, dict):
             with open(settings_dir_path + "/AstraSimRL_2.csv", 'a') as f:
                 writer = csv.writer(f)
                 writer.writerow(action_dict)
 
-            print("STEP: action_dict is a list")
             action_dict_decoded = {}
-            action_dict_decoded['network'] = {"path": self.network_file}
-            action_dict_decoded['workload'] = {"path": self.workload_file}
+
+            # only generate workload if knobs exist
+            if self.generate_workload == "TRUE":
+                action_dict_decoded['workload'] = self.helpers.parse_workload_astrasim(self.workload_file, action_dict_decoded, VERSION)
+            else:
+                action_dict_decoded['workload'] = {"path": self.workload_file}
             
             # parse system: initial values
-            self.helpers.parse_system_astrasim(self.system_file, action_dict_decoded, VERSION)
-            self.helpers.parse_network_astrasim(self.network_file, action_dict_decoded, VERSION)
+            action_dict_decoded['network'] = self.helpers.parse_network_astrasim(self.network_file, action_dict_decoded, VERSION)
+            action_dict_decoded['system'] = self.helpers.parse_system_astrasim(self.system_file, action_dict_decoded, VERSION)
 
-            # returning an 
-            print("ACTION DICT")
-            print(action_dict)
-            print("tunable knobs: ")
-            print(self.system_knobs)
-            print(self.network_knobs)
-            print(self.workload_knobs)
+            print('system knobs: ', self.system_knobs)
+            print('network knobs: ', self.network_knobs)
+            print('workload knobs: ', self.workload_knobs)
 
             action_decoded = self.helpers.action_decoder_rl_astraSim(action_dict,
                                                                      self.system_knobs, 
@@ -251,6 +257,11 @@ class AstraSimEnv(gym.Env):
                     action_dict_decoded[sect][key] = action_decoded[sect][key]
 
             action_dict = action_dict_decoded
+            if "dimensions-count" in self.network_knobs:
+                action_dict["network"]["dimensions-count"] = self.dimension
+
+            print("action_decoded: ", action_decoded)
+            print("action_dict: ", action_dict)
 
         if "path" in action_dict["network"]:
             self.network_config = action_dict["network"]["path"]
@@ -261,13 +272,7 @@ class AstraSimEnv(gym.Env):
         if "path" in action_dict["workload"]:
             self.workload_file = action_dict["workload"]["path"]
 
-        print("ACTION DICTSSSS")
-        print(action_dict)
-        print("VERSION:")
-        print(VERSION)
-        print("Congestion Aware: ", self.astrasim_binary)
         # load knobs
-
         if VERSION == 1:
             # write system to txt file
             if "path" not in action_dict["system"]:
@@ -302,19 +307,19 @@ class AstraSimEnv(gym.Env):
         elif VERSION == 2:
             # write system to json file
             if "path" not in action_dict["system"]:
+                print("PATH NOT IN ACTION DICT SYSTEM")
                 with open(self.system_config, 'w') as file:
                     file.write('{\n')
                     for key, value in action_dict["system"].items():
                         if "dimensions-count" in action_dict["network"]:
+                            print("dimension count in action dict system")
                             if isinstance(value, list) and key not in self.system_knobs:
-                                print("dimensions-count: ", action_dict["network"]["dimensions-count"])
-                                print("key: ", key)
-                                print("value: ", value)
+                                print("value not in system knobs")
                                 while len(value) < action_dict["network"]["dimensions-count"]:
                                     value.append(value[0])
                                 while len(value) > action_dict["network"]["dimensions-count"]:
                                     value.pop()
-                                print("edited value: ", value)
+                                print("FINAL VALUE: ", value)
 
                         if isinstance(value, str):
                             file.write(f'"{key}": "{value}",\n')
@@ -331,6 +336,7 @@ class AstraSimEnv(gym.Env):
                     file.write('}')
             # write network to yaml file
             if "path" not in action_dict["network"]:
+                print("PATH NOT IN ACTION DICT NETWORK")
                 data = {}
                 for key, value in action_dict["network"].items():
                     if key == "dimensions-count":
@@ -342,11 +348,14 @@ class AstraSimEnv(gym.Env):
                         key_converted += k 
                         key_converted += "_"
                     if "dimensions-count" in action_dict["network"]:
+                        print("dimension count in action dict network")
                         if isinstance(value, list) and key not in self.network_knobs:
+                            print("value not in network knobs")
                             while len(value) < action_dict["network"]["dimensions-count"]:
                                 value.append(value[0])
                             while len(value) > action_dict["network"]["dimensions-count"]:
                                 value.pop()
+                            print("FINAL VALUE: ", value)
 
                     data[key_converted[:-1]] = value
 
@@ -524,6 +533,9 @@ class AstraSimEnv(gym.Env):
                 return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
         else:
             observations = [np.format_float_scientific(max_cycles)]
+            if self.rl_form == "sa1":
+                observations = [int(max_cycles)]
+            observations = np.reshape(observations, self.observation_space.shape)
             reward = self.calculate_reward(observations)
             print("reward: ", reward)
             

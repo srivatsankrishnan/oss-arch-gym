@@ -1,6 +1,6 @@
 DeepSwarm:
   aco:
-    ant_count: 1
+    ant_count: 2
     greediness: 0.5
     pheromone:
       decay: 0.1

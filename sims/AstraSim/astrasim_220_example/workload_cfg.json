@@ -1,5 +1,5 @@
 {
 "num_npus": 64,
-"dp": 55,
-"weight_sharded": 2
+"dp": 64,
+"weight_sharded": 4
 }

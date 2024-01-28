@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import subprocess
 from typing import Optional
 
 os.sys.path.insert(0, os.path.abspath('../../'))
@@ -28,6 +29,10 @@ from acme.utils.loggers import aggregators
 from acme.utils.loggers import base
 
 from arch_gym.envs import AstraSimWrapper
+from arch_gym.envs.envHelpers import helpers
+
+# define Astrasim version
+VERSION = 2
 
 FLAGS = flags.FLAGS
 
@@ -78,6 +83,11 @@ flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "
 flags.DEFINE_bool('congestion_aware', False, "astra-sim congestion aware or not")
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
+
+astrasim_helpers = helpers()
+settings_file_path = os.path.realpath(__file__)
+settings_dir_path = os.path.dirname(settings_file_path)
+proj_root_path = os.path.abspath(settings_dir_path)
 
 def get_directory_name():
     _EXP_NAME = 'Algo_{}_rlform_{}_num_steps_{}_seed_{}_lr_{}_entropy_{}'.format(_RL_AGO.value, _RL_FORM.value,_NUM_STEPS.value, _SEED.value, _LEARNING_RATE.value, _ENTROPY_COST.value)
@@ -130,7 +140,7 @@ def _logger_factory(logger_label: str, steps_key: Optional[str] = None, task_ins
     raise ValueError(
         f'Improper value for logger label. Logger_label is {logger_label}')
 
-def build_experiment_config():
+def build_experiment_config(dimension=None):
     """Builds the experiment configuration."""
 
     if(FLAGS.rl_form == 'tdm'):
@@ -138,14 +148,18 @@ def build_experiment_config():
             knobs_spec=FLAGS.knobs, network=FLAGS.network, system=FLAGS.system, workload=FLAGS.workload_file, 
             reward_formulation = _REWARD_FORM.value,
             reward_scaling = _REWARD_SCALE.value,
-            congestion_aware = FLAGS.congestion_aware)
-    else:
+            congestion_aware = FLAGS.congestion_aware,
+            dimension=dimension
+        )
+    else: # if FLAGS.rl_form == 'sa1':
         env = AstraSimWrapper.make_astraSim_env(
             knobs_spec=FLAGS.knobs, network=FLAGS.network, system=FLAGS.system, workload=FLAGS.workload_file, 
             rl_form=FLAGS.rl_form,
             reward_formulation = _REWARD_FORM.value,
             reward_scaling = _REWARD_SCALE.value, 
-            congestion_aware = FLAGS.congestion_aware)
+            congestion_aware = FLAGS.congestion_aware,
+            dimension=dimension
+        )
     if FLAGS.use_envlogger:
         envlogger_dir = os.path.join(FLAGS.summarydir, get_directory_name(), FLAGS.envlogger_dir)
         if(not os.path.exists(envlogger_dir)):
@@ -195,18 +209,39 @@ def build_experiment_config():
         raise ValueError(f'Improper value for rl_algo. rl_algo is {FLAGS.rl_algo}')
 
 def main(_):
+    knobs_spec = os.path.join(proj_root_path, FLAGS.knobs)
+    system_knob, network_knob, workload_knob = astrasim_helpers.parse_knobs_astrasim(knobs_spec)
 
-  sim_config = arch_gym_configs.sim_config
-  config = build_experiment_config() #TODO
-  if FLAGS.run_distributed:
-    program = experiments.make_distributed_experiment(
-        experiment=config, num_actors=4)
-    lp.launch(program, xm_resources=lp_utils.make_xm_docker_resources(program))
-  else:
-    experiments.run_experiment(
-        experiment=config,
-        eval_every=FLAGS.eval_every,
-        num_eval_episodes=FLAGS.eval_episodes)
+    dimension_count = 0
+    dimensions = []
+
+    network_file = os.path.join(proj_root_path, FLAGS.network)
+    action_dict = {}
+    action_dict['network'] = astrasim_helpers.parse_network_astrasim(network_file, action_dict, VERSION)
+
+    if VERSION == 1:
+        dimensions_count = action_dict['network']["dimensions-count"]
+    else:
+        dimensions_count = len(action_dict['network']["topology"])
+
+    if "dimensions-count" in network_knob:
+        dimensions = sorted(list(network_knob["dimensions-count"][0]))
+    else:
+        dimensions = [dimensions_count]
+
+    # For loop for dimensions
+    for d in dimensions:
+        train_singleAgent_helper = os.path.join(proj_root_path, "trainSingleAgentAstraSimHelper.py")
+
+        command = ['python', train_singleAgent_helper, 
+                    f'--run_distributed_helper={FLAGS.run_distributed}', 
+                    f'--eval_every_helper={FLAGS.eval_every}',
+                    f'--eval_episodes_helper={FLAGS.eval_episodes}',
+                    f'--dimension={d}',
+                    ]
+
+        subprocess.run(command)
+
 
 if __name__ == '__main__':
    app.run(main)

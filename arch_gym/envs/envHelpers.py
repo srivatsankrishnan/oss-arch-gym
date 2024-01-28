@@ -788,6 +788,8 @@ class helpers():
         for dict_type, dict_name in dicts:
             knobs = sorted(dict_type.keys())
             for knob in knobs:
+                if knob == "dimensions-count":
+                    continue
                 categories, bin_edges = None, None
                 if isinstance(dict_type[knob][0], set):
                     # assign a fraction to each element of the set of the set between 0 and 1
@@ -842,6 +844,7 @@ class helpers():
 
         print("action_decoder_rl_astraSim decoded", act_decoded)
         return act_decoded
+
 
     def setAstraSimGADimension(self, dimension):
         self.dimension = dimension

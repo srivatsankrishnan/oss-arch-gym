@@ -23,6 +23,7 @@ flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spe
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
+flags.DEFINE_bool('congestion_aware', False, "astra-sim congestion aware or not")
 
 
 # BO
@@ -36,6 +37,8 @@ flags.DEFINE_float('prob_mutation', 0.1, 'Probability of mutation.')
 flags.DEFINE_integer('ant_count', 2, 'Number of ants')
 flags.DEFINE_float('evaporation', 0.25, 'Evaporation rate')
 flags.DEFINE_float('greediness', 0.25, 'Greedy rate')
+flags.DEFINE_float('decay', 0.1, 'Decay rate for pheromone.')
+flags.DEFINE_float('start', 0.1, 'Start value for pheromone.')
 
 # RL
 flags.DEFINE_string('rl_algo', 'ppo', 'RL algorithm.')
@@ -50,7 +53,7 @@ flags.DEFINE_float('learning_rate', 1e-5, 'Learning rate.')
 flags.DEFINE_float('entropy_cost', 0.1, 'Entropy cost.')
 flags.DEFINE_float('ppo_clipping_epsilon', 0.2, 'PPO clipping epsilon.')
 flags.DEFINE_bool('clip_value', False, 'Clip value.')
-flags.DEFINE_string('summarydir', './logs', 'Directory to save summaries.')
+flags.DEFINE_string('summarydir', './all_logs', 'Directory to save summaries.')
 flags.DEFINE_string('envlogger_dir', 'trajectory', 'Directory to save envlogger.')
 flags.DEFINE_bool('use_envlogger', False, 'Use envlogger.')
 flags.DEFINE_bool(
@@ -73,6 +76,8 @@ def update_aco_agent_configs(agent_config, aco_hyperparams):
     data['DeepSwarm']['aco']['ant_count'] = aco_hyperparams["ant_count"]
     data['DeepSwarm']['aco']['greediness'] = aco_hyperparams["greediness"]
     data['DeepSwarm']['aco']['pheromone']['evaporation'] = aco_hyperparams["evaporation"]
+    data['DeepSwarm']['aco']['pheromone']['decay'] = aco_hyperparams['decay']
+    data['DeepSwarm']['aco']['pheromone']['start'] = aco_hyperparams['start']
     
     # write back the yaml data to agent_config file
     with open(agent_config, "w") as stream:
@@ -108,6 +113,7 @@ def run_task(task):
         reward_formulation = task["reward_formulation"]
         use_envlogger = task["use_envlogger"]
         knobs = task["knobs"]
+        congestion_aware = task["congestion_aware"]
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
@@ -119,6 +125,7 @@ def run_task(task):
         reward_formulation = task["reward_formulation"]
         unqiue_ids = [algo, workload]
         knobs = task["knobs"]
+        congestion_aware = task["congestion_aware"]
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
@@ -129,6 +136,7 @@ def run_task(task):
         reward_formulation = task["reward_formulation"]
         use_envlogger = task["use_envlogger"]
         knobs = task["knobs"]
+        congestion_aware = task["congestion_aware"]
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
@@ -138,15 +146,18 @@ def run_task(task):
         ant_count = task["ant_count"]
         evaporation = task["evaporation"]
         greediness = task["greediness"]
+        decay = task["decay"]
+        start = task["start"]
         summary_dir = task["summary_dir"]
         reward_formulation = task["reward_formulation"]
         use_envlogger = task["use_envlogger"]
         depth = task["num_iter"]
         knobs = task["knobs"]
+        congestion_aware = task["congestion_aware"]
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
-        unqiue_ids = [algo, workload, str(ant_count), str(evaporation), str(greediness)]
+        unqiue_ids = [algo, workload, str(ant_count), str(evaporation), str(greediness), str(decay), str(start)]
     elif (algo == "rl"):
         workload = task["workload"]
         rl_algo = task["rl_algo"]
@@ -167,6 +178,7 @@ def run_task(task):
         run_distributed = task["run_distributed"]
         params_scaling = task["params_scaling"]
         knobs = task["knobs"]
+        congestion_aware = task["congestion_aware"]
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
@@ -185,6 +197,7 @@ def run_task(task):
             "--reward_formulation=" + str(reward_formulation) + " "\
             "--use_envlogger=" + str(use_envlogger) + " "\
             "--knobs=" + str(knobs) + " " \
+            "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
             "--workload_file=" + str(workload_file) + " "
@@ -199,6 +212,7 @@ def run_task(task):
             "--summary_dir=" + str(summary_dir) + " " \
             "--reward_formulation=" + str(reward_formulation) + " " \
             "--knobs=" + str(knobs) + " " \
+            "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
             "--workload_file=" + str(workload_file) + " "
@@ -213,6 +227,7 @@ def run_task(task):
             "--reward_formulation=" + str(reward_formulation) + " "\
             "--use_envlogger=" + str(use_envlogger) + " "\
             "--knobs=" + str(knobs) + " " \
+            "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
             "--workload_file=" + str(workload_file) + " "
@@ -225,7 +240,9 @@ def run_task(task):
         aco_hyperparams = {"evaporation": evaporation,
                             "ant_count": ant_count,
                             "greediness": greediness,
-                            "depth": depth}
+                            "depth": depth, 
+                            "decay": decay,
+                            "start": start}
         update_aco_agent_configs(aco_agent_config_file, aco_hyperparams)
 
         print("train_aco_astra_sim")
@@ -235,10 +252,13 @@ def run_task(task):
             "--ant_count=" + str(ant_count) + " " \
             "--evaporation=" + str(evaporation) + " " \
             "--greediness=" + str(greediness) + " " \
+            "--decay=" + str(decay) + " " \
+            "--start=" + str(start) + " " \
             "--summary_dir=" + str(summary_dir) + " "\
             "--reward_formulation=" + str(reward_formulation) + " "\
             "--use_envlogger=" + str(use_envlogger) + " "\
             "--knobs=" + str(knobs) + " " \
+            "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
             "--workload_file=" + str(workload_file) + " "
@@ -265,6 +285,7 @@ def run_task(task):
             "--run_distributed=" + str(run_distributed) + " " \
             "--params_scaling=" + str(params_scaling) + " " \
             "--knobs=" + str(knobs) + " " \
+            "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
             "--workload_file=" + str(workload_file) + " "
@@ -290,6 +311,7 @@ def main(_):
                 'reward_formulation': FLAGS.reward_formulation,
                 'use_envlogger': FLAGS.use_envlogger,
                 "knobs": FLAGS.knobs,
+                "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
                 "workload_file": FLAGS.workload_file}
@@ -302,6 +324,7 @@ def main(_):
                 'summary_dir': FLAGS.summary_dir,
                 'reward_formulation': FLAGS.reward_formulation,
                 "knobs": FLAGS.knobs,
+                "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
                 "workload_file": FLAGS.workload_file}
@@ -315,6 +338,7 @@ def main(_):
                 'reward_formulation': FLAGS.reward_formulation,
                 'use_envlogger': FLAGS.use_envlogger,
                 "knobs": FLAGS.knobs,
+                "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
                 "workload_file": FLAGS.workload_file}
@@ -326,10 +350,13 @@ def main(_):
                 "ant_count": FLAGS.ant_count,
                 "evaporation": FLAGS.evaporation,
                 "greediness": FLAGS.greediness,
+                "decay": FLAGS.decay,
+                "start": FLAGS.start,
                 'summary_dir': FLAGS.summary_dir,
                 'reward_formulation': FLAGS.reward_formulation,
                 'use_envlogger': FLAGS.use_envlogger,
                 "knobs": FLAGS.knobs,
+                "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
                 "workload_file": FLAGS.workload_file}
@@ -355,6 +382,7 @@ def main(_):
                 "run_distributed": FLAGS.run_distributed,
                 "params_scaling": FLAGS.params_scaling,
                 "knobs": FLAGS.knobs,
+                "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
                 "workload_file": FLAGS.workload_file}

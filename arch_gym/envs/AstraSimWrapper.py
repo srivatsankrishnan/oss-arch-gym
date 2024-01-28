@@ -203,7 +203,9 @@ def make_astraSim_env(seed: int = 12234,
                     network = None,
                     system = None,
                     workload = None,
-                    congestion_aware = False) -> dm_env.Environment:
+                    congestion_aware = False, 
+                    dimension = None
+                    ) -> dm_env.Environment:
   """Returns DRAMSys environment."""
   print("[DEBUG][Seed]", seed)
   print("[DEBUG][RL Form]", rl_form)
@@ -223,6 +225,7 @@ def make_astraSim_env(seed: int = 12234,
       system = system,
       workload = workload,
       congestion_aware = congestion_aware,
+      dimension = dimension
     ),
     env_wrapper_sel = rl_form
   )
