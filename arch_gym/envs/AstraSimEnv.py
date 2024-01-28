@@ -337,21 +337,16 @@ class AstraSimEnv(gym.Env):
                         continue
                     key_split = key.split("-")
                     key_converted = ""
+                    # npus_count_
                     for k in key_split:
                         key_converted += k 
                         key_converted += "_"
-                    print("HERE")
                     if "dimensions-count" in action_dict["network"]:
-                        print("REACHED")
                         if isinstance(value, list) and key not in self.network_knobs:
-                            print("dimensions-count: ", action_dict["network"]["dimensions-count"])
-                            print("key: ", key)
-                            print("network value: ", value)
                             while len(value) < action_dict["network"]["dimensions-count"]:
                                 value.append(value[0])
                             while len(value) > action_dict["network"]["dimensions-count"]:
                                 value.pop()
-                            print("network edited value: ", value)
 
                     data[key_converted[:-1]] = value
 

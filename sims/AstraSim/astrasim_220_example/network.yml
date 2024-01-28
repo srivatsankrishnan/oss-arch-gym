@@ -1,12 +1,12 @@
 topology:
 - Ring
-- Switch
-- Switch
+- Ring
+- FullyConnected
 - Switch
 npus_count:
 - 2
-- 4
-- 4
+- 2
+- 8
 - 2
 bandwidth:
 - 200.0

@@ -46,8 +46,6 @@ class ACO:
             # Sort ants using user selected metric
             ants.sort() if cfg['metrics'] == 'loss' else ants.sort(reverse=True)
 
-            print(ants)
-            print(ants[0].cost, ants[1].cost)
             if left_cost_is_better(ants[0].cost, self.best_ant.cost):
                 self.best_ant = ants[0]
                 Log.header("NEW BEST ANT FOUND", type="GREEN")

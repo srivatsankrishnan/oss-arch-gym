@@ -1,5 +1,5 @@
 {
-"scheduling-policy": "LIFO",
+"scheduling-policy": "FIFO",
 "endpoint-delay": 10,
 "active-chunks-per-dimension": 1,
 "preferred-dataset-splits": 4,
