@@ -14,7 +14,7 @@ echo "SH WORKLOAD 1: ${WORKLOAD}"
 
 if [ "$GENERATE" == "TRUE" ]; then
     echo "REACHED TRUE"
-    python3 astrasim_220_example/workload_cfg_to_et.py --workload_cfg=${WORKLOAD} --workload_et=workload-et/generated.%d.eg
+    python3 astrasim_220_example/workload_cfg_to_et.py --workload_cfg=astrasim_220_example/${WORKLOAD} --workload_et=astrasim_220_example/workload-et/generated.%d.eg
     WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
 else
     WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
@@ -27,6 +27,7 @@ echo "SH NETWORK: ${NETWORK}"
 echo "SH SYSTEM: ${SYSTEM}"
 echo "SH WORKLOAD 2: ${WORKLOAD}"
 echo "SH GENERATE: ${GENERATE}"
+echo "SH MEMORY: ${MEMORY}"
 
 ${ASTRASIM_BIN} \
 --workload-configuration=${WORKLOAD} \
