@@ -11,6 +11,9 @@ def main():
     parser.add_argument("--workload_cfg", type=str, help="path to workload_cfg")
     parser.add_argument("--workload_et", type=str, help="path to generated ets")
     args = parser.parse_args()
+    print("REACHED workload_cfg_to_et.py")
+    print("workload_cfg: ", args.workload_cfg)
+    print("workload_et: ", args.workload_et)
     workload_cfg_dict = {}
     with open(args.workload_cfg, "r") as workload_cfg_f:
         workload_cfg_dict = json.load(workload_cfg_f)
