@@ -18,7 +18,7 @@ from absl import app
 from absl import logging
 
 flags.DEFINE_string('workload', 'resnet18', 'Which AstraSim workload to run?')
-flags.DEFINE_integer('num_steps', 50, 'Number of training steps.')
+flags.DEFINE_integer('num_steps', 30, 'Number of training steps.')
 flags.DEFINE_integer('num_episodes', 1, 'Number of training episodes.')
 flags.DEFINE_bool('use_envlogger', True, 'Use envlogger to log the data.')
 flags.DEFINE_string('traject_dir', 'random_walker_trajectories', 'Directory to save the dataset.')
