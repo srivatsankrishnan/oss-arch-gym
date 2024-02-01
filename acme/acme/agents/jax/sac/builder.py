@@ -92,7 +92,7 @@ class SACBuilder(builders.ActorLearnerBuilder[sac_networks.SACNetworks,
       environment_spec: specs.EnvironmentSpec,
       variable_source: Optional[core.VariableSource] = None,
       adder: Optional[adders.Adder] = None,
-  ) -> acme.Actor:
+  ) -> acme.core.Actor:
     del environment_spec
     assert variable_source is not None
     actor_core = actor_core_lib.batched_feed_forward_to_actor_core(policy)

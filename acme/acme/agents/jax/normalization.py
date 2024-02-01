@@ -90,7 +90,7 @@ class NormalizationLearnerWrapper(core.Learner, core.Saveable):
   """A learner wrapper that normalizes observations using running statistics."""
 
   def __init__(self, learner_factory: Callable[[Iterator[reverb.ReplaySample]],
-                                               acme.Learner],
+                                               acme.core.Learner],
                iterator: Iterator[reverb.ReplaySample],
                environment_spec: specs.EnvironmentSpec, is_sequence_based: bool,
                batch_dims: Optional[Tuple[int, ...]],

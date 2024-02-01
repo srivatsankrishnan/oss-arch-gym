@@ -198,7 +198,14 @@ def make_astraSim_env(seed: int = 12234,
                     reward_formulation = 'power',
                     reward_scaling = 'false',
                     max_steps: int = 1,
-                    num_agents: int = 1) -> dm_env.Environment:
+                    num_agents: int = 1,
+                    knobs_spec = None,
+                    network = None,
+                    system = None,
+                    workload = None,
+                    congestion_aware = False, 
+                    dimension = None
+                    ) -> dm_env.Environment:
   """Returns DRAMSys environment."""
   print("[DEBUG][Seed]", seed)
   print("[DEBUG][RL Form]", rl_form)
@@ -212,7 +219,13 @@ def make_astraSim_env(seed: int = 12234,
       max_steps = max_steps,
       num_agents = num_agents,
       reward_formulation = reward_formulation,
-      reward_scaling = reward_scaling
+      reward_scaling = reward_scaling,
+      knobs_spec = knobs_spec,
+      network = network,
+      system = system,
+      workload = workload,
+      congestion_aware = congestion_aware,
+      dimension = dimension
     ),
     env_wrapper_sel = rl_form
   )

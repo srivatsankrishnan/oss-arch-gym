@@ -6,7 +6,7 @@ from configs.sims import DRAMSys_config
 from configs.sims import Timeloop_config
 from configs.algos import rl_config
 import copy
-from . import cfg
+from . import cfg, nodes
 import collections
 import pandas as pd
 import numpy as np
@@ -36,10 +36,7 @@ from absl import logging
 from absl import flags
 
 os.sys.path.insert(0, os.path.abspath('/../../configs'))
-
-
-# define AstraSim version
-VERSION = 1
+print("NODES PREVIOUS: ", nodes)
 
 def step_fn(unused_timestep, unused_action, unused_env):
     return {'timestamp': time.time()}
@@ -153,20 +150,38 @@ class BaseBackend(ABC):
 
 class AstraSimBackend(BaseBackend):
 
-    def __init__(self, dataset=None, optimizer=None, exp_name=None, traject_dir=None,
-                 log_dir=None, reward_formulation=None, use_envlogger=False):
+    def __init__(self, dataset=None, optimizer=None, exp_name=None, traject_dir=None, log_dir=None, reward_formulation=None, 
+                use_envlogger=False, VERSION=2, knobs_spec=None, network=None, system=None, workload=None, congestion_aware=False, 
+                dimension=None, astrasim_ant_count=None, astrasim_greediness=None, astrasim_decay=None, 
+                astrasim_evaporation=None, astrasim_start=None, astrasim_max_depth=None):
         super().__init__(dataset, optimizer)
         self.exp_name = exp_name
         self.traject_dir = traject_dir
         self.log_dir = log_dir
         self.reward_formulation = reward_formulation
         self.use_envlogger = use_envlogger
+        self.VERSION = VERSION
+        self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
+        self.congestion_aware = congestion_aware
+        self.dimension = dimension
+        self.astrasim_ant_count = astrasim_ant_count
+        self.astrasim_greediness = astrasim_greediness
+        self.astrasim_decay = astrasim_decay
+        self.astrasim_evaporation = astrasim_evaporation
+        self.astrasim_start = astrasim_start
+        self.astrasim_max_depth = astrasim_max_depth
 
     def generate_model(self, path):
-        return DummyAstraSim(path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger)
+        return DummyAstraSim(path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger, 
+                            self.VERSION, self.knobs_spec, self.network, self.system, self.workload, self.congestion_aware, 
+                            self.dimension, self.astrasim_ant_count, self.astrasim_greediness, self.astrasim_decay, 
+                            self.astrasim_evaporation, self.astrasim_start, self.astrasim_max_depth)
 
     def reuse_model(self, old_model, new_model_path, distance):
-        return DummyAstraSim(new_model_path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger)
+        return DummyAstraSim(new_model_path, self.exp_name, self.traject_dir, self.log_dir, self.reward_formulation, self.use_envlogger, 
+                            self.VERSION, self.knobs_spec, self.network, self.system, self.workload, self.congestion_aware, 
+                            self.dimension, self.astrasim_ant_count, self.astrasim_greediness, self.astrasim_decay, 
+                            self.astrasim_evaporation, self.astrasim_start, self.astrasim_max_depth)
 
     def train_model(self, model):
         return model
@@ -349,8 +364,9 @@ class DummySniper():
 
 class DummyAstraSim():
 
-    def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger):
-        self.env = AstraSimEnv()
+    def __init__(self, path, exp_name, traject_dir, log_dir, reward_formulation, use_envlogger, VERSION, 
+                    knobs_spec, network, system, workload, congestion_aware, dimension, astrasim_ant_count, 
+                    astrasim_greediness, astrasim_decay, astrasim_evaporation, astrasim_start, astrasim_max_depth):
         self.helper = helpers()
         self.fitness_hist = {}
 
@@ -359,59 +375,102 @@ class DummyAstraSim():
         self.exp_name = exp_name
         self.reward_formulation = reward_formulation
         self.use_envlogger = use_envlogger
+        self.VERSION = VERSION
+        self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
+        self.congestion_aware = congestion_aware
+        self.dimension = dimension
+        self.astrasim_ant_count = astrasim_ant_count
+        self.astrasim_greediness = astrasim_greediness
+        self.astrasim_decay = astrasim_decay
+        self.astrasim_evaporation = astrasim_evaporation
+        self.astrasim_start = astrasim_start
+        self.astrasim_max_depth = astrasim_max_depth
 
         self.settings_file_path = os.path.realpath(__file__)
         self.settings_dir_path = os.path.dirname(self.settings_file_path)
         self.proj_root_path = os.path.dirname(os.path.dirname(os.path.dirname(self.settings_dir_path)))
         self.proj_dir_path = os.path.dirname(os.path.dirname(os.path.dirname(self.settings_dir_path)))
+        self.astrasim = os.path.join(self.proj_dir_path, "sims/AstraSim")
 
-        self.astrasim_archgym = os.path.join(
-            self.proj_dir_path, "sims/AstraSim/astrasim-archgym")
-        self.knobs_spec = os.path.join(
-            self.astrasim_archgym, "dse/archgen_v1_knobs/archgen_v1_knobs_spec.py")
+        self.astrasim_archgym = os.path.join(self.astrasim, "astrasim-archgym")
+        self.knobs = os.path.join(self.astrasim, self.knobs_spec)
+
+        self.env = AstraSimEnv(knobs_spec=self.knobs, network=network, system=system, workload=workload)
 
         self.systems_folder = os.path.join(
             self.astrasim_archgym, "themis/inputs/system")
         self.network_folder = os.path.join(
             self.astrasim_archgym, "dse/archgen_v1_knobs/templates/network")
-        self.system_file = os.path.join(
-            self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
-        self.network_file = os.path.join(
-            self.network_folder, "4d_ring_fc_ring_switch.json")
+        self.workload_folder = os.path.join(
+            self.astrasim_archgym, "themis/inputs/workload")
+
+        # parse knobs
+        system_knob, network_knob, workload_knob = self.helper.parse_knobs_astrasim(self.knobs)
+        if workload_knob == {}:
+            GENERATE_WORKLOAD = "FALSE"
+        else:
+            GENERATE_WORKLOAD = "TRUE"
+
+        if self.VERSION == 1:
+            self.system_file = os.path.join(
+                self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+            self.network_file = os.path.join(
+                self.network_folder, "4d_ring_fc_ring_switch.json")
+            self.workload_file = os.path.join(
+                self.workload_folder, "all_reduce/allreduce_0.65.txt"
+            )
+        else:
+            self.network_file = os.path.join(self.astrasim, self.network)
+            self.system_file = os.path.join(self.astrasim, self.system)
+            self.workload_file = os.path.join(self.astrasim, self.workload)
 
         # SET UP ACTION DICT
-        self.action_dict = {"workload": {}}
-        self.action_dict["workload"]['path'] = "all_reduce/allreduce_0.65.txt"
+        self.action_dict = {}
+        # only generate workload if knobs exist
+        if GENERATE_WORKLOAD == "TRUE":
+            self.action_dict['workload'] = self.helper.parse_workload_astrasim(self.workload_file, self.action_dict, self.VERSION)
+        else:
+            self.action_dict['workload'] = {"path": self.workload_file}
 
         # parse system and network files
-        self.helper.parse_system_astrasim(self.system_file, self.action_dict, VERSION)
-        self.helper.parse_network_astrasim(self.network_file, self.action_dict, VERSION)
-        system_knob, network_knob, workload_knob = self.helper.parse_knobs_astrasim(self.knobs_spec)
+        self.helper.parse_system_astrasim(self.system_file, self.action_dict, self.VERSION)
+        self.helper.parse_network_astrasim(self.network_file, self.action_dict, self.VERSION)
+
         dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
         yaml_path = os.path.join(self.proj_root_path, 'settings/default_astrasim.yaml')
+        print("YAML PATH: ", yaml_path)
+        # set to everything in yaml file's default (last iteration)
         data = yaml.load(open(yaml_path), Loader=yaml.Loader)
 
-        # ASSUMES dimension is specified by input files (otherwise randomized)
-        if "dimensions-count" in network_knob.keys():
-            self.action_dict['network']["dimensions-count"] = random.choice(network_knob["dimensions-count"])
-            dimension = self.action_dict['network']["dimensions-count"]
-            system_knob.remove("dimensions-count")
-        else:
-            dimension = self.action_dict['network']["dimensions-count"]
+        print("DIMENSION1: ", self.dimension)
+        dimension = self.dimension
 
         # write knobs to yaml file
+        # Rewrite the flags
+        data['DeepSwarm']['aco']["ant_count"] = self.astrasim_ant_count
+        data['DeepSwarm']['aco']["greediness"] = self.astrasim_greediness
+        data['DeepSwarm']['aco']["pheromone"]["decay"] = self.astrasim_decay
+        data['DeepSwarm']['aco']["pheromone"]["evaporation"] = self.astrasim_evaporation
+        data['DeepSwarm']['aco']["pheromone"]["start"] = self.astrasim_start
+        data['DeepSwarm']["max_depth"] = self.astrasim_max_depth
+
+        # Rewrite the attributes
         data['Nodes']['ArchParamsNode']['attributes'] = {}
         for dict_type, dict_name in dicts:
-            knobs = dict_type.keys()
-            for knob in knobs:
+            for knob in dict_type:
+                if knob == "dimensions-count":
+                    continue
+                # from hyphen to CamelCase
                 knob_converted = self.helper.convert_knob_ga_astrasim(knob)
                 if isinstance(dict_type[knob][0], set):
                     if dict_type[knob][1] == "FALSE":
                         for i in range(1, dimension + 1):
                             knob_dimension = knob_converted + str(i)
-                            data['Nodes']['ArchParamsNode']['attributes'][knob_dimension] = [i for i in list(dict_type[knob][0])]
+                            list_sorted = sorted(list(dict_type[knob][0]))
+                            data['Nodes']['ArchParamsNode']['attributes'][knob_dimension] = [i for i in list_sorted]
                     else:
-                        data['Nodes']['ArchParamsNode']['attributes'][knob_converted] = [i for i in list(dict_type[knob][0])]
+                        list_sorted = sorted(list(dict_type[knob][0]))
+                        data['Nodes']['ArchParamsNode']['attributes'][knob_converted] = [i for i in list_sorted]
                 else:
                     if dict_type[knob][1] == "FALSE":
                         for i in range(1, dimension + 1):
@@ -420,23 +479,42 @@ class DummyAstraSim():
                     else:
                         data['Nodes']['ArchParamsNode']['attributes'][knob_converted] = [i for i in range(dict_type[knob][0][0], dict_type[knob][0][1] + 1)]
 
+        print("YAML DATA: ", data)
+        
         with open(yaml_path, 'w') as f:
             yaml.dump(data, f, sort_keys=False)
+            f.flush()
+        
 
         if len(system_knob.keys()) != 0:
-            rand_attr = list(system_knob.keys())[0]
+            rand_attr = sorted(list(system_knob.keys()))[0]
         elif len(network_knob.keys()) != 0:
-            rand_attr = list(network_knob.keys())[0]
+            rand_attr = sorted(list(network_knob.keys()))[0]
+            if rand_attr == "dimensions-count":
+                rand_attr = sorted(list(network_knob.keys()))[1]
         else:
-            rand_attr = list(workload_knob.keys())[0]
+            rand_attr = sorted(list(workload_knob.keys()))[0]
         rand_attr = self.helper.convert_knob_ga_astrasim(rand_attr)
         
+        # writes action dictionary of tunable knobs
+        # unexposed knobs are filled in inside AstraSimEnv
+        print("reached node in path: ", path)
+        # three knotes of Nodes: ArchParamsNode, InputNode, OutputNode
         for node in path:
+            print("node in path: ", node)
+            print("rand attr: ", rand_attr)
+            print("rand attr + 1: ", rand_attr + "1")
             if hasattr(node, rand_attr) or hasattr(node, rand_attr + "1"):
+                print("node has attr: ", rand_attr)
                 for attr, value in node.__dict__.items():
+                    print("node dict: ", node.__dict__)
+                    print("node :", node)
+                    # converts from camelCase to hyphen
                     knob_converted = self.helper.revert_knob_ga_astrasim(attr)
                     for dict_type, dict_name in dicts:
+                        # if tunable knob found in current dict_type
                         if knob_converted in dict_type:
+                            # False means it changes with each dimension
                             if dict_type[knob_converted][1] == "FALSE":
                                 if attr[-1] == "1":
                                     self.action_dict[dict_name][knob_converted] = [value]
@@ -449,6 +527,11 @@ class DummyAstraSim():
                                 self.action_dict[dict_name][knob_converted] = [value for _ in range(dimension)]
                             else:
                                 self.action_dict[dict_name][knob_converted] = value
+
+        if "dimensions-count" in network_knob:
+            print("Dimension count in network knob")
+            self.action_dict["network"]["dimensions-count"] = dimension
+            print("ACTION DICT: ", self.action_dict)
 
     # Fit function = step function
     # Environment already calculates reward so don't need calc_reward
@@ -477,7 +560,8 @@ class DummyAstraSim():
         '''
 
         env_wrapper = make_astraSim_env(
-            reward_formulation=self.reward_formulation, rl_form="aco")
+            knobs_spec=self.knobs, network=self.network_file, system=self.system_file, workload=self.workload_file, 
+            reward_formulation=self.reward_formulation, rl_form="aco", congestion_aware=self.congestion_aware)
 
         if self.use_envlogger:
             # check if trajectory directory exists
@@ -488,8 +572,7 @@ class DummyAstraSim():
         if not os.path.exists(self.log_dir):
             os.makedirs(self.log_dir)
 
-        env = self.wrap_in_envlogger(
-            env_wrapper, self.traject_dir, self.use_envlogger)
+        env = self.wrap_in_envlogger(env_wrapper, self.traject_dir, self.use_envlogger)
         env.reset()
 
         step_type, reward, discount, info = env.step(self.action_dict)
@@ -507,9 +590,11 @@ class DummyAstraSim():
 
     def log_fitness_to_csv(self):
         df_traj = pd.DataFrame([self.fitness_hist])
+        timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
+        df_traj.insert(0, 'timestamp', timestamp)
+
         filename = os.path.join(self.log_dir, self.exp_name + "_traj.csv")
-        df_traj.to_csv(filename,
-                       index=False, header=False, mode='a')
+        df_traj.to_csv(filename, index=False, header=False, mode='a')
 
         df_rewards = pd.DataFrame([self.fitness_hist['reward']])
         filename = os.path.join(self.log_dir, self.exp_name + "_rewards.csv")

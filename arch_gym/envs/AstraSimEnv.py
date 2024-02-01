@@ -7,6 +7,7 @@ import os
 import time
 import csv
 import random
+import yaml
 
 from envHelpers import helpers
 
@@ -18,36 +19,25 @@ proj_dir_path = os.path.join(proj_root_path, "sims/AstraSim")
 astrasim_archgym = os.path.join(proj_dir_path, "astrasim-archgym")
 archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
 sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
-knobs_spec = os.path.join(archgen_v1_knobs, "archgen_v1_knobs_spec.py")
-parameter_knobs= os.path.join(sim_path, "frontend/parameter_knobs.py")
 
 # define AstraSim version
-VERSION = 1
+VERSION = 2
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):
-    def __init__(self, rl_form="sa1", max_steps=5, num_agents=1, reward_formulation="None", reward_scaling=1,):
+    def __init__(self, knobs_spec, network, system, workload, rl_form=None, max_steps=5, 
+                num_agents=1, reward_formulation="None", reward_scaling=1, congestion_aware=False, dimension=None):
         self.rl_form = rl_form
         self.helpers = helpers()
-        self.system_knobs, self.network_knobs, self.workload_knobs = self.helpers.parse_knobs_astrasim(knobs_spec)
-        param_len = len(self.system_knobs) + len(self.network_knobs) + len(self.workload_knobs)
-         
-        if self.rl_form == 'sa1':
-            # action space = set of all possible actions. Space.sample() returns a random action
-            # observation space =  set of all possible observations
-            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32) # box is an array of shape len
-            self.action_space = gym.spaces.Box(low=0, high=1, shape=(param_len,), dtype=np.float32)
+        self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
+        self.system_knobs, self.network_knobs, self.workload_knobs = self.helpers.parse_knobs_astrasim(self.knobs_spec)
 
-        # reproducing Themis with AstraSim 1.0
-        elif self.rl_form == 'rl_themis':
-            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
-            self.action_space = gym.spaces.Discrete(16)
-        
+        # only generate workload file if workload knobs given
+        if self.workload_knobs == {}:
+            self.generate_workload = "FALSE"
         else:
-            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
-            self.action_space = gym.spaces.Box(low=0, high=1, shape=(param_len,), dtype=np.float32)
+            self.generate_workload = "TRUE"
 
-        
         # set parameters
         self.max_steps = max_steps
         self.counter = 0
@@ -65,30 +55,101 @@ class AstraSimEnv(gym.Env):
         self.done = False
         self.info = {}
 
-        self.exe_path = os.path.join(sim_path, "run_general.sh")
-        self.network_config = os.path.join(sim_path, "general_network.json")
-        self.system_config = os.path.join(sim_path, "general_system.txt")
-
         # V1 networks, systems, and workloads folder
         self.networks_folder = os.path.join(sim_path, "astrasim-archgym/dse/archgen_v1_knobs/templates/network")
         self.workloads_folder = os.path.join(sim_path, "astrasim-archgym/themis/inputs/workload")
+        self.systems_folder = os.path.join(sim_path, "astrasim-archgym/themis/inputs/system")
 
-        # Config does not matter
-        # self.network_config = os.path.join(self.networks_folder, "4d_ring_fc_ring_switch.json")
-        self.workload_config = os.path.join(self.workloads_folder, "all_reduce/allreduce_0.65.txt")
-        self.astrasim_archgym = os.path.join(sim_path, "astrasim-archgym")
-        self.systems_folder = os.path.join(self.astrasim_archgym, "themis/inputs/system")
+        # CONFIG = FILE WITH CHANGED KNOBS
+        if VERSION == 1:
+            self.exe_path = os.path.join(sim_path, "run_general.sh")
+            self.network_config = os.path.join(sim_path, "general_network.json")
+            self.system_config = os.path.join(sim_path, "general_system.txt")
+            self.astrasim_binary = os.path.join(sim_path, "astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
+        else:
+            self.exe_path = os.path.join(sim_path, "astrasim_220_example/run.sh")
+            self.network_config = os.path.join(sim_path, "astrasim_220_example/network.yml")
+            self.system_config = os.path.join(sim_path, "astrasim_220_example/system.json")
+            if congestion_aware:
+                self.astrasim_binary = os.path.join(sim_path, 
+                "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Aware")
+            else:
+                self.astrasim_binary = os.path.join(sim_path, 
+                "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Unaware")
 
-        self.network_file = os.path.join(self.networks_folder, "4d_ring_fc_ring_switch.json")
-        self.system_file = os.path.join(self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
-        self.workload_file = "all_reduce/allreduce_0.65.txt"
+        # FILE = INITIAL INPUTS
+        if VERSION == 1:
+            self.network_file = os.path.join(self.networks_folder, "4d_ring_fc_ring_switch.json")
+            self.system_file = os.path.join(self.systems_folder, "4d_ring_fc_ring_switch_baseline.txt")
+            self.workload_file = os.path.join(self.workloads_folder, "all_reduce/allreduce_0.65.txt")
+        else:
+            self.network_file = os.path.join(sim_path, self.network)
+            self.system_file = os.path.join(sim_path, self.system)
+            self.workload_file = os.path.join(sim_path, self.workload)
+        
+        self.param_len = 0
+        self.dimension = 0
+        # if dimension is given, then it's a tunable knob
+        if dimension:
+            self.dimension = dimension
+        elif VERSION == 1:
+            with open(self.network_file, 'r') as file:
+                data = json.load(file)
+                self.dimension = data["dimensions-count"]
+        # if dimension is not a tunable knob, then it's constant
+        else:
+            data = yaml.load(open(self.network_file), Loader=yaml.Loader)
+            self.dimension = len(data["topology"])
+
+        # add 1 if N/A or TRUE knob, else add dimensions
+        print("self.param_len: ", self.param_len)
+        print("system knobs: ", self.system_knobs)
+        for key in self.system_knobs:
+            if self.system_knobs[key][1] == "FALSE":
+                self.param_len += self.dimension
+            else:
+                self.param_len += 1
+        print("self.param_len: ", self.param_len)
+        print("network knobs: ", self.network_knobs)
+        for key in self.network_knobs:
+            if key == "dimensions-count":
+                continue
+            if self.network_knobs[key][1] == "FALSE":
+                self.param_len += self.dimension
+            else:
+                self.param_len += 1
+        print("self.param_len: ", self.param_len)
+        print("workload knobs: ", self.workload_knobs)
+        for key in self.workload_knobs:
+            if self.workload_knobs[key][1] == "FALSE":
+                self.param_len += self.dimension
+            else:
+                self.param_len += 1
+
+        # param_len = len(self.system_knobs) + len(self.network_knobs) + len(self.workload_knobs)
+        print("dimensions: ", self.dimension)
+        print("param_len: ", self.param_len)
+
+        if self.rl_form == 'sa1':
+            # action space = set of all possible actions. Space.sample() returns a random action
+            # observation space =  set of all possible observations
+            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32) # box is an array of shape len
+            self.action_space = gym.spaces.Box(low=0, high=1, shape=(self.param_len,), dtype=np.float32)
+
+        # reproducing Themis with AstraSim 1.0
+        elif self.rl_form == 'rl_themis':
+            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
+            self.action_space = gym.spaces.Discrete(16)
+        
+        else:
+            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
+            self.action_space = gym.spaces.Box(low=0, high=1, shape=(self.param_len,), dtype=np.float32)
 
         print("_____________________*****************************_____________________")
 
         self.reset()
 
-        """TODO: constraints"""
-        _, _, _, self.constraints = self.helpers.actual_parse_knobs_astrasim(parameter_knobs)
+        self.constraints = self.helpers.parse_constraints_astrasim(self.knobs_spec)
         print("CONSTRAINTS: ", self.constraints)
         
 
@@ -159,22 +220,36 @@ class AstraSimEnv(gym.Env):
     # give it one action: one set of parameters from json file
     def step(self, action_dict):
 
+        """ RL """
+        # [0.5, 0.5, 0.5]
         if not isinstance(action_dict, dict):
             with open(settings_dir_path + "/AstraSimRL_2.csv", 'a') as f:
                 writer = csv.writer(f)
                 writer.writerow(action_dict)
 
-            print("STEP: action_dict is a list")
             action_dict_decoded = {}
-            action_dict_decoded['network'] = {"path": self.network_file}
-            action_dict_decoded['workload'] = {"path": self.workload_file}
+
+            # only generate workload if knobs exist
+            if self.generate_workload == "TRUE":
+                action_dict_decoded['workload'] = self.helpers.parse_workload_astrasim(self.workload_file, action_dict_decoded, VERSION)
+            else:
+                action_dict_decoded['workload'] = {"path": self.workload_file}
             
             # parse system: initial values
-            self.helpers.parse_system_astrasim(self.system_file, action_dict_decoded, VERSION)
-            self.helpers.parse_network_astrasim(self.network_file, action_dict_decoded, VERSION)
+            action_dict_decoded['network'] = self.helpers.parse_network_astrasim(self.network_file, action_dict_decoded, VERSION)
+            action_dict_decoded['system'] = self.helpers.parse_system_astrasim(self.system_file, action_dict_decoded, VERSION)
 
-            # returning an 
-            action_decoded = self.helpers.action_decoder_ga_astraSim(action_dict)
+            print('system knobs: ', self.system_knobs)
+            print('network knobs: ', self.network_knobs)
+            print('workload knobs: ', self.workload_knobs)
+
+            action_decoded = self.helpers.action_decoder_rl_astraSim(action_dict,
+                                                                     self.system_knobs, 
+                                                                     self.network_knobs, 
+                                                                     self.workload_knobs, 
+                                                                     self.dimension)
+
+
 
             # change all variables decoded into action_dict
             for sect in action_decoded:
@@ -182,6 +257,11 @@ class AstraSimEnv(gym.Env):
                     action_dict_decoded[sect][key] = action_decoded[sect][key]
 
             action_dict = action_dict_decoded
+            if "dimensions-count" in self.network_knobs:
+                action_dict["network"]["dimensions-count"] = self.dimension
+
+            print("action_decoded: ", action_decoded)
+            print("action_dict: ", action_dict)
 
         if "path" in action_dict["network"]:
             self.network_config = action_dict["network"]["path"]
@@ -190,109 +270,110 @@ class AstraSimEnv(gym.Env):
             self.system_config = action_dict["system"]["path"]
 
         if "path" in action_dict["workload"]:
-            self.workload_config = action_dict["workload"]["path"]
+            self.workload_file = action_dict["workload"]["path"]
 
-        print("ACTION DICT")
-        print(action_dict)
         # load knobs
-
         if VERSION == 1:
-            with open(self.system_config, 'w') as file:
-                for key, value in action_dict["system"].items(): 
-                    if isinstance(value, list):
-                        file.write(f'{key}: ')
-                        for i in range(len(value)-1):
-                            file.write(f'{value[i]}_')
-                        file.write(f'{value[len(value)-1]}')
-                        file.write('\n')
-                    else:
-                        file.write(f'{key}: {value}\n')
-            with open(self.network_config, 'w') as file:
-                file.write('{\n')
-                for key, value in action_dict["network"].items():
-                    if isinstance(value, str):
-                        file.write(f'"{key}": "{value}",\n')
-                    elif isinstance(value, list) and isinstance(value[0], str):
-                        file.write(f'"{key}": [')
-                        for i in range(len(value)-1):
-                            file.write(f'"{value[i]}", ')
-                        file.write(f'"{value[len(value)-1]}"')
-                        file.write('],\n')
-                    else:
-                        file.write(f'"{key}": {value},\n')
-                file.seek(file.tell() - 2, os.SEEK_SET)
-                file.write('\n')
-                file.write('}')
+            # write system to txt file
+            if "path" not in action_dict["system"]:
+                with open(self.system_config, 'w') as file:
+                    for key, value in action_dict["system"].items(): 
+                        if isinstance(value, list):
+                            file.write(f'{key}: ')
+                            for i in range(len(value)-1):
+                                file.write(f'{value[i]}_')
+                            file.write(f'{value[len(value)-1]}')
+                            file.write('\n')
+                        else:
+                            file.write(f'{key}: {value}\n')
+            # write network to json file
+            if "path" not in action_dict["network"]:
+                with open(self.network_config, 'w') as file:
+                    file.write('{\n')
+                    for key, value in action_dict["network"].items():
+                        if isinstance(value, str):
+                            file.write(f'"{key}": "{value}",\n')
+                        elif isinstance(value, list) and isinstance(value[0], str):
+                            file.write(f'"{key}": [')
+                            for i in range(len(value)-1):
+                                file.write(f'"{value[i]}", ')
+                            file.write(f'"{value[len(value)-1]}"')
+                            file.write('],\n')
+                        else:
+                            file.write(f'"{key}": {value},\n')
+                    file.seek(file.tell() - 2, os.SEEK_SET)
+                    file.write('\n')
+                    file.write('}')
         elif VERSION == 2:
-            """
-            TODO: ASTRA-sim 2.0 integration
-            """
-            with open(self.system_config, 'w') as file:
-                file.write('{\n')
-                for key, value in action_dict["system"].items():
-                    if isinstance(value, str):
-                        file.write(f'"{key}": "{value}",\n')
-                    elif isinstance(value, list) and isinstance(value[0], str):
-                        file.write(f'"{key}": [')
-                        for i in range(len(value)-1):
-                            file.write(f'"{value[i]}", ')
-                        file.write(f'"{value[len(value)-1]}"')
-                        file.write('],\n')
-                    else:
+            # write system to json file
+            if "path" not in action_dict["system"]:
+                with open(self.system_config, 'w') as file:
+                    file.write('{\n')
+                    for key, value in action_dict["system"].items():
+                        if "dimensions-count" in action_dict["network"]:
+                            if isinstance(value, list) and key not in self.system_knobs:
+                                while len(value) < action_dict["network"]["dimensions-count"]:
+                                    value.append(value[0])
+                                while len(value) > action_dict["network"]["dimensions-count"]:
+                                    value.pop()
+
+                        if isinstance(value, str):
+                            file.write(f'"{key}": "{value}",\n')
+                        elif isinstance(value, list) and isinstance(value[0], str):
+                            file.write(f'"{key}": [')
+                            for i in range(len(value)-1):
+                                file.write(f'"{value[i]}", ')
+                            file.write(f'"{value[len(value)-1]}"')
+                            file.write('],\n')
+                        else:
+                            file.write(f'"{key}": {value},\n')
+                    file.seek(file.tell() - 2, os.SEEK_SET)
+                    file.write('\n')
+                    file.write('}')
+            # write network to yaml file
+            if "path" not in action_dict["network"]:
+                data = {}
+                for key, value in action_dict["network"].items():
+                    if key == "dimensions-count":
+                        continue
+                    key_split = key.split("-")
+                    key_converted = ""
+                    # npus_count_
+                    for k in key_split:
+                        key_converted += k 
+                        key_converted += "_"
+                    if "dimensions-count" in action_dict["network"]:
+                        if isinstance(value, list) and key not in self.network_knobs:
+                            print("value not in network knobs")
+                            while len(value) < action_dict["network"]["dimensions-count"]:
+                                value.append(value[0])
+                            while len(value) > action_dict["network"]["dimensions-count"]:
+                                value.pop()
+
+                    data[key_converted[:-1]] = value
+
+                with open(self.network_config, 'w') as file:
+                    yaml.dump(data, file, sort_keys=False)
+
+            # write workload to cfg file
+            if "path" not in action_dict["workload"]:
+                with open(self.workload_file, 'w') as file:
+                    file.write('{\n')
+                    for key, value in action_dict["workload"].items():
                         file.write(f'"{key}": {value},\n')
-                file.seek(file.tell() - 2, os.SEEK_SET)
-                file.write('\n')
-                file.write('}')
-            # WRITE NETWORK FILE TO YAML FILE
+                    file.seek(file.tell() - 2, os.SEEK_SET)
+                    file.write('\n')
+                    file.write('}')  
+
 
         # the action is actually the parsed parameter files
         print("Step: " + str(self.counter))
         self.counter += 1
 
-        # start subrpocess to run the simulation
-        # $1: network, $2: system, $3: workload
-        print("Running simulation...")
-        print(self.exe_path, self.network_config, self.system_config, self.workload_config)
-        process = subprocess.Popen([self.exe_path, 
-                                    self.network_file, 
-                                    self.system_config, 
-                                    self.workload_file],
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-        # get the output
-        out, err = process.communicate()
-        outstream = out.decode()
-        print("------------------------------------------------------------------")
-        print(outstream)
-        print("------------------------------------------------------------------")
-
-        # backend_dim_info.csv
-        backend_dim_info = self.parse_result(sim_path + 
-            '/results/run_general/backend_dim_info.csv')
-        # backend_end_to_end.csv
-        backend_end_to_end = self.parse_result(sim_path + 
-            '/results/run_general/backend_end_to_end.csv')
-        # detailed.csv
-        detailed = self.parse_result(sim_path +
-            '/results/run_general/detailed.csv')
-        # EndToEnd.csv
-        end_to_end = self.parse_result(sim_path +
-            '/results/run_general/EndToEnd.csv')
-        # sample_all_reduce_dimension_utilization.csv
-        sample_all_reduce_dimension_utilization = self.parse_result(sim_path +
-            '/results/run_general/sample_all_reduce_dimension_utilization.csv')
-
-        if (self.counter == self.max_steps):
-            self.done = True
-            print("Maximum steps reached")
-            self.reset()
-
-        """
-        TODO: add constraints
-        """
 
         operators = {"<=", ">=", "==", "<", ">"}
         command = {"product", "mult", "num"}
+        self.constraints = []
         for constraint in self.constraints:
             constraint_args = constraint.split(" ")
             
@@ -360,7 +441,10 @@ class AstraSimEnv(gym.Env):
             else:
                 print("constraint not satisfied")
                 reward = float("-inf")
-                return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
+                observations = [float("inf")]
+                observations = np.reshape(observations, self.observation_space.shape)
+                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+                # return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
             
 
         # HARDCODED EXAMPLE: test if product of npu count <= number of npus
@@ -370,26 +454,85 @@ class AstraSimEnv(gym.Env):
         #     print("reward: ", reward)
         #     return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
 
-        # test if the csv files exist (if they don't, the config files are invalid)
-        if ((len(backend_dim_info) == 0 or len(backend_end_to_end) == 0 or
-             len(detailed) == 0 or len(end_to_end) == 0 or
-             len(sample_all_reduce_dimension_utilization) == 0)):
-            # set reward to be extremely negative
-            reward = float("-inf")
-            print("reward: ", reward)
-            return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
-        else:
-            observations = [
-                float(backend_end_to_end["CommsTime"][0])
-                # end_to_end["fwd compute"][0],
-                # end_to_end["wg compute"][0],
-                # end_to_end["ig compute"][0],
-                # end_to_end["total exposed comm"][0]
-            ]
+        # redefine new workload file equal to just "workload_cfg.json"
+        new_workload_path = self.workload_file.split('/')
+        self.new_workload_file = new_workload_path[-1]
 
-            
-            reward = self.calculate_reward(observations)
+        # start subrpocess to run the simulation
+        # $1: network, $2: system, $3: workload
+        print("Running simulation...")
+        print(self.exe_path, self.network_config, self.system_config, self.workload_file)
+        process = subprocess.Popen([self.exe_path, 
+                                    self.astrasim_binary, 
+                                    self.system_config, 
+                                    self.network_config, 
+                                    self.new_workload_file,
+                                    self.generate_workload],
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+        # get the output
+        out, err = process.communicate()
+        print("OUT: ", out)
+        outstream = out.decode()
+        print("------------------------------------------------------------------")
+        print("standard output: ")
+        print(outstream)
+
+        max_cycles = 0
+        if VERSION == 2:
+            # parse to get the number of cycles
+            for line in outstream.splitlines():
+                if line[0:3] == "sys":
+                    words = line.split()
+                    cycles = int(words[-2])
+                    max_cycles = max(cycles, max_cycles)
+        
+        print("MAX_CYCLES: ", max_cycles)
+        print("------------------------------------------------------------------")
     
+        
+        # if (self.counter == self.max_steps):
+        #     self.done = True
+        #     print("self.counter: ", self.counter)
+        #     print("Maximum steps reached")
+        #     self.reset()
+
+
+        # test if the csv files exist (if they don't, the config files are invalid)
+        if VERSION == 1:
+            backend_dim_info = self.parse_result(sim_path + '/results/run_general/backend_dim_info.csv')
+            backend_end_to_end = self.parse_result(sim_path + '/results/run_general/backend_end_to_end.csv')
+            detailed = self.parse_result(sim_path + '/results/run_general/detailed.csv')
+            end_to_end = self.parse_result(sim_path + '/results/run_general/EndToEnd.csv')
+            sample_all_reduce_dimension_utilization = self.parse_result(sim_path +
+                '/results/run_general/sample_all_reduce_dimension_utilization.csv')
+
+            if ((len(backend_dim_info) == 0 or len(backend_end_to_end) == 0 or
+                len(detailed) == 0 or len(end_to_end) == 0 or
+                len(sample_all_reduce_dimension_utilization) == 0)):
+                # set reward to be extremely negative
+                reward = -10000
+                print("reward?: ", reward)
+                # np.reshape([], self.observation_space.shape)
+                observations = [1000000000000000]
+                observations = np.reshape(observations, self.observation_space.shape)
+                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+            else:
+                observations = [float(backend_end_to_end["CommsTime"][0])]
+                reward = self.calculate_reward(observations)
+                print("reward: ", reward)
+                
+                # reshape observations with shape of observation space
+                observations = np.reshape(observations, self.observation_space.shape)
+                self.useful_counter += 1
+
+                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+        else:
+            observations = [np.format_float_scientific(max_cycles)]
+            if self.rl_form == "sa1":
+                observations = [int(max_cycles)]
+            observations = np.reshape(observations, self.observation_space.shape)
+            reward = self.calculate_reward(observations)
             print("reward: ", reward)
             
             # reshape observations with shape of observation space

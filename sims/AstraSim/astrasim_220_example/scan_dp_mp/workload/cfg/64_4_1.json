@@ -1,0 +1,1 @@
+{         "num_npus": 64,         "dp": 4,         "weight_sharded": 1     }

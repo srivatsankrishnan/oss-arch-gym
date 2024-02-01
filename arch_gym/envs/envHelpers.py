@@ -9,7 +9,7 @@ import yaml
 os.sys.path.insert(0, os.path.abspath('/../../configs'))
 os.sys.path.insert(0, os.path.abspath('/../..'))
 
-#from configs import configs
+from configs import arch_gym_configs
 from configs.sims import DRAMSys_config
 from configs.sims import Timeloop_config
 import shutil
@@ -778,33 +778,110 @@ class helpers():
         return act_decoded
 
     
-    def action_decoder_ga_astraSim(self, act_encoded, system_knob, network_knob, workload_knob, dimension):
+    def action_decoder_rl_astraSim(self, act_encoded, system_knob, network_knob, workload_knob, dimension):
+        # decode act_encoded into act_decoded
+        act_decoded = {"system": {}, "network": {}, "workload": {}}
+        dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
+        # counter is the index in the act_encoded
+        counter = 0
+        print("action_decoder_rl_astraSim", act_encoded)
+        for dict_type, dict_name in dicts:
+            knobs = sorted(dict_type.keys())
+            for knob in knobs:
+                if knob == "dimensions-count":
+                    continue
+                categories, bin_edges = None, None
+                if isinstance(dict_type[knob][0], set):
+                    # assign a fraction to each element of the set of the set between 0 and 1
+                    categories = sorted(list(dict_type[knob][0]))
+                    # need to map the 0-1.0 value to one of the possible values
+
+                    # create bin_edges between 0 and 1.0
+                    bin_edges = np.linspace(0, 1.0, len(categories) + 1)
+                else:
+                    # (1, 1000, 1)
+                    # min, max, step
+                    minV, maxV, step = dict_type[knob][0]
+                    categories = np.arange(minV, maxV + step, step)
+                    bin_edges = np.linspace(0, 1, len(categories) + 1)
+
+                def find_bin(value):
+                    for i in range(0, len(bin_edges) - 2):
+                        if bin_edges[i] <= value < bin_edges[i + 1]:
+                            return i
+                    return len(bin_edges) - 2
+                            
+                print("knob??: ", knob)
+                print("categories: ", categories)
+                print("bin_edges: ", bin_edges)
+                print("counter: " , counter)
+                print("act_encoded: ", act_encoded)
+                print("act_encoded[counter]: ", act_encoded[counter])
+                print("find_bin(act_encoded[counter]): ", find_bin(act_encoded[counter]))
+                
+                if dict_type[knob][1] == "N/A":
+                    # 0.5
+                    bin_index = find_bin(act_encoded[counter])
+                    act_decoded[dict_name][knob] = categories[bin_index]
+                    counter += 1
+
+                elif dict_type[knob][1] == "TRUE":
+                    # 0.5 0.5 0.5 0.5
+                    bin_index = find_bin(act_encoded[counter])
+                    act_decoded[dict_name][knob] = [categories[bin_index] for _ in range(dimension)]
+                    counter += 1
+                    print("")
+                    print("act_decoded[dict_name][knob]: ", act_decoded[dict_name][knob])
+
+                elif dict_type[knob][1] == "FALSE":
+                    # 0.5
+                    bin_index = [0 for _ in range(dimension)]
+                    for i in range(dimension):
+                        bin_index[i] = find_bin(act_encoded[counter+i])
+
+                    counter += dimension
+                    act_decoded[dict_name][knob] = [categories[i] for i in bin_index]
+
+        print("action_decoder_rl_astraSim decoded", act_decoded)
+        return act_decoded
+
+
+    def setAstraSimGADimension(self, dimension):
+        self.dimension = dimension
+
+
+    def action_decoder_ga_astraSim(self, act_encoded, system_knob, network_knob, workload_knob):
         act_decoded = {"system": {}, "network": {}, "workload": {}}
         dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
 
         counter = 0
         for dict_type, dict_name in dicts:
-            knobs = dict_type.keys()
-            for knob in knobs:
+            for knob in dict_type:
+                if knob == "dimensions-count":
+                    act_decoded[dict_name]["dimensions-count"] = self.dimension
+                    continue
                 if isinstance(dict_type[knob][0], set):
                     if dict_type[knob][1] == "FALSE":
-                        act_decoded[dict_name][knob] = [list(dict_type[knob][0])[int(i)]
-                            for i in act_encoded[counter : counter + dimension]]
-                        counter += dimension
+                        list_sorted = sorted(list(dict_type[knob][0]))
+                        act_decoded[dict_name][knob] = [list_sorted[int(i)]
+                            for i in act_encoded[counter : counter + self.dimension]]
+                        counter += self.dimension
                     elif dict_type[knob][1] == "TRUE":
+                        list_sorted = sorted(list(dict_type[knob][0]))
                         i = int(act_encoded[counter])
-                        act_decoded[dict_name][knob] = [list(dict_type[knob][0])[i] for _ in range(dimension)]
+                        act_decoded[dict_name][knob] = [list_sorted[i] for _ in range(self.dimension)]
                         counter += 1
                     else:
+                        list_sorted = sorted(list(dict_type[knob][0]))
                         i = int(act_encoded[counter])
-                        act_decoded[dict_name][knob] = list(dict_type[knob][0])[i]
+                        act_decoded[dict_name][knob] = list_sorted[i]
                         counter += 1
                 else:
                     if dict_type[knob][1] == "FALSE":
-                        act_decoded[dict_name][knob] = act_encoded[counter : counter + dimension]
-                        counter += dimension
+                        act_decoded[dict_name][knob] = act_encoded[counter : counter + self.dimension]
+                        counter += self.dimension
                     elif dict_type[knob][1] == "TRUE":
-                        act_decoded[dict_name][knob] = [act_encoded[counter] for _ in range(dimension)]
+                        act_decoded[dict_name][knob] = [act_encoded[counter] for _ in range(self.dimension)]
                         counter += 1
                     else:
                         act_decoded[dict_name][knob] = act_encoded[counter]
@@ -823,7 +900,17 @@ class helpers():
                     action_dict['network'][key] = network[key]
         else:
             # parse yaml file
-            pass
+            data = yaml.load(open(network_file), Loader=yaml.Loader)
+
+            for key, val in data.items():
+                key_split = key.split("_")
+                key_converted = ""
+                for k in key_split:
+                    key_converted += k 
+                    key_converted += "-"
+
+                action_dict['network'][key_converted[:-1]] = val
+
         return action_dict['network']
 
 
@@ -843,6 +930,7 @@ class helpers():
 
                 for key in system.keys():
                     action_dict['system'][key] = system[key]
+                    
         return action_dict['system']
 
     # workload: parses the workload file
@@ -852,7 +940,11 @@ class helpers():
             pass
         else:
             # use symbolic tensor graph generator
-            pass
+            with open(workload_file) as f:
+                workload = json.load(f)
+
+                for key in workload.keys():
+                    action_dict['workload'][key] = workload[key]
         return action_dict['workload']
 
     # parses knobs that we want to experiment with
@@ -874,13 +966,10 @@ class helpers():
             WORKLOAD_KNOBS = parsed_dicts['WORKLOAD_KNOBS']
         
         return SYSTEM_KNOBS, NETWORK_KNOBS, WORKLOAD_KNOBS
-    
-    """TODO: Parameter_spec version of parse_knobs_astrasim"""
-    # parses knobs that we want to experiment with
-    def actual_parse_knobs_astrasim(self, knobs_spec):
-        SYSTEM_KNOBS = {}
-        NETWORK_KNOBS = {}
-        WORKLOAD_KNOBS = {}
+
+    # parses contraints from knobs file
+    def parse_constraints_astrasim(self, knobs_spec):
+        CONSTRAINTS = {}
 
         with open(knobs_spec, 'r') as file:
             file_contents = file.read()
@@ -889,15 +978,10 @@ class helpers():
             # Evaluate the file contents and store the dictionaries in the parsed_dicts dictionary
             exec(file_contents, parsed_dicts)
 
-            # Access the dictionaries
-            SYSTEM_KNOBS = parsed_dicts['SYSTEM_KNOBS']
-            NETWORK_KNOBS = parsed_dicts['NETWORK_KNOBS']
-            WORKLOAD_KNOBS = parsed_dicts['WORKLOAD_KNOBS']
+            # Access constraints
             CONSTRAINTS = parsed_dicts['CONSTRAINTS']
-        
-        return SYSTEM_KNOBS, NETWORK_KNOBS, WORKLOAD_KNOBS, CONSTRAINTS
 
-    # TODO: define getting a 
+        return CONSTRAINTS
 
     def convert_knob_ga_astrasim(self, knob):
         knob_split = knob.split("-")
