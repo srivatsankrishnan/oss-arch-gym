@@ -1,44 +1,30 @@
 # AstraSim Simulator Documentation
 
-## Setting up ArchGym
-
-Recurisvely clone ArchGym from this repo:
+## Installing ArchGym + Astra-sim (Docker)
 ```
-git clone —recurse-submodules https://github.com/srivatsankrishnan/oss-arch-gym.git
-git checkout add-bayesian-optimization
-git submodule add https://github.com/astra-sim/astrasim-archgym.git sims/AstraSim/astrasim-archgym
-git submodule update --init --recursive — sims/AstraSim/astrasim-archgym
-```
-Check out to these specific commits:
-```
-cd astra-sim
-git checkout ceda7a923ba3f0dded3f89398958c70b424d56be
-cd extern/googletest
-git checkout 7e33b6a1c497ced1e98fc60175aeb4678419281c
-```
-Activate the AstraSim environment:
-```
-conda activate arch-gym
+git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
+cd oss-arch-gym/sims/AstraSim && docker build -t archgym-astrasim .
 ```
 
-## Installing AstraSim
+## Running Training Scripts (Docker)
 
-Clone AstraSim from this repo: 
-```
-git clone --recursive https://github.com/astra-sim/astra-sim.git
-```
+First, in Dockerfile line 38, replace x in --algo=<x> with the desired algorithm to run, such that x \in {aco, bo, ga, rw, rl}. (These flags correspond to Ant Colony Optimization, Bayesian Optimization, Genetic Algorithm, Random Walker, and Reinforcement Learning, respectively.)
 
-Install conda environment.
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--algo=bo"]
 
-Run the compilation script with analytical backend in the astra-sim repo: 
+Rebuild the docker for each of the five algorithms and tag them with different names (such as "archgym-astrasim-aco" and "archgym-astrasim-bo"). Then, run each of the five algorithms using their separate docker images using the following mount command:
+
 ```
-./build/astra_analytical/build.sh -c
+docker run -v <output path on local machine>:/workdir/oss-arch-gym/sims/AstraSim/all_logs -it <name_of_docker_image>
 ```
 
+Alternatively, if you've built a docker image without an endpoint, run the algorithm inside the docker environment as follows: 
 
-## Running Training Scripts
-
-Inside sims/AstraSim:
+First, run the docker environment: 
+```
+docker run -it <hash> /bin/bash
+```
+Then, in /workdir/oss-arch-gym/sims/AstraSim/ of the docker environment (make sure arch-gym conda environment is activated), run: 
 
 * **Ant Colony Optimization**: ```python trainACOAstraSim.py```
 
@@ -49,6 +35,11 @@ Inside sims/AstraSim:
 * **Random Walker**: ```python trainRandomWalkerAstraSim.py```
 
 * **Reinforcement Learning**: ```python trainSingleAgentAstraSim.py```
+
+The logs will be outputted in the /workdir/oss-arch-gym/sims/AstraSim/all_logs/ folder. 
+
+
+## Updating Knobs: 
 
 To update the input network, system, and workload files for the training scripts, follow these steps:
 
