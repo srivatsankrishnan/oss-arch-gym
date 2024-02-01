@@ -35,4 +35,4 @@ WORKDIR /workdir/oss-arch-gym/sims/AstraSim
 
 RUN chmod +x launch_gcp.py
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--algo=bo"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--algo=rw"]

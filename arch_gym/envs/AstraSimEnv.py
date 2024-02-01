@@ -25,8 +25,8 @@ VERSION = 2
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):
-    def __init__(self, knobs_spec, network, system, workload, rl_form=None, max_steps=5, 
-                num_agents=1, reward_formulation="None", reward_scaling=1, congestion_aware=False, dimension=None):
+    def __init__(self, knobs_spec, network, system, workload, rl_form=None, max_steps=5, num_agents=1, 
+                reward_formulation="None", reward_scaling=1, congestion_aware=False, dimension=None, seed=12234):
         self.rl_form = rl_form
         self.helpers = helpers()
         self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
@@ -45,6 +45,7 @@ class AstraSimEnv(gym.Env):
         self.num_agents = num_agents
         self.reward_formulation = reward_formulation
         self.reward_scaling = reward_scaling
+        self.seed = random.randint(0, 10000) if seed == 12234 else seed
 
         # goal of the agent is to find the average
         self.goal = 0
@@ -219,13 +220,20 @@ class AstraSimEnv(gym.Env):
 
     # give it one action: one set of parameters from json file
     def step(self, action_dict):
+        # the action is actually the parsed parameter files
+        print("Step: " + str(self.counter))
+
+        # stop if maximum steps reached
+        if (self.counter == self.max_steps):
+            self.done = True
+            print("self.counter: ", self.counter)
+            print("Maximum steps reached")
+    
+        self.counter += 1
 
         """ RL """
         # [0.5, 0.5, 0.5]
         if not isinstance(action_dict, dict):
-            with open(settings_dir_path + "/AstraSimRL_2.csv", 'a') as f:
-                writer = csv.writer(f)
-                writer.writerow(action_dict)
 
             action_dict_decoded = {}
 
@@ -363,12 +371,7 @@ class AstraSimEnv(gym.Env):
                         file.write(f'"{key}": {value},\n')
                     file.seek(file.tell() - 2, os.SEEK_SET)
                     file.write('\n')
-                    file.write('}')  
-
-
-        # the action is actually the parsed parameter files
-        print("Step: " + str(self.counter))
-        self.counter += 1
+                    file.write('}') 
 
 
         operators = {"<=", ">=", "==", "<", ">"}
@@ -490,14 +493,6 @@ class AstraSimEnv(gym.Env):
         print("MAX_CYCLES: ", max_cycles)
         print("------------------------------------------------------------------")
     
-        
-        # if (self.counter == self.max_steps):
-        #     self.done = True
-        #     print("self.counter: ", self.counter)
-        #     print("Maximum steps reached")
-        #     self.reset()
-
-
         # test if the csv files exist (if they don't, the config files are invalid)
         if VERSION == 1:
             backend_dim_info = self.parse_result(sim_path + '/results/run_general/backend_dim_info.csv')
@@ -530,10 +525,19 @@ class AstraSimEnv(gym.Env):
         else:
             observations = [np.format_float_scientific(max_cycles)]
             if self.rl_form == "sa1":
-                observations = [int(max_cycles)]
+                observations = [float(max_cycles)]
             observations = np.reshape(observations, self.observation_space.shape)
             reward = self.calculate_reward(observations)
             print("reward: ", reward)
+
+            ### LOG for RL ###
+            if self.rl_form == "sa1":
+                timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
+                log_path = f"{sim_path}/all_logs/rl_logs/rl_form_{self.rl_form}_num_steps_{self.max_steps}_seed_{self.seed}.csv"
+                with open(log_path, 'a') as f:
+                    writer = csv.writer(f)
+                    # write the timestamp and the action_dict in one row
+                    writer.writerow([timestamp, action_dict, observations[0], reward])
             
             # reshape observations with shape of observation space
             observations = np.reshape(observations, self.observation_space.shape)

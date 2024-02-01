@@ -225,7 +225,8 @@ def make_astraSim_env(seed: int = 12234,
       system = system,
       workload = workload,
       congestion_aware = congestion_aware,
-      dimension = dimension
+      dimension = dimension, 
+      seed = seed
     ),
     env_wrapper_sel = rl_form
   )
