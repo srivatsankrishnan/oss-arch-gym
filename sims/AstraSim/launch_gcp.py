@@ -25,7 +25,7 @@ flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path t
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
 flags.DEFINE_bool('congestion_aware', False, "astra-sim congestion aware or not")
-flags.DEFINE_string('parameter_specs', 'workload_validation_parameters.csv', "Parameter specs file")
+# flags.DEFINE_string('parameter_specs', 'workload_validation_parameters.csv', "Parameter specs file")
 
 # BO
 flags.DEFINE_integer('rand_state', 0, 'Random state')
