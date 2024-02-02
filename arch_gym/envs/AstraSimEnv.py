@@ -160,17 +160,17 @@ class AstraSimEnv(gym.Env):
     def reset(self):
 
         self.counter = 0
-        # get results folder path
-        results_folder_path = os.path.join(sim_path, "results", "run_general")
+        # # get results folder path
+        # results_folder_path = os.path.join(sim_path, "results", "run_general")
 
-        # # find wildcard csv and m files
-        csv_files = [f for f in os.listdir(results_folder_path) if f.endswith('.csv')]
+        # # # find wildcard csv and m files
+        # csv_files = [f for f in os.listdir(results_folder_path) if f.endswith('.csv')]
 
-        # # remove the files
-        for csv_files in csv_files:
-            csv_files = os.path.join(results_folder_path, csv_files)
-            if os.path.exists(csv_files):
-                os.remove(csv_files)
+        # # # remove the files
+        # for csv_files in csv_files:
+        #     csv_files = os.path.join(results_folder_path, csv_files)
+        #     if os.path.exists(csv_files):
+        #         os.remove(csv_files)
 
         # TODO: 
         obs = np.zeros(self.observation_space.shape)
