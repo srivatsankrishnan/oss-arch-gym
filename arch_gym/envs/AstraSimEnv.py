@@ -63,10 +63,11 @@ class AstraSimEnv(gym.Env):
 
         # CONFIG = FILE WITH CHANGED KNOBS
         if VERSION == 1:
-            self.exe_path = os.path.join(sim_path, "run_general.sh")
-            self.network_config = os.path.join(sim_path, "general_network.json")
-            self.system_config = os.path.join(sim_path, "general_system.txt")
-            self.astrasim_binary = os.path.join(sim_path, "astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
+            pass
+            # self.exe_path = os.path.join(sim_path, "run_general.sh")
+            # self.network_config = os.path.join(sim_path, "general_network.json")
+            # self.system_config = os.path.join(sim_path, "general_system.txt")
+            # self.astrasim_binary = os.path.join(sim_path, "astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
         else:
             self.exe_path = os.path.join(sim_path, "astrasim_220_example/run.sh")
             self.network_config = os.path.join(sim_path, "astrasim_220_example/network.yml")
