@@ -107,9 +107,9 @@ def run_task(task):
     
 
     ### run the specs file ###
-    parameter_specs = os.path.join("frontend", task["parameter_specs"])
-    print("Parameter Specs", parameter_specs)
-    parse_csv_to_knobs(parameter_specs)
+    # parameter_specs = os.path.join("frontend", task["parameter_specs"])
+    # print("Parameter Specs", parameter_specs)
+    # parse_csv_to_knobs(parameter_specs)
 
 
     workload = task['workload']
