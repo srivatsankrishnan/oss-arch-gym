@@ -8,6 +8,7 @@ import json
 from datetime import date, datetime
 os.sys.path.insert(0, os.path.abspath('../../'))
 from configs import arch_gym_configs
+from sims.AstraSim.frontend.parse_parameter_specs import parse_csv_to_knobs
 
 from absl import flags
 from absl import app
@@ -24,7 +25,7 @@ flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path t
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
 flags.DEFINE_bool('congestion_aware', False, "astra-sim congestion aware or not")
-
+flags.DEFINE_string('parameter_specs', 'workload_validation_parameters.csv', "Parameter specs file")
 
 # BO
 flags.DEFINE_integer('rand_state', 0, 'Random state')
@@ -104,6 +105,13 @@ def run_task(task):
         print("Need to provide an algorithm.")
         exit(0)
     
+
+    ### run the specs file ###
+    parameter_specs = os.path.join("frontend", task["parameter_specs"])
+    print("Parameter Specs", parameter_specs)
+    parse_csv_to_knobs(parameter_specs)
+
+
     workload = task['workload']
     if(algo == "ga"):
         prob_mut = task["prob_mut"]
@@ -312,6 +320,7 @@ def main(_):
                 'use_envlogger': FLAGS.use_envlogger,
                 "knobs": FLAGS.knobs,
                 "congestion_aware": FLAGS.congestion_aware,
+                'parameter_specs': FLAGS.parameter_specs,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
                 "workload_file": FLAGS.workload_file}
@@ -392,7 +401,7 @@ def main(_):
 
 
     for each_task in taskList:
-        # update the workload in DRAMSys simulator
+        # update the workload in simulator
         run_task(each_task)
 
 

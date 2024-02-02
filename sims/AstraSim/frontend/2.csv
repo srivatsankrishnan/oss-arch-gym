@@ -1,0 +1,28 @@
+Network,,,,
+Parameter,Range,SamePerDimension,Condition,Constraint
+num-npus,"{8, 16, 32, 64, 128, 256, 512, 1024}",N/A,,
+dimensions-count,"(1, 4, 1)",N/A,,
+topologies-per-dim,"{""Ring"", ""Switch"", ""FullyConnected""}",TRUE,,
+npus-count,"(1, 1000000000, 1)",FALSE,product network npus-count <= num network num-npus,
+bandwidth,"{5.0, 12.5, 25.0, 50.0, 100.0, 200.0}",FALSE,,
+latency,{1},TRUE,,
+,,,,
+System,,,,
+Parameter,Range,SamePerDimension,Condition,Constraint
+scheduling-policy,"{""FIFO"", ""LIFO""}",N/A,,
+endpoint-delay,"(1, 1000, 1)",N/A,,
+active-chunks-per-dimension,"(1, 32, 1)",N/A,,
+preferred-dataset-splits,"(1, 1024, 1)",N/A,,
+all-reduce-implementation,"{""ring"", ""direct"", ""oneRing"", ""oneDirect"", ""hierarchicalRing"", ""doubleBinaryTree""}",FALSE,,
+all-gather-implementation,"{""ring"", ""direct"", ""oneRing"", ""oneDirect"", ""hierarchicalRing"", ""doubleBinaryTree""}",FALSE,,
+reduce-scatter-implementation,"{""ring"", ""direct"", ""oneRing"", ""oneDirect"", ""hierarchicalRing"", ""doubleBinaryTree""}",FALSE,,
+all-to-all-implementation,"{""ring"", ""direct"", ""oneRing"", ""oneDirect"", ""hierarchicalRing"", ""doubleBinaryTree""}",FALSE,,
+collective-optimization,"{""localBWAware"", ""baseline""}",N/A,,
+intra-dimension-scheduling,"{""FIFO"", ""SCF""}",N/A,,
+inter-dimension-scheduling,"{""baseline"", ""themis""}",N/A,,
+,,,,
+Workload,,,,
+Parameter,Range,SamePerDimension,Condition,Constraint
+parallel-strategy,"{""dp"", ""fdsp"", ""mpdp""}",N/A,,
+data-parallel-degree,"{1, 2, 4, 8, 16, 32, 64, 128, 256, 512}",N/A,mult workload data-parallel-degree workload model-parallel-degree == network num-npus,
+model-parallel-degree,"{1, 2, 4, 8, 16, 32, 64, 128, 256, 512}",N/A,,"1 if ""dp"" or ""fdsp"""
