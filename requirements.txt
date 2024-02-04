@@ -14,3 +14,12 @@ scons
 portpicker
 dill
 jupyter
+appdirs
+wandb
+matplotlib
+ninja
+packaging
+scipy
+gpustat
+watch
+lit
