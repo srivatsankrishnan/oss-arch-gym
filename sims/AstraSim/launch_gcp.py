@@ -18,7 +18,7 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
 flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
 flags.DEFINE_string('summary_dir', './all_logs', 'Directory to store the summary')
-flags.DEFINE_integer('num_iter', 1, 'Number of iterations')
+flags.DEFINE_integer('num_iter', 30, 'Number of iterations')
 flags.DEFINE_string('reward_formulation', 'cycles', 'Reward formulation to use')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
