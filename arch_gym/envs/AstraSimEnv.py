@@ -20,6 +20,8 @@ astrasim_archgym = os.path.join(proj_dir_path, "astrasim-archgym")
 archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
 sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
 
+workload_cfg_to_et = os.path.join(sim_path, "astrasim_220_example/workload_cfg_to_et.py")
+
 # define AstraSim version
 VERSION = 2
 
@@ -223,6 +225,19 @@ class AstraSimEnv(gym.Env):
     def step(self, action_dict):
         # the action is actually the parsed parameter files
         print("Step: " + str(self.counter))
+
+        # generate workload for initial step
+        new_workload_path = self.workload_file.split('/')
+        self.new_workload_file = new_workload_path[-1]
+        workload_cfg = self.new_workload_file
+        workload_et = "workload-et/generated.%d.eg"
+        
+        workload_command = []
+        
+        if (self.counter == 0):
+            print("GENERATING WORKLOAD...")
+            workload_command = ['python', workload_cfg_to_et, f'--workload_cfg={workload_cfg}', f'--workload_et={workload_et}']
+            subprocess.run(workload_command)
 
         # stop if maximum steps reached
         if (self.counter == self.max_steps):
@@ -449,18 +464,11 @@ class AstraSimEnv(gym.Env):
                 observations = np.reshape(observations, self.observation_space.shape)
                 return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
                 # return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
-            
-
-        # HARDCODED EXAMPLE: test if product of npu count <= number of npus
-        # if np.prod(action_dict["network"]["npus-count"]) > action_dict["network"]["num-npus"]:
-        #     # set reward to be extremely negative
-        #     reward = float("-inf")
-        #     print("reward: ", reward)
-        #     return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
-
-        # redefine new workload file equal to just "workload_cfg.json"
-        new_workload_path = self.workload_file.split('/')
-        self.new_workload_file = new_workload_path[-1]
+        
+        if self.generate_workload == "TRUE":
+            print("GENERATING WORKLOAD...")
+            workload_command = ['python', workload_cfg_to_et, f'--workload_cfg={workload_cfg}', f'--workload_et={workload_et}']
+            subprocess.run(workload_command)
 
         # start subrpocess to run the simulation
         # $1: network, $2: system, $3: workload
@@ -470,7 +478,6 @@ class AstraSimEnv(gym.Env):
                                     self.astrasim_binary, 
                                     self.system_config, 
                                     self.network_config, 
-                                    self.new_workload_file,
                                     self.generate_workload],
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 

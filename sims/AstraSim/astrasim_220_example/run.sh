@@ -7,25 +7,14 @@ echo "SCRIPT DIR: ${SCRIPT_DIR}"
 ASTRASIM_BIN=$1
 SYSTEM=$2
 NETWORK=$3
-WORKLOAD=$4
-GENERATE=$5
-
-echo "SH WORKLOAD 1: ${WORKLOAD}"
-
-if [ "$GENERATE" == "TRUE" ]; then
-    echo "REACHED TRUE"
-    python3 astrasim_220_example/workload_cfg_to_et.py --workload_cfg=astrasim_220_example/${WORKLOAD} --workload_et=astrasim_220_example/workload-et/generated.%d.eg
-    WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
-else
-    WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
-fi
-
+WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
+GENERATE=$4
 MEMORY="${SCRIPT_DIR}/memory.json"
 
 echo "SH BINARY: ${ASTRASIM_BIN}"
 echo "SH NETWORK: ${NETWORK}"
 echo "SH SYSTEM: ${SYSTEM}"
-echo "SH WORKLOAD 2: ${WORKLOAD}"
+echo "SH WORKLOAD: ${WORKLOAD}"
 echo "SH GENERATE: ${GENERATE}"
 echo "SH MEMORY: ${MEMORY}"
 
