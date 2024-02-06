@@ -320,7 +320,7 @@ def main(_):
                 'use_envlogger': FLAGS.use_envlogger,
                 "knobs": FLAGS.knobs,
                 "congestion_aware": FLAGS.congestion_aware,
-                'parameter_specs': FLAGS.parameter_specs,
+                # 'parameter_specs': FLAGS.parameter_specs,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
                 "workload_file": FLAGS.workload_file}
