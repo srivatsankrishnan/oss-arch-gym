@@ -150,7 +150,7 @@ def main(_):
         system_file = os.path.join(proj_root_path, FLAGS.system)
         workload_file = os.path.join(proj_root_path, FLAGS.workload_file)
 
-    env = AstraSimWrapper.make_astraSim_env(knobs_spec=knobs_spec, network=network_file, system=system_file, 
+    env = AstraSimWrapper.make_astraSim_env(knobs_spec=knobs_spec, network=network_file, system=system_file, max_steps=FLAGS.num_steps,
                                             workload=workload_file, rl_form='random_walker', congestion_aware=FLAGS.congestion_aware)
     # env = AstraSimEnv.AstraSimEnv(rl_form='random_walker')
 

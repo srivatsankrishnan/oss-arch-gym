@@ -2,7 +2,7 @@ FROM continuumio/miniconda3
 RUN if ! id -u 1000; then useradd -m -u 1000 clouduser; fi
 RUN mkdir /workdir
 WORKDIR /workdir
-RUN echo "recloning arch-gym rep22345"
+RUN echo "recloning arch-gym rep223456789"
 RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
 RUN cd oss-arch-gym && git checkout automate-rw
 
@@ -21,7 +21,6 @@ WORKDIR /workdir
 RUN apt-get update && apt-get -y install protobuf-compiler libprotobuf-dev python3-protobuf cmake gcc g++
 RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/ && ./build/astra_analytical/build.sh
 
-# RUN cd oss-arch-gym
 RUN cd oss-arch-gym && conda env create -f environment.yml
 RUN apt-get update && apt-get -y install libgmp-dev gcc g++ libboost-all-dev
 RUN echo "conda activate arch-gym" >> ~/.bashrc
@@ -35,4 +34,4 @@ WORKDIR /workdir/oss-arch-gym/sims/AstraSim
 
 RUN chmod +x launch_gcp.py
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--algo=bo"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--algo=rw"]

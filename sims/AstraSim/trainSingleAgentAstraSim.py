@@ -56,7 +56,7 @@ _REWARD_SCALE = flags.DEFINE_string('reward_scale', 'false', 'Scale reward.')
 _NUM_STEPS = flags.DEFINE_integer('num_steps', 1, 'Number of training steps.')
 _EVAL_EVERY = flags.DEFINE_integer('eval_every', 1, 'Number of evaluation steps.')
 _EVAL_EPISODES = flags.DEFINE_integer('eval_episodes', 1, 'Number of evaluation episode.')
-_SEED = flags.DEFINE_integer('seed', 1, 'Random seed.')
+_SEED = flags.DEFINE_integer('seed', 42, 'Random seed.')
 _LEARNING_RATE = flags.DEFINE_float('learning_rate', 1e-5, 'Learning rate.')
 
 
@@ -127,6 +127,8 @@ def _logger_factory(logger_label: str, steps_key: Optional[str] = None, task_ins
       csv_logger = CSVLogger(summarydir, label=logger_label)
       serialize_fn = base.to_numpy
       logger = aggregators.Dispatcher([terminal_logger, tb_logger, csv_logger], serialize_fn)
+      # add a timestamp
+
       return logger
   elif logger_label == 'evaluator':
       terminal_logger = TerminalLogger(label=logger_label, print_fn=logging.info)
@@ -142,31 +144,24 @@ def _logger_factory(logger_label: str, steps_key: Optional[str] = None, task_ins
 
 def build_experiment_config(dimension=None):
     """Builds the experiment configuration."""
-
-    if(FLAGS.rl_form == 'tdm'):
-        env = AstraSimWrapper.make_astraSim_env(
-            knobs_spec=FLAGS.knobs, network=FLAGS.network, system=FLAGS.system, workload=FLAGS.workload_file, 
-            reward_formulation = _REWARD_FORM.value,
-            reward_scaling = _REWARD_SCALE.value,
-            congestion_aware = FLAGS.congestion_aware,
-            dimension=dimension
-        )
-    else: # if FLAGS.rl_form == 'sa1':
-        env = AstraSimWrapper.make_astraSim_env(
-            knobs_spec=FLAGS.knobs, network=FLAGS.network, system=FLAGS.system, workload=FLAGS.workload_file, 
-            rl_form=FLAGS.rl_form,
-            reward_formulation = _REWARD_FORM.value,
-            reward_scaling = _REWARD_SCALE.value, 
-            congestion_aware = FLAGS.congestion_aware,
-            dimension=dimension
-        )
+    env = AstraSimWrapper.make_astraSim_env(
+        knobs_spec=FLAGS.knobs, network=FLAGS.network, system=FLAGS.system, workload=FLAGS.workload_file, 
+        rl_form=FLAGS.rl_form,
+        max_steps = _NUM_STEPS.value,
+        reward_formulation = _REWARD_FORM.value,
+        reward_scaling = _REWARD_SCALE.value, 
+        congestion_aware = FLAGS.congestion_aware,
+        dimension=dimension,
+        seed=FLAGS.seed
+    )
     if FLAGS.use_envlogger:
         envlogger_dir = os.path.join(FLAGS.summarydir, get_directory_name(), FLAGS.envlogger_dir)
         if(not os.path.exists(envlogger_dir)):
             os.makedirs(envlogger_dir)
         env = wrap_in_envlogger(env, envlogger_dir)
 
-    env_spec = specs.make_environment_spec(env) #TODO
+    env_spec = specs.make_environment_spec(env)
+
     if FLAGS.rl_algo == 'ppo':
         config = ppo.PPOConfig(entropy_cost=FLAGS.entropy_cost,
                             learning_rate=FLAGS.learning_rate,
@@ -190,21 +185,8 @@ def build_experiment_config(dimension=None):
             eval_policy_network_factory = make_eval_policy,
             seed = FLAGS.seed,
             logger_factory=_logger_factory,
-            max_num_actor_steps=_NUM_STEPS.value)
-    elif FLAGS.rl_algo == 'sac':
-        config = sac.SACConfig(
-            learning_rate=FLAGS.learning_rate,
-            n_step=FLAGS.n_step,
-        )
-        sac_builder = sac.builder.SACBuilder(config)
-        size = 32 * FLAGS.params_scaling
-        return experiments.ExperimentConfig(
-            builder = sac_builder,
-            environment_factory = lambda seed: env,
-            network_factory = lambda spec: sac.make_networks(env_spec, (size, size, size)),
-            seed = FLAGS.seed,
-            logger_factory = _logger_factory,
-            max_num_actor_steps = FLAGS.num_steps)
+            max_num_actor_steps=FLAGS.num_steps)
+
     else:
         raise ValueError(f'Improper value for rl_algo. rl_algo is {FLAGS.rl_algo}')
 

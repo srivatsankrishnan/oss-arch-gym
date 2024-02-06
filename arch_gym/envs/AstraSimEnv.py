@@ -20,13 +20,15 @@ astrasim_archgym = os.path.join(proj_dir_path, "astrasim-archgym")
 archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
 sim_path = os.path.join(proj_root_path, "sims", "AstraSim")
 
+workload_cfg_to_et = os.path.join(sim_path, "astrasim_220_example/workload_cfg_to_et.py")
+
 # define AstraSim version
 VERSION = 2
 
 # astra-sim environment
 class AstraSimEnv(gym.Env):
-    def __init__(self, knobs_spec, network, system, workload, rl_form=None, max_steps=5, 
-                num_agents=1, reward_formulation="None", reward_scaling=1, congestion_aware=False, dimension=None):
+    def __init__(self, knobs_spec, network, system, workload, rl_form=None, max_steps=5, num_agents=1, 
+                reward_formulation="None", reward_scaling=1, congestion_aware=False, dimension=None, seed=12234):
         self.rl_form = rl_form
         self.helpers = helpers()
         self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
@@ -45,6 +47,7 @@ class AstraSimEnv(gym.Env):
         self.num_agents = num_agents
         self.reward_formulation = reward_formulation
         self.reward_scaling = reward_scaling
+        self.seed = random.randint(0, 10000) if seed == 12234 else seed
 
         # goal of the agent is to find the average
         self.goal = 0
@@ -62,10 +65,11 @@ class AstraSimEnv(gym.Env):
 
         # CONFIG = FILE WITH CHANGED KNOBS
         if VERSION == 1:
-            self.exe_path = os.path.join(sim_path, "run_general.sh")
-            self.network_config = os.path.join(sim_path, "general_network.json")
-            self.system_config = os.path.join(sim_path, "general_system.txt")
-            self.astrasim_binary = os.path.join(sim_path, "astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
+            pass
+            # self.exe_path = os.path.join(sim_path, "run_general.sh")
+            # self.network_config = os.path.join(sim_path, "general_network.json")
+            # self.system_config = os.path.join(sim_path, "general_system.txt")
+            # self.astrasim_binary = os.path.join(sim_path, "astrasim-archgym/astra-sim/build/astra_analytical/build/AnalyticalAstra/bin/AnalyticalAstra")
         else:
             self.exe_path = os.path.join(sim_path, "astrasim_220_example/run.sh")
             self.network_config = os.path.join(sim_path, "astrasim_220_example/network.yml")
@@ -158,17 +162,17 @@ class AstraSimEnv(gym.Env):
     def reset(self):
 
         self.counter = 0
-        # get results folder path
-        results_folder_path = os.path.join(sim_path, "results", "run_general")
+        # # get results folder path
+        # results_folder_path = os.path.join(sim_path, "results", "run_general")
 
-        # # find wildcard csv and m files
-        csv_files = [f for f in os.listdir(results_folder_path) if f.endswith('.csv')]
+        # # # find wildcard csv and m files
+        # csv_files = [f for f in os.listdir(results_folder_path) if f.endswith('.csv')]
 
-        # # remove the files
-        for csv_files in csv_files:
-            csv_files = os.path.join(results_folder_path, csv_files)
-            if os.path.exists(csv_files):
-                os.remove(csv_files)
+        # # # remove the files
+        # for csv_files in csv_files:
+        #     csv_files = os.path.join(results_folder_path, csv_files)
+        #     if os.path.exists(csv_files):
+        #         os.remove(csv_files)
 
         # TODO: 
         obs = np.zeros(self.observation_space.shape)
@@ -219,13 +223,33 @@ class AstraSimEnv(gym.Env):
 
     # give it one action: one set of parameters from json file
     def step(self, action_dict):
+        # the action is actually the parsed parameter files
+        print("Step: " + str(self.counter))
+
+        # generate workload for initial step
+        new_workload_path = self.workload_file.split('/')
+        self.new_workload_file = new_workload_path[-1]
+        workload_cfg = self.new_workload_file
+        workload_et = "workload-et/generated.%d.eg"
+        
+        workload_command = []
+        
+        if (self.counter == 0):
+            print("GENERATING WORKLOAD...")
+            workload_command = ['python', workload_cfg_to_et, f'--workload_cfg={workload_cfg}', f'--workload_et={workload_et}']
+            subprocess.run(workload_command)
+
+        # stop if maximum steps reached
+        if (self.counter == self.max_steps):
+            self.done = True
+            print("self.counter: ", self.counter)
+            print("Maximum steps reached")
+    
+        self.counter += 1
 
         """ RL """
         # [0.5, 0.5, 0.5]
         if not isinstance(action_dict, dict):
-            with open(settings_dir_path + "/AstraSimRL_2.csv", 'a') as f:
-                writer = csv.writer(f)
-                writer.writerow(action_dict)
 
             action_dict_decoded = {}
 
@@ -363,12 +387,7 @@ class AstraSimEnv(gym.Env):
                         file.write(f'"{key}": {value},\n')
                     file.seek(file.tell() - 2, os.SEEK_SET)
                     file.write('\n')
-                    file.write('}')  
-
-
-        # the action is actually the parsed parameter files
-        print("Step: " + str(self.counter))
-        self.counter += 1
+                    file.write('}') 
 
 
         operators = {"<=", ">=", "==", "<", ">"}
@@ -445,18 +464,11 @@ class AstraSimEnv(gym.Env):
                 observations = np.reshape(observations, self.observation_space.shape)
                 return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
                 # return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
-            
-
-        # HARDCODED EXAMPLE: test if product of npu count <= number of npus
-        # if np.prod(action_dict["network"]["npus-count"]) > action_dict["network"]["num-npus"]:
-        #     # set reward to be extremely negative
-        #     reward = float("-inf")
-        #     print("reward: ", reward)
-        #     return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
-
-        # redefine new workload file equal to just "workload_cfg.json"
-        new_workload_path = self.workload_file.split('/')
-        self.new_workload_file = new_workload_path[-1]
+        
+        if self.generate_workload == "TRUE":
+            print("GENERATING WORKLOAD...")
+            workload_command = ['python', workload_cfg_to_et, f'--workload_cfg={workload_cfg}', f'--workload_et={workload_et}']
+            subprocess.run(workload_command)
 
         # start subrpocess to run the simulation
         # $1: network, $2: system, $3: workload
@@ -466,7 +478,6 @@ class AstraSimEnv(gym.Env):
                                     self.astrasim_binary, 
                                     self.system_config, 
                                     self.network_config, 
-                                    self.new_workload_file,
                                     self.generate_workload],
                                     stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
@@ -490,14 +501,6 @@ class AstraSimEnv(gym.Env):
         print("MAX_CYCLES: ", max_cycles)
         print("------------------------------------------------------------------")
     
-        
-        # if (self.counter == self.max_steps):
-        #     self.done = True
-        #     print("self.counter: ", self.counter)
-        #     print("Maximum steps reached")
-        #     self.reset()
-
-
         # test if the csv files exist (if they don't, the config files are invalid)
         if VERSION == 1:
             backend_dim_info = self.parse_result(sim_path + '/results/run_general/backend_dim_info.csv')
@@ -530,10 +533,19 @@ class AstraSimEnv(gym.Env):
         else:
             observations = [np.format_float_scientific(max_cycles)]
             if self.rl_form == "sa1":
-                observations = [int(max_cycles)]
+                observations = [float(max_cycles)]
             observations = np.reshape(observations, self.observation_space.shape)
             reward = self.calculate_reward(observations)
             print("reward: ", reward)
+
+            ### LOG for RL ###
+            if self.rl_form == "sa1":
+                timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
+                log_path = f"{sim_path}/all_logs/rl_logs/rl_form_{self.rl_form}_num_steps_{self.max_steps}_seed_{self.seed}.csv"
+                with open(log_path, 'a') as f:
+                    writer = csv.writer(f)
+                    # write the timestamp and the action_dict in one row
+                    writer.writerow([timestamp, action_dict, observations[0], reward])
             
             # reshape observations with shape of observation space
             observations = np.reshape(observations, self.observation_space.shape)

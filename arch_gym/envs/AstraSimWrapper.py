@@ -197,7 +197,7 @@ def make_astraSim_env(seed: int = 12234,
                     rl_form = 'sa1',
                     reward_formulation = 'power',
                     reward_scaling = 'false',
-                    max_steps: int = 1,
+                    max_steps: int = 10,
                     num_agents: int = 1,
                     knobs_spec = None,
                     network = None,
@@ -225,7 +225,8 @@ def make_astraSim_env(seed: int = 12234,
       system = system,
       workload = workload,
       congestion_aware = congestion_aware,
-      dimension = dimension
+      dimension = dimension, 
+      seed = seed
     ),
     env_wrapper_sel = rl_form
   )

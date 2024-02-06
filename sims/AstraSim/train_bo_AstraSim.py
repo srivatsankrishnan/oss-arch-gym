@@ -18,7 +18,7 @@ from absl import app
 
 flags.DEFINE_string('workload', 'resnet18', 'Workload trace file')
 flags.DEFINE_integer('layer_id', 2, 'Layer id')
-flags.DEFINE_integer('num_iter', 10, 'Number of training steps.')
+flags.DEFINE_integer('num_iter', 5, 'Number of training steps.')
 flags.DEFINE_integer('random_state', 2, 'Random state.')
 flags.DEFINE_string('traject_dir', 'bo_trajectories', 'Directory to store data.')
 flags.DEFINE_string('exp_config_file', 'exp_config.ini', 'Experiment config file.')
