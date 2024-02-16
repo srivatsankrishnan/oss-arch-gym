@@ -3,8 +3,9 @@ RUN if ! id -u 1000; then useradd -m -u 1000 clouduser; fi
 RUN mkdir /workdir
 WORKDIR /workdir
 RUN echo "recloning arch-gym rep223456789"
-RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
-RUN cd oss-arch-gym && git checkout automate-rw
+# change following two line before merge
+RUN git clone https://github.com/changhai0109/oss-arch-gym.git  
+RUN cd oss-arch-gym && git checkout changhai-update-2.2.0+
 
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init
@@ -16,6 +17,8 @@ WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/ex
 RUN cp ../../../../../.replace_gitmodules/astra-network-analytical.gitmodules .gitmodules && git submodule update --init
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init --recursive
+WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/extern/graph_frontend/chakra
+RUN git checkout 89f26a5
 WORKDIR /workdir
 
 RUN apt-get update && apt-get -y install protobuf-compiler libprotobuf-dev python3-protobuf cmake gcc g++
