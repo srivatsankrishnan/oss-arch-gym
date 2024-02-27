@@ -8,6 +8,7 @@ ASTRASIM_BIN=$1
 SYSTEM=$2
 NETWORK=$3
 WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
+COMM_GROUP="${SCRIPT_DIR}/workload-et/generated.json"
 GENERATE=$4
 MEMORY="${SCRIPT_DIR}/memory.json"
 
@@ -18,11 +19,12 @@ echo "SH WORKLOAD: ${WORKLOAD}"
 echo "SH GENERATE: ${GENERATE}"
 echo "SH MEMORY: ${MEMORY}"
 
-${ASTRASIM_BIN} \
+"${ASTRASIM_BIN} \
 --workload-configuration=${WORKLOAD} \
 --system-configuration=${SYSTEM} \
 --network-configuration=${NETWORK} \
 --remote-memory-configuration=${MEMORY} \
+--comm-group-configuration=${COMM_GROUP}"
 
 echo "done script"
 
