@@ -230,7 +230,7 @@ class AstraSimEnv(gym.Env):
         new_workload_path = self.workload_file.split('/')
         self.new_workload_file = new_workload_path[-1]
         workload_cfg = self.new_workload_file
-        workload_et = "workload-et/generated.%d.eg"
+        workload_et = "workload-et/generated.%d.et"
         
         workload_command = []
         
