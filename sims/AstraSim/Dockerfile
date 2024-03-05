@@ -4,8 +4,8 @@ RUN mkdir /workdir
 WORKDIR /workdir
 RUN echo "recloning arch-gym rep223456789"
 # change following two line before merge
-RUN git clone https://github.com/changhai0109/oss-arch-gym.git  
-RUN cd oss-arch-gym && git checkout changhai-update-2.2.0+
+RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git  
+RUN cd oss-arch-gym && git checkout automate-rw
 
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init
