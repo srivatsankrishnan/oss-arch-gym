@@ -25,8 +25,8 @@ echo "SH MEMORY: ${MEMORY}"
 --system-configuration=${SYSTEM} \
 --network-configuration=${NETWORK} \
 --remote-memory-configuration=${MEMORY} \
---comm-group-configuration=${COMM_GROUP}" \
---log-path=${LOG}
+--comm-group-configuration=${COMM_GROUP} \
+--log-path=${LOG}"
 
 echo "done script"
 

@@ -479,7 +479,7 @@ class AstraSimEnv(gym.Env):
                                     self.system_config, 
                                     self.network_config, 
                                     self.generate_workload],
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
         # get the output
         out, err = process.communicate()
