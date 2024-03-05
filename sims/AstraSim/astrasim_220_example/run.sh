@@ -11,6 +11,7 @@ WORKLOAD="${SCRIPT_DIR}/workload-et/generated"
 COMM_GROUP="${SCRIPT_DIR}/workload-et/generated.json"
 GENERATE=$4
 MEMORY="${SCRIPT_DIR}/memory.json"
+LOG="${SCRIPT_DIR}/log.log"
 
 echo "SH BINARY: ${ASTRASIM_BIN}"
 echo "SH NETWORK: ${NETWORK}"
@@ -24,7 +25,8 @@ echo "SH MEMORY: ${MEMORY}"
 --system-configuration=${SYSTEM} \
 --network-configuration=${NETWORK} \
 --remote-memory-configuration=${MEMORY} \
---comm-group-configuration=${COMM_GROUP}"
+--comm-group-configuration=${COMM_GROUP}" \
+--log-path=${LOG}
 
 echo "done script"
 
