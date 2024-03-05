@@ -473,7 +473,7 @@ class AstraSimEnv(gym.Env):
         # start subrpocess to run the simulation
         # $1: network, $2: system, $3: workload
         print("Running simulation...")
-        print(self.exe_path, self.network_config, self.system_config, self.workload_file)
+        print(self.exe_path, self.astrasim_binary, self.network_config, self.system_config, self.workload_file)
         process = subprocess.Popen([self.exe_path, 
                                     self.astrasim_binary, 
                                     self.system_config, 
