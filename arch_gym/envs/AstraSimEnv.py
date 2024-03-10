@@ -473,13 +473,13 @@ class AstraSimEnv(gym.Env):
         # start subrpocess to run the simulation
         # $1: network, $2: system, $3: workload
         print("Running simulation...")
-        print(self.exe_path, self.network_config, self.system_config, self.workload_file)
+        print(self.exe_path, self.astrasim_binary, self.network_config, self.system_config, self.workload_file)
         process = subprocess.Popen([self.exe_path, 
                                     self.astrasim_binary, 
                                     self.system_config, 
                                     self.network_config, 
                                     self.generate_workload],
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
         # get the output
         out, err = process.communicate()
@@ -493,9 +493,16 @@ class AstraSimEnv(gym.Env):
         if VERSION == 2:
             # parse to get the number of cycles
             for line in outstream.splitlines():
-                if line[0:3] == "sys":
-                    words = line.split()
-                    cycles = int(words[-2])
+                print(f"[DEBUG] {line}")
+                if ("sys[" in line) and ("] finished," in line) and ("cycles" in line):
+                    print(f"[DEBUG] not reached")
+                    lb = line.find("finished,") + len("finished,")
+                    rb = line.rfind("cycles")
+                    print(f"[DEBUG] {lb} {rb}")
+                    cycles = line[lb:rb].strip()
+                    print(f"[DEBUG] {cycles}")
+                    cycles = int(cycles)
+                    print(f"[DEBUG]{cycles}")
                     max_cycles = max(cycles, max_cycles)
         
         print("MAX_CYCLES: ", max_cycles)
