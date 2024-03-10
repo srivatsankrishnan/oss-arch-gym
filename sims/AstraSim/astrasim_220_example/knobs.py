@@ -10,7 +10,7 @@ SYSTEM_KNOBS = {
 
 NETWORK_KNOBS = {
     # 'topology': ({"Ring", "Switch", "FullyConnected"}, 'FALSE'),
-    # 'dimensions-count': ({1, 2, 3, 4}, 'N/A')
+    'dimensions-count': ({1, 2, 3, 4}, 'N/A')
 }
 
 WORKLOAD_KNOBS = {
