@@ -40,7 +40,6 @@ VERSION = 2
 def generate_random_actions(action_dict, system_knob, network_knob, workload_knob, dimension):
     print("DIMENSION: ", dimension)
     dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
-    print("ACTION DICT: ", action_dict)
 
     for dict_type, dict_name in dicts:
         for knob in dict_type:
@@ -204,7 +203,7 @@ def main(_):
                 dimension = random.choice(list_sorted)
                 action_dict['network']["dimensions-count"] = dimension
             action_dict = generate_random_actions(action_dict, system_knob, network_knob, workload_knob, dimension)
-            print("DIMENSION: ", dimension)
+            print(f"{i} {step} DIMENSION: ", dimension)
 
             # step_result wrapped in TimeStep object
             step_result = env.step(action_dict)
