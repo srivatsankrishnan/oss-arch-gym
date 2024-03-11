@@ -13,7 +13,6 @@ RUN git submodule update --init
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim
 RUN cp ../../.replace_gitmodules/astrasim.gitmodules .gitmodules && git submodule update --init
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/extern/network_backend/analytical
-RUN git checkout congestion-multidim
 RUN cp ../../../../../.replace_gitmodules/astra-network-analytical.gitmodules .gitmodules && git submodule update --init
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init --recursive
