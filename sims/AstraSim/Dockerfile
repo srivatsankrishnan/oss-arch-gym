@@ -2,9 +2,9 @@ FROM continuumio/miniconda3
 RUN if ! id -u 1000; then useradd -m -u 1000 clouduser; fi
 RUN mkdir /workdir
 WORKDIR /workdir
-RUN echo "recloning arch-gym rep223456789"
+RUN echo "recloning arch-gym rep223s12"
 RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
-RUN cd oss-arch-gym && git checkout automate-rw
+RUN cd oss-arch-gym && git checkout test-congestion-aware
 
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init
@@ -17,6 +17,9 @@ RUN cp ../../../../../.replace_gitmodules/astra-network-analytical.gitmodules .g
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init --recursive
 WORKDIR /workdir
+
+# congestion aware
+RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/extern/network_backend/analytical && git checkout congestion-multidim
 
 RUN apt-get update && apt-get -y install protobuf-compiler libprotobuf-dev python3-protobuf cmake gcc g++
 RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/ && ./build/astra_analytical/build.sh
@@ -34,4 +37,4 @@ WORKDIR /workdir/oss-arch-gym/sims/AstraSim
 
 RUN chmod +x launch_gcp.py
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--algo=rw"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--algo=rw", "--congestion_aware=True"]

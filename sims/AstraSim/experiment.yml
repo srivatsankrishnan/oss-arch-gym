@@ -1,0 +1,17 @@
+# rw, ga, aco, bo, rl
+ALGORITHM: "rw"
+
+# changes based on algorithm
+STEPS: 30
+
+# exposed knobs for network, system, workload as well as constraints
+KNOBS: "astrasim_220_example/knobs.py" 
+
+# default network input
+NETWORK: "astrasim_220_example/network_input.yml"
+
+# default system input
+SYSTEM: "astrasim_220_example/system_input.json"
+
+# default workload input
+WORKLOAD: "astrasim_220_example/workload_cfg.json"
