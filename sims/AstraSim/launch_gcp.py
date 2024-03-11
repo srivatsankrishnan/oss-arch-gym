@@ -5,6 +5,7 @@ import sys
 import os
 import yaml
 import json
+import socket
 from datetime import date, datetime
 os.sys.path.insert(0, os.path.abspath('../../'))
 from configs import arch_gym_configs
@@ -15,15 +16,16 @@ from absl import app
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
-flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
+flags.DEFINE_string('experiment', 'experiment.yml', 'yaml with paths to all experiment files')
 flags.DEFINE_string('summary_dir', './all_logs', 'Directory to store the summary')
 flags.DEFINE_integer('num_iter', 30, 'Number of iterations')
-flags.DEFINE_string('reward_formulation', 'cycles', 'Reward formulation to use')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
+flags.DEFINE_string('reward_formulation', 'cycles', 'Reward formulation to use')
+flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
+flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
 flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
 # flags.DEFINE_string('parameter_specs', 'workload_validation_parameters.csv', "Parameter specs file")
 
@@ -306,8 +308,27 @@ def run_task(task):
   
 
 
-def main(_):
+def main(_):    
     taskList = []
+
+    experiment_file = FLAGS.experiment
+    # parse experiment.yaml
+    with open(experiment_file, "r") as stream:
+        try:
+            experiment_data = yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(exc)
+
+    FLAGS.algo = experiment_data["ALGORITHM"]
+    FLAGS.num_iter = experiment_data["STEPS"]
+    FLAGS.knobs = experiment_data["KNOBS"]
+    FLAGS.network = experiment_data["NETWORK"]
+    FLAGS.system = experiment_data["SYSTEM"]
+    FLAGS.workload_file = experiment_data["WORKLOAD"]
+
+    # append hostname to summary dir
+    hostname = socket.gethostname()
+    FLAGS.summary_dir = FLAGS.summary_dir + "/" + hostname
 
     if FLAGS.algo == "ga":
         task = {"algo": FLAGS.algo,
