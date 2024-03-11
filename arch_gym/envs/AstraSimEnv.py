@@ -493,16 +493,11 @@ class AstraSimEnv(gym.Env):
         if VERSION == 2:
             # parse to get the number of cycles
             for line in outstream.splitlines():
-                print(f"[DEBUG] {line}")
                 if ("sys[" in line) and ("] finished," in line) and ("cycles" in line):
-                    print(f"[DEBUG] not reached")
                     lb = line.find("finished,") + len("finished,")
                     rb = line.rfind("cycles")
-                    print(f"[DEBUG] {lb} {rb}")
                     cycles = line[lb:rb].strip()
-                    print(f"[DEBUG] {cycles}")
                     cycles = int(cycles)
-                    print(f"[DEBUG]{cycles}")
                     max_cycles = max(cycles, max_cycles)
         
         print("MAX_CYCLES: ", max_cycles)
