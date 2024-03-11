@@ -16,7 +16,7 @@ from absl import app
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('experiment', 'experiment.yml', 'yaml with paths to all experiment files')
+flags.DEFINE_string('experiment', './experiments_files/experiment.yml', 'yaml with paths to all experiment files')
 flags.DEFINE_string('summary_dir', './all_logs', 'Directory to store the summary')
 flags.DEFINE_integer('num_iter', 30, 'Number of iterations')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
