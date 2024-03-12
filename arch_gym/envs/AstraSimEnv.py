@@ -28,7 +28,7 @@ VERSION = 2
 # astra-sim environment
 class AstraSimEnv(gym.Env):
     def __init__(self, knobs_spec, network, system, workload, rl_form=None, max_steps=5, num_agents=1, 
-                reward_formulation="None", reward_scaling=1, congestion_aware=False, dimension=None, seed=12234):
+                reward_formulation="None", reward_scaling=1, congestion_aware=True, dimension=None, seed=12234):
         self.rl_form = rl_form
         self.helpers = helpers()
         self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload

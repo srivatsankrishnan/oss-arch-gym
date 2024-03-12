@@ -151,7 +151,7 @@ class BaseBackend(ABC):
 class AstraSimBackend(BaseBackend):
 
     def __init__(self, dataset=None, optimizer=None, exp_name=None, traject_dir=None, log_dir=None, reward_formulation=None, 
-                use_envlogger=False, VERSION=2, knobs_spec=None, network=None, system=None, workload=None, congestion_aware=False, 
+                use_envlogger=False, VERSION=2, knobs_spec=None, network=None, system=None, workload=None, congestion_aware=True, 
                 dimension=None, astrasim_ant_count=None, astrasim_greediness=None, astrasim_decay=None, 
                 astrasim_evaporation=None, astrasim_start=None, astrasim_max_depth=None):
         super().__init__(dataset, optimizer)
