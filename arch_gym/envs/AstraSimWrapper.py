@@ -203,7 +203,7 @@ def make_astraSim_env(seed: int = 12234,
                     network = None,
                     system = None,
                     workload = None,
-                    congestion_aware = False, 
+                    congestion_aware = True, 
                     dimension = None
                     ) -> dm_env.Environment:
   """Returns DRAMSys environment."""
