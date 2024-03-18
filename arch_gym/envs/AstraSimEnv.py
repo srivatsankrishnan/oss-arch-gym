@@ -30,6 +30,7 @@ class AstraSimEnv(gym.Env):
     def __init__(self, knobs_spec, network, system, workload, rl_form=None, max_steps=5, num_agents=1, 
                 reward_formulation="None", reward_scaling=1, congestion_aware=True, dimension=None, seed=12234):
         self.rl_form = rl_form
+        self.congestion_aware = congestion_aware
         self.helpers = helpers()
         self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
         self.system_knobs, self.network_knobs, self.workload_knobs = self.helpers.parse_knobs_astrasim(self.knobs_spec)
@@ -74,7 +75,7 @@ class AstraSimEnv(gym.Env):
             self.exe_path = os.path.join(sim_path, "astrasim_220_example/run.sh")
             self.network_config = os.path.join(sim_path, "astrasim_220_example/network.yml")
             self.system_config = os.path.join(sim_path, "astrasim_220_example/system.json")
-            if congestion_aware:
+            if self.congestion_aware:
                 self.astrasim_binary = os.path.join(sim_path, 
                 "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Aware")
             else:
