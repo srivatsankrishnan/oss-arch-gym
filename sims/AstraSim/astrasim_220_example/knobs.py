@@ -10,14 +10,14 @@ SYSTEM_KNOBS = {
 
 NETWORK_KNOBS = {
     # 'topology': ({"Ring", "Switch", "FullyConnected"}, 'FALSE'),
-    'dimensions-count': ({1, 2, 3, 4}, 'N/A')
+    'dimensions-count': ({3}, 'N/A')
 }
 
 WORKLOAD_KNOBS = {
     # 'num_npus': ((64, 64, 1), 'N/A'),
-	'dp': ({4}, 'N/A'),
-    'sp': ({4, 8}, 'N/A'),
-    'pp': ({4}, 'N/A'),
+	'dp': ({1, 2, 4, 8}, 'N/A'),
+    'sp': ({1, 2, 4, 8}, 'N/A'),
+    'pp': ({1, 2, 4, 8}, 'N/A'),
 	'weight_sharded': ((0, 1, 1), 'N/A')
 }
 
