@@ -1,0 +1,293 @@
+REACHED workload_cfg_to_et.py
+workload_cfg:  /home/archgym/workspace/aditi_jared/changhai/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload_cfg.json
+workload_et:  /home/archgym/workspace/aditi_jared/changhai/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload-et/generated.%d.et
+[0mVERSION:  2
+astrasim_220_example/knobs.py
+astrasim_220_example/network_input.yml
+astrasim_220_example/system_input.json
+astrasim_220_example/workload_cfg.json
+[DEBUG][Seed] 12234
+[DEBUG][RL Form] random_walker
+[DEBUG][Max Steps] 30
+[DEBUG][Num Agents] 1
+[DEBUG][Reward Formulation] power
+[DEBUG][Reward Scaling] false
+self.param_len:  0
+system knobs:  {}
+self.param_len:  0
+network knobs:  {'dimensions-count': ({3}, 'N/A')}
+self.param_len:  0
+workload knobs:  {'dp': ({4}, 'N/A'), 'sp': ({8}, 'N/A'), 'pp': ({4}, 'N/A'), 'weight_sharded': ((0, 1, 1), 'N/A')}
+dimensions:  1
+param_len:  4
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DIMENSION:  3
+0 0 DIMENSION:  3
+DIMENSION:  3
+0 1 DIMENSION:  3
+Step: 0
+GENERATING WORKLOAD...
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 2 DIMENSION:  3
+Step: 1
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 3 DIMENSION:  3
+Step: 2
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 4 DIMENSION:  3
+Step: 3
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 5 DIMENSION:  3
+Step: 4
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 6 DIMENSION:  3
+Step: 5
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 7 DIMENSION:  3
+Step: 6
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 8 DIMENSION:  3
+Step: 7
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 9 DIMENSION:  3
+Step: 8
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 10 DIMENSION:  3
+Step: 9
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 11 DIMENSION:  3
+Step: 10
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 12 DIMENSION:  3
+Step: 11
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 13 DIMENSION:  3
+Step: 12
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 14 DIMENSION:  3
+Step: 13
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 15 DIMENSION:  3
+Step: 14
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 16 DIMENSION:  3
+Step: 15
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 17 DIMENSION:  3
+Step: 16
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 18 DIMENSION:  3
+Step: 17
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 19 DIMENSION:  3
+Step: 18
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 20 DIMENSION:  3
+Step: 19
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 21 DIMENSION:  3
+Step: 20
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 22 DIMENSION:  3
+Step: 21
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 23 DIMENSION:  3
+Step: 22
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 24 DIMENSION:  3
+Step: 23
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 25 DIMENSION:  3
+Step: 24
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 26 DIMENSION:  3
+Step: 25
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 27 DIMENSION:  3
+Step: 26
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 28 DIMENSION:  3
+Step: 27
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+DIMENSION:  3
+0 29 DIMENSION:  3
+Step: 28
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  64 == 64
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  128 <= 64
+constraint not satisfied
+Best Reward:  0.0
+Best Observation:  0.0
+Best Parameters:  {}
+Total Time Taken:  21.56388211250305
+Total Useful Steps:  0
