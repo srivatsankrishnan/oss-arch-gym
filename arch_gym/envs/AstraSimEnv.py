@@ -369,7 +369,6 @@ class AstraSimEnv(gym.Env):
                         key_converted += "_"
                     if "dimensions-count" in action_dict["network"]:
                         if isinstance(value, list) and key not in self.network_knobs:
-                            print("value not in network knobs")
                             while len(value) < action_dict["network"]["dimensions-count"]:
                                 value.append(value[0])
                             while len(value) > action_dict["network"]["dimensions-count"]:
@@ -473,7 +472,14 @@ class AstraSimEnv(gym.Env):
         # start subrpocess to run the simulation
         # $1: network, $2: system, $3: workload
         print("Running simulation...")
-        print(self.exe_path, self.astrasim_binary, self.system_config, self.network_config, self.workload_file)
+
+        # load the system_config, network_config, and workload_file
+        sys = json.load(open(self.system_config))
+        net = yaml.load(open(self.network_config), Loader=yaml.Loader)
+        work = json.load(open(self.workload_file))
+        print("all configs: ", sys, net, work)
+
+        print(self.exe_path, self.network_config, self.system_config, self.workload_file)
         process = subprocess.Popen([self.exe_path, 
                                     self.astrasim_binary, 
                                     self.system_config, 
