@@ -15,7 +15,7 @@ flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spe
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
-flags.DEFINE_bool('congestion_aware', False, "astra-sim congestion aware or not")
+flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
 flags.DEFINE_integer('ant_count', 1, 'Number of Ants.')
 flags.DEFINE_float('greediness', 0.5, 'How greedy you want the ants to be?.')
 flags.DEFINE_float('decay', 0.1, 'Decay rate for pheromone.')

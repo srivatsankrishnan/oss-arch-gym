@@ -15,8 +15,12 @@ NETWORK_KNOBS = {
 
 WORKLOAD_KNOBS = {
     # 'num_npus': ((64, 64, 1), 'N/A'),
-	'dp': ({1, 2, 4, 8, 16, 32, 64}, 'N/A'),
+	'dp': ({4}, 'N/A'),
+    'sp': ({4, 8}, 'N/A'),
+    'pp': ({4}, 'N/A'),
 	'weight_sharded': ((0, 1, 1), 'N/A')
 }
 
-CONSTRAINTS = ["product network npus-count <= num network num-npus"]
+# dp * sp * pp <= num_npus: leads to node.is = 4 and not 5 error failure
+
+CONSTRAINTS = ["product network npus-count == num workload num_npus", "mult workload dp workload sp workload pp <= num workload num_npus"]

@@ -2,9 +2,9 @@ FROM continuumio/miniconda3
 RUN if ! id -u 1000; then useradd -m -u 1000 clouduser; fi
 RUN mkdir /workdir
 WORKDIR /workdir
-RUN echo "recloning arch-gym rep223s123"
-RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
-RUN cd oss-arch-gym && git checkout test-congestion-aware
+RUN echo "recloning arch-gym rep2234567894"
+RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git  
+RUN cd oss-arch-gym && git checkout automate-rw
 
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init
@@ -16,6 +16,8 @@ WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/ex
 RUN cp ../../../../../.replace_gitmodules/astra-network-analytical.gitmodules .gitmodules && git submodule update --init
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init --recursive
+WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/extern/graph_frontend/chakra
+RUN git checkout 89f26a5
 WORKDIR /workdir
 
 # congestion aware

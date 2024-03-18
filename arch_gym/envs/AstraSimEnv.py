@@ -30,6 +30,7 @@ class AstraSimEnv(gym.Env):
     def __init__(self, knobs_spec, network, system, workload, rl_form=None, max_steps=5, num_agents=1, 
                 reward_formulation="None", reward_scaling=1, congestion_aware=True, dimension=None, seed=12234):
         self.rl_form = rl_form
+        self.congestion_aware = congestion_aware
         self.helpers = helpers()
         self.knobs_spec, self.network, self.system, self.workload = knobs_spec, network, system, workload
         self.system_knobs, self.network_knobs, self.workload_knobs = self.helpers.parse_knobs_astrasim(self.knobs_spec)
@@ -74,7 +75,7 @@ class AstraSimEnv(gym.Env):
             self.exe_path = os.path.join(sim_path, "astrasim_220_example/run.sh")
             self.network_config = os.path.join(sim_path, "astrasim_220_example/network.yml")
             self.system_config = os.path.join(sim_path, "astrasim_220_example/system.json")
-            if congestion_aware:
+            if self.congestion_aware:
                 self.astrasim_binary = os.path.join(sim_path, 
                 "astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Aware")
             else:
@@ -230,7 +231,7 @@ class AstraSimEnv(gym.Env):
         new_workload_path = self.workload_file.split('/')
         self.new_workload_file = new_workload_path[-1]
         workload_cfg = self.new_workload_file
-        workload_et = "workload-et/generated.%d.eg"
+        workload_et = "workload-et/generated.%d.et"
         
         workload_command = []
         
@@ -391,8 +392,9 @@ class AstraSimEnv(gym.Env):
 
         operators = {"<=", ">=", "==", "<", ">"}
         command = {"product", "mult", "num"}
-        self.constraints = []
+        # self.constraints = []
         for constraint in self.constraints:
+            print("!!!!!! CONSTRAINT: ", constraint)
             constraint_args = constraint.split(" ")
             
             left_val, right_val = None, None
@@ -424,20 +426,17 @@ class AstraSimEnv(gym.Env):
 
                     elif arg == "mult":
                         # mult workload data-parallel-degree workload model-parallel-degree == network num-npus
-                        left_knob_dict, left_knob_name = constraint_args[i+1], constraint_args[i+2]
-                        right_knob_dict, right_knob_name = constraint_args[i+3], constraint_args[i+4]
-                        i += 4
+                        cur_val = 1
 
-                        if (left_knob_dict in action_dict and 
-                            left_knob_name in action_dict[left_knob_dict] and
-                            right_knob_dict in action_dict and 
-                            right_knob_name in action_dict[right_knob_dict]):
-                            
-                            cur_val = (action_dict[left_knob_dict][left_knob_name] * 
-                                       action_dict[right_knob_dict][right_knob_name])
-                        else:
-                            print(f"___ERROR: constraint knob name {knob_name} not found____")
-                            continue
+                        while constraint_args[i+1] not in operators and constraint_args[i+2] not in operators:
+                            cur_knob_dict, cur_knob_name = constraint_args[i+1], constraint_args[i+2]
+
+                            if (cur_knob_dict in action_dict and cur_knob_name in action_dict[cur_knob_dict]):
+                                cur_val *= action_dict[cur_knob_dict][cur_knob_name]
+                            else:
+                                print(f"___ERROR: constraint knob name {cur_knob_name} not found____")
+                                break
+                            i += 2
 
                     elif arg == "num":
                         # num network npus-count <= num network num-npus
@@ -453,6 +452,7 @@ class AstraSimEnv(gym.Env):
             # evaluate the constraint
             right_val = cur_val
             evaluable = str(left_val) + " " + str(operator) + " " + str(right_val)
+            print("EVALUABLE: ", evaluable)
             if eval(evaluable):
                 print("constraint satisfied")
                 continue
@@ -499,9 +499,11 @@ class AstraSimEnv(gym.Env):
         if VERSION == 2:
             # parse to get the number of cycles
             for line in outstream.splitlines():
-                if line[0:3] == "sys":
-                    words = line.split()
-                    cycles = int(words[-2])
+                if ("sys[" in line) and ("] finished," in line) and ("cycles" in line):
+                    lb = line.find("finished,") + len("finished,")
+                    rb = line.rfind("cycles")
+                    cycles = line[lb:rb].strip()
+                    cycles = int(cycles)
                     max_cycles = max(cycles, max_cycles)
         
         print("MAX_CYCLES: ", max_cycles)
