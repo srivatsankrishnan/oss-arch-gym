@@ -23,7 +23,6 @@ WORKDIR /workdir
 RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/extern/network_backend/analytical && git checkout congestion-multidim
 
 RUN apt-get update && apt-get -y install protobuf-compiler libprotobuf-dev python3-protobuf cmake gcc g++
-RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/ && ./build/astra_analytical/build.sh
 
 RUN cd oss-arch-gym && conda env create -f environment.yml
 RUN apt-get update && apt-get -y install libgmp-dev gcc g++ libboost-all-dev
@@ -36,6 +35,8 @@ RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install en
 RUN chown -R 1000:root /workdir && chmod -R 775 /workdir
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim
 
+RUN chmod +x astrasim_archgym_public/astra-sim/build/astra_analytical/build.sh
+RUN cd astrasim_archgym_public/astra-sim/ && ./build/astra_analytical/build.sh
 RUN chmod +x launch_gcp.py
 
 ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--experiment=./experiments_files/experiment.yml", "summary_dir=./all_logs"]
