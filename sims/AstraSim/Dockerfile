@@ -35,7 +35,7 @@ RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install en
 RUN chown -R 1000:root /workdir && chmod -R 775 /workdir
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim
 
-RUN chmod +x strasim_archgym_public/astra-sim/build/astra_analytical/build.sh
+RUN chmod +x astrasim_archgym_public/astra-sim/build/astra_analytical/build.sh
 RUN cd astrasim_archgym_public/astra-sim/ && ./build/astra_analytical/build.sh
 RUN chmod +x launch_gcp.py
 
