@@ -23,7 +23,7 @@ WORKDIR /workdir
 RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/extern/network_backend/analytical && git checkout congestion-multidim
 
 RUN apt-get update && apt-get -y install protobuf-compiler libprotobuf-dev python3-protobuf cmake gcc g++
-RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/ && ./build/astra_analytical/build.sh
+RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/ && chmod +x ./build/astra_analytical/build.sh && ./build/astra_analytical/build.sh
 
 RUN cd oss-arch-gym && conda env create -f environment.yml
 RUN apt-get update && apt-get -y install libgmp-dev gcc g++ libboost-all-dev
