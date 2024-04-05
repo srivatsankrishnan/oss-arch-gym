@@ -496,6 +496,7 @@ class AstraSimEnv(gym.Env):
         print(outstream)
 
         max_cycles = 0
+        max_peak_mem = 0
         if VERSION == 2:
             # parse to get the number of cycles
             for line in outstream.splitlines():
@@ -505,8 +506,15 @@ class AstraSimEnv(gym.Env):
                     cycles = line[lb:rb].strip()
                     cycles = int(cycles)
                     max_cycles = max(cycles, max_cycles)
+                if ("sys[" in line) and ("] finished," in line) and ("peak memory" in line):
+                    lb = line.find("peak memory usage:") + len("peak memory usage:")
+                    rb = line.rfind("bytes")
+                    peak_mem = line[lb:rb].strip()
+                    peak_mem = int(peak_mem)
+                    max_peak_mem = max(peak_mem, max_peak_mem)
         
         print("MAX_CYCLES: ", max_cycles)
+        print("MAX_PEAK_MEM: ", max_peak_mem)
         print("------------------------------------------------------------------")
     
         # test if the csv files exist (if they don't, the config files are invalid)
