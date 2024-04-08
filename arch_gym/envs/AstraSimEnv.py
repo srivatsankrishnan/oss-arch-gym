@@ -503,13 +503,13 @@ class AstraSimEnv(gym.Env):
                 if ("sys[" in line) and ("] finished," in line) and ("cycles" in line):
                     lb = line.find("finished,") + len("finished,")
                     rb = line.rfind("cycles")
-                    cycles = line[lb:rb].strip()
+                    cycles = line[lb:rb].strip().replace(",", "")
                     cycles = int(cycles)
                     max_cycles = max(cycles, max_cycles)
-                if ("sys[" in line) and ("] finished," in line) and ("peak memory" in line):
+                if ("sys[" in line) and ("] peak memory usage:" in line) and ("peak memory" in line):
                     lb = line.find("peak memory usage:") + len("peak memory usage:")
                     rb = line.rfind("bytes")
-                    peak_mem = line[lb:rb].strip()
+                    peak_mem = line[lb:rb].strip().replace(",", "")
                     peak_mem = int(peak_mem)
                     max_peak_mem = max(peak_mem, max_peak_mem)
         

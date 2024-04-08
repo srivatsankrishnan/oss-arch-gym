@@ -1,15 +1,15 @@
 {
-    "num_npus": 64,
-    "dp": 4,
-    "sp": 4,
-    "pp": 4,
-    "weight_sharded": 0,
-    "din": 12288,
-    "dout": 12288,
-    "dff": 49152,
-    "dmodel": 12288,
-    "batch": 2048,
-    "seq": 2048,
-    "head": 96,
-    "num_stacks": 96
+"num_npus": 64,
+"dp": 1,
+"sp": 2,
+"pp": 8,
+"weight_sharded": 0,
+"din": 12288,
+"dout": 12288,
+"dff": 49152,
+"dmodel": 12288,
+"batch": 2048,
+"seq": 2048,
+"head": 96,
+"num_stacks": 96
 }
