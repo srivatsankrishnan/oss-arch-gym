@@ -1,8 +1,16 @@
 topology:
 - FullyConnected
+- FullyConnected
+- FullyConnected
 npus_count:
-- 64
+- 4
+- 4
+- 4
 bandwidth:
 - 50.0
+- 50.0
+- 50.0
 latency:
+- 500.0
+- 500.0
 - 500.0

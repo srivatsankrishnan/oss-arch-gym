@@ -3,13 +3,14 @@
 "endpoint-delay": 10,
 "active-chunks-per-dimension": 1,
 "preferred-dataset-splits": 4,
-"all-reduce-implementation": ["direct"],
-"all-gather-implementation": ["direct"],
-"reduce-scatter-implementation": ["direct"],
-"all-to-all-implementation": ["direct"],
+"all-reduce-implementation": ["direct", "direct", "direct"],
+"all-gather-implementation": ["direct", "direct", "direct"],
+"reduce-scatter-implementation": ["direct", "direct", "direct"],
+"all-to-all-implementation": ["direct", "direct", "direct"],
 "collective-optimization": "localBWAware",
 "boost-mode": 0,
 "roofline-enabled": 1,
 "peak-perf": 300,
-"local-mem-bw": 900
+"local-mem-bw": 900,
+"track-local-mem": 1
 }
