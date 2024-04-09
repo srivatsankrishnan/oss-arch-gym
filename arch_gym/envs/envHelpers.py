@@ -970,6 +970,7 @@ class helpers():
     # parses contraints from knobs file
     def parse_constraints_astrasim(self, knobs_spec):
         CONSTRAINTS = {}
+        DERIVED_KNOBS = {}
 
         with open(knobs_spec, 'r') as file:
             file_contents = file.read()
@@ -980,8 +981,9 @@ class helpers():
 
             # Access constraints
             CONSTRAINTS = parsed_dicts['CONSTRAINTS']
+            DERIVED_KNOBS = parsed_dicts['DERIVED_KNOBS']
 
-        return CONSTRAINTS
+        return CONSTRAINTS, DERIVED_KNOBS
 
     def convert_knob_ga_astrasim(self, knob):
         knob_split = knob.split("-")

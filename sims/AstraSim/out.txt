@@ -1,0 +1,30 @@
+[0mVERSION:  2
+astrasim_220_example/knobs_4.py
+astrasim_220_example/network_input_4.yml
+astrasim_220_example/system_input_4.json
+astrasim_220_example/workload_cfg_4.json
+[DEBUG][Seed] 12234
+[DEBUG][RL Form] random_walker
+[DEBUG][Max Steps] 100
+[DEBUG][Num Agents] 1
+[DEBUG][Reward Formulation] power
+[DEBUG][Reward Scaling] false
+self.param_len:  0
+system knobs:  {'scheduling-policy': ({'FIFO', 'LIFO'}, 'N/A'), 'preferred-dataset-splits': ({32, 1, 2, 64, 4, 16, 8}, 'N/A'), 'all-reduce-implementation': ({'halvingDoubling', 'doubleBinaryTree', 'ring', 'direct'}, 'FALSE'), 'all-gather-implementation': ({'halvingDoubling', 'doubleBinaryTree', 'ring', 'direct'}, 'FALSE'), 'reduce-scatter-implementation': ({'halvingDoubling', 'doubleBinaryTree', 'ring', 'direct'}, 'FALSE'), 'all-to-all-implementation': ({'halvingDoubling', 'doubleBinaryTree', 'ring', 'direct'}, 'FALSE'), 'collective-optimization': ({'localBWAware', 'baseline'}, 'N/A')}
+self.param_len:  19
+network knobs:  {'topology': ({'Switch', 'FullyConnected', 'Ring'}, 'FALSE'), 'npus_count': ({2, 4}, 'FALSE')}
+self.param_len:  27
+workload knobs:  {}
+dimensions:  4
+param_len:  27
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DERIVED_KNOBS:  ['network bandwidth', 'system all-reduce-implementation', 'system all-gather-implementation', 'system reduce-scatter-implementation', 'system all-to-all-implementation']
+DIMENSION:  4
+0 0 DIMENSION:  4
+DIMENSION:  4
+0 1 DIMENSION:  4
+Step: 0
+GENERATING WORKLOAD...
+[0mtrain_randomwalker_astra_sim
+Shell Command python trainRandomWalkerAstraSim.py --workload=resnet18 --num_steps=100 --use_envlogger=False --summary_dir=./all_logs/ecl-desktop-1 --reward_formulation=cycles --knobs=astrasim_220_example/knobs_4.py --congestion_aware=True --network=astrasim_220_example/network_input_4.yml --system=astrasim_220_example/system_input_4.json --workload_file=astrasim_220_example/workload_cfg_4.json 

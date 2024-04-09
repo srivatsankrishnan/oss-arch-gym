@@ -10,7 +10,7 @@ SYSTEM_KNOBS = {
 
 NETWORK_KNOBS = {
     # 'topology': ({"Ring", "Switch", "FullyConnected"}, 'FALSE'),
-    'dimensions-count': ({3}, 'N/A')
+    # 'dimensions-count': ({3}, 'N/A')
 }
 
 WORKLOAD_KNOBS = {
@@ -22,5 +22,7 @@ WORKLOAD_KNOBS = {
 }
 
 # dp * sp * pp <= num_npus: leads to node.is = 4 and not 5 error failure
+
+DERIVED_KNOBS = []
 
 CONSTRAINTS = ["product network npus-count == num workload num_npus", "mult workload dp workload sp workload pp <= num workload num_npus"]

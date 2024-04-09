@@ -91,7 +91,7 @@ class AstraSimEnv(gym.Env):
             self.network_file = os.path.join(sim_path, self.network)
             self.system_file = os.path.join(sim_path, self.system)
             self.workload_file = os.path.join(sim_path, self.workload)
-        
+         
         self.param_len = 0
         self.dimension = 0
         # if dimension is given, then it's a tunable knob
@@ -154,8 +154,9 @@ class AstraSimEnv(gym.Env):
 
         self.reset()
 
-        self.constraints = self.helpers.parse_constraints_astrasim(self.knobs_spec)
+        self.constraints, self.derived_knobs = self.helpers.parse_constraints_astrasim(self.knobs_spec)
         print("CONSTRAINTS: ", self.constraints)
+        print("DERIVED_KNOBS: ", self.derived_knobs)
         
 
     # reset function
@@ -296,40 +297,45 @@ class AstraSimEnv(gym.Env):
 
         if "path" in action_dict["workload"]:
             self.workload_file = action_dict["workload"]["path"]
+        
 
-        # load knobs
-        if VERSION == 1:
-            # write system to txt file
-            if "path" not in action_dict["system"]:
-                with open(self.system_config, 'w') as file:
-                    for key, value in action_dict["system"].items(): 
-                        if isinstance(value, list):
-                            file.write(f'{key}: ')
-                            for i in range(len(value)-1):
-                                file.write(f'{value[i]}_')
-                            file.write(f'{value[len(value)-1]}')
-                            file.write('\n')
-                        else:
-                            file.write(f'{key}: {value}\n')
-            # write network to json file
-            if "path" not in action_dict["network"]:
-                with open(self.network_config, 'w') as file:
-                    file.write('{\n')
-                    for key, value in action_dict["network"].items():
-                        if isinstance(value, str):
-                            file.write(f'"{key}": "{value}",\n')
-                        elif isinstance(value, list) and isinstance(value[0], str):
-                            file.write(f'"{key}": [')
-                            for i in range(len(value)-1):
-                                file.write(f'"{value[i]}", ')
-                            file.write(f'"{value[len(value)-1]}"')
-                            file.write('],\n')
-                        else:
-                            file.write(f'"{key}": {value},\n')
-                    file.seek(file.tell() - 2, os.SEEK_SET)
-                    file.write('\n')
-                    file.write('}')
-        elif VERSION == 2:
+        # derived knobs configurations:
+        for cur_knob in self.derived_knobs:
+            # bandwidth
+            if cur_knob == "network bandwidth":
+                knob_arr = ["" for i in range(self.dimension)]
+                topology = action_dict["network"]["topology"]
+                for i in range(self.dimension):
+                    if topology[i] == "Ring":
+                        knob_arr[i] = 50
+                    elif topology[i] == "Switch":
+                        knob_arr[i] = 100
+                    elif topology[i] == "FullyConnected":
+                        knob_arr[i] = 100 / (action_dict["network"]["npus-count"][i] - 1)
+                action_dict["network"]["bandwidth"] = knob_arr
+                print("network bandwidth: ", action_dict["network"]["bandwidth"])
+
+            elif cur_knob in {"system all-reduce-implementation", "system all-gather-implementation",
+                              "system reduce-scatter-implementation", "system all-to-all-implementation"}:
+                knob_arr = ["" for i in range(self.dimension)]
+                topology = action_dict["network"]["topology"]
+                for i in range(self.dimension):
+                    if topology[i] == "Ring":
+                        knob_arr[i] = "ring"
+                    elif topology[i] == "FullyConnected":
+                        knob_arr[i] = "direct"
+                    elif topology[i] == "Switch":
+                        knob_arr[i] = "halvingDoubling"
+
+                k = cur_knob.split(" ")[1]
+                action_dict["system"][k] = knob_arr
+                print("system knob: ", action_dict["system"][k])
+
+        print("DERIVED action_dict: ", action_dict)
+
+
+        # write all parameters to files
+        if VERSION == 2:
             # write system to json file
             if "path" not in action_dict["system"]:
                 with open(self.system_config, 'w') as file:
@@ -418,8 +424,26 @@ class AstraSimEnv(gym.Env):
                         i += 2
 
                         if knob_dict in action_dict and knob_name in action_dict[knob_dict]:
+                            print("action_dict: ", action_dict)
+                            print("knob_dict: ", knob_dict)
+                            print("knob_name: ", knob_name)
+                            print("knob_dict in action_dict", action_dict[knob_dict][knob_name])
                             knob_arr = np.array(action_dict[knob_dict][knob_name])
                             cur_val = np.prod(knob_arr)
+                        elif "path" in action_dict[knob_dict]:
+                            print("path in action dict", action_dict[knob_dict]["path"])
+                            # load the file
+                            if knob_dict == "network":
+                                data = yaml.load(open(action_dict[knob_dict]["path"]), Loader=yaml.Loader)
+                                knob_arr = np.array(data[knob_name])
+                            elif knob_dict == "system" or knob_dict == "workload":
+                                with open(action_dict[knob_dict]["path"], 'r') as file:
+                                    data = json.load(file)
+                                    knob_arr = np.array(data[knob_name])
+                                    cur_val = np.prod(knob_arr)
+                            else:
+                                print(f"___ERROR: constraint knob name {knob_name} not found____")
+                                continue
                         else:
                             print(f"___ERROR: constraint knob name {knob_name} not found____")
                             continue
@@ -433,6 +457,18 @@ class AstraSimEnv(gym.Env):
 
                             if (cur_knob_dict in action_dict and cur_knob_name in action_dict[cur_knob_dict]):
                                 cur_val *= action_dict[cur_knob_dict][cur_knob_name]
+                            elif "path" in action_dict[cur_knob_dict]:
+                                # load the file
+                                if cur_knob_dict == "network":
+                                    data = yaml.load(open(action_dict[cur_knob_dict]["path"]), Loader=yaml.Loader)
+                                    cur_val *= data[cur_knob_name]
+                                elif cur_knob_dict == "system" or cur_knob_dict == "workload":
+                                    with open(action_dict[cur_knob_dict]["path"], 'r') as file:
+                                        data = json.load(file)
+                                        cur_val *= data[cur_knob_name]
+                                else:
+                                    print(f"___ERROR: constraint knob name {cur_knob_name} not found____")
+                                    break
                             else:
                                 print(f"___ERROR: constraint knob name {cur_knob_name} not found____")
                                 break
@@ -444,6 +480,18 @@ class AstraSimEnv(gym.Env):
                         i += 2
                         if knob_dict in action_dict and knob_name in action_dict[knob_dict]:
                             cur_val = action_dict[knob_dict][knob_name]
+                        elif "path" in action_dict[knob_dict]:
+                            # load the file
+                            if knob_dict == "network":
+                                data = yaml.load(open(action_dict[knob_dict]["path"]), Loader=yaml.Loader)
+                                cur_val = data[knob_name]
+                            elif knob_dict == "system" or knob_dict == "workload":
+                                with open(action_dict[knob_dict]["path"], 'r') as file:
+                                    data = json.load(file)
+                                    cur_val = data[knob_name]
+                            else:
+                                print(f"___ERROR: constraint knob name {knob_name} not found____")
+                                continue
                         else:
                             print(f"___ERROR: constraint knob name {knob_name} not found____")
                             continue

@@ -321,6 +321,7 @@ def main(_):
 
     FLAGS.algo = experiment_data["ALGORITHM"]
     FLAGS.num_iter = experiment_data["STEPS"]
+    FLAGS.num_steps = experiment_data["STEPS"]
     FLAGS.knobs = experiment_data["KNOBS"]
     FLAGS.network = experiment_data["NETWORK"]
     FLAGS.system = experiment_data["SYSTEM"]

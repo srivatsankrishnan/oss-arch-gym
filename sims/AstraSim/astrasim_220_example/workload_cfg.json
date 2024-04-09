@@ -1,7 +1,7 @@
 {
 "num_npus": 64,
-"dp": 4,
-"sp": 4,
-"pp": 4,
-"weight_sharded": 0
+"dp": 8,
+"sp": 2,
+"pp": 2,
+"weight_sharded": 1
 }
