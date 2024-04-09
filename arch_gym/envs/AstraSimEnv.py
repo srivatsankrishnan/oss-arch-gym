@@ -135,6 +135,7 @@ class AstraSimEnv(gym.Env):
         print("dimensions: ", self.dimension)
         print("param_len: ", self.param_len)
 
+        # TODO: define observation shape based on reward flag
         if self.rl_form == 'sa1':
             # action space = set of all possible actions. Space.sample() returns a random action
             # observation space =  set of all possible observations
@@ -154,8 +155,9 @@ class AstraSimEnv(gym.Env):
 
         self.reset()
 
-        self.constraints = self.helpers.parse_constraints_astrasim(self.knobs_spec)
+        self.constraints, self.derived_knobs = self.helpers.parse_constraints_astrasim(self.knobs_spec)
         print("CONSTRAINTS: ", self.constraints)
+        print("DERIVED KNOBS: ", self.derived_knobs)
         
 
     # reset function
@@ -221,6 +223,8 @@ class AstraSimEnv(gym.Env):
             print(sum)
         return 1 / (sum ** 0.5)
 
+        # 10^12 for cycles (nanosecond)
+        # 10^12 for peak memory (bytes)
 
     # give it one action: one set of parameters from json file
     def step(self, action_dict):
@@ -297,97 +301,98 @@ class AstraSimEnv(gym.Env):
         if "path" in action_dict["workload"]:
             self.workload_file = action_dict["workload"]["path"]
 
-        # load knobs
-        if VERSION == 1:
-            # write system to txt file
-            if "path" not in action_dict["system"]:
-                with open(self.system_config, 'w') as file:
-                    for key, value in action_dict["system"].items(): 
-                        if isinstance(value, list):
-                            file.write(f'{key}: ')
-                            for i in range(len(value)-1):
-                                file.write(f'{value[i]}_')
-                            file.write(f'{value[len(value)-1]}')
-                            file.write('\n')
-                        else:
-                            file.write(f'{key}: {value}\n')
-            # write network to json file
-            if "path" not in action_dict["network"]:
-                with open(self.network_config, 'w') as file:
-                    file.write('{\n')
-                    for key, value in action_dict["network"].items():
-                        if isinstance(value, str):
-                            file.write(f'"{key}": "{value}",\n')
-                        elif isinstance(value, list) and isinstance(value[0], str):
-                            file.write(f'"{key}": [')
-                            for i in range(len(value)-1):
-                                file.write(f'"{value[i]}", ')
-                            file.write(f'"{value[len(value)-1]}"')
-                            file.write('],\n')
-                        else:
-                            file.write(f'"{key}": {value},\n')
-                    file.seek(file.tell() - 2, os.SEEK_SET)
-                    file.write('\n')
-                    file.write('}')
-        elif VERSION == 2:
-            # write system to json file
-            if "path" not in action_dict["system"]:
-                with open(self.system_config, 'w') as file:
-                    file.write('{\n')
-                    for key, value in action_dict["system"].items():
-                        if "dimensions-count" in action_dict["network"]:
-                            if isinstance(value, list) and key not in self.system_knobs:
-                                while len(value) < action_dict["network"]["dimensions-count"]:
-                                    value.append(value[0])
-                                while len(value) > action_dict["network"]["dimensions-count"]:
-                                    value.pop()
+        # derived knobs configurations:
+        for cur_knob in self.derived_knobs:
+            # bandwidth
+            if cur_knob == "network bandwidth":
+                knob_arr = ["" for i in range(self.dimension)]
+                topology = action_dict["network"]["topology"]
+                for i in range(self.dimension):
+                    if topology[i] == "Ring":
+                        knob_arr[i] = 50
+                    elif topology[i] == "Switch":
+                        knob_arr[i] = 100
+                    elif topology[i] == "FullyConnected":
+                        knob_arr[i] = 100 / (action_dict["network"]["npus-count"][i] - 1)
+                action_dict["network"]["bandwidth"] = knob_arr
+                print("network bandwidth: ", action_dict["network"]["bandwidth"])
 
-                        if isinstance(value, str):
-                            file.write(f'"{key}": "{value}",\n')
-                        elif isinstance(value, list) and isinstance(value[0], str):
-                            file.write(f'"{key}": [')
-                            for i in range(len(value)-1):
-                                file.write(f'"{value[i]}", ')
-                            file.write(f'"{value[len(value)-1]}"')
-                            file.write('],\n')
-                        else:
-                            file.write(f'"{key}": {value},\n')
-                    file.seek(file.tell() - 2, os.SEEK_SET)
-                    file.write('\n')
-                    file.write('}')
-            # write network to yaml file
-            if "path" not in action_dict["network"]:
-                data = {}
-                for key, value in action_dict["network"].items():
-                    if key == "dimensions-count":
-                        continue
-                    key_split = key.split("-")
-                    key_converted = ""
-                    # npus_count_
-                    for k in key_split:
-                        key_converted += k 
-                        key_converted += "_"
+            elif cur_knob in {"system all-reduce-implementation", "system all-gather-implementation",
+                              "system reduce-scatter-implementation", "system all-to-all-implementation"}:
+                knob_arr = ["" for i in range(self.dimension)]
+                topology = action_dict["network"]["topology"]
+                for i in range(self.dimension):
+                    if topology[i] == "Ring":
+                        knob_arr[i] = "ring"
+                    elif topology[i] == "FullyConnected":
+                        knob_arr[i] = "direct"
+                    elif topology[i] == "Switch":
+                        knob_arr[i] = "halvingDoubling"
+
+                k = cur_knob.split(" ")[1]
+                action_dict["system"][k] = knob_arr
+                print("system knob: ", action_dict["system"][k])
+
+        print("DERIVED action_dict: ", action_dict)
+
+        # write system to json file
+        if "path" not in action_dict["system"]:
+            with open(self.system_config, 'w') as file:
+                file.write('{\n')
+                for key, value in action_dict["system"].items():
                     if "dimensions-count" in action_dict["network"]:
-                        if isinstance(value, list) and key not in self.network_knobs:
+                        if isinstance(value, list) and key not in self.system_knobs:
                             while len(value) < action_dict["network"]["dimensions-count"]:
                                 value.append(value[0])
                             while len(value) > action_dict["network"]["dimensions-count"]:
                                 value.pop()
 
-                    data[key_converted[:-1]] = value
-
-                with open(self.network_config, 'w') as file:
-                    yaml.dump(data, file, sort_keys=False)
-
-            # write workload to cfg file
-            if "path" not in action_dict["workload"]:
-                with open(self.workload_file, 'w') as file:
-                    file.write('{\n')
-                    for key, value in action_dict["workload"].items():
+                    if isinstance(value, str):
+                        file.write(f'"{key}": "{value}",\n')
+                    elif isinstance(value, list) and isinstance(value[0], str):
+                        file.write(f'"{key}": [')
+                        for i in range(len(value)-1):
+                            file.write(f'"{value[i]}", ')
+                        file.write(f'"{value[len(value)-1]}"')
+                        file.write('],\n')
+                    else:
                         file.write(f'"{key}": {value},\n')
-                    file.seek(file.tell() - 2, os.SEEK_SET)
-                    file.write('\n')
-                    file.write('}') 
+                file.seek(file.tell() - 2, os.SEEK_SET)
+                file.write('\n')
+                file.write('}')
+        # write network to yaml file
+        if "path" not in action_dict["network"]:
+            data = {}
+            for key, value in action_dict["network"].items():
+                if key == "dimensions-count":
+                    continue
+                key_split = key.split("-")
+                key_converted = ""
+                # npus_count_
+                for k in key_split:
+                    key_converted += k 
+                    key_converted += "_"
+                if "dimensions-count" in action_dict["network"]:
+                    if isinstance(value, list) and key not in self.network_knobs:
+                        while len(value) < action_dict["network"]["dimensions-count"]:
+                            value.append(value[0])
+                        while len(value) > action_dict["network"]["dimensions-count"]:
+                            value.pop()
+
+                data[key_converted[:-1]] = value
+
+            with open(self.network_config, 'w') as file:
+                yaml.dump(data, file, sort_keys=False)
+
+        # write workload to cfg file
+        if "path" not in action_dict["workload"]:
+            with open(self.workload_file, 'w') as file:
+                file.write('{\n')
+                for key, value in action_dict["workload"].items():
+                    file.write(f'"{key}": {value},\n')
+                file.seek(file.tell() - 2, os.SEEK_SET)
+                file.write('\n')
+                file.write('}') 
 
 
         operators = {"<=", ">=", "==", "<", ">"}
@@ -518,56 +523,27 @@ class AstraSimEnv(gym.Env):
         print("------------------------------------------------------------------")
     
         # test if the csv files exist (if they don't, the config files are invalid)
-        if VERSION == 1:
-            backend_dim_info = self.parse_result(sim_path + '/results/run_general/backend_dim_info.csv')
-            backend_end_to_end = self.parse_result(sim_path + '/results/run_general/backend_end_to_end.csv')
-            detailed = self.parse_result(sim_path + '/results/run_general/detailed.csv')
-            end_to_end = self.parse_result(sim_path + '/results/run_general/EndToEnd.csv')
-            sample_all_reduce_dimension_utilization = self.parse_result(sim_path +
-                '/results/run_general/sample_all_reduce_dimension_utilization.csv')
+        observations = [np.format_float_scientific(max_cycles)]
+        if self.rl_form == "sa1":
+            observations = [float(max_cycles)]
+        observations = np.reshape(observations, self.observation_space.shape)
+        reward = self.calculate_reward(observations)
+        print("reward: ", reward)
 
-            if ((len(backend_dim_info) == 0 or len(backend_end_to_end) == 0 or
-                len(detailed) == 0 or len(end_to_end) == 0 or
-                len(sample_all_reduce_dimension_utilization) == 0)):
-                # set reward to be extremely negative
-                reward = -10000
-                print("reward?: ", reward)
-                # np.reshape([], self.observation_space.shape)
-                observations = [1000000000000000]
-                observations = np.reshape(observations, self.observation_space.shape)
-                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
-            else:
-                observations = [float(backend_end_to_end["CommsTime"][0])]
-                reward = self.calculate_reward(observations)
-                print("reward: ", reward)
-                
-                # reshape observations with shape of observation space
-                observations = np.reshape(observations, self.observation_space.shape)
-                self.useful_counter += 1
+        ### LOG for RL ###
+        if self.rl_form == "sa1":
+            timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
+            log_path = f"{sim_path}/all_logs/rl_logs/rl_form_{self.rl_form}_num_steps_{self.max_steps}_seed_{self.seed}.csv"
+            with open(log_path, 'a') as f:
+                writer = csv.writer(f)
+                # write the timestamp and the action_dict in one row
+                writer.writerow([timestamp, action_dict, observations[0], reward])
+        
+        # reshape observations with shape of observation space
+        observations = np.reshape(observations, self.observation_space.shape)
+        self.useful_counter += 1
 
-                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
-        else:
-            observations = [np.format_float_scientific(max_cycles)]
-            if self.rl_form == "sa1":
-                observations = [float(max_cycles)]
-            observations = np.reshape(observations, self.observation_space.shape)
-            reward = self.calculate_reward(observations)
-            print("reward: ", reward)
-
-            ### LOG for RL ###
-            if self.rl_form == "sa1":
-                timestamp = time.strftime("%Y_%m_%d_%H_%M_%S")
-                log_path = f"{sim_path}/all_logs/rl_logs/rl_form_{self.rl_form}_num_steps_{self.max_steps}_seed_{self.seed}.csv"
-                with open(log_path, 'a') as f:
-                    writer = csv.writer(f)
-                    # write the timestamp and the action_dict in one row
-                    writer.writerow([timestamp, action_dict, observations[0], reward])
-            
-            # reshape observations with shape of observation space
-            observations = np.reshape(observations, self.observation_space.shape)
-            self.useful_counter += 1
-
-            return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+        return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
 
 
 if __name__ == "__main__":

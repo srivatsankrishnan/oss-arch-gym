@@ -20,5 +20,6 @@
   "roofline-enabled": 1,
   "peak-perf": 300,
   "local-mem-bw": 900,
-  "track-local-mem": 1
+  "track-local-mem": 1,
+  "local-mem-trace-filename": "memtraces/local_mem_trace"
 }
