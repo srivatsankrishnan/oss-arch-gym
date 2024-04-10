@@ -5,7 +5,7 @@ ALGORITHM: "rw"
 STEPS: 30
 
 # latency, memory, or both
-REWARD: "latency"
+REWARD: "both"
 
 # exposed knobs for network, system, workload as well as constraints
 KNOBS: "astrasim_220_example/knobs.py" 

@@ -243,6 +243,7 @@ class AstraSimEnv(gym.Env):
     def step(self, action_dict):
         # the action is actually the parsed parameter files
         print("Step: " + str(self.counter))
+        print("REWARD FORMULATION: ", self.reward_formulation)
 
         # generate workload for initial step
         new_workload_path = self.workload_file.split('/')
