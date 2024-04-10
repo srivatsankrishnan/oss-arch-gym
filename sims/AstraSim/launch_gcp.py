@@ -23,7 +23,7 @@ flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spe
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
-flags.DEFINE_string('reward_formulation', 'cycles', 'Reward formulation to use')
+flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation to use')
 flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
 flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
 flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
@@ -326,6 +326,7 @@ def main(_):
     FLAGS.network = experiment_data["NETWORK"]
     FLAGS.system = experiment_data["SYSTEM"]
     FLAGS.workload_file = experiment_data["WORKLOAD"]
+    FLAGS.reward_formulation = experiment_data["REWARD"]
 
     # append hostname to summary dir
     hostname = socket.gethostname()

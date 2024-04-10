@@ -252,7 +252,7 @@ class AstraSimEnv(gym.Env):
         
         workload_command = []
         
-        if (self.counter == 0):
+        if (self.counter == 0) and (self.generate_workload == "FALSE"):
             print("GENERATING WORKLOAD...")
             workload_command = ['python', workload_cfg_to_et, f'--workload_cfg={workload_cfg}', f'--workload_et={workload_et}']
             subprocess.run(workload_command)
@@ -623,5 +623,5 @@ if __name__ == "__main__":
     env = AstraSimEnv(rl_form='sa1', 
                       max_steps=10, 
                       num_agents=1, 
-                      reward_formulation='reward_formulation_1', 
+                      reward_formulation='latency', 
                       reward_scaling=1)

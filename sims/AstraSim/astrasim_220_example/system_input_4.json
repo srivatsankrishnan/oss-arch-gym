@@ -11,6 +11,5 @@
     "boost-mode": 0,
     "roofline-enabled": 1,
     "peak-perf": 10,
-    "local-mem-bw": 50,
-    "local-mem-trace-filename": "memtraces/local_mem_trace"
+    "local-mem-bw": 50
 }
