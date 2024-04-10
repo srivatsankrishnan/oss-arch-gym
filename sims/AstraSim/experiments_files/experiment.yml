@@ -1,8 +1,8 @@
 # rw, ga, aco, bo, rl
-ALGORITHM: "rw"
+ALGORITHM: "aco"
 
 # changes based on algorithm
-STEPS: 30
+STEPS: 3000
 
 # latency, memory, or both
 REWARD: "both"

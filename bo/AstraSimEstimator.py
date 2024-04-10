@@ -129,9 +129,10 @@ class AstraSimEstimator(BaseEstimator):
         log_dir = config.get("experiment_configuration", "log_dir")
         reward_formulation = config.get("experiment_configuration", "reward_formulation")
         use_envlogger = config.get("experiment_configuration", "use_envlogger")
+        num_steps = config.get("experiment_configuration", "num_steps")
 
         env_wrapper = make_astraSim_env(knobs_spec=self.knobs_spec, network=self.network_file, system=self.system_file, workload=self.workload_file, 
-                                        reward_formulation = reward_formulation, rl_form = 'bo', congestion_aware=self.congestion_aware)
+                                        reward_formulation = reward_formulation, rl_form = 'bo', congestion_aware=self.congestion_aware, max_steps=num_steps)
         
         # check if trajectory directory exists
         if use_envlogger == 'True':

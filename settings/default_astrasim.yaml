@@ -1,55 +1,9 @@
-DeepSwarm:
-  aco:
-    ant_count: 2
-    greediness: 0.5
-    pheromone:
-      decay: 0.1
-      evaporation: 0.25
-      start: 0.1
-      verbose: false
-  max_depth: 10
-  metrics: loss
-  reuse_patience: 1
-  save_folder: null
-Nodes:
-  ArchParamsNode:
-    attributes:
-      Scheduling_Policy:
-      - FIFO
-      - LIFO
-      Topology1:
-      - FullyConnected
-      - Ring
-      - Switch
-      Topology2:
-      - FullyConnected
-      - Ring
-      - Switch
-      Topology3:
-      - FullyConnected
-      - Ring
-      - Switch
-      Topology4:
-      - FullyConnected
-      - Ring
-      - Switch
-    transitions:
-      OutputNode: 1.0
-    type: ArchParams
-  InputNode:
-    attributes:
-      name:
-      - Input
-      value:
-      - None
-    transitions:
-      ArchParamsNode: 1.0
-    type: Input
-  OutputNode:
-    attributes:
-      name:
-      - Output
-      value:
-      - None
-    transitions: {}
-    type: Output
+{DeepSwarm: {aco: {ant_count: 2, greediness: 0.25, pheromone: {decay: 0.1, evaporation: 0.25,
+        start: 0.1, verbose: false}}, max_depth: 3000, metrics: loss, reuse_patience: 1,
+    save_folder: null}, Nodes: {ArchParamsNode: {attributes: {Collective_Optimization: [
+          baseline, localBWAware], Dp: [1, 2, 4, 8], Pp: [1, 2, 4, 8], Preferred_Dataset_Splits: [
+          1, 2, 4, 8, 16, 32, 64], Scheduling_Policy: [FIFO, LIFO], Sp: [1, 2, 4,
+          8], Topology1: [FullyConnected, Ring, Switch], Weight_sharded: [0, 1]},
+      transitions: {OutputNode: 1.0}, type: ArchParams}, InputNode: {attributes: {
+        name: [Input], value: [None]}, transitions: {ArchParamsNode: 1.0}, type: Input},
+    OutputNode: {attributes: {name: [Output], value: [None]}, transitions: {}, type: Output}}}

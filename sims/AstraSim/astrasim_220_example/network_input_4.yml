@@ -2,7 +2,7 @@
 
 topology: [ Ring, Ring, Ring, Ring ]  # Ring, Switch, FullyConnected
 
-npus_count: [ 2, 2, 2, 2 ]  # number of NPUs
+npus_count: [ 16, 2, 8, 4 ]  # number of NPUs
 
 bandwidth: [ 50.0, 50.0, 50.0, 50.0 ]  # GB/s
 

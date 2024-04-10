@@ -516,7 +516,7 @@ class AstraSimEnv(gym.Env):
             else:
                 print("constraint not satisfied")
                 reward = float("-inf")
-                observations = [float("inf")]
+                observations = [float("inf")] * self.obs_len
                 observations = np.reshape(observations, self.observation_space.shape)
                 return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
                 # return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state

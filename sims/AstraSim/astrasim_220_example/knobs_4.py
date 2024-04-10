@@ -12,7 +12,7 @@ SYSTEM_KNOBS = {
 # MUST BE HYPHENATED
 NETWORK_KNOBS = {
     'topology': ({"Ring", "Switch", "FullyConnected"}, 'FALSE'),
-    'npus-count': ({2, 4}, 'FALSE'),
+    'npus-count': ({2, 4, 8, 16, 32, 64, 128}, 'FALSE'),
 }
 
 # MUST USE UNDERSCORES

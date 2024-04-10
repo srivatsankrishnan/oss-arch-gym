@@ -1,8 +1,11 @@
 # rw, ga, aco, bo, rl
-ALGORITHM: "rw"
+ALGORITHM: "ga"
 
 # changes based on algorithm
-STEPS: 3000
+STEPS: 50000
+
+# latency, memory, or both
+REWARD: "both"
 
 # exposed knobs for network, system, workload as well as constraints
 KNOBS: "astrasim_220_example/knobs_4.py" 

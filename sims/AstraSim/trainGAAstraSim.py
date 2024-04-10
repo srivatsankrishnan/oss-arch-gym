@@ -122,7 +122,7 @@ def AstraSim_optimization_function(p):
     
     env = AstraSimWrapper.make_astraSim_env(knobs_spec=knobs_spec, network=network_file, system=system_file, 
                                             workload=workload_file, rl_form='random_walker', congestion_aware=FLAGS.congestion_aware, 
-                                            reward_formulation=FLAGS.reward_formulation)
+                                            reward_formulation=FLAGS.reward_formulation, max_steps=FLAGS.num_steps)
     fitness_hist = {}
 
     traject_dir, exp_log_dir = generate_run_directories()
