@@ -195,7 +195,7 @@ def _convert_to_spec(space: gym.Space,
 
 def make_astraSim_env(seed: int = 12234,
                     rl_form = 'sa1',
-                    reward_formulation = 'power',
+                    reward_formulation = 'latency',
                     reward_scaling = 'false',
                     max_steps: int = 10,
                     num_agents: int = 1,

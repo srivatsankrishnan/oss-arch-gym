@@ -28,7 +28,7 @@ VERSION = 2
 # astra-sim environment
 class AstraSimEnv(gym.Env):
     def __init__(self, knobs_spec, network, system, workload, rl_form=None, max_steps=5, num_agents=1, 
-                reward_formulation="None", reward_scaling=1, congestion_aware=True, dimension=None, seed=12234):
+                reward_formulation="latency", reward_scaling=1, congestion_aware=True, dimension=None, seed=12234):
         self.rl_form = rl_form
         self.congestion_aware = congestion_aware
         self.helpers = helpers()
@@ -135,20 +135,28 @@ class AstraSimEnv(gym.Env):
         print("dimensions: ", self.dimension)
         print("param_len: ", self.param_len)
 
+
+        self.obs_len = 1
+        if self.reward_formulation == "latency" or self.reward_formulation == "memory":
+            self.obs_len = 1
+        elif self.reward_formulation == "both":
+            self.obs_len = 2
+
+
         # TODO: define observation shape based on reward flag
         if self.rl_form == 'sa1':
             # action space = set of all possible actions. Space.sample() returns a random action
             # observation space =  set of all possible observations
-            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32) # box is an array of shape len
+            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(self.obs_len,), dtype=np.float32) # box is an array of shape len
             self.action_space = gym.spaces.Box(low=0, high=1, shape=(self.param_len,), dtype=np.float32)
 
         # reproducing Themis with AstraSim 1.0
         elif self.rl_form == 'rl_themis':
-            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
+            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(self.obs_len,), dtype=np.float32)
             self.action_space = gym.spaces.Discrete(16)
         
         else:
-            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(1,), dtype=np.float32)
+            self.observation_space = gym.spaces.Box(low=0, high=1, shape=(self.obs_len,), dtype=np.float32)
             self.action_space = gym.spaces.Box(low=0, high=1, shape=(self.param_len,), dtype=np.float32)
 
         print("_____________________*****************************_____________________")
@@ -165,17 +173,22 @@ class AstraSimEnv(gym.Env):
     def reset(self):
 
         self.counter = 0
-        # # get results folder path
-        # results_folder_path = os.path.join(sim_path, "results", "run_general")
 
-        # # # find wildcard csv and m files
-        # csv_files = [f for f in os.listdir(results_folder_path) if f.endswith('.csv')]
+        # TODO: delete all memory trace files in proj_dir_path
+        for root, dirs, files in os.walk(proj_dir_path):
+            for file in files:
+                # if file begins with local_mem_trace, delete it
+                if file.startswith("local_mem_trace"):
+                    os.remove(os.path.join(root, file))
 
-        # # # remove the files
-        # for csv_files in csv_files:
-        #     csv_files = os.path.join(results_folder_path, csv_files)
-        #     if os.path.exists(csv_files):
-        #         os.remove(csv_files)
+        # TODO: delete workload files
+        workload_dir = os.path.join(sim_path, "astrasim_220_example/workload-et")
+        # if workload_dir exists, delete all files in it
+        if os.path.exists(workload_dir):
+            for root, dirs, files in os.walk(workload_dir):
+                for file in files:
+                    os.remove(os.path.join(root, file))
+
 
         # TODO: 
         obs = np.zeros(self.observation_space.shape)
@@ -425,6 +438,20 @@ class AstraSimEnv(gym.Env):
                         if knob_dict in action_dict and knob_name in action_dict[knob_dict]:
                             knob_arr = np.array(action_dict[knob_dict][knob_name])
                             cur_val = np.prod(knob_arr)
+                        elif "path" in action_dict[knob_dict]:
+                            print("path in action dict", action_dict[knob_dict]["path"])
+                            # load the file
+                            if knob_dict == "network":
+                                data = yaml.load(open(action_dict[knob_dict]["path"]), Loader=yaml.Loader)
+                                knob_arr = np.array(data[knob_name])
+                            elif knob_dict == "system" or knob_dict == "workload":
+                                with open(action_dict[knob_dict]["path"], 'r') as file:
+                                    data = json.load(file)
+                                    knob_arr = np.array(data[knob_name])
+                                    cur_val = np.prod(knob_arr)
+                            else:
+                                print(f"___ERROR: constraint knob name {knob_name} not found____")
+                                continue
                         else:
                             print(f"___ERROR: constraint knob name {knob_name} not found____")
                             continue
@@ -438,6 +465,18 @@ class AstraSimEnv(gym.Env):
 
                             if (cur_knob_dict in action_dict and cur_knob_name in action_dict[cur_knob_dict]):
                                 cur_val *= action_dict[cur_knob_dict][cur_knob_name]
+                            elif "path" in action_dict[cur_knob_dict]:
+                                # load the file
+                                if cur_knob_dict == "network":
+                                    data = yaml.load(open(action_dict[cur_knob_dict]["path"]), Loader=yaml.Loader)
+                                    cur_val *= data[cur_knob_name]
+                                elif cur_knob_dict == "system" or cur_knob_dict == "workload":
+                                    with open(action_dict[cur_knob_dict]["path"], 'r') as file:
+                                        data = json.load(file)
+                                        cur_val *= data[cur_knob_name]
+                                else:
+                                    print(f"___ERROR: constraint knob name {cur_knob_name} not found____")
+                                    break
                             else:
                                 print(f"___ERROR: constraint knob name {cur_knob_name} not found____")
                                 break
@@ -449,6 +488,18 @@ class AstraSimEnv(gym.Env):
                         i += 2
                         if knob_dict in action_dict and knob_name in action_dict[knob_dict]:
                             cur_val = action_dict[knob_dict][knob_name]
+                        elif "path" in action_dict[knob_dict]:
+                            # load the file
+                            if knob_dict == "network":
+                                data = yaml.load(open(action_dict[knob_dict]["path"]), Loader=yaml.Loader)
+                                cur_val = data[knob_name]
+                            elif knob_dict == "system" or knob_dict == "workload":
+                                with open(action_dict[knob_dict]["path"], 'r') as file:
+                                    data = json.load(file)
+                                    cur_val = data[knob_name]
+                            else:
+                                print(f"___ERROR: constraint knob name {knob_name} not found____")
+                                continue
                         else:
                             print(f"___ERROR: constraint knob name {knob_name} not found____")
                             continue
@@ -523,11 +574,29 @@ class AstraSimEnv(gym.Env):
         print("------------------------------------------------------------------")
     
         # test if the csv files exist (if they don't, the config files are invalid)
-        observations = [np.format_float_scientific(max_cycles)]
-        if self.rl_form == "sa1":
-            observations = [float(max_cycles)]
+        # observations = [np.format_float_scientific(max_cycles)]
+        # if self.rl_form == "sa1":
+        #     observations = [float(max_cycles)]
+        observations = []
+
+        if self.reward_formulation == "latency":
+            observations = [np.format_float_scientific(max_cycles)]
+            if self.rl_form == "sa1":
+                observations = [float(max_cycles)]
+        elif self.reward_formulation == "memory":
+            observations = [np.format_float_scientific(max_peak_mem)]
+            if self.rl_form == "sa1":
+                observations = [float(max_peak_mem)]
+        elif self.reward_formulation == "both":
+            observations = [np.format_float_scientific(max_cycles), np.format_float_scientific(max_peak_mem)]
+            if self.rl_form == "sa1":
+                observations = [float(max_cycles), float(max_peak_mem)]
+
+
         observations = np.reshape(observations, self.observation_space.shape)
         reward = self.calculate_reward(observations)
+
+        print("observations: ", observations)
         print("reward: ", reward)
 
         ### LOG for RL ###
@@ -537,7 +606,10 @@ class AstraSimEnv(gym.Env):
             with open(log_path, 'a') as f:
                 writer = csv.writer(f)
                 # write the timestamp and the action_dict in one row
-                writer.writerow([timestamp, action_dict, observations[0], reward])
+                if self.obs_len == 2:
+                    writer.writerow([timestamp, action_dict, observations[0], observations[1], reward])
+                else:
+                    writer.writerow([timestamp, action_dict, observations[0], reward])
         
         # reshape observations with shape of observation space
         observations = np.reshape(observations, self.observation_space.shape)
