@@ -1,9 +1,9 @@
 {
 "num_npus": 64,
 "dp": 1,
-"sp": 4,
-"pp": 1,
-"weight_sharded": 1,
+"sp": 2,
+"pp": 2,
+"weight_sharded": 0,
 "din": 12288,
 "dout": 12288,
 "dff": 49152,
