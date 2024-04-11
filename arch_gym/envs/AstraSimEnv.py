@@ -346,6 +346,13 @@ class AstraSimEnv(gym.Env):
                 k = cur_knob.split(" ")[1]
                 action_dict["system"][k] = knob_arr
                 print("system knob: ", action_dict["system"][k])
+            
+            elif cur_knob == "system implementations":
+                all_reduce = action_dict["system"]["all-reduce-implementation"]
+                action_dict["system"]["all-gather-implementation"] = all_reduce
+                action_dict["system"]["reduce-scatter-implementation"] = all_reduce
+                action_dict["system"]["all-to-all-implementation"] = all_reduce
+                
 
         print("DERIVED action_dict: ", action_dict)
 
