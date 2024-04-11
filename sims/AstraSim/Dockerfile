@@ -10,18 +10,15 @@ RUN git submodule update --init
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/
 RUN git submodule update --init
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim
-RUN cp ../../.replace_gitmodules/astrasim.gitmodules .gitmodules && git submodule update --init
+RUN git submodule update --init
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/extern/network_backend/analytical
 RUN cp ../../../../../.replace_gitmodules/astra-network-analytical.gitmodules .gitmodules && git submodule update --init
 WORKDIR /workdir/oss-arch-gym
 RUN git submodule update --init --recursive
-WORKDIR /workdir/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/extern/graph_frontend/chakra
-RUN git checkout 89f26a5
 WORKDIR /workdir
 
 # congestion aware
-# congestion aware
-RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/extern/network_backend/analytical && git checkout congestion-multidim
+
 RUN apt-get update && apt-get -y install protobuf-compiler libprotobuf-dev python3-protobuf cmake gcc g++
 
 RUN chmod +x oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/build/astra_analytical/build.sh

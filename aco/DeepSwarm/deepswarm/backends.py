@@ -561,7 +561,7 @@ class DummyAstraSim():
 
         env_wrapper = make_astraSim_env(
             knobs_spec=self.knobs, network=self.network_file, system=self.system_file, workload=self.workload_file, 
-            reward_formulation=self.reward_formulation, rl_form="aco", congestion_aware=self.congestion_aware)
+            reward_formulation=self.reward_formulation, rl_form="aco", congestion_aware=self.congestion_aware, max_steps=self.astrasim_max_depth)
 
         if self.use_envlogger:
             # check if trajectory directory exists

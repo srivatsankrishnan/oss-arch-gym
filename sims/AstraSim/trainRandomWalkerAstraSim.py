@@ -23,7 +23,7 @@ flags.DEFINE_integer('num_episodes', 1, 'Number of training episodes.')
 flags.DEFINE_bool('use_envlogger', True, 'Use envlogger to log the data.')
 flags.DEFINE_string('traject_dir', 'random_walker_trajectories', 'Directory to save the dataset.')
 flags.DEFINE_string('summary_dir', "./all_logs/", 'Directory to save the dataset.')
-flags.DEFINE_string('reward_formulation', 'cycles', 'Which reward formulation to use?')
+flags.DEFINE_string('reward_formulation', 'latency', 'Which reward formulation to use?')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
@@ -150,7 +150,8 @@ def main(_):
         workload_file = os.path.join(proj_root_path, FLAGS.workload_file)
 
     env = AstraSimWrapper.make_astraSim_env(knobs_spec=knobs_spec, network=network_file, system=system_file, max_steps=FLAGS.num_steps,
-                                            workload=workload_file, rl_form='random_walker', congestion_aware=FLAGS.congestion_aware)
+                                            workload=workload_file, rl_form='random_walker', congestion_aware=FLAGS.congestion_aware, 
+                                            reward_formulation=FLAGS.reward_formulation)
     # env = AstraSimEnv.AstraSimEnv(rl_form='random_walker')
 
     # experiment name
