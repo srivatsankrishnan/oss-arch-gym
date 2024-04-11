@@ -11,5 +11,5 @@
     "batch": 2048,
     "seq": 2048,
     "head": 96,
-    "num_stacks": 96
+    "num_stacks": 4
 }
