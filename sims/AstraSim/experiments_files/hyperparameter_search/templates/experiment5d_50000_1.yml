@@ -1,0 +1,25 @@
+# rw, ga, aco, bo, rl
+ALGORITHM: "bo"
+
+# HYPERPARAMETER
+# num_iter_bo: [64, 128, 512, 1024, 10k, 50k]
+STEPS: 50000 
+
+# HYPERPARAMETER
+# [1, 2, 3, 4, 5]
+RAND_STATE_BO: 1
+
+# latency, memory, or both
+REWARD: "both"
+
+# exposed knobs for network, system, workload as well as constraints
+KNOBS: "astrasim_220_example/knobs_5.py" 
+
+# default network input
+NETWORK: "astrasim_220_example/network_input_5.yml"
+
+# default system input
+SYSTEM: "astrasim_220_example/system_input_5.json"
+
+# default workload input
+WORKLOAD: "astrasim_220_example/workload_cfg_5.json"
