@@ -1,5 +1,5 @@
 # rw, ga, aco, bo, rl
-ALGORITHM: "rw"
+ALGORITHM: "ga"
 
 # changes based on algorithm
 STEPS: 50000
@@ -8,13 +8,13 @@ STEPS: 50000
 REWARD: "both"
 
 # exposed knobs for network, system, workload as well as constraints
-KNOBS: "astrasim_220_example/test_512_knobs.py" 
+KNOBS: "astrasim_220_example/knobs_5.py" 
 
 # default network input
-NETWORK: "astrasim_220_example/test_512_network.yml"
+NETWORK: "astrasim_220_example/network_input_5.yml"
 
 # default system input
-SYSTEM: "astrasim_220_example/system_input_4.json"
+SYSTEM: "astrasim_220_example/system_input_5.json"
 
 # default workload input
-WORKLOAD: "astrasim_220_example/test_512_workload.json"
+WORKLOAD: "astrasim_220_example/workload_cfg_5.json"
