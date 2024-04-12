@@ -1,9 +1,100 @@
-{DeepSwarm: {aco: {ant_count: 2, greediness: 0.25, pheromone: {decay: 0.1, evaporation: 0.25,
-        start: 0.1, verbose: false}}, max_depth: 3000, metrics: loss, reuse_patience: 1,
-    save_folder: null}, Nodes: {ArchParamsNode: {attributes: {Collective_Optimization: [
-          baseline, localBWAware], Dp: [1, 2, 4, 8], Pp: [1, 2, 4, 8], Preferred_Dataset_Splits: [
-          1, 2, 4, 8, 16, 32, 64], Scheduling_Policy: [FIFO, LIFO], Sp: [1, 2, 4,
-          8], Topology1: [FullyConnected, Ring, Switch], Weight_sharded: [0, 1]},
-      transitions: {OutputNode: 1.0}, type: ArchParams}, InputNode: {attributes: {
-        name: [Input], value: [None]}, transitions: {ArchParamsNode: 1.0}, type: Input},
-    OutputNode: {attributes: {name: [Output], value: [None]}, transitions: {}, type: Output}}}
+DeepSwarm:
+  aco:
+    ant_count: 2
+    greediness: 0.25
+    pheromone:
+      decay: 0.1
+      evaporation: 0.25
+      start: 0.1
+      verbose: false
+  max_depth: 50000
+  metrics: loss
+  reuse_patience: 1
+  save_folder: null
+Nodes:
+  ArchParamsNode:
+    attributes:
+      Scheduling_Policy:
+      - FIFO
+      - LIFO
+      Preferred_Dataset_Splits:
+      - 2
+      - 4
+      - 8
+      - 16
+      Collective_Optimization:
+      - baseline
+      - localBWAware
+      Bandwidth1:
+      - 100
+      - 200
+      - 300
+      - 400
+      - 500
+      Bandwidth2:
+      - 100
+      - 200
+      - 300
+      - 400
+      - 500
+      Bandwidth3:
+      - 100
+      - 200
+      - 300
+      - 400
+      - 500
+      Bandwidth4:
+      - 100
+      - 200
+      - 300
+      - 400
+      - 500
+      Dp:
+      - 1
+      - 2
+      - 4
+      - 6
+      - 8
+      - 32
+      - 64
+      - 128
+      - 256
+      - 512
+      Pp:
+      - 1
+      - 2
+      - 4
+      Sp:
+      - 1
+      - 2
+      - 4
+      - 6
+      - 8
+      - 32
+      - 64
+      - 128
+      - 256
+      - 512
+      Weight_sharded:
+      - 0
+      - 1
+    transitions:
+      OutputNode: 1.0
+    type: ArchParams
+  InputNode:
+    attributes:
+      name:
+      - Input
+      value:
+      - None
+    transitions:
+      ArchParamsNode: 1.0
+    type: Input
+  OutputNode:
+    attributes:
+      name:
+      - Output
+      value:
+      - None
+    transitions: {}
+    type: Output

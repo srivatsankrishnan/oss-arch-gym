@@ -352,8 +352,13 @@ class AstraSimEnv(gym.Env):
                 action_dict["system"]["all-gather-implementation"] = all_reduce
                 action_dict["system"]["reduce-scatter-implementation"] = all_reduce
                 action_dict["system"]["all-to-all-implementation"] = all_reduce
-                
 
+            elif cur_knob == "network bandwidth-links":
+                nlinks = [2, 7, 2, 1]
+                for i in range(len(nlinks)):
+                    action_dict["network"]["bandwidth"][i] /= nlinks[i]
+
+                
         print("DERIVED action_dict: ", action_dict)
 
         # write system to json file

@@ -2,19 +2,19 @@
 ALGORITHM: "rw"
 
 # changes based on algorithm
-STEPS: 50000
+STEPS: 20000
 
 # latency, memory, or both
 REWARD: "both"
 
 # exposed knobs for network, system, workload as well as constraints
-KNOBS: "astrasim_220_example/test_128_knobs.py" 
+KNOBS: "astrasim_220_example/knobs_1.py" 
 
 # default network input
-NETWORK: "astrasim_220_example/test_128_network.yml"
+NETWORK: "astrasim_220_example/network_input_1.yml"
 
 # default system input
-SYSTEM: "astrasim_220_example/system_input_4.json"
+SYSTEM: "astrasim_220_example/system_input_1.json"
 
 # default workload input
-WORKLOAD: "astrasim_220_example/test_128_workload.json"
+WORKLOAD: "astrasim_220_example/workload_cfg_1.json"
