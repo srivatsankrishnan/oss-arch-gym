@@ -356,7 +356,7 @@ class AstraSimEnv(gym.Env):
             elif cur_knob == "network bandwidth-links":
                 nlinks = [2, 7, 2, 1]
                 for i in range(len(nlinks)):
-                    action_dict["network"]["bandwidth-links"][i] /= nlinks[i]
+                    action_dict["network"]["bandwidth"][i] /= nlinks[i]
 
                 
         print("DERIVED action_dict: ", action_dict)
