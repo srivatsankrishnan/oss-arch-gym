@@ -22,4 +22,4 @@ DERIVED_KNOBS = ["network bandwidth-links"]
 
 CONSTRAINTS = ["product network npus-count == num workload num_npus", "mult workload dp workload sp workload pp <= num workload num_npus"]
 
-# DESIGN SPACE = 96 million
+# DESIGN SPACE = 6 million

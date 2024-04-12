@@ -6,6 +6,7 @@ import os
 import yaml
 import json
 import socket
+import time
 from datetime import date, datetime
 os.sys.path.insert(0, os.path.abspath('../../'))
 from configs import arch_gym_configs
@@ -27,6 +28,7 @@ flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation to use'
 flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
 flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
 flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
+flags.DEFINE_integer('timeout', 604800, 'Timeout for the experiment')
 # flags.DEFINE_string('parameter_specs', 'workload_validation_parameters.csv', "Parameter specs file")
 
 # BO
@@ -86,7 +88,7 @@ def update_aco_agent_configs(agent_config, aco_hyperparams):
     with open(agent_config, "w") as stream:
         yaml.dump(data, stream, default_flow_style=True)
 
-def run_task(task):
+def run_task(task, timeout):
 
     if ("algo" in task.keys()):
         if (task["algo"] in ["ga", "bo", "aco", "rw", "rl"]):
@@ -302,10 +304,15 @@ def run_task(task):
         print("Shell Command", cmd)
     else:
         raise NotImplementedError
-    
-    # run the command
+
     os.system(cmd)
-  
+    
+    # process = subprocess.Popen(cmd, shell=True)
+    # print("running process for ", timeout)
+    # # Execute the command for the specified duration
+    # time.sleep(timeout)
+    # print("done sleeping")
+    # process.terminate()
 
 
 def main(_):    
@@ -327,6 +334,19 @@ def main(_):
     FLAGS.system = experiment_data["SYSTEM"]
     FLAGS.workload_file = experiment_data["WORKLOAD"]
     FLAGS.reward_formulation = experiment_data["REWARD"]
+
+    if "NUM_AGENTS" in experiment_data:
+        FLAGS.num_agents = experiment_data["NUM_AGENTS"]
+    if "PROB_MUT" in experiment_data:
+        FLAGS.prob_mutation = experiment_data["PROB_MUT"]
+    if "ANT_COUNT" in experiment_data:
+        FLAGS.ant_count = experiment_data["ANT_COUNT"]
+    if "GREEDINESS" in experiment_data:
+        FLAGS.greediness = experiment_data["GREEDINESS"]
+    if "EVAPORATION" in experiment_data:
+        FLAGS.evaporation = experiment_data["EVAPORATION"]
+    if "RAND_STATE_BO" in experiment_data:
+        FLAGS.rand_state = experiment_data["RAND_STATE_BO"]
 
     # append hostname to summary dir
     hostname = socket.gethostname()
@@ -425,7 +445,7 @@ def main(_):
 
     for each_task in taskList:
         # update the workload in simulator
-        run_task(each_task)
+        run_task(each_task, FLAGS.timeout)
 
 
 if __name__ == '__main__':
