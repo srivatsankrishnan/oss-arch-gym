@@ -315,7 +315,15 @@ def run_task(task):
     else:
         raise NotImplementedError
 
-    os.system(cmd)
+    # os.system(cmd)
+    process = subprocess.Popen(cmd, shell=True)
+
+    timeout_sec = float(task["timeout"])
+    try:
+        process.wait(timeout=timeout_sec)
+    except subprocess.TimeoutExpired:
+        print(f"Timeout expired after {timeout_sec} seconds. Terminating the process...")
+        process.terminate()
 
 
 def main(_):    
