@@ -2,7 +2,7 @@
 "num_npus": 1024,
 "dp": 1,
 "pp": 1,
-"sp": 512,
+"sp": 128,
 "weight_sharded": 0,
 "din": 12288,
 "dout": 12288,
