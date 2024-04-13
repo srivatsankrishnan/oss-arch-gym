@@ -207,6 +207,14 @@ def main(_):
             action_dict = generate_random_actions(action_dict, system_knob, network_knob, workload_knob, dimension)
             print(f"{i} {step} DIMENSION: ", dimension)
 
+            if time.time() - start > FLAGS.timeout:
+                print(f"Timeout expired after {time.time() - start} seconds. Terminating the process...")
+                print("Best Reward: ", best_reward)
+                print("Best Observation: ", best_observation)
+                print("Best Parameters: ", best_actions)
+                print("Total Useful Steps: ", env.useful_counter)
+                sys.exit(0)
+
             # step_result wrapped in TimeStep object
             step_result = env.step(action_dict)
             step_type, reward, discount, observation = step_result

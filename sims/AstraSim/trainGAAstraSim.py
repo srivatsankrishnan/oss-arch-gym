@@ -48,6 +48,8 @@ VERSION = 2
 # define helpers
 astraSim_helper = helpers()
 
+start_time = time.time()
+
 def generate_run_directories():
     # Construct the exp name from seed and num_iter
     exp_name = FLAGS.workload + "_num_iter_" + str(FLAGS.num_steps) + "_num_agents_" + str(FLAGS.num_agents) + "_prob_mut_" + str(FLAGS.prob_mutation)
@@ -166,6 +168,10 @@ def AstraSim_optimization_function(p):
     for sect in action_dict_decoded:
         for key in action_dict_decoded[sect]:
             action_dict[sect][key] = action_dict_decoded[sect][key]
+
+    if time.time() - start_time > FLAGS.timeout:
+        print(f"Timeout expired after {time.time() - start_time} seconds. Terminating the process...")
+        sys.exit(0)
 
     # take a step
     step_type, reward, discount, info = env.step(action_dict)

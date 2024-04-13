@@ -46,6 +46,7 @@ VERSION = 2
 astraSim_helper = helpers()
 
 def main(_):
+    start_time = time.time()
     # Dummy "training" input for POC
     x_train = np.array([1,2,3,4,5])
     print("Number of original training examples:", len(x_train))
@@ -150,7 +151,7 @@ def main(_):
                     f'--traject_dir={FLAGS.traject_dir}', f'--aco_log_dir={FLAGS.aco_log_dir}', f'--summary_dir={FLAGS.summary_dir}',
                     f'--workload={FLAGS.workload}'
                     ]
-        subprocess.run(command)
+        subprocess.run(command, timeout=FLAGS.timeout - (time.time() - start_time))
 
     # for d in dimensions:
 

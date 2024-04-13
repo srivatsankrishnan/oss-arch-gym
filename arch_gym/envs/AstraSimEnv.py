@@ -230,6 +230,8 @@ class AstraSimEnv(gym.Env):
     def calculate_reward(self, observations):
         print("Calculating reward...")
         print(observations)
+        if observations[0] == '0.e+00':
+            return 0.0
         sum = 1.0
         for obs in observations:
             sum += ((float(obs) - 1) ** 2)
