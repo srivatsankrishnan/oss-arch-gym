@@ -316,8 +316,8 @@ def run_task(task):
         raise NotImplementedError
 
     # os.system(cmd)
-    process = subprocess.Popen(cmd, shell=True)
 
+    process = subprocess.Popen(cmd, shell=True)
     timeout_sec = float(task["timeout"])
     try:
         process.wait(timeout=timeout_sec)
