@@ -29,6 +29,7 @@ flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path t
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
 flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
+flags.DEFINE_integer('timeout', 345600, 'Timeout for the experiment')
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
@@ -170,7 +171,7 @@ def main(_):
             os.makedirs(traject_dir)
     env = wrap_in_envlogger(env, traject_dir)
 
-    start = time.time()
+    start_time = time.time()
 
     step_results = {}
 
@@ -206,6 +207,14 @@ def main(_):
             action_dict = generate_random_actions(action_dict, system_knob, network_knob, workload_knob, dimension)
             print(f"{i} {step} DIMENSION: ", dimension)
 
+            if time.time() - start_time > FLAGS.timeout:
+                print(f"Random Walker Timeout expired after {time.time() - start_time} seconds. Terminating the process...")
+                print("Best Reward: ", best_reward)
+                print("Best Observation: ", best_observation)
+                print("Best Parameters: ", best_actions)
+                print("Total Useful Steps: ", env.useful_counter)
+                sys.exit(0)
+
             # step_result wrapped in TimeStep object
             step_result = env.step(action_dict)
             step_type, reward, discount, observation = step_result
@@ -221,12 +230,10 @@ def main(_):
 
             log_results_to_csv(log_path, step_results)
 
-    end = time.time()
-
     print("Best Reward: ", best_reward)
     print("Best Observation: ", best_observation)
     print("Best Parameters: ", best_actions)
-    print("Total Time Taken: ", end - start)
+    print("Total Time Taken: ", time.time() - start_time)
     print("Total Useful Steps: ", env.useful_counter)
 
 

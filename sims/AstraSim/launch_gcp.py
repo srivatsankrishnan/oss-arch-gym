@@ -6,6 +6,7 @@ import os
 import yaml
 import json
 import socket
+import time
 from datetime import date, datetime
 os.sys.path.insert(0, os.path.abspath('../../'))
 from configs import arch_gym_configs
@@ -27,6 +28,7 @@ flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation to use'
 flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
 flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
 flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
+flags.DEFINE_integer('timeout', 345600, 'Timeout for the experiment')
 # flags.DEFINE_string('parameter_specs', 'workload_validation_parameters.csv', "Parameter specs file")
 
 # BO
@@ -127,6 +129,7 @@ def run_task(task):
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
+        timeout = task["timeout"]
         unqiue_ids = [algo, workload, str(prob_mut), str(num_agents)]
     elif (algo == "rw"):
         num_steps = task["num_steps"]
@@ -139,6 +142,7 @@ def run_task(task):
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
+        timeout = task["timeout"]
     elif (algo == "bo"):
         num_iter = task["num_iter"]
         rand_state = task["rand_state"]
@@ -150,6 +154,7 @@ def run_task(task):
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
+        timeout = task["timeout"]
         unqiue_ids = [algo, workload, str(rand_state)]
     elif (algo == "aco"):
         num_iter = task["num_iter"]
@@ -167,6 +172,7 @@ def run_task(task):
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
+        timeout = task["timeout"]
         unqiue_ids = [algo, workload, str(ant_count), str(evaporation), str(greediness), str(decay), str(start)]
     elif (algo == "rl"):
         workload = task["workload"]
@@ -192,6 +198,7 @@ def run_task(task):
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
+        timeout = task["timeout"]
         unique_ids = [algo, workload]
     else:
         raise NotImplementedError
@@ -210,7 +217,8 @@ def run_task(task):
             "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
-            "--workload_file=" + str(workload_file) + " "
+            "--workload_file=" + str(workload_file) + " " \
+            "--timeout=" + str(timeout) + " "
         print("Shell Command", cmd)
         
     elif algo == "rw":
@@ -225,7 +233,8 @@ def run_task(task):
             "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
-            "--workload_file=" + str(workload_file) + " "
+            "--workload_file=" + str(workload_file) + " " \
+            "--timeout=" + str(timeout) + " "
         print("Shell Command", cmd)
     elif algo == "bo":
         print("train_bo_astra_sim")
@@ -240,7 +249,8 @@ def run_task(task):
             "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
-            "--workload_file=" + str(workload_file) + " "
+            "--workload_file=" + str(workload_file) + " " \
+            "--timeout=" + str(timeout) + " "
         print("Shell Command", cmd)
     elif algo == "aco":
         aco_agent_config_file = os.path.join(
@@ -271,7 +281,8 @@ def run_task(task):
             "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
-            "--workload_file=" + str(workload_file) + " "
+            "--workload_file=" + str(workload_file) + " " \
+            "--timeout=" + str(timeout) + " "
         print("Shell Command", cmd)
     elif algo == "rl":
         print("train_rl_astra_sim")
@@ -298,14 +309,22 @@ def run_task(task):
             "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
-            "--workload_file=" + str(workload_file) + " "
+            "--workload_file=" + str(workload_file) + " " \
+            "--timeout=" + str(timeout) + " "
         print("Shell Command", cmd)
     else:
         raise NotImplementedError
-    
-    # run the command
-    os.system(cmd)
-  
+
+    if algo == "bo":
+        process = subprocess.Popen(cmd, shell=True)
+        timeout_sec = float(task["timeout"])
+        try:
+            process.wait(timeout=timeout_sec)
+        except subprocess.TimeoutExpired:
+            print(f"BO Timeout expired after {timeout_sec} seconds. Terminating the process...")
+            process.terminate()
+    else:
+        os.system(cmd)
 
 
 def main(_):    
@@ -328,6 +347,19 @@ def main(_):
     FLAGS.workload_file = experiment_data["WORKLOAD"]
     FLAGS.reward_formulation = experiment_data["REWARD"]
 
+    if "NUM_AGENTS" in experiment_data:
+        FLAGS.num_agents = experiment_data["NUM_AGENTS"]
+    if "PROB_MUT" in experiment_data:
+        FLAGS.prob_mutation = experiment_data["PROB_MUT"]
+    if "ANT_COUNT" in experiment_data:
+        FLAGS.ant_count = experiment_data["ANT_COUNT"]
+    if "GREEDINESS" in experiment_data:
+        FLAGS.greediness = experiment_data["GREEDINESS"]
+    if "EVAPORATION" in experiment_data:
+        FLAGS.evaporation = experiment_data["EVAPORATION"]
+    if "RAND_STATE_BO" in experiment_data:
+        FLAGS.rand_state = experiment_data["RAND_STATE_BO"]
+
     # append hostname to summary dir
     hostname = socket.gethostname()
     FLAGS.summary_dir = FLAGS.summary_dir + "/" + hostname
@@ -346,7 +378,8 @@ def main(_):
                 # 'parameter_specs': FLAGS.parameter_specs,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
-                "workload_file": FLAGS.workload_file}
+                "workload_file": FLAGS.workload_file,
+                "timeout": FLAGS.timeout}
         taskList.append(task)
     elif FLAGS.algo == "rw":
         task = {"algo": FLAGS.algo,
@@ -359,7 +392,8 @@ def main(_):
                 "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
-                "workload_file": FLAGS.workload_file}
+                "workload_file": FLAGS.workload_file,
+                "timeout": FLAGS.timeout}
         taskList.append(task)
     elif FLAGS.algo == "bo":
         task = {"algo": FLAGS.algo,
@@ -373,7 +407,8 @@ def main(_):
                 "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
-                "workload_file": FLAGS.workload_file}
+                "workload_file": FLAGS.workload_file,
+                "timeout": FLAGS.timeout}
         taskList.append(task)
     elif FLAGS.algo == "aco":
         task = {"algo": FLAGS.algo,
@@ -391,7 +426,8 @@ def main(_):
                 "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
-                "workload_file": FLAGS.workload_file}
+                "workload_file": FLAGS.workload_file,
+                "timeout": FLAGS.timeout}
         taskList.append(task)
     elif FLAGS.algo == "rl":
         task = {"algo": FLAGS.algo,
@@ -417,7 +453,8 @@ def main(_):
                 "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
-                "workload_file": FLAGS.workload_file}
+                "workload_file": FLAGS.workload_file,
+                "timeout": FLAGS.timeout}
         taskList.append(task)
     else:
         raise NotImplementedError

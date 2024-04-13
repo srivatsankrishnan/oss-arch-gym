@@ -30,6 +30,7 @@ flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path t
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
 flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
+flags.DEFINE_integer('timeout', 345600, 'Timeout for the experiment')
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
@@ -63,6 +64,7 @@ def find_best_params_test(X, parameters, n_iter, seed, exp_name, traject_dir, ex
    config.set("experiment_configuration", "log_dir", str(exp_log_dir))
    config.set("experiment_configuration", "reward_formulation", str(FLAGS.reward_formulation))
    config.set("experiment_configuration", "use_envlogger", str(FLAGS.use_envlogger))
+   config.set("experiment_configuration", "num_steps", str(FLAGS.num_iter))
 
    # write the updated config file
    with open(FLAGS.exp_config_file, 'w') as configfile:

@@ -7,7 +7,7 @@ DeepSwarm:
       evaporation: 0.25
       start: 0.1
       verbose: false
-  max_depth: 50000
+  max_depth: 3000
   metrics: loss
   reuse_patience: 1
   save_folder: null
@@ -17,64 +17,36 @@ Nodes:
       Scheduling_Policy:
       - FIFO
       - LIFO
+      Collective_Optimization:
+      - baseline
+      - localBWAware
       Preferred_Dataset_Splits:
+      - 1
       - 2
       - 4
       - 8
       - 16
-      Collective_Optimization:
-      - baseline
-      - localBWAware
-      Bandwidth1:
-      - 100
-      - 200
-      - 300
-      - 400
-      - 500
-      Bandwidth2:
-      - 100
-      - 200
-      - 300
-      - 400
-      - 500
-      Bandwidth3:
-      - 100
-      - 200
-      - 300
-      - 400
-      - 500
-      Bandwidth4:
-      - 100
-      - 200
-      - 300
-      - 400
-      - 500
+      - 32
+      - 64
+      Topology1:
+      - FullyConnected
+      - Ring
+      - Switch
       Dp:
       - 1
       - 2
       - 4
-      - 6
       - 8
-      - 32
-      - 64
-      - 128
-      - 256
-      - 512
-      Pp:
-      - 1
-      - 2
-      - 4
       Sp:
       - 1
       - 2
       - 4
-      - 6
       - 8
-      - 32
-      - 64
-      - 128
-      - 256
-      - 512
+      Pp:
+      - 1
+      - 2
+      - 4
+      - 8
       Weight_sharded:
       - 0
       - 1

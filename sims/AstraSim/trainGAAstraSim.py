@@ -36,6 +36,7 @@ flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path t
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
 flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
+flags.DEFINE_integer('timeout', 345600, 'Timeout for the experiment')
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
@@ -46,6 +47,8 @@ VERSION = 2
 
 # define helpers
 astraSim_helper = helpers()
+
+start_time = time.time()
 
 def generate_run_directories():
     # Construct the exp name from seed and num_iter
@@ -165,6 +168,12 @@ def AstraSim_optimization_function(p):
     for sect in action_dict_decoded:
         for key in action_dict_decoded[sect]:
             action_dict[sect][key] = action_dict_decoded[sect][key]
+
+    print("TIME REMAINING: ", FLAGS.timeout - (time.time() - start_time))
+
+    if time.time() - start_time > FLAGS.timeout:
+        print(f"GA Timeout expired after {time.time() - start_time} seconds. Terminating the process...")
+        sys.exit(0)
 
     # take a step
     step_type, reward, discount, info = env.step(action_dict)

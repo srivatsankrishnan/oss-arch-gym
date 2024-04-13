@@ -1,0 +1,8 @@
+ALGORITHM: bo
+KNOBS: astrasim_220_example/knobs_2.py
+NETWORK: astrasim_220_example/network_input_2.yml
+RAND_STATE_BO: 2
+REWARD: both
+STEPS: 64
+SYSTEM: astrasim_220_example/system_input_2.json
+WORKLOAD: astrasim_220_example/workload_cfg_2.json

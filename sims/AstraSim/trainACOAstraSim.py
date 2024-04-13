@@ -35,6 +35,7 @@ flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path t
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
 flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
+flags.DEFINE_integer('timeout', 345600, 'Timeout for the experiment')
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
@@ -43,8 +44,10 @@ FLAGS = flags.FLAGS
 # define AstraSim version
 VERSION = 2
 astraSim_helper = helpers()
+start_time = time.time()
 
 def main(_):
+    start_time = time.time()
     # Dummy "training" input for POC
     x_train = np.array([1,2,3,4,5])
     print("Number of original training examples:", len(x_train))
@@ -149,7 +152,13 @@ def main(_):
                     f'--traject_dir={FLAGS.traject_dir}', f'--aco_log_dir={FLAGS.aco_log_dir}', f'--summary_dir={FLAGS.summary_dir}',
                     f'--workload={FLAGS.workload}'
                     ]
-        subprocess.run(command)
+        
+        try:
+            subprocess.run(command, timeout=FLAGS.timeout - (time.time() - start_time))
+        except subprocess.TimeoutExpired:
+            print(f"ACO Timeout expired after {time.time() - start_time} seconds. Terminating the process...")
+            sys.exit(0)
+
 
     # for d in dimensions:
 
