@@ -1,0 +1,10 @@
+{
+"knobs": "astrasim_220_example/knobs_5.py",
+"network": "astrasim_220_example/network_input_5.yml",
+"system": "astrasim_220_example/system_input_5.json",
+"workload": "astrasim_220_example/workload_cfg_5.json",
+"reward_formulation": "both",
+"congestion_aware": "True",
+"summary_dir": "./all_logs/ecl-desktop-1",
+"dimension": "4"
+}
