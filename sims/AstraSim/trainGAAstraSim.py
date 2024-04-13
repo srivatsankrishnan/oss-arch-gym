@@ -48,7 +48,6 @@ VERSION = 2
 # define helpers
 astraSim_helper = helpers()
 
-# start time
 start_time = time.time()
 
 def generate_run_directories():
@@ -171,7 +170,7 @@ def AstraSim_optimization_function(p):
             action_dict[sect][key] = action_dict_decoded[sect][key]
 
     if time.time() - start_time > FLAGS.timeout:
-        print("GA TIMEOUT: ", time.time() - start_time)
+        print(f"GA Timeout expired after {time.time() - start_time} seconds. Terminating the process...")
         sys.exit(0)
 
     # take a step

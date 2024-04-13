@@ -27,6 +27,7 @@ flags.DEFINE_string('workload', 'stream.stl', 'Which workload to run')
 flags.DEFINE_string('traject_dir', './all_logs/aco_trajectories', 'Directory to trajectory data.')
 flags.DEFINE_string('aco_log_dir', './all_logs/aco_logs', 'Directory to store logs.')
 flags.DEFINE_string('summary_dir', '.', 'Directory to store summaries.')
+flags.DEFINE_integer('timeout', 345600, 'Timeout for the experiment')
 
 FLAGS = flags.FLAGS
 

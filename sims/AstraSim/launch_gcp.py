@@ -28,7 +28,7 @@ flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation to use'
 flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
 flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
 flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
-flags.DEFINE_integer('timeout', 604800, 'Timeout for the experiment')
+flags.DEFINE_integer('timeout', 345600, 'Timeout for the experiment')
 # flags.DEFINE_string('parameter_specs', 'workload_validation_parameters.csv', "Parameter specs file")
 
 # BO
@@ -305,14 +305,16 @@ def run_task(task, timeout):
     else:
         raise NotImplementedError
 
-    os.system(cmd)
-    
-    # process = subprocess.Popen(cmd, shell=True)
-    # print("running process for ", timeout)
-    # # Execute the command for the specified duration
-    # time.sleep(timeout)
-    # print("done sleeping")
-    # process.terminate()
+    if algo == "bo":
+        process = subprocess.Popen(cmd, shell=True)
+        timeout_sec = float(task["timeout"])
+        try:
+            process.wait(timeout=timeout_sec)
+        except subprocess.TimeoutExpired:
+            print(f"BO Timeout expired after {timeout_sec} seconds. Terminating the process...")
+            process.terminate()
+    else:
+        os.system(cmd)
 
 
 def main(_):    

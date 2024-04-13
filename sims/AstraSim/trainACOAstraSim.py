@@ -47,6 +47,7 @@ astraSim_helper = helpers()
 start_time = time.time()
 
 def main(_):
+    start_time = time.time()
     # Dummy "training" input for POC
     x_train = np.array([1,2,3,4,5])
     print("Number of original training examples:", len(x_train))
@@ -155,7 +156,7 @@ def main(_):
         try:
             subprocess.run(command, timeout=FLAGS.timeout - (time.time() - start_time))
         except subprocess.TimeoutExpired:
-            print("ACO Timeout: ", time.time() - start_time)
+            print(f"ACO Timeout expired after {time.time() - start_time} seconds. Terminating the process...")
             sys.exit(0)
 
 
