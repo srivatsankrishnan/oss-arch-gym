@@ -169,6 +169,8 @@ def AstraSim_optimization_function(p):
         for key in action_dict_decoded[sect]:
             action_dict[sect][key] = action_dict_decoded[sect][key]
 
+    print("TIME REMAINING: ", FLAGS.timeout - (time.time() - start_time))
+
     if time.time() - start_time > FLAGS.timeout:
         print(f"GA Timeout expired after {time.time() - start_time} seconds. Terminating the process...")
         sys.exit(0)

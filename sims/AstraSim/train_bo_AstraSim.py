@@ -64,6 +64,7 @@ def find_best_params_test(X, parameters, n_iter, seed, exp_name, traject_dir, ex
    config.set("experiment_configuration", "log_dir", str(exp_log_dir))
    config.set("experiment_configuration", "reward_formulation", str(FLAGS.reward_formulation))
    config.set("experiment_configuration", "use_envlogger", str(FLAGS.use_envlogger))
+   config.set("experiment_configuration", "num_steps", str(FLAGS.num_iter))
 
    # write the updated config file
    with open(FLAGS.exp_config_file, 'w') as configfile:

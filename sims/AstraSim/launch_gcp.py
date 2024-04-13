@@ -88,7 +88,7 @@ def update_aco_agent_configs(agent_config, aco_hyperparams):
     with open(agent_config, "w") as stream:
         yaml.dump(data, stream, default_flow_style=True)
 
-def run_task(task, timeout):
+def run_task(task):
 
     if ("algo" in task.keys()):
         if (task["algo"] in ["ga", "bo", "aco", "rw", "rl"]):
@@ -129,6 +129,7 @@ def run_task(task, timeout):
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
+        timeout = task["timeout"]
         unqiue_ids = [algo, workload, str(prob_mut), str(num_agents)]
     elif (algo == "rw"):
         num_steps = task["num_steps"]
@@ -141,6 +142,7 @@ def run_task(task, timeout):
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
+        timeout = task["timeout"]
     elif (algo == "bo"):
         num_iter = task["num_iter"]
         rand_state = task["rand_state"]
@@ -152,6 +154,7 @@ def run_task(task, timeout):
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
+        timeout = task["timeout"]
         unqiue_ids = [algo, workload, str(rand_state)]
     elif (algo == "aco"):
         num_iter = task["num_iter"]
@@ -169,6 +172,7 @@ def run_task(task, timeout):
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
+        timeout = task["timeout"]
         unqiue_ids = [algo, workload, str(ant_count), str(evaporation), str(greediness), str(decay), str(start)]
     elif (algo == "rl"):
         workload = task["workload"]
@@ -194,6 +198,7 @@ def run_task(task, timeout):
         network = task["network"]
         system = task["system"]
         workload_file = task["workload_file"]
+        timeout = task["timeout"]
         unique_ids = [algo, workload]
     else:
         raise NotImplementedError
@@ -212,7 +217,8 @@ def run_task(task, timeout):
             "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
-            "--workload_file=" + str(workload_file) + " "
+            "--workload_file=" + str(workload_file) + " " \
+            "--timeout=" + str(timeout) + " "
         print("Shell Command", cmd)
         
     elif algo == "rw":
@@ -227,7 +233,8 @@ def run_task(task, timeout):
             "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
-            "--workload_file=" + str(workload_file) + " "
+            "--workload_file=" + str(workload_file) + " " \
+            "--timeout=" + str(timeout) + " "
         print("Shell Command", cmd)
     elif algo == "bo":
         print("train_bo_astra_sim")
@@ -242,7 +249,8 @@ def run_task(task, timeout):
             "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
-            "--workload_file=" + str(workload_file) + " "
+            "--workload_file=" + str(workload_file) + " " \
+            "--timeout=" + str(timeout) + " "
         print("Shell Command", cmd)
     elif algo == "aco":
         aco_agent_config_file = os.path.join(
@@ -273,7 +281,8 @@ def run_task(task, timeout):
             "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
-            "--workload_file=" + str(workload_file) + " "
+            "--workload_file=" + str(workload_file) + " " \
+            "--timeout=" + str(timeout) + " "
         print("Shell Command", cmd)
     elif algo == "rl":
         print("train_rl_astra_sim")
@@ -300,7 +309,8 @@ def run_task(task, timeout):
             "--congestion_aware=" + str(congestion_aware) + " " \
             "--network=" + str(network) + " " \
             "--system=" + str(system) + " " \
-            "--workload_file=" + str(workload_file) + " "
+            "--workload_file=" + str(workload_file) + " " \
+            "--timeout=" + str(timeout) + " "
         print("Shell Command", cmd)
     else:
         raise NotImplementedError
@@ -368,7 +378,8 @@ def main(_):
                 # 'parameter_specs': FLAGS.parameter_specs,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
-                "workload_file": FLAGS.workload_file}
+                "workload_file": FLAGS.workload_file,
+                "timeout": FLAGS.timeout}
         taskList.append(task)
     elif FLAGS.algo == "rw":
         task = {"algo": FLAGS.algo,
@@ -381,7 +392,8 @@ def main(_):
                 "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
-                "workload_file": FLAGS.workload_file}
+                "workload_file": FLAGS.workload_file,
+                "timeout": FLAGS.timeout}
         taskList.append(task)
     elif FLAGS.algo == "bo":
         task = {"algo": FLAGS.algo,
@@ -395,7 +407,8 @@ def main(_):
                 "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
-                "workload_file": FLAGS.workload_file}
+                "workload_file": FLAGS.workload_file,
+                "timeout": FLAGS.timeout}
         taskList.append(task)
     elif FLAGS.algo == "aco":
         task = {"algo": FLAGS.algo,
@@ -413,7 +426,8 @@ def main(_):
                 "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
-                "workload_file": FLAGS.workload_file}
+                "workload_file": FLAGS.workload_file,
+                "timeout": FLAGS.timeout}
         taskList.append(task)
     elif FLAGS.algo == "rl":
         task = {"algo": FLAGS.algo,
@@ -439,7 +453,8 @@ def main(_):
                 "congestion_aware": FLAGS.congestion_aware,
                 "network": FLAGS.network,
                 "system": FLAGS.system,
-                "workload_file": FLAGS.workload_file}
+                "workload_file": FLAGS.workload_file,
+                "timeout": FLAGS.timeout}
         taskList.append(task)
     else:
         raise NotImplementedError
@@ -447,7 +462,7 @@ def main(_):
 
     for each_task in taskList:
         # update the workload in simulator
-        run_task(each_task, FLAGS.timeout)
+        run_task(each_task)
 
 
 if __name__ == '__main__':
