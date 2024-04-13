@@ -36,4 +36,4 @@ RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install en
 RUN chown -R 1000:root /workdir && chmod -R 775 /workdir
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--experiment=./experiments_files/experiment4a.yml", "--summary_dir=./all_logs", "--timeout=345600"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--experiment=./experiments_files/experiment4a.yml", "--summary_dir=./all_logs", "--timeout=604800"]
