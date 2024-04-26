@@ -1,7 +1,7 @@
 import yaml
 import csv
 
-csv_file_path = "hyperparameter_commands.csv"
+csv_file_path = "experiment_commands_vit.csv"
 command_list = []
 
 # b) ga
@@ -25,12 +25,13 @@ for i in range(1, 6, 1):
                     prob_str = '01'
                 elif prob == 0.05:
                     prob_str = '05'
-                file_log = f"experiment{i}b_{step}_{num_agents}_{prob_str}_log"
-                file_name = f"experiment{i}b_{step}_{num_agents}_{prob_str}.yml"
+                file_log = f"experiment{i}b_{step}_{num_agents}_{prob_str}_vit_log"
+                file_name = f"experiment{i}b_{step}_{num_agents}_{prob_str}_vit.yml"
                 
-                cmd += f" --experiment=./experiments_files/hyperparameter_search/{file_name}"
+                cmd += f" --experiment=./experiments_files/vit_large/{file_name}"
                 cmd += f" --summary_dir=./{file_log}"
                 cmd += f" --timeout=345600"
+                # cmd = f"experiment{i}b_{step}_{num_agents}_{prob_str}_vit"
 
                 command_list.append(cmd)
 
@@ -53,12 +54,14 @@ for i in range(1, 6, 1):
                     # 0.001 = 1, 0.01 = 10, 0.05 = 50
                     greed_str = str(int(100 * greed))
                     eva_str = str(int(100 * eva))
-                    file_log = f"experiment{i}c_{step}_{ant}_{greed_str}_{eva_str}_log"
-                    file_name = f"experiment{i}c_{step}_{ant}_{greed_str}_{eva_str}.yml"
+                    file_log = f"experiment{i}c_{step}_{ant}_{greed_str}_{eva_str}_vit_log"
+                    file_name = f"experiment{i}c_{step}_{ant}_{greed_str}_{eva_str}_vit.yml"
 
-                    cmd += f" --experiment=./experiments_files/hyperparameter_search/{file_name}"
+                    cmd += f" --experiment=./experiments_files/vit_large/{file_name}"
                     cmd += f" --summary_dir=./{file_log}"
                     cmd += f" --timeout=345600"
+
+                    # cmd = f"experiment{i}c_{step}_{ant}_{greed_str}_{eva_str}_vit"
 
                     command_list.append(cmd)
 
@@ -73,12 +76,14 @@ for i in range(1, 6, 1):
         for rand in rand_state:
                 
                 cmd = "python launch_gcp.py"
-                file_log = f"experiment{i}d_{step}_{rand}_log"
-                file_name = f"experiment{i}d_{step}_{rand}.yml"
+                file_log = f"experiment{i}d_{step}_{rand}_vit_log"
+                file_name = f"experiment{i}d_{step}_{rand}_vit.yml"
 
-                cmd += f" --experiment=./experiments_files/hyperparameter_search/{file_name}"
+                cmd += f" --experiment=./experiments_files/vit_large/{file_name}"
                 cmd += f" --summary_dir=./{file_log}"
                 cmd += f" --timeout=345600"
+
+                # cmd = f"experiment{i}d_{step}_{rand}_vit"
 
                 command_list.append(cmd)
 
