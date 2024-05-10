@@ -12,5 +12,5 @@
     "roofline-enabled": 1,
     "peak-perf": 10,
     "local-mem-bw": 50,
-    "track-local-mem": 1
+    "memory-capacity": 39007027200
 }
