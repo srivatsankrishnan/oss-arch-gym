@@ -11,10 +11,16 @@ import yaml
 
 from envHelpers import helpers
 
+# from sims/AstraSim/astrasim_archgym_public/dse, import MemoryEstimator
+os.sys.path.insert(0, os.path.abspath('../../'))
+from sims.AstraSim.astrasim_archgym_public.dse.test_memory_constraints import MemoryEstimator
+
+
 settings_file_path = os.path.realpath(__file__)
 settings_dir_path = os.path.dirname(settings_file_path)
 proj_root_path = os.path.dirname(os.path.dirname(settings_dir_path))
 proj_dir_path = os.path.join(proj_root_path, "sims/AstraSim")
+
 
 astrasim_archgym = os.path.join(proj_dir_path, "astrasim-archgym")
 archgen_v1_knobs = os.path.join(astrasim_archgym, "dse/archgen_v1_knobs")
@@ -577,12 +583,28 @@ class AstraSimEnv(gym.Env):
                     cycles = line[lb:rb].strip().replace(",", "")
                     cycles = int(cycles)
                     max_cycles = max(cycles, max_cycles)
-                if ("sys[" in line) and ("] peak memory usage:" in line) and ("peak memory" in line):
-                    lb = line.find("peak memory usage:") + len("peak memory usage:")
-                    rb = line.rfind("bytes")
-                    peak_mem = line[lb:rb].strip().replace(",", "")
-                    peak_mem = int(peak_mem)
-                    max_peak_mem = max(peak_mem, max_peak_mem)
+                # if ("sys[" in line) and ("] peak memory usage:" in line) and ("peak memory" in line):
+                #     lb = line.find("peak memory usage:") + len("peak memory usage:")
+                #     rb = line.rfind("bytes")
+                #     peak_mem = line[lb:rb].strip().replace(",", "")
+                #     peak_mem = int(peak_mem)
+                #     max_peak_mem = max(peak_mem, max_peak_mem)
+        
+        # call memory estimator . get total memory 
+        max_peak_mem = MemoryEstimator.get_total_memory(work)
+        print("work: " + str(work))
+        print("max_peak_mem: " + str(max_peak_mem))
+
+        # check with memory-capacity knob in system
+        print("sys: ", sys)
+        if "memory-capacity" in sys:
+            if max_peak_mem > sys["memory-capacity"]:
+                print("Memory constraint violated")
+                reward = float("-inf")
+                observations = [float("inf")] * self.obs_len
+                observations = np.reshape(observations, self.observation_space.shape)
+                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+
         
         print("MAX_CYCLES: ", max_cycles)
         print("MAX_PEAK_MEM: ", max_peak_mem)
