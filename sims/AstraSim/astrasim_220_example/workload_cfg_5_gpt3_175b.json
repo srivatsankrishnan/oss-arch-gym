@@ -3,7 +3,7 @@
 "dp": 512,
 "pp": 1,
 "sp": 2,
-"weight_sharded": 1.0,
+"weight_sharded": 1,
 "din": 12288,
 "dout": 12288,
 "dff": 49152,

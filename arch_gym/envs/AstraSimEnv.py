@@ -592,11 +592,8 @@ class AstraSimEnv(gym.Env):
         
         # call memory estimator . get total memory 
         max_peak_mem = MemoryEstimator.get_total_memory(work)
-        print("work: " + str(work))
-        print("max_peak_mem: " + str(max_peak_mem))
 
         # check with memory-capacity knob in system
-        print("sys: ", sys)
         if "memory-capacity" in sys:
             if max_peak_mem > sys["memory-capacity"]:
                 print("Memory constraint violated")
