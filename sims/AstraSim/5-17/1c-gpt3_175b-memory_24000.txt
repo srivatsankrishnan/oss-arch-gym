@@ -1,0 +1,248 @@
+/home/archgym/workspace/aditi_jared/oss-arch-gym/settings/default_astrasim.yaml
+/home/archgym/workspace/aditi_jared/oss-arch-gym/Project_FARSI/cacti_for_FARSI/cacti True
+/home/archgym/workspace/aditi_jared/oss-arch-gym/Project_FARSI/cacti_for_FARSI/farsi_gen.cfg True
+/home/archgym/workspace/aditi_jared/oss-arch-gym/Project_FARSI/cacti_for_FARSI/data_log.csv False
+[0mReward formulation:  None
+NODES PREVIOUS:  {'ArchParamsNode': {'attributes': {'Dp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Pp': [1, 2, 4], 'Sp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Weight_sharded': [0, 1]}, 'transitions': {'OutputNode': 1.0}, 'type': 'ArchParams'}, 'InputNode': {'attributes': {'name': ['Input'], 'value': ['None']}, 'transitions': {'ArchParamsNode': 1.0}, 'type': 'Input'}, 'OutputNode': {'attributes': {'name': ['Output'], 'value': ['None']}, 'transitions': {}, 'type': 'Output'}}
+self.param_len:  0
+system knobs:  {}
+self.param_len:  0
+network knobs:  {}
+self.param_len:  0
+workload knobs:  {'dp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'pp': ({1, 2, 4}, 'N/A'), 'sp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'weight_sharded': ((0, 1, 1), 'N/A')}
+dimensions:  4
+param_len:  4
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DERIVED KNOBS:  []
+YAML PATH:  /home/archgym/workspace/aditi_jared/oss-arch-gym/settings/default_astrasim.yaml
+DIMENSION1:  4
+YAML DATA:  {'DeepSwarm': {'aco': {'ant_count': 16, 'greediness': 0.5, 'pheromone': {'decay': 0.1, 'evaporation': 0.5, 'start': 0.1, 'verbose': False}}, 'max_depth': 1024, 'metrics': 'loss', 'reuse_patience': 1, 'save_folder': None}, 'Nodes': {'ArchParamsNode': {'attributes': {'Dp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Pp': [1, 2, 4], 'Sp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Weight_sharded': [0, 1]}, 'transitions': {'OutputNode': 1.0}, 'type': 'ArchParams'}, 'InputNode': {'attributes': {'name': ['Input'], 'value': ['None']}, 'transitions': {'ArchParamsNode': 1.0}, 'type': 'Input'}, 'OutputNode': {'attributes': {'name': ['Output'], 'value': ['None']}, 'transitions': {}, 'type': 'Output'}}}
+reached node in path:  [<aco.DeepSwarm.deepswarm.nodes.Node object at 0x7fc052b38cd0>, <aco.DeepSwarm.deepswarm.nodes.Node object at 0x7fc052b38d00>]
+node in path:  Input(name:Input, value:None)
+rand attr:  Dp
+rand attr + 1:  Dp1
+node in path:  ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+rand attr:  Dp
+rand attr + 1:  Dp1
+node has attr:  Dp
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+self.param_len:  0
+system knobs:  {}
+self.param_len:  0
+network knobs:  {}
+self.param_len:  0
+workload knobs:  {'dp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'pp': ({1, 2, 4}, 'N/A'), 'sp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'weight_sharded': ((0, 1, 1), 'N/A')}
+dimensions:  4
+param_len:  4
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DERIVED KNOBS:  []
+YAML PATH:  /home/archgym/workspace/aditi_jared/oss-arch-gym/settings/default_astrasim.yaml
+DIMENSION1:  4
+YAML DATA:  {'DeepSwarm': {'aco': {'ant_count': 16, 'greediness': 0.5, 'pheromone': {'decay': 0.1, 'evaporation': 0.5, 'start': 0.1, 'verbose': False}}, 'max_depth': 1024, 'metrics': 'loss', 'reuse_patience': 1, 'save_folder': None}, 'Nodes': {'ArchParamsNode': {'attributes': {'Dp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Pp': [1, 2, 4], 'Sp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Weight_sharded': [0, 1]}, 'transitions': {'OutputNode': 1.0}, 'type': 'ArchParams'}, 'InputNode': {'attributes': {'name': ['Input'], 'value': ['None']}, 'transitions': {'ArchParamsNode': 1.0}, 'type': 'Input'}, 'OutputNode': {'attributes': {'name': ['Output'], 'value': ['None']}, 'transitions': {}, 'type': 'Output'}}}
+reached node in path:  [<aco.DeepSwarm.deepswarm.nodes.Node object at 0x7fc052b38cd0>, <aco.DeepSwarm.deepswarm.nodes.Node object at 0x7fc052b38d00>]
+node in path:  Input(name:Input, value:None)
+rand attr:  Dp
+rand attr + 1:  Dp1
+node in path:  ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+rand attr:  Dp
+rand attr + 1:  Dp1
+node has attr:  Dp
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41190>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b387c0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38820>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b38940>], 'available_transitions': [], 'Dp': 512, 'Pp': 2, 'Sp': 64, 'Weight_sharded': 0}
+node : ArchParamsNode(Dp:512, Pp:2, Sp:64, Weight_sharded:0)
+[DEBUG][Seed] 12234
+[DEBUG][RL Form] aco
+[DEBUG][Max Steps] 1024
+[DEBUG][Num Agents] 1
+[DEBUG][Reward Formulation] both
+[DEBUG][Reward Scaling] false
+self.param_len:  0
+system knobs:  {}
+self.param_len:  0
+network knobs:  {}
+self.param_len:  0
+workload knobs:  {'dp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'pp': ({1, 2, 4}, 'N/A'), 'sp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'weight_sharded': ((0, 1, 1), 'N/A')}
+dimensions:  4
+param_len:  4
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DERIVED KNOBS:  []
+Not using envlogger
+Step: 0
+REWARD FORMULATION:  both
+DERIVED action_dict:  {'workload': {'num_npus': 1024, 'dp': 512, 'pp': 2, 'sp': 64, 'weight_sharded': 0, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}, 'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'collective-optimization': 'localBWAware', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000}, 'network': {'topology': ['Ring', 'FullyConnected', 'Ring', 'Switch'], 'npus-count': [4, 8, 4, 8], 'bandwidth': [187.5, 25.0, 75.0, 100.0], 'latency': [20.0, 700.0, 700.0, 1700.0]}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  1024 == 1024
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  65536 <= 1024
+constraint not satisfied
+Reward:  -inf
+Action Dict:  {'workload': {'num_npus': 1024, 'dp': 512, 'pp': 2, 'sp': 64, 'weight_sharded': 0, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}, 'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'collective-optimization': 'localBWAware', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000}, 'network': {'topology': ['Ring', 'FullyConnected', 'Ring', 'Switch'], 'npus-count': [4, 8, 4, 8], 'bandwidth': [187.5, 25.0, 75.0, 100.0], 'latency': [20.0, 700.0, 700.0, 1700.0]}}
+Info:  [inf inf]
+self.param_len:  0
+system knobs:  {}
+self.param_len:  0
+network knobs:  {}
+self.param_len:  0
+workload knobs:  {'dp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'pp': ({1, 2, 4}, 'N/A'), 'sp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'weight_sharded': ((0, 1, 1), 'N/A')}
+dimensions:  4
+param_len:  4
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DERIVED KNOBS:  []
+YAML PATH:  /home/archgym/workspace/aditi_jared/oss-arch-gym/settings/default_astrasim.yaml
+DIMENSION1:  4
+YAML DATA:  {'DeepSwarm': {'aco': {'ant_count': 16, 'greediness': 0.5, 'pheromone': {'decay': 0.1, 'evaporation': 0.5, 'start': 0.1, 'verbose': False}}, 'max_depth': 1024, 'metrics': 'loss', 'reuse_patience': 1, 'save_folder': None}, 'Nodes': {'ArchParamsNode': {'attributes': {'Dp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Pp': [1, 2, 4], 'Sp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Weight_sharded': [0, 1]}, 'transitions': {'OutputNode': 1.0}, 'type': 'ArchParams'}, 'InputNode': {'attributes': {'name': ['Input'], 'value': ['None']}, 'transitions': {'ArchParamsNode': 1.0}, 'type': 'Input'}, 'OutputNode': {'attributes': {'name': ['Output'], 'value': ['None']}, 'transitions': {}, 'type': 'Output'}}}
+reached node in path:  [<aco.DeepSwarm.deepswarm.nodes.Node object at 0x7fc052b38400>, <aco.DeepSwarm.deepswarm.nodes.Node object at 0x7fc052b38a60>]
+node in path:  Input(name:Input, value:None)
+rand attr:  Dp
+rand attr + 1:  Dp1
+node in path:  ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+rand attr:  Dp
+rand attr + 1:  Dp1
+node has attr:  Dp
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+self.param_len:  0
+system knobs:  {}
+self.param_len:  0
+network knobs:  {}
+self.param_len:  0
+workload knobs:  {'dp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'pp': ({1, 2, 4}, 'N/A'), 'sp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'weight_sharded': ((0, 1, 1), 'N/A')}
+dimensions:  4
+param_len:  4
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DERIVED KNOBS:  []
+YAML PATH:  /home/archgym/workspace/aditi_jared/oss-arch-gym/settings/default_astrasim.yaml
+DIMENSION1:  4
+YAML DATA:  {'DeepSwarm': {'aco': {'ant_count': 16, 'greediness': 0.5, 'pheromone': {'decay': 0.1, 'evaporation': 0.5, 'start': 0.1, 'verbose': False}}, 'max_depth': 1024, 'metrics': 'loss', 'reuse_patience': 1, 'save_folder': None}, 'Nodes': {'ArchParamsNode': {'attributes': {'Dp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Pp': [1, 2, 4], 'Sp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Weight_sharded': [0, 1]}, 'transitions': {'OutputNode': 1.0}, 'type': 'ArchParams'}, 'InputNode': {'attributes': {'name': ['Input'], 'value': ['None']}, 'transitions': {'ArchParamsNode': 1.0}, 'type': 'Input'}, 'OutputNode': {'attributes': {'name': ['Output'], 'value': ['None']}, 'transitions': {}, 'type': 'Output'}}}
+reached node in path:  [<aco.DeepSwarm.deepswarm.nodes.Node object at 0x7fc052b38400>, <aco.DeepSwarm.deepswarm.nodes.Node object at 0x7fc052b38a60>]
+node in path:  Input(name:Input, value:None)
+rand attr:  Dp
+rand attr + 1:  Dp1
+node in path:  ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+rand attr:  Dp
+rand attr + 1:  Dp1
+node has attr:  Dp
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+node dict:  {'name': 'ArchParamsNode', 'neighbours': [], 'is_expanded': False, 'type': 'ArchParams', 'attributes': [<aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b41f40>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58ee0>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58700>, <aco.DeepSwarm.deepswarm.nodes.NodeAttribute object at 0x7fc052b58af0>], 'available_transitions': [], 'Dp': 128, 'Pp': 1, 'Sp': 4, 'Weight_sharded': 1}
+node : ArchParamsNode(Dp:128, Pp:1, Sp:4, Weight_sharded:1)
+[DEBUG][Seed] 12234
+[DEBUG][RL Form] aco
+[DEBUG][Max Steps] 1024
+[DEBUG][Num Agents] 1
+[DEBUG][Reward Formulation] both
+[DEBUG][Reward Scaling] false
+self.param_len:  0
+system knobs:  {}
+self.param_len:  0
+network knobs:  {}
+self.param_len:  0
+workload knobs:  {'dp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'pp': ({1, 2, 4}, 'N/A'), 'sp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'weight_sharded': ((0, 1, 1), 'N/A')}
+dimensions:  4
+param_len:  4
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DERIVED KNOBS:  []
+Not using envlogger
+Step: 0
+REWARD FORMULATION:  both
+DERIVED action_dict:  {'workload': {'num_npus': 1024, 'dp': 128, 'pp': 1, 'sp': 4, 'weight_sharded': 0, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}, 'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'collective-optimization': 'localBWAware', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000}, 'network': {'topology': ['Ring', 'FullyConnected', 'Ring', 'Switch'], 'npus-count': [4, 8, 4, 8], 'bandwidth': [187.5, 25.0, 75.0, 100.0], 'latency': [20.0, 700.0, 700.0, 1700.0]}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  1024 == 1024
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  512 <= 1024
+constraint satisfied
+GENERATING WORKLOAD...
+REACHED workload_cfg_to_et.py
+workload_cfg:  /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload_cfg_1_gpt3_175b.json
+workload_et:  /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload-et/generated.%d.et
+Running simulation...
+all configs:  {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'collective-optimization': 'localBWAware', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000} {'topology': ['Ring', 'FullyConnected', 'Ring', 'Switch'], 'npus_count': [4, 8, 4, 8], 'bandwidth': [187.5, 25.0, 75.0, 100.0], 'latency': [20.0, 700.0, 700.0, 1700.0]} {'num_npus': 1024, 'dp': 128, 'pp': 1, 'sp': 4, 'weight_sharded': 0, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/run.sh /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/network.yml /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/system.json /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload_cfg_1_gpt3_175b.json
+['/home/archgym/workspace/aditi_jared/oss-arch-gym', '/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim', '/home/archgym/miniconda3/envs/arch-gym/lib/python39.zip', '/home/archgym/miniconda3/envs/arch-gym/lib/python3.9', '/home/archgym/miniconda3/envs/arch-gym/lib/python3.9/lib-dynload', '/home/archgym/.local/lib/python3.9/site-packages', '/home/archgym/miniconda3/envs/arch-gym/lib/python3.9/site-packages']
+[0mNumber of original training examples: 5
+Number of original test examples: 5
+PATH:  /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/../../settings/default_astrasim.yaml
+YAML DATA:  {'DeepSwarm': {'aco': {'ant_count': 16, 'greediness': 0.5, 'pheromone': {'decay': 0.1, 'evaporation': 0.5, 'start': 0.1, 'verbose': False}}, 'max_depth': 1024, 'metrics': 'loss', 'reuse_patience': 1, 'save_folder': None}, 'Nodes': {'ArchParamsNode': {'attributes': {'Dp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Pp': [1, 2, 4], 'Sp': [1, 2, 4, 8, 16, 32, 64, 128, 256, 512], 'Weight_sharded': [0, 1]}, 'transitions': {'OutputNode': 1.0}, 'type': 'ArchParams'}, 'InputNode': {'attributes': {'name': ['Input'], 'value': ['None']}, 'transitions': {'ArchParamsNode': 1.0}, 'type': 'Input'}, 'OutputNode': {'attributes': {'name': ['Output'], 'value': ['None']}, 'transitions': {}, 'type': 'Output'}}}
+ACO Timeout expired after 600.061445236206 seconds. Terminating the process...
+[0mAgent Config File /home/archgym/workspace/aditi_jared/oss-arch-gym/settings/default_astrasim.yaml
+Agent Hyperparams {'evaporation': 0.5, 'ant_count': 16, 'greediness': 0.5, 'depth': 1024, 'decay': 0.1, 'start': 0.1}
+train_aco_astra_sim
+Shell Command python trainACOAstraSim.py --workload=resnet18 --depth=1024 --ant_count=16 --evaporation=0.5 --greediness=0.5 --decay=0.1 --start=0.1 --summary_dir=./all_logs/experiment1c_1024_16_50_50_gpt3_175b_log/ecl-desktop-1 --reward_formulation=both --use_envlogger=False --knobs=astrasim_220_example/knobs_1.py --congestion_aware=True --network=astrasim_220_example/network_input_1.yml --system=astrasim_220_example/system_input_1.json --workload_file=astrasim_220_example/workload_cfg_1_gpt3_175b.json --timeout=600 
