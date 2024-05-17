@@ -1,2 +1,0 @@
-2024_04_10_01_24_06,-inf,"{'scheduling_policy': 'LIFO', 'collective_optimization': 'localBWAware', 'preferred_dataset_splits': 16, 'topology1': 'FullyConnected', 'dp': 4, 'sp': 8, 'pp': 4, 'weight_sharded': 0}",[inf]
-2024_04_10_01_24_07,-inf,"{'scheduling_policy': 'LIFO', 'collective_optimization': 'localBWAware', 'preferred_dataset_splits': 16, 'topology1': 'FullyConnected', 'dp': 4, 'sp': 8, 'pp': 4, 'weight_sharded': 0}",[inf]

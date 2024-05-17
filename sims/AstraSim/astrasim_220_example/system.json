@@ -2,15 +2,15 @@
 "scheduling-policy": "LIFO",
 "endpoint-delay": 10,
 "active-chunks-per-dimension": 1,
-"preferred-dataset-splits": 64,
-"all-reduce-implementation": ["ring"],
-"all-gather-implementation": ["ring"],
-"reduce-scatter-implementation": ["ring"],
-"all-to-all-implementation": ["ring"],
+"preferred-dataset-splits": 4,
+"all-reduce-implementation": ["ring", "direct", "ring", "halvingDoubling"],
+"all-gather-implementation": ["ring", "direct", "ring", "halvingDoubling"],
+"reduce-scatter-implementation": ["ring", "direct", "ring", "halvingDoubling"],
+"all-to-all-implementation": ["ring", "direct", "ring", "halvingDoubling"],
 "collective-optimization": "localBWAware",
 "boost-mode": 0,
 "roofline-enabled": 1,
-"peak-perf": 300,
-"local-mem-bw": 900,
-"track-local-mem": 1
+"peak-perf": 10,
+"local-mem-bw": 50,
+"memory-capacity": 39007027200
 }
