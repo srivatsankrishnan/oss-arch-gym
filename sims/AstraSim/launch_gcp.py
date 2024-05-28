@@ -322,7 +322,7 @@ def run_task(task):
             process.wait(timeout=timeout_sec)
         except subprocess.TimeoutExpired:
             print(f"BO Timeout expired after {timeout_sec} seconds. Terminating the process...")
-            process.terminate()
+            process.kill()
     else:
         os.system(cmd)
 
