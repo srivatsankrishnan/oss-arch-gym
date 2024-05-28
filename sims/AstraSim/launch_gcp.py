@@ -7,6 +7,7 @@ import yaml
 import json
 import socket
 import time
+import signal
 from datetime import date, datetime
 os.sys.path.insert(0, os.path.abspath('../../'))
 from configs import arch_gym_configs
@@ -322,7 +323,10 @@ def run_task(task):
             process.wait(timeout=timeout_sec)
         except subprocess.TimeoutExpired:
             print(f"BO Timeout expired after {timeout_sec} seconds. Terminating the process...")
-            process.kill()
+            time.sleep(3)
+            # process.kill()
+            # kill the proc_group instead! Kill all children, grandchildren, etc. 
+            os.killpg(os.getpgid(process.pid), signal.SIGKILL)
     else:
         os.system(cmd)
 
