@@ -1,6 +1,6 @@
 # MUST BE HYPHENATED
 SYSTEM_KNOBS = {
-    "peak-perf": ({10, 20, 40, 80}, 'N/A')
+    # "peak-perf": ({10, 20, 40, 80}, 'N/A')
 }
 
 # MUST BE HYPHENATED

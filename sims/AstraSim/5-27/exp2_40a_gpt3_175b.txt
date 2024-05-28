@@ -1,0 +1,107 @@
+REACHED workload_cfg_to_et.py
+workload_cfg:  /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload_cfg_2_gpt3_175b.json
+workload_et:  /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload-et/generated.%d.et
+[0mVERSION:  2
+astrasim_220_example/knobs_2.py
+astrasim_220_example/network_input_2.yml
+astrasim_220_example/system_input_2_40.json
+astrasim_220_example/workload_cfg_2_gpt3_175b.json
+[DEBUG][Seed] 12234
+[DEBUG][RL Form] random_walker
+[DEBUG][Max Steps] 50000
+[DEBUG][Num Agents] 1
+[DEBUG][Reward Formulation] both
+[DEBUG][Reward Scaling] false
+self.param_len:  0
+system knobs:  {}
+self.param_len:  0
+network knobs:  {}
+self.param_len:  0
+workload knobs:  {'dp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'pp': ({1, 2, 4}, 'N/A'), 'sp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'weight_sharded': ((0, 1, 1), 'N/A')}
+dimensions:  4
+param_len:  4
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DERIVED KNOBS:  []
+DIMENSION:  4
+0 0 DIMENSION:  4
+DIMENSION:  4
+0 1 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  both
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'collective-optimization': 'localBWAware', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 40, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Ring', 'FullyConnected', 'Ring', 'Switch'], 'npus-count': [4, 8, 4, 8], 'bandwidth': [187.5, 25.0, 75.0, 100.0], 'latency': [20.0, 700.0, 700.0, 1700.0]}, 'workload': {'num_npus': 1024, 'dp': 4, 'pp': 1, 'sp': 128, 'weight_sharded': 0, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  1024 == 1024
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  512 <= 1024
+constraint satisfied
+GENERATING WORKLOAD...
+Running simulation...
+all configs:  {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'collective-optimization': 'localBWAware', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000} {'topology': ['Ring', 'FullyConnected', 'Ring', 'Switch'], 'npus_count': [4, 8, 4, 8], 'bandwidth': [187.5, 25.0, 75.0, 100.0], 'latency': [20.0, 700.0, 700.0, 1700.0]} {'num_npus': 1024, 'dp': 64, 'pp': 1, 'sp': 8, 'weight_sharded': 0, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/run.sh /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/network.yml /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/system.json /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload_cfg_2_gpt3_175b.json
+OUT:  b'SCRIPT DIR: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example\nSH BINARY: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Aware\nSH NETWORK: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/network.yml\nSH SYSTEM: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/system.json\nSH WORKLOAD: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload-et/generated\nSH GENERATE: TRUE\nSH MEMORY: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/memory.json\nRUN COMMAND /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Aware --workload-configuration=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload-et/generated --system-configuration=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/system.json --network-configuration=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/network.yml --remote-memory-configuration=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/memory.json --comm-group-configuration=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload-et/generated.json --log-path=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/log.log\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 1\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 4\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 32\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 128\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 1\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 4\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 32\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 128\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 1\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 4\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 32\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 128\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 1\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 4\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 32\n[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 128\n[2024-05-27 17:08:22.646] [workload] [critical] node.id=4. Request comm_group.id=257, which is not defined in sys.id=0\ndone script\n'
+------------------------------------------------------------------
+standard output: 
+REACHED workload_cfg_to_et.py
+workload_cfg:  /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload_cfg_2_gpt3_175b.json
+workload_et:  /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload-et/generated.%d.et
+SCRIPT DIR: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example
+SH BINARY: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Aware
+SH NETWORK: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/network.yml
+SH SYSTEM: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/system.json
+SH WORKLOAD: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload-et/generated
+SH GENERATE: TRUE
+SH MEMORY: /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/memory.json
+RUN COMMAND /home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/build/astra_analytical/build/bin/AstraSim_Analytical_Congestion_Aware --workload-configuration=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload-et/generated --system-configuration=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/system.json --network-configuration=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/network.yml --remote-memory-configuration=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/memory.json --comm-group-configuration=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload-et/generated.json --log-path=/home/archgym/workspace/aditi_jared/oss-arch-gym/sims/AstraSim/astrasim_220_example/log.log
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 1
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 4
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 32
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 128
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 1
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 4
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 32
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 128
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 1
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 4
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 32
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 128
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 1
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 4
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 4 index in ring: 0total nodes in ring: 32
+[2024-05-27 17:08:16.182] [topology::RingTopology] [info] ring of node 0, id: 0 dimension: local total nodes in ring: 8 index in ring: 0total nodes in ring: 128
+[2024-05-27 17:08:22.646] [workload] [critical] node.id=4. Request comm_group.id=257, which is not defined in sys.id=0
+done script
+
+MAX_CYCLES:  0
+MAX_PEAK_MEM:  19330891776.0
+------------------------------------------------------------------
+Calculating reward...
+['0.e+00' '1.9330891776e+10']
+observations:  ['0.e+00' '1.9330891776e+10']
+reward:  -inf
+DIMENSION:  4
+0 2 DIMENSION:  4
+Step: 1
+REWARD FORMULATION:  both
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'collective-optimization': 'localBWAware', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 40, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Ring', 'FullyConnected', 'Ring', 'Switch'], 'npus-count': [4, 8, 4, 8], 'bandwidth': [187.5, 25.0, 75.0, 100.0], 'latency': [20.0, 700.0, 700.0, 1700.0]}, 'workload': {'num_npus': 1024, 'dp': 128, 'pp': 4, 'sp': 128, 'weight_sharded': 0, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  1024 == 1024
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  65536 <= 1024
+constraint not satisfied
+DIMENSION:  4
+0 3 DIMENSION:  4
+Step: 2
+REWARD FORMULATION:  both
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'collective-optimization': 'localBWAware', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 40, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Ring', 'FullyConnected', 'Ring', 'Switch'], 'npus-count': [4, 8, 4, 8], 'bandwidth': [187.5, 25.0, 75.0, 100.0], 'latency': [20.0, 700.0, 700.0, 1700.0]}, 'workload': {'num_npus': 1024, 'dp': 2, 'pp': 1, 'sp': 512, 'weight_sharded': 1, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  1024 == 1024
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  1024 <= 1024
+constraint satisfied
+GENERATING WORKLOAD...
+Running simulation...
+all configs:  {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'direct', 'ring', 'halvingDoubling'], 'collective-optimization': 'localBWAware', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 40, 'local-mem-bw': 50, 'memory-capacity': 24000000000} {'topology': ['Ring', 'FullyConnected', 'Ring', 'Switch'], 'npus_count': [4, 8, 4, 8], 'bandwidth': [187.5, 25.0, 75.0, 100.0], 'latency': [20.0, 700.0, 700.0, 1700.0]} {'num_npus': 1024, 'dp': 2, 'pp': 1, 'sp': 512, 'weight_sharded': 1, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}

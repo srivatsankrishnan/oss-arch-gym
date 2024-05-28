@@ -1,21 +1,35 @@
 import yaml
 import csv
 
-csv_file_path = "experiment_commands_vit_large.csv"
-# csv_file_path = "experiment_names_vit_large.csv"
+csv_file_path = "experiment_commands_vit_large_new.csv"
+# csv_file_path = "experiment_names_vit_large_new.csv"
 command_list = []
 
+# defaults
+for i in [1, 3, 4, 5]:
+    for letter in ["a", "b", "c", "d"]:
+        cmd = "python launch_gcp.py"
+        file_log = f"all_logs/experiment{i}{letter}_vit_large_log"
+        file_name = f"experiment{i}{letter}_vit_large.yml"
+
+        cmd += f" --experiment=./experiments_files/vit_large/{file_name}"
+        cmd += f" --summary_dir=./{file_log}"
+        cmd += f" --timeout=601200"
+
+        # cmd = f"experiment{i}{letter}_vit_large"
+
+        command_list.append(cmd)
+
 # b) ga
-steps_range = [512, 1024, 10000, 50000]
-num_agents_range = [16, 32, 64]
+steps_range = [1024, 10000]
+num_agents_range = [32, 64]
 prob_mut_range = [0.01, 0.05]
 
 # Iterate through combinations and create YAML files
-for i in range(1, 6, 1):
+for i in [1, 3, 4, 5]:
     for step in steps_range:
         for num_agents in num_agents_range:
             for prob in prob_mut_range:
-                
                 # Write the updated YAML content to a new file
                 # 0.001 = 1, 0.01 = 10, 0.05 = 50
                 cmd = "python launch_gcp.py"
@@ -39,18 +53,17 @@ for i in range(1, 6, 1):
 
 
 # c) aco
-steps_range = [128, 1024, 10000, 50000]
+steps_range = [1024, 10000]
 ant_count = [8, 16, 32]
 greediness_range = [0.25, 0.5, 0.75]
 evaporation_range = [0.25, 0.5, 0.75]
 
 # Iterate through combinations and create YAML files
-for i in range(1, 6, 1):
+for i in [1, 3, 4, 5]:
     for step in steps_range:
         for ant in ant_count:
             for greed in greediness_range:
                 for eva in evaporation_range:
-
                     cmd = "python launch_gcp.py"
                     # Write the updated YAML content to a new file
                     # 0.001 = 1, 0.01 = 10, 0.05 = 50
@@ -69,25 +82,24 @@ for i in range(1, 6, 1):
 
 
 # d) bo
-steps_range = [128, 512, 1024, 10000]
+steps_range = [1024, 5000]
 rand_state = [1, 2, 3, 4]
 
 # Iterate through combinations and create YAML files
-for i in range(1, 6, 1):
+for i in [1, 3, 4, 5]:
     for step in steps_range:
         for rand in rand_state:
-                
-                cmd = "python launch_gcp.py"
-                file_log = f"all_logs/experiment{i}d_{step}_{rand}_vit_large_log"
-                file_name = f"experiment{i}d_{step}_{rand}_vit_large.yml"
+            cmd = "python launch_gcp.py"
+            file_log = f"all_logs/experiment{i}d_{step}_{rand}_vit_large_log"
+            file_name = f"experiment{i}d_{step}_{rand}_vit_large.yml"
 
-                cmd += f" --experiment=./experiments_files/vit_large/{file_name}"
-                cmd += f" --summary_dir=./{file_log}"
-                cmd += f" --timeout=601200"
+            cmd += f" --experiment=./experiments_files/vit_large/{file_name}"
+            cmd += f" --summary_dir=./{file_log}"
+            cmd += f" --timeout=601200"
 
-                # cmd = f"experiment{i}d_{step}_{rand}_vit_large"
+            # cmd = f"experiment{i}d_{step}_{rand}_vit_large"
 
-                command_list.append(cmd)
+            command_list.append(cmd)
 
 with open(csv_file_path, mode='w', newline='') as file:
     writer = csv.writer(file)
