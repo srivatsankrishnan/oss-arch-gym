@@ -6,7 +6,7 @@ csv_file_path = "experiment_commands_vit_large_new.csv"
 command_list = []
 
 # defaults
-for i in [1, 3, 4, 5]:
+for i in [1, 4]:
     for letter in ["a", "b", "c", "d"]:
         cmd = "python launch_gcp.py"
         file_log = f"all_logs/experiment{i}{letter}_vit_large_log"
