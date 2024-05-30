@@ -65,7 +65,7 @@ for workload in {"vit_base", "vit_large", "gpt3_13b", "gpt3_175b"}:
                         print(file_name)
 
     # c) aco
-    steps_range = [1024, 100000]
+    steps_range = [1024, 10000]
     ant_count = [8, 16, 32]
     greediness_range = [0.25, 0.5, 0.75]
     evaporation_range = [0.25, 0.5, 0.75]

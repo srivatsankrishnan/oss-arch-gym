@@ -1,9 +1,0 @@
-ALGORITHM: ga
-KNOBS: astrasim_220_example/knobs_2.py
-NETWORK: astrasim_220_example/network_input_2.yml
-NUM_AGENTS: 16
-PROB_MUT: 0.05
-REWARD: both
-STEPS: 512
-SYSTEM: astrasim_220_example/system_input_2.json
-WORKLOAD: astrasim_220_example/workload_cfg_2_vit_large.json

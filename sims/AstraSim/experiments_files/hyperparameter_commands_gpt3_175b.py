@@ -1,8 +1,8 @@
 import yaml
 import csv
 
-# csv_file_path = "experiment_commands_gpt3_175b_new.csv"
-csv_file_path = "experiment_names_gpt3_175b_new.csv"
+csv_file_path = "experiment_commands_gpt3_175b_newest.csv"
+# csv_file_path = "experiment_names_gpt3_175b_newest.csv"
 command_list = []
 
 # defaults
@@ -14,11 +14,11 @@ for i in range(1, 6, 1):
                 file_log = f"all_logs/experiment{peak_perf}{letter}_gpt3_175b_log"
                 file_name = f"experiment{peak_perf}{letter}_gpt3_175b.yml"
 
-                # cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
-                # cmd += f" --summary_dir=./{file_log}"
-                # cmd += f" --timeout=601200"
+                cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
+                cmd += f" --summary_dir=./{file_log}"
+                cmd += f" --timeout=601200"
 
-                cmd = f"experiment{peak_perf}{letter}_gpt3_175b"
+                # cmd = f"experiment{peak_perf}{letter}_gpt3_175b"
 
                 command_list.append(cmd)
 
@@ -27,11 +27,11 @@ for i in range(1, 6, 1):
             file_log = f"all_logs/experiment{i}{letter}_gpt3_175b_log"
             file_name = f"experiment{i}{letter}_gpt3_175b.yml"
 
-            # cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
-            # cmd += f" --summary_dir=./{file_log}"
-            # cmd += f" --timeout=601200"
+            cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
+            cmd += f" --summary_dir=./{file_log}"
+            cmd += f" --timeout=601200"
 
-            cmd = f"experiment{i}{letter}_gpt3_175b"
+            # cmd = f"experiment{i}{letter}_gpt3_175b"
 
             command_list.append(cmd)
 
@@ -60,11 +60,11 @@ for i in range(1, 6, 1):
                         file_log = f"all_logs/experiment{peak_perf}b_{step}_{num_agents}_{prob_str}_gpt3_175b_log"
                         file_name = f"experiment{peak_perf}b_{step}_{num_agents}_{prob_str}_gpt3_175b.yml"
                         
-                        # cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
-                        # cmd += f" --summary_dir=./{file_log}"
-                        # cmd += f" --timeout=601200"
+                        cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
+                        cmd += f" --summary_dir=./{file_log}"
+                        cmd += f" --timeout=601200"
 
-                        cmd = f"experiment{peak_perf}b_{step}_{num_agents}_{prob_str}_gpt3_175b"
+                        # cmd = f"experiment{peak_perf}b_{step}_{num_agents}_{prob_str}_gpt3_175b"
 
                         command_list.append(cmd)
 
@@ -82,11 +82,11 @@ for i in range(1, 6, 1):
                     file_log = f"all_logs/experiment{i}b_{step}_{num_agents}_{prob_str}_gpt3_175b_log"
                     file_name = f"experiment{i}b_{step}_{num_agents}_{prob_str}_gpt3_175b.yml"
                     
-                    # cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
-                    # cmd += f" --summary_dir=./{file_log}"
-                    # cmd += f" --timeout=601200"
+                    cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
+                    cmd += f" --summary_dir=./{file_log}"
+                    cmd += f" --timeout=601200"
 
-                    cmd = f"experiment{i}b_{step}_{num_agents}_{prob_str}_gpt3_175b"
+                    # cmd = f"experiment{i}b_{step}_{num_agents}_{prob_str}_gpt3_175b"
 
                     command_list.append(cmd)
 
@@ -113,11 +113,11 @@ for i in range(1, 6, 1):
                             file_log = f"all_logs/experiment{peak_perf}c_{step}_{ant}_{greed_str}_{eva_str}_gpt3_175b_log"
                             file_name = f"experiment{peak_perf}c_{step}_{ant}_{greed_str}_{eva_str}_gpt3_175b.yml"
 
-                            # cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
-                            # cmd += f" --summary_dir=./{file_log}"
-                            # cmd += f" --timeout=601200"
+                            cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
+                            cmd += f" --summary_dir=./{file_log}"
+                            cmd += f" --timeout=601200"
 
-                            cmd = f"experiment{peak_perf}c_{step}_{ant}_{greed_str}_{eva_str}_gpt3_175b"
+                            # cmd = f"experiment{peak_perf}c_{step}_{ant}_{greed_str}_{eva_str}_gpt3_175b"
 
                             command_list.append(cmd)
 
@@ -130,11 +130,11 @@ for i in range(1, 6, 1):
                         file_log = f"all_logs/experiment{i}c_{step}_{ant}_{greed_str}_{eva_str}_gpt3_175b_log"
                         file_name = f"experiment{i}c_{step}_{ant}_{greed_str}_{eva_str}_gpt3_175b.yml"
 
-                        # cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
-                        # cmd += f" --summary_dir=./{file_log}"
-                        # cmd += f" --timeout=601200"
+                        cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
+                        cmd += f" --summary_dir=./{file_log}"
+                        cmd += f" --timeout=601200"
 
-                        cmd = f"experiment{i}c_{step}_{ant}_{greed_str}_{eva_str}_gpt3_175b"
+                        # cmd = f"experiment{i}c_{step}_{ant}_{greed_str}_{eva_str}_gpt3_175b"
 
                         command_list.append(cmd)
 
@@ -153,11 +153,11 @@ for i in range(1, 6, 1):
                     file_log = f"all_logs/experiment{peak_perf}d_{step}_{rand}_gpt3_175b_log"
                     file_name = f"experiment{peak_perf}d_{step}_{rand}_gpt3_175b.yml"
 
-                    # cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
-                    # cmd += f" --summary_dir=./{file_log}"
-                    # cmd += f" --timeout=601200"
+                    cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
+                    cmd += f" --summary_dir=./{file_log}"
+                    cmd += f" --timeout=601200"
 
-                    cmd = f"experiment{peak_perf}d_{step}_{rand}_gpt3_175b"
+                    # cmd = f"experiment{peak_perf}d_{step}_{rand}_gpt3_175b"
 
                     command_list.append(cmd)
 
@@ -166,11 +166,11 @@ for i in range(1, 6, 1):
                 file_log = f"all_logs/experiment{i}d_{step}_{rand}_gpt3_175b_log"
                 file_name = f"experiment{i}d_{step}_{rand}_gpt3_175b.yml"
 
-                # cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
-                # cmd += f" --summary_dir=./{file_log}"
-                # cmd += f" --timeout=601200"
+                cmd += f" --experiment=./experiments_files/gpt3_175b/{file_name}"
+                cmd += f" --summary_dir=./{file_log}"
+                cmd += f" --timeout=601200"
 
-                cmd = f"experiment{i}d_{step}_{rand}_gpt3_175b"
+                # cmd = f"experiment{i}d_{step}_{rand}_gpt3_175b"
 
                 command_list.append(cmd)
 
