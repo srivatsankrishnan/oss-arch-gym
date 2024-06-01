@@ -26,6 +26,9 @@ RUN cd oss-arch-gym/sims/AstraSim/astrasim_archgym_public/astra-sim/ && ./build/
 RUN chmod +x oss-arch-gym/sims/AstraSim/launch_gcp.py
 
 RUN cd oss-arch-gym && conda env create -f environment.yml
+# update sklearn to 1.2.2
+RUN cd oss-arch-gym && pip uninstall scikit-learn && pip install scikit-learn==1.2.2
+
 RUN apt-get update && apt-get -y install libgmp-dev gcc g++ libboost-all-dev
 RUN echo "conda activate arch-gym" >> ~/.bashrc
 SHELL ["/bin/bash", "--login", "-c"]
@@ -36,4 +39,4 @@ RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install en
 RUN chown -R 1000:root /workdir && chmod -R 775 /workdir
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--experiment=./experiments_files/gpt3_175b/experiment1a_gpt3_175b.yml", "--summary_dir=./all_logs/experiment1a_gpt3_175b_log", "--timeout=604799"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--experiment=./experiments_files/gpt3_175b/experiment1a_gpt3_175b.yml", "--summary_dir=./all_logs/experiment1a_gpt3_175b_log", "--timeout=604800"]
