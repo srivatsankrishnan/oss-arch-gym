@@ -237,7 +237,10 @@ class AstraSimEnv(gym.Env):
         print("Calculating reward...")
         print(observations)
         if observations[0] == '0.e+00' or float(observations[0]) == 0:
-            return float("-inf")
+            if self.rl_form == 'bo':
+                return np.format_float_scientific(-1000000000000000.0)
+            else:
+                return float("-inf")
         sum = 1.0
         for obs in observations:
             sum += ((float(obs) - 1) ** 2)
@@ -535,7 +538,10 @@ class AstraSimEnv(gym.Env):
                 continue
             else:
                 print("constraint not satisfied")
-                reward = float("-inf")
+                if self.rl_form == 'bo':
+                    reward = np.format_float_scientific(-1000000000000000.0)
+                else:
+                    reward = float("-inf")
                 observations = [float("inf")] * self.obs_len
                 observations = np.reshape(observations, self.observation_space.shape)
                 return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
@@ -597,7 +603,10 @@ class AstraSimEnv(gym.Env):
         if "memory-capacity" in sys:
             if max_peak_mem > sys["memory-capacity"]:
                 print("Memory constraint violated")
-                reward = float("-inf")
+                if self.rl_form == 'bo':
+                    reward = np.format_float_scientific(-1000000000000000.0)
+                else:
+                    reward = float("-inf")
                 observations = [float("inf")] * self.obs_len
                 observations = np.reshape(observations, self.observation_space.shape)
                 return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
