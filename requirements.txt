@@ -2,7 +2,7 @@ tensorboard >= 2.3
 tensorflow >= 2.3
 qhoptim >= 1.1
 torch >= 1.6
-scikit-learn
+scikit-learn==1.2.2
 xgboost
 atoma
 scikit-optimize
