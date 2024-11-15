@@ -1,0 +1,15 @@
+{
+    "num_npus": 1024,
+    "dp": 32,
+    "pp": 1,
+    "sp": 8,
+    "weight_sharded": 0,
+    "din": 768,
+    "dout": 768,
+    "dff": 3072,
+    "dmodel": 768,
+    "batch": 2048,
+    "seq": 256,
+    "head": 12,
+    "num_stacks": 4
+}
