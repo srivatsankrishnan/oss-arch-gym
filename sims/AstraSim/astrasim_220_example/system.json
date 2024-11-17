@@ -3,14 +3,14 @@
 "endpoint-delay": 10,
 "active-chunks-per-dimension": 1,
 "preferred-dataset-splits": 4,
-"all-reduce-implementation": ["ring", "direct", "ring", "halvingDoubling"],
-"all-gather-implementation": ["ring", "direct", "ring", "halvingDoubling"],
-"reduce-scatter-implementation": ["ring", "direct", "ring", "halvingDoubling"],
-"all-to-all-implementation": ["ring", "direct", "ring", "halvingDoubling"],
-"collective-optimization": "localBWAware",
+"all-reduce-implementation": ["direct", "direct", "halvingDoubling", "ring"],
+"all-gather-implementation": ["direct", "direct", "halvingDoubling", "ring"],
+"reduce-scatter-implementation": ["direct", "direct", "halvingDoubling", "ring"],
+"all-to-all-implementation": ["direct", "direct", "halvingDoubling", "ring"],
+"collective-optimization": "baseline",
 "boost-mode": 0,
 "roofline-enabled": 1,
 "peak-perf": 10,
 "local-mem-bw": 50,
-"memory-capacity": 39007027200
+"memory-capacity": 24000000000
 }

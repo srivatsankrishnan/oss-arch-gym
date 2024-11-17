@@ -188,10 +188,15 @@ def main(_):
         dimension = len(action_dict['network']["topology"])
 
     # only generate workload if knobs exist
-    if GENERATE_WORKLOAD == "TRUE":
-        action_dict['workload'] = astrasim_helper.parse_workload_astrasim(workload_file, action_dict, VERSION)
-    else:
-        action_dict['workload'] = {"path": workload_file}
+    # action dict includes all knobs
+    # 1. if generate workload == false and multimodal, need to parse 4 paths
+    # 2. if generate workload == true, need to parse all knobs in workload knobs
+    # TODO: copy this code inside the environment for loop because it changes across different models
+    # if GENERATE_WORKLOAD == "TRUE":
+    #     action_dict['workload'] = astrasim_helper.parse_workload_astrasim(workload_file, action_dict, VERSION)
+    # else:
+    #     action_dict['workload'] = {"path": workload_file}
+    action_dict['workload'] = {}
 
     best_reward, best_observation, best_actions = 0.0, 0.0, {}
 

@@ -7,20 +7,46 @@ DeepSwarm:
       evaporation: 0.25
       start: 0.1
       verbose: false
-  max_depth: 3000
+  max_depth: 100
   metrics: loss
   reuse_patience: 1
   save_folder: null
 Nodes:
   ArchParamsNode:
     attributes:
-      Scheduling_Policy:
-      - FIFO
-      - LIFO
-      Collective_Optimization:
-      - baseline
-      - localBWAware
-      Preferred_Dataset_Splits:
+      Topology1:
+      - FullyConnected
+      - Ring
+      - Switch
+      Topology2:
+      - FullyConnected
+      - Ring
+      - Switch
+      Topology3:
+      - FullyConnected
+      - Ring
+      - Switch
+      Topology4:
+      - FullyConnected
+      - Ring
+      - Switch
+      Npus_Count1:
+      - 4
+      - 8
+      - 16
+      Npus_Count2:
+      - 4
+      - 8
+      - 16
+      Npus_Count3:
+      - 4
+      - 8
+      - 16
+      Npus_Count4:
+      - 4
+      - 8
+      - 16
+      Dp:
       - 1
       - 2
       - 4
@@ -28,25 +54,24 @@ Nodes:
       - 16
       - 32
       - 64
-      Topology1:
-      - FullyConnected
-      - Ring
-      - Switch
-      Dp:
+      - 128
+      - 256
+      - 512
+      Pp:
       - 1
       - 2
       - 4
-      - 8
       Sp:
       - 1
       - 2
       - 4
       - 8
-      Pp:
-      - 1
-      - 2
-      - 4
-      - 8
+      - 16
+      - 32
+      - 64
+      - 128
+      - 256
+      - 512
       Weight_sharded:
       - 0
       - 1

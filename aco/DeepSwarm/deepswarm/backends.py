@@ -427,10 +427,11 @@ class DummyAstraSim():
         # SET UP ACTION DICT
         self.action_dict = {}
         # only generate workload if knobs exist
-        if GENERATE_WORKLOAD == "TRUE":
-            self.action_dict['workload'] = self.helper.parse_workload_astrasim(self.workload_file, self.action_dict, self.VERSION)
-        else:
-            self.action_dict['workload'] = {"path": self.workload_file}
+        # if GENERATE_WORKLOAD == "TRUE":
+        #     self.action_dict['workload'] = self.helper.parse_workload_astrasim(self.workload_file, self.action_dict, self.VERSION)
+        # else:
+        #     self.action_dict['workload'] = {"path": self.workload_file}
+        self.action_dict['workload'] = {}
 
         # parse system and network files
         self.helper.parse_system_astrasim(self.system_file, self.action_dict, self.VERSION)
@@ -438,6 +439,7 @@ class DummyAstraSim():
 
         dicts = [(system_knob, 'system'), (network_knob, 'network'), (workload_knob, 'workload')]
         yaml_path = os.path.join(self.proj_root_path, 'settings/default_astrasim.yaml')
+        print('BACKEND DICTS: ', dicts)
         print("YAML PATH: ", yaml_path)
         # set to everything in yaml file's default (last iteration)
         data = yaml.load(open(yaml_path), Loader=yaml.Loader)
@@ -498,12 +500,10 @@ class DummyAstraSim():
         
         # writes action dictionary of tunable knobs
         # unexposed knobs are filled in inside AstraSimEnv
+        # TODO: put knobs back to the action_dict
         print("reached node in path: ", path)
         # three knotes of Nodes: ArchParamsNode, InputNode, OutputNode
         for node in path:
-            print("node in path: ", node)
-            print("rand attr: ", rand_attr)
-            print("rand attr + 1: ", rand_attr + "1")
             if hasattr(node, rand_attr) or hasattr(node, rand_attr + "1"):
                 print("node has attr: ", rand_attr)
                 for attr, value in node.__dict__.items():
@@ -511,7 +511,13 @@ class DummyAstraSim():
                     print("node :", node)
                     # converts from camelCase to hyphen
                     knob_converted = self.helper.revert_knob_ga_astrasim(attr)
+                    if attr.lower() in workload_knob:
+                        knob_converted = attr.lower()
                     for dict_type, dict_name in dicts:
+                        # print("DICT TYPE: ", dict_type)
+                        # print("DICT NAME: ", dict_name)
+                        # print("KNOB NOT CONVERTED: ", attr)
+                        # print("KNOB CONVERTED: ", knob_converted)
                         # if tunable knob found in current dict_type
                         if knob_converted in dict_type:
                             # False means it changes with each dimension
@@ -527,11 +533,15 @@ class DummyAstraSim():
                                 self.action_dict[dict_name][knob_converted] = [value for _ in range(dimension)]
                             else:
                                 self.action_dict[dict_name][knob_converted] = value
+        
+        print("BACKEND FINAL ACTION DICT: ", self.action_dict)
+        print("BACKEND FINAL ACTION DICT WORKLOADS: ", self.action_dict['workload'])
 
         if "dimensions-count" in network_knob:
             print("Dimension count in network knob")
             self.action_dict["network"]["dimensions-count"] = dimension
-            print("ACTION DICT: ", self.action_dict)
+    
+
 
     # Fit function = step function
     # Environment already calculates reward so don't need calc_reward
@@ -575,6 +585,8 @@ class DummyAstraSim():
         env = self.wrap_in_envlogger(env_wrapper, self.traject_dir, self.use_envlogger)
         env.reset()
 
+        # HERE is where ACO takes a step for Astra-Sim
+        print("BACKENDS STEP ACTION_DICT: ", self.action_dict)
         step_type, reward, discount, info = env.step(self.action_dict)
 
         self.fitness_hist['reward'] = reward

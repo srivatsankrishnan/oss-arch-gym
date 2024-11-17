@@ -1,0 +1,30 @@
+[0mmodel_path exists
+Trajectory directory: ./all_logs/experiment7d_logs/ecl-desktop-1/bo_trajectories/both/resnet18_random_state_0_num_iter_10000
+[Experiment]:  resnet18_random_state_0_num_iter_10000
+[Trajectory Log path]:  ./all_logs/experiment7d_logs/ecl-desktop-1/bo_trajectories/both/resnet18_random_state_0_num_iter_10000
+[Experiment]:  test
+[Trajectory Log path]:  traj
+[Experiment]:  test
+[Trajectory Log path]:  traj
+[DEBUG][Seed] 12234
+[DEBUG][RL Form] bo
+[DEBUG][Max Steps] 10000
+[DEBUG][Num Agents] 1
+[DEBUG][Reward Formulation] both
+[DEBUG][Reward Scaling] false
+ENV - self.workload_files:  ['/home/archgym/workspace/aditi_jared/oss-arch-gym/bo/../sims/AstraSim/astrasim_220_example/workload_cfg_7_gpt3_13b.json']
+self.param_len:  0
+system knobs:  {}
+self.param_len:  0
+network knobs:  {'topology': ({'Ring', 'Switch', 'FullyConnected'}, 'FALSE'), 'npus-count': ({8, 16, 4}, 'FALSE')}
+self.param_len:  8
+workload knobs:  {'dp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'pp': ({1, 2, 4}, 'N/A'), 'sp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'weight_sharded': ((0, 1, 1), 'N/A')}
+dimensions:  4
+param_len:  12
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DERIVED KNOBS:  ['network bandwidth', 'system all-reduce-implementation', 'system all-gather-implementation', 'system reduce-scatter-implementation', 'system all-to-all-implementation']
+Not using envlogger
+[0mlaunch_gcp.py - Workload File: astrasim_220_example/workload_cfg_7_gpt3_13b.json
+train_bo_astra_sim
+Shell Command python train_bo_AstraSim.py --workload=resnet18 --num_iter=10000 --random_state=0 --summary_dir=./all_logs/experiment7d_logs/ecl-desktop-1 --reward_formulation=both --use_envlogger=False --knobs=astrasim_220_example/knobs_7.py --congestion_aware=True --network=astrasim_220_example/network_input_7.yml --system=astrasim_220_example/system_input_7.json --workload_file=astrasim_220_example/workload_cfg_7_gpt3_13b.json --timeout=345600 

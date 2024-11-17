@@ -148,10 +148,11 @@ class AstraSimEstimator(BaseEstimator):
 
         actual_action = {}
         # only generate workload if knobs exist
-        if self.GENERATE_WORKLOAD == "TRUE":
-            actual_action['workload'] = self.helper.parse_workload_astrasim(self.workload_file, actual_action, VERSION)
-        else:
-            actual_action['workload'] = {"path": self.workload_file}
+        # if self.GENERATE_WORKLOAD == "TRUE":
+        #     actual_action['workload'] = self.helper.parse_workload_astrasim(self.workload_file, actual_action, VERSION)
+        # else:
+        #     actual_action['workload'] = {"path": self.workload_file}
+        actual_action['workload'] = {}
 
         actual_action['network'] = self.helper.parse_network_astrasim(self.network_file, actual_action, VERSION)
         actual_action['system'] = self.helper.parse_system_astrasim(self.system_file, actual_action, VERSION)

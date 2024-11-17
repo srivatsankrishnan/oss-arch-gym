@@ -934,8 +934,7 @@ class helpers():
         return action_dict['system']
 
     # workload: parses the workload file
-    def parse_workload_astrasim(self, workload_file, action_dict, version):
-        action_dict['workload'] = {}
+    def parse_workload_astrasim(self, workload_file, action_dict, version, workload_knobs={}):
         if version == 1:
             pass
         else:
@@ -944,7 +943,9 @@ class helpers():
                 workload = json.load(f)
 
                 for key in workload.keys():
-                    action_dict['workload'][key] = workload[key]
+                    # TODO: only replace the non-knob parameters that are different across models
+                    if key not in workload_knobs:
+                        action_dict['workload'][key] = workload[key]
         return action_dict['workload']
 
     # parses knobs that we want to experiment with
