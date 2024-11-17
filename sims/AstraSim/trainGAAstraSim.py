@@ -37,6 +37,7 @@ flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to
 flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
 flags.DEFINE_bool('congestion_aware', True, "astra-sim congestion aware or not")
 flags.DEFINE_integer('timeout', 345600, 'Timeout for the experiment')
+flags.DEFINE_bool('multi_modal', False, 'Whether to use multi-modal or not')
 # FLAGS.workload_file = astrasim_220_example/workload_cfg.json if GENERATE_WORKLOAD = True
 # FLAGS.workload_file = astrasim_220_example/workload-et/generated if GENERATE_WORKLOAD = False
 
@@ -124,7 +125,7 @@ def AstraSim_optimization_function(p):
         workload_file = os.path.join(proj_root_path, FLAGS.workload_file)
     
     env = AstraSimWrapper.make_astraSim_env(knobs_spec=knobs_spec, network=network_file, system=system_file, 
-                                            workload=workload_file, rl_form='random_walker', congestion_aware=FLAGS.congestion_aware, 
+                                            workload=workload_file, rl_form='ga', congestion_aware=FLAGS.congestion_aware, 
                                             reward_formulation=FLAGS.reward_formulation, max_steps=FLAGS.num_steps)
     fitness_hist = {}
 
@@ -147,13 +148,16 @@ def AstraSim_optimization_function(p):
     system_knob, network_knob, workload_knob = astraSim_helper.parse_knobs_astrasim(knobs_spec)
 
     action_dict = {}
-    # only generate workload if knobs exist
-    if GENERATE_WORKLOAD == "TRUE":
-        action_dict['workload'] = astraSim_helper.parse_workload_astrasim(workload_file, action_dict, VERSION)
-    else:
-        action_dict['workload'] = {"path": workload_file}
+    # # only generate workload if knobs exist
+    # if GENERATE_WORKLOAD == "TRUE":
+    #     action_dict['workload'] = astraSim_helper.parse_workload_astrasim(workload_file, action_dict, VERSION)
+    # else:
+    #     action_dict['workload'] = {"path": workload_file}
+    # action_dict['workload'] = {}
     
     # parse system and network
+    if 'workload' not in action_dict:
+        action_dict['workload'] = {}
     action_dict['system'] = astraSim_helper.parse_system_astrasim(system_file, action_dict, VERSION)
     action_dict['network'] = astraSim_helper.parse_network_astrasim(network_file, action_dict, VERSION)
 
@@ -168,6 +172,8 @@ def AstraSim_optimization_function(p):
     for sect in action_dict_decoded:
         for key in action_dict_decoded[sect]:
             action_dict[sect][key] = action_dict_decoded[sect][key]
+            if key == 'weight_sharded':
+                action_dict[sect][key] = int(action_dict_decoded[sect][key])
 
     print("TIME REMAINING: ", FLAGS.timeout - (time.time() - start_time))
 

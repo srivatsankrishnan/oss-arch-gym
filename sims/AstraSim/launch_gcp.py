@@ -24,7 +24,7 @@ flags.DEFINE_integer('num_iter', 30, 'Number of iterations')
 flags.DEFINE_string('knobs', 'astrasim_220_example/knobs.py', "path to knobs spec file")
 flags.DEFINE_string('network', 'astrasim_220_example/network_input.yml', "path to network input file")
 flags.DEFINE_string('system', 'astrasim_220_example/system_input.json', "path to system input file")
-flags.DEFINE_string('workload_file', 'astrasim_220_example/workload_cfg.json', "path to workload input file")
+flags.DEFINE_string('workload_file', 'astrasim_220_example/experiments_files/gpt3_13b/experiment1a_gpt3_13b.yml', "path to workload input file")
 flags.DEFINE_string('reward_formulation', 'latency', 'Reward formulation to use')
 flags.DEFINE_string('algo', 'ga', 'Which Algorithm to run')
 flags.DEFINE_string('workload', 'resnet18', 'Which workload to run')
@@ -348,7 +348,23 @@ def main(_):
     FLAGS.knobs = experiment_data["KNOBS"]
     FLAGS.network = experiment_data["NETWORK"]
     FLAGS.system = experiment_data["SYSTEM"]
-    FLAGS.workload_file = experiment_data["WORKLOAD"]
+    # FLAGS.workload_file = experiment_data["WORKLOAD"]
+    # print('Workload File:', FLAGS.workload_file)
+    workload_data = experiment_data["WORKLOAD"]
+    workload_string = ""
+    if isinstance(workload_data, str):
+        # Single workload string
+        workload_string = workload_data
+    elif isinstance(workload_data, list):
+        # List of workloads
+        for i in range(len(workload_data)):
+            workload_string += workload_data[i]
+            if i != len(workload_data) - 1:
+                workload_string += ","
+
+    FLAGS.workload_file = workload_string
+    print('launch_gcp.py - Workload File:', FLAGS.workload_file)
+
     FLAGS.reward_formulation = experiment_data["REWARD"]
 
     if "NUM_AGENTS" in experiment_data:
