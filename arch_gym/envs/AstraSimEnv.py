@@ -287,10 +287,7 @@ class AstraSimEnv(gym.Env):
             print(f"ENV - step {self.counter} {i}th workload: {new_workload_file}")
             print("ENV - PARSE ACTION_DICT before: ", action_dict['workload'])
             if self.generate_workload == "TRUE":
-                if self.counter == 0 and self.rl_form != 'ga' and self.rl_form != 'aco' and self.rl_form != 'bo':
-                    action_dict['workload'] = self.helpers.parse_workload_astrasim(cur_workload_file, action_dict, VERSION, {})
-                else:
-                    action_dict['workload'] = self.helpers.parse_workload_astrasim(cur_workload_file, action_dict, VERSION, self.workload_knobs)
+                action_dict['workload'] = self.helpers.parse_workload_astrasim(cur_workload_file, action_dict, VERSION, self.workload_knobs)
             else:
                 action_dict['workload'] = {"path": cur_workload_file}
             print("ENV - PARSE ACTION_DICT after: ", action_dict['workload'])
