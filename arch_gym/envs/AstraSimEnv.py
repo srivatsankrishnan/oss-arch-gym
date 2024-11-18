@@ -567,6 +567,17 @@ class AstraSimEnv(gym.Env):
                     return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
                     # return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
             
+             # TODO: Will's cost model new constraint, first topology cannot be switch else segfault
+            if action_dict["network"]["topology"][0] == "Switch":
+                print("ENV - SWITCH topology[0] constraint violated")
+                if self.rl_form == 'bo':
+                    reward = np.format_float_scientific(-1000000000000000.0)
+                else:
+                    reward = float("-inf")
+                observations = [float("inf")] * self.obs_len
+                observations = np.reshape(observations, self.observation_space.shape)
+                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+                
             # TODO: this is where the workload is generated as et files
             if self.generate_workload == "TRUE":
                 print("GENERATING WORKLOAD...")
