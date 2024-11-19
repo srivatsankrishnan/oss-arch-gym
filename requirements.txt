@@ -1,25 +1,25 @@
-tensorboard >= 2.3
-tensorflow >= 2.3
-qhoptim >= 1.1
-torch >= 1.6
+tensorboard==2.8.0
+tensorflow==2.8.0
+qhoptim==1.1.0
+torch==2.0.1
 scikit-learn==1.2.2
-xgboost
-atoma
-scikit-optimize
+xgboost==2.0.2
+atoma==0.0.17
+scikit-optimize==0.9.0
 envlogger==1.0.8
-absl-py
-sympy
-plotly
-scons
-portpicker
-dill
-jupyter
-appdirs
-wandb
-matplotlib
-ninja
-packaging
-scipy
-gpustat
-watch
-lit
+absl-py==1.4.0
+sympy==1.12
+plotly==5.18.0
+scons==4.5.2
+portpicker==1.5.2
+dill==0.3.6
+jupyter==1.0.0
+appdirs==1.4.4
+wandb==0.18.7
+matplotlib==3.6.3
+ninja==1.11.1
+packaging==23.1
+scipy==1.9.1
+gpustat==1.1.1
+watch==0.2.7
+lit==16.0.3
