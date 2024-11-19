@@ -1,0 +1,283 @@
+[0mVERSION:  2
+astrasim_220_example/knobs_8.py
+astrasim_220_example/network_input_8.yml
+astrasim_220_example/system_input_8.json
+astrasim_220_example/workload_cfg_8_gpt3_175b.json
+[DEBUG][Seed] 12234
+[DEBUG][RL Form] random_walker
+[DEBUG][Max Steps] 50000
+[DEBUG][Num Agents] 1
+[DEBUG][Reward Formulation] runtime*cost
+[DEBUG][Reward Scaling] false
+ENV - self.workload_files:  ['/home/archgym/workspace/aditi_jared/11-19/oss-arch-gym/sims/AstraSim/astrasim_220_example/workload_cfg_8_gpt3_175b.json']
+self.param_len:  0
+system knobs:  {}
+self.param_len:  0
+network knobs:  {'topology': ({'Ring', 'Switch', 'FullyConnected'}, 'FALSE'), 'npus-count': ({8, 16, 4}, 'FALSE')}
+self.param_len:  8
+workload knobs:  {'dp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'pp': ({1, 2, 4}, 'N/A'), 'sp': ({32, 1, 2, 64, 4, 128, 256, 512, 8, 16}, 'N/A'), 'weight_sharded': ((0, 1, 1), 'N/A')}
+dimensions:  4
+param_len:  12
+_____________________*****************************_____________________
+CONSTRAINTS:  ['product network npus-count == num workload num_npus', 'mult workload dp workload sp workload pp <= num workload num_npus']
+DERIVED KNOBS:  ['network bandwidth', 'system all-reduce-implementation', 'system all-gather-implementation', 'system reduce-scatter-implementation', 'system all-to-all-implementation']
+DIMENSION:  4
+0 0 DIMENSION:  4
+DIMENSION:  4
+0 1 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 16, 'pp': 4, 'sp': 64, 'weight_sharded': 0}
+ENV - PARSE ACTION_DICT after:  {'dp': 16, 'pp': 4, 'sp': 64, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [50, 50, 100, 33.333333333333336]
+system knob:  ['ring', 'ring', 'halvingDoubling', 'direct']
+system knob:  ['ring', 'ring', 'halvingDoubling', 'direct']
+system knob:  ['ring', 'ring', 'halvingDoubling', 'direct']
+system knob:  ['ring', 'ring', 'halvingDoubling', 'direct']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'ring', 'halvingDoubling', 'direct'], 'all-gather-implementation': ['ring', 'ring', 'halvingDoubling', 'direct'], 'reduce-scatter-implementation': ['ring', 'ring', 'halvingDoubling', 'direct'], 'all-to-all-implementation': ['ring', 'ring', 'halvingDoubling', 'direct'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Ring', 'Ring', 'Switch', 'FullyConnected'], 'npus-count': [8, 4, 4, 4], 'bandwidth': [50, 50, 100, 33.333333333333336], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 16, 'pp': 4, 'sp': 64, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  512 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 2 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 32, 'pp': 2, 'sp': 128, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 32, 'pp': 2, 'sp': 128, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [6.666666666666667, 100, 50, 100]
+system knob:  ['direct', 'halvingDoubling', 'ring', 'halvingDoubling']
+system knob:  ['direct', 'halvingDoubling', 'ring', 'halvingDoubling']
+system knob:  ['direct', 'halvingDoubling', 'ring', 'halvingDoubling']
+system knob:  ['direct', 'halvingDoubling', 'ring', 'halvingDoubling']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['direct', 'halvingDoubling', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['direct', 'halvingDoubling', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['direct', 'halvingDoubling', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['direct', 'halvingDoubling', 'ring', 'halvingDoubling'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['FullyConnected', 'Switch', 'Ring', 'Switch'], 'npus-count': [16, 8, 8, 4], 'bandwidth': [6.666666666666667, 100, 50, 100], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 32, 'pp': 2, 'sp': 128, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  4096 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 3 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 128, 'pp': 1, 'sp': 64, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 128, 'pp': 1, 'sp': 64, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [50, 100, 50, 100]
+system knob:  ['ring', 'halvingDoubling', 'ring', 'halvingDoubling']
+system knob:  ['ring', 'halvingDoubling', 'ring', 'halvingDoubling']
+system knob:  ['ring', 'halvingDoubling', 'ring', 'halvingDoubling']
+system knob:  ['ring', 'halvingDoubling', 'ring', 'halvingDoubling']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'halvingDoubling', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'halvingDoubling', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'halvingDoubling', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'halvingDoubling', 'ring', 'halvingDoubling'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Ring', 'Switch', 'Ring', 'Switch'], 'npus-count': [16, 4, 8, 8], 'bandwidth': [50, 100, 50, 100], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 128, 'pp': 1, 'sp': 64, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  4096 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 4 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 4, 'pp': 2, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 4, 'pp': 2, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [50, 50, 100, 6.666666666666667]
+system knob:  ['ring', 'ring', 'halvingDoubling', 'direct']
+system knob:  ['ring', 'ring', 'halvingDoubling', 'direct']
+system knob:  ['ring', 'ring', 'halvingDoubling', 'direct']
+system knob:  ['ring', 'ring', 'halvingDoubling', 'direct']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'ring', 'halvingDoubling', 'direct'], 'all-gather-implementation': ['ring', 'ring', 'halvingDoubling', 'direct'], 'reduce-scatter-implementation': ['ring', 'ring', 'halvingDoubling', 'direct'], 'all-to-all-implementation': ['ring', 'ring', 'halvingDoubling', 'direct'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Ring', 'Ring', 'Switch', 'FullyConnected'], 'npus-count': [8, 16, 16, 16], 'bandwidth': [50, 50, 100, 6.666666666666667], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 4, 'pp': 2, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  32768 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 5 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 512, 'pp': 4, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 512, 'pp': 4, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [50, 33.333333333333336, 33.333333333333336, 100]
+system knob:  ['ring', 'direct', 'direct', 'halvingDoubling']
+system knob:  ['ring', 'direct', 'direct', 'halvingDoubling']
+system knob:  ['ring', 'direct', 'direct', 'halvingDoubling']
+system knob:  ['ring', 'direct', 'direct', 'halvingDoubling']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'direct', 'halvingDoubling'], 'all-gather-implementation': ['ring', 'direct', 'direct', 'halvingDoubling'], 'reduce-scatter-implementation': ['ring', 'direct', 'direct', 'halvingDoubling'], 'all-to-all-implementation': ['ring', 'direct', 'direct', 'halvingDoubling'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Ring', 'FullyConnected', 'FullyConnected', 'Switch'], 'npus-count': [8, 4, 4, 16], 'bandwidth': [50, 33.333333333333336, 33.333333333333336, 100], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 512, 'pp': 4, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  2048 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 6 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 4, 'pp': 2, 'sp': 64, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 4, 'pp': 2, 'sp': 64, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [50, 33.333333333333336, 50, 50]
+system knob:  ['ring', 'direct', 'ring', 'ring']
+system knob:  ['ring', 'direct', 'ring', 'ring']
+system knob:  ['ring', 'direct', 'ring', 'ring']
+system knob:  ['ring', 'direct', 'ring', 'ring']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'direct', 'ring', 'ring'], 'all-gather-implementation': ['ring', 'direct', 'ring', 'ring'], 'reduce-scatter-implementation': ['ring', 'direct', 'ring', 'ring'], 'all-to-all-implementation': ['ring', 'direct', 'ring', 'ring'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Ring', 'FullyConnected', 'Ring', 'Ring'], 'npus-count': [16, 4, 8, 8], 'bandwidth': [50, 33.333333333333336, 50, 50], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 4, 'pp': 2, 'sp': 64, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  4096 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 7 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 8, 'pp': 2, 'sp': 32, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 8, 'pp': 2, 'sp': 32, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [100, 100, 6.666666666666667, 100]
+system knob:  ['halvingDoubling', 'halvingDoubling', 'direct', 'halvingDoubling']
+system knob:  ['halvingDoubling', 'halvingDoubling', 'direct', 'halvingDoubling']
+system knob:  ['halvingDoubling', 'halvingDoubling', 'direct', 'halvingDoubling']
+system knob:  ['halvingDoubling', 'halvingDoubling', 'direct', 'halvingDoubling']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['halvingDoubling', 'halvingDoubling', 'direct', 'halvingDoubling'], 'all-gather-implementation': ['halvingDoubling', 'halvingDoubling', 'direct', 'halvingDoubling'], 'reduce-scatter-implementation': ['halvingDoubling', 'halvingDoubling', 'direct', 'halvingDoubling'], 'all-to-all-implementation': ['halvingDoubling', 'halvingDoubling', 'direct', 'halvingDoubling'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Switch', 'Switch', 'FullyConnected', 'Switch'], 'npus-count': [16, 4, 16, 4], 'bandwidth': [100, 100, 6.666666666666667, 100], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 8, 'pp': 2, 'sp': 32, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  4096 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 8 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 128, 'pp': 4, 'sp': 64, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 128, 'pp': 4, 'sp': 64, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [14.285714285714286, 14.285714285714286, 33.333333333333336, 100]
+system knob:  ['direct', 'direct', 'direct', 'halvingDoubling']
+system knob:  ['direct', 'direct', 'direct', 'halvingDoubling']
+system knob:  ['direct', 'direct', 'direct', 'halvingDoubling']
+system knob:  ['direct', 'direct', 'direct', 'halvingDoubling']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['direct', 'direct', 'direct', 'halvingDoubling'], 'all-gather-implementation': ['direct', 'direct', 'direct', 'halvingDoubling'], 'reduce-scatter-implementation': ['direct', 'direct', 'direct', 'halvingDoubling'], 'all-to-all-implementation': ['direct', 'direct', 'direct', 'halvingDoubling'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['FullyConnected', 'FullyConnected', 'FullyConnected', 'Switch'], 'npus-count': [8, 8, 4, 4], 'bandwidth': [14.285714285714286, 14.285714285714286, 33.333333333333336, 100], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 128, 'pp': 4, 'sp': 64, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  1024 == 1024
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  32768 <= 1024
+constraint not satisfied
+DIMENSION:  4
+0 9 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 4, 'pp': 2, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 4, 'pp': 2, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [100, 33.333333333333336, 50, 100]
+system knob:  ['halvingDoubling', 'direct', 'ring', 'halvingDoubling']
+system knob:  ['halvingDoubling', 'direct', 'ring', 'halvingDoubling']
+system knob:  ['halvingDoubling', 'direct', 'ring', 'halvingDoubling']
+system knob:  ['halvingDoubling', 'direct', 'ring', 'halvingDoubling']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['halvingDoubling', 'direct', 'ring', 'halvingDoubling'], 'all-gather-implementation': ['halvingDoubling', 'direct', 'ring', 'halvingDoubling'], 'reduce-scatter-implementation': ['halvingDoubling', 'direct', 'ring', 'halvingDoubling'], 'all-to-all-implementation': ['halvingDoubling', 'direct', 'ring', 'halvingDoubling'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Switch', 'FullyConnected', 'Ring', 'Switch'], 'npus-count': [16, 4, 8, 8], 'bandwidth': [100, 33.333333333333336, 50, 100], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 4, 'pp': 2, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  4096 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 10 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 4, 'pp': 1, 'sp': 1, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 4, 'pp': 1, 'sp': 1, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [50, 50, 100, 50]
+system knob:  ['ring', 'ring', 'halvingDoubling', 'ring']
+system knob:  ['ring', 'ring', 'halvingDoubling', 'ring']
+system knob:  ['ring', 'ring', 'halvingDoubling', 'ring']
+system knob:  ['ring', 'ring', 'halvingDoubling', 'ring']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['ring', 'ring', 'halvingDoubling', 'ring'], 'all-gather-implementation': ['ring', 'ring', 'halvingDoubling', 'ring'], 'reduce-scatter-implementation': ['ring', 'ring', 'halvingDoubling', 'ring'], 'all-to-all-implementation': ['ring', 'ring', 'halvingDoubling', 'ring'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Ring', 'Ring', 'Switch', 'Ring'], 'npus-count': [16, 16, 8, 4], 'bandwidth': [50, 50, 100, 50], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 4, 'pp': 1, 'sp': 1, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  8192 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 11 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 256, 'pp': 4, 'sp': 256, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 256, 'pp': 4, 'sp': 256, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [100, 6.666666666666667, 50, 50]
+system knob:  ['halvingDoubling', 'direct', 'ring', 'ring']
+system knob:  ['halvingDoubling', 'direct', 'ring', 'ring']
+system knob:  ['halvingDoubling', 'direct', 'ring', 'ring']
+system knob:  ['halvingDoubling', 'direct', 'ring', 'ring']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['halvingDoubling', 'direct', 'ring', 'ring'], 'all-gather-implementation': ['halvingDoubling', 'direct', 'ring', 'ring'], 'reduce-scatter-implementation': ['halvingDoubling', 'direct', 'ring', 'ring'], 'all-to-all-implementation': ['halvingDoubling', 'direct', 'ring', 'ring'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Switch', 'FullyConnected', 'Ring', 'Ring'], 'npus-count': [4, 16, 4, 8], 'bandwidth': [100, 6.666666666666667, 50, 50], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 256, 'pp': 4, 'sp': 256, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  2048 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 12 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 256, 'pp': 2, 'sp': 32, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 256, 'pp': 2, 'sp': 32, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [100, 100, 100, 100]
+system knob:  ['halvingDoubling', 'halvingDoubling', 'halvingDoubling', 'halvingDoubling']
+system knob:  ['halvingDoubling', 'halvingDoubling', 'halvingDoubling', 'halvingDoubling']
+system knob:  ['halvingDoubling', 'halvingDoubling', 'halvingDoubling', 'halvingDoubling']
+system knob:  ['halvingDoubling', 'halvingDoubling', 'halvingDoubling', 'halvingDoubling']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['halvingDoubling', 'halvingDoubling', 'halvingDoubling', 'halvingDoubling'], 'all-gather-implementation': ['halvingDoubling', 'halvingDoubling', 'halvingDoubling', 'halvingDoubling'], 'reduce-scatter-implementation': ['halvingDoubling', 'halvingDoubling', 'halvingDoubling', 'halvingDoubling'], 'all-to-all-implementation': ['halvingDoubling', 'halvingDoubling', 'halvingDoubling', 'halvingDoubling'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['Switch', 'Switch', 'Switch', 'Switch'], 'npus-count': [4, 8, 8, 4], 'bandwidth': [100, 100, 100, 100], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 256, 'pp': 2, 'sp': 32, 'weight_sharded': 1, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  1024 == 1024
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  16384 <= 1024
+constraint not satisfied
+DIMENSION:  4
+0 13 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 128, 'pp': 4, 'sp': 128, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 128, 'pp': 4, 'sp': 128, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [33.333333333333336, 50, 100, 100]
+system knob:  ['direct', 'ring', 'halvingDoubling', 'halvingDoubling']
+system knob:  ['direct', 'ring', 'halvingDoubling', 'halvingDoubling']
+system knob:  ['direct', 'ring', 'halvingDoubling', 'halvingDoubling']
+system knob:  ['direct', 'ring', 'halvingDoubling', 'halvingDoubling']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['direct', 'ring', 'halvingDoubling', 'halvingDoubling'], 'all-gather-implementation': ['direct', 'ring', 'halvingDoubling', 'halvingDoubling'], 'reduce-scatter-implementation': ['direct', 'ring', 'halvingDoubling', 'halvingDoubling'], 'all-to-all-implementation': ['direct', 'ring', 'halvingDoubling', 'halvingDoubling'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['FullyConnected', 'Ring', 'Switch', 'Switch'], 'npus-count': [4, 8, 16, 4], 'bandwidth': [33.333333333333336, 50, 100, 100], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 128, 'pp': 4, 'sp': 128, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  2048 == 1024
+constraint not satisfied
+DIMENSION:  4
+0 14 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 256, 'pp': 2, 'sp': 256, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 256, 'pp': 2, 'sp': 256, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [14.285714285714286, 33.333333333333336, 33.333333333333336, 14.285714285714286]
+system knob:  ['direct', 'direct', 'direct', 'direct']
+system knob:  ['direct', 'direct', 'direct', 'direct']
+system knob:  ['direct', 'direct', 'direct', 'direct']
+system knob:  ['direct', 'direct', 'direct', 'direct']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['direct', 'direct', 'direct', 'direct'], 'all-gather-implementation': ['direct', 'direct', 'direct', 'direct'], 'reduce-scatter-implementation': ['direct', 'direct', 'direct', 'direct'], 'all-to-all-implementation': ['direct', 'direct', 'direct', 'direct'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['FullyConnected', 'FullyConnected', 'FullyConnected', 'FullyConnected'], 'npus-count': [8, 4, 4, 8], 'bandwidth': [14.285714285714286, 33.333333333333336, 33.333333333333336, 14.285714285714286], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 256, 'pp': 2, 'sp': 256, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  1024 == 1024
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  131072 <= 1024
+constraint not satisfied
+DIMENSION:  4
+0 15 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  {'dp': 128, 'pp': 4, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+ENV - PARSE ACTION_DICT after:  {'dp': 128, 'pp': 4, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}
+network bandwidth:  [14.285714285714286, 50, 100, 14.285714285714286]
+system knob:  ['direct', 'ring', 'halvingDoubling', 'direct']
+system knob:  ['direct', 'ring', 'halvingDoubling', 'direct']
+system knob:  ['direct', 'ring', 'halvingDoubling', 'direct']
+system knob:  ['direct', 'ring', 'halvingDoubling', 'direct']
+DERIVED action_dict:  {'system': {'scheduling-policy': 'LIFO', 'endpoint-delay': 10, 'active-chunks-per-dimension': 1, 'preferred-dataset-splits': 4, 'all-reduce-implementation': ['direct', 'ring', 'halvingDoubling', 'direct'], 'all-gather-implementation': ['direct', 'ring', 'halvingDoubling', 'direct'], 'reduce-scatter-implementation': ['direct', 'ring', 'halvingDoubling', 'direct'], 'all-to-all-implementation': ['direct', 'ring', 'halvingDoubling', 'direct'], 'collective-optimization': 'baseline', 'boost-mode': 0, 'roofline-enabled': 1, 'peak-perf': 10, 'local-mem-bw': 50, 'memory-capacity': 24000000000}, 'network': {'topology': ['FullyConnected', 'Ring', 'Switch', 'FullyConnected'], 'npus-count': [8, 4, 4, 8], 'bandwidth': [14.285714285714286, 50, 100, 14.285714285714286], 'latency': [700.0, 700.0, 700.0, 700.0]}, 'workload': {'dp': 128, 'pp': 4, 'sp': 512, 'weight_sharded': 0, 'num_npus': 1024, 'din': 12288, 'dout': 12288, 'dff': 49152, 'dmodel': 12288, 'batch': 2048, 'seq': 2048, 'head': 96, 'num_stacks': 4}}
+!!!!!! CONSTRAINT:  product network npus-count == num workload num_npus
+EVALUABLE:  1024 == 1024
+constraint satisfied
+!!!!!! CONSTRAINT:  mult workload dp workload sp workload pp <= num workload num_npus
+EVALUABLE:  262144 <= 1024
+constraint not satisfied
+DIMENSION:  4
+0 16 DIMENSION:  4
+Step: 0
+REWARD FORMULATION:  runtime*cost
+ENV - step 0 0th workload: workload_cfg_8_gpt3_175b.json
+ENV - PARSE ACTION_DICT before:  
