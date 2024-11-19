@@ -34,9 +34,11 @@ RUN echo "conda activate arch-gym" >> ~/.bashrc
 SHELL ["/bin/bash", "--login", "-c"]
 
 RUN cd oss-arch-gym/acme && pip install .[orbax-checkpoint,orbax-export]
-RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install envlogger[tfds] scons && apt-get update && apt-get -y install libgmp-dev && pip install scikit-optimize sympy plotly && conda install --channel conda-forge pygraphviz && conda install -c anaconda python-graphviz && conda install -c anaconda pydot
+RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install envlogger[tfds] scons && apt-get update && apt-get -y install libgmp-dev && pip install scikit-optimize sympy plotly && conda install --channel conda-forge pygraphviz
+RUN conda install -c anaconda python-graphviz
+RUN conda install -c anaconda pydot
 
 RUN chown -R 1000:root /workdir && chmod -R 775 /workdir
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim
 
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--experiment=./experiments_files/gpt3_175b/experiment1a_gpt3_175b.yml", "--summary_dir=./all_logs/experiment1a_gpt3_175b_log", "--timeout=604800"]
+ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "arch-gym", "python", "launch_gcp.py", "--experiment=./11-17-2024-new_experiment-commands/experiment8a_gpt3_175b.yml", "--summary_dir=./11-17-2024-new_experiment-logs/experiment8a_gpt3_175b_log", "--timeout=604800"]

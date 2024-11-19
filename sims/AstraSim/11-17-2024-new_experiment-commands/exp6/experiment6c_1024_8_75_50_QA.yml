@@ -1,0 +1,10 @@
+ALGORITHM: aco
+ANT_COUNT: 8
+EVAPORATION: 0.5
+GREEDINESS: 0.75
+KNOBS: astrasim_220_example/knobs_6.py
+NETWORK: astrasim_220_example/network_input_6.yml
+REWARD: both
+STEPS: 1024
+SYSTEM: astrasim_220_example/system_input_6.json
+WORKLOAD: astrasim_220_example/workload_cfg_6_gpt3_175b_QA.json
