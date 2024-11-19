@@ -1,0 +1,3 @@
+python launch_gcp.py --experiment=./11-17-2024-new_experiment-commands/experiment6a_gpt3_175b.yml > 11-17-2024-new_experiment-logs/exp6a_11-18.txt
+
+python launch_gcp.py --experiment=./11-17-2024-new_experiment-commands/experiment7a_gpt3_175b.yml > 11-17-2024-new_experiment-logs/exp7a_11-18.txt
