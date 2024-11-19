@@ -287,10 +287,7 @@ class AstraSimEnv(gym.Env):
             print(f"ENV - step {self.counter} {i}th workload: {new_workload_file}")
             print("ENV - PARSE ACTION_DICT before: ", action_dict['workload'])
             if self.generate_workload == "TRUE":
-                if self.counter == 0 and self.rl_form != 'ga' and self.rl_form != 'aco' and self.rl_form != 'bo':
-                    action_dict['workload'] = self.helpers.parse_workload_astrasim(cur_workload_file, action_dict, VERSION, {})
-                else:
-                    action_dict['workload'] = self.helpers.parse_workload_astrasim(cur_workload_file, action_dict, VERSION, self.workload_knobs)
+                action_dict['workload'] = self.helpers.parse_workload_astrasim(cur_workload_file, action_dict, VERSION, self.workload_knobs)
             else:
                 action_dict['workload'] = {"path": cur_workload_file}
             print("ENV - PARSE ACTION_DICT after: ", action_dict['workload'])
@@ -570,6 +567,17 @@ class AstraSimEnv(gym.Env):
                     return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
                     # return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
             
+            # TODO: Will's cost model new constraint, first topology cannot be switch else segfault
+            if action_dict["network"]["topology"][0].lower() == "switch":
+                print("ENV - SWITCH topology[0] constraint violated")
+                if self.rl_form == 'bo':
+                    reward = np.format_float_scientific(-1000000000000000.0)
+                else:
+                    reward = float("-inf")
+                observations = [float("inf")] * self.obs_len
+                observations = np.reshape(observations, self.observation_space.shape)
+                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+
             # TODO: this is where the workload is generated as et files
             if self.generate_workload == "TRUE":
                 print("GENERATING WORKLOAD...")
