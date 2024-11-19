@@ -203,6 +203,8 @@ class AstraSimEnv(gym.Env):
             for root, dirs, files in os.walk(workload_dir):
                 for file in files:
                     os.remove(os.path.join(root, file))
+        if not os.path.exists(workload_dir):
+            os.makedirs(workload_dir)
 
 
         # TODO: 
