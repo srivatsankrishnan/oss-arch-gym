@@ -1,18 +1,18 @@
 topology:
-- FullyConnected
-- FullyConnected
+- Ring
 - Switch
 - Ring
+- FullyConnected
 npus_count:
-- 4
 - 8
 - 4
 - 8
+- 4
 bandwidth:
-- 33.333333333333336
-- 14.285714285714286
+- 50
 - 100
 - 50
+- 33.333333333333336
 latency:
 - 700.0
 - 700.0

@@ -155,7 +155,7 @@ class AstraSimEnv(gym.Env):
         elif self.reward_formulation == "both":
             self.obs_len = 2
         elif self.reward_formulation == "runtime*cost":
-            self.obs_len = 1
+            self.obs_len = 2
 
 
         # TODO: define observation shape based on reward flag
@@ -452,7 +452,7 @@ class AstraSimEnv(gym.Env):
                         file.write(f'"{key}": {value},\n')
                     file.seek(file.tell() - 2, os.SEEK_SET)
                     file.write('\n')
-                    file.write('}') 
+                    file.write('}')
 
 
             operators = {"<=", ">=", "==", "<", ">"}
@@ -632,6 +632,7 @@ class AstraSimEnv(gym.Env):
             
             # call memory estimator . get total memory 
             max_peak_mem = MemoryEstimator.get_total_memory(work)
+            print("MAX_PEAK_MEM BEFORE MEMORY CAPACITY: ", max_peak_mem)
 
             # check with memory-capacity knob in system
             if "memory-capacity" in sys:
@@ -681,9 +682,9 @@ class AstraSimEnv(gym.Env):
             if self.rl_form == "sa1":
                 observations = [float(max_cycles), float(max_peak_mem)]
         elif self.reward_formulation == "runtime*cost":
-            observations = [np.format_float_scientific(max_peak_mem*network_cost)]
+            observations = [np.format_float_scientific(max_cycles*network_cost), np.format_float_scientific(max_peak_mem)]
             if self.rl_form == "sa1":
-                observations = [float(max_peak_mem*network_cost)]
+                observations = [float(max_cycles*network_cost), float(max_peak_mem)]
 
         observations = np.reshape(observations, self.observation_space.shape)
         reward = self.calculate_reward(observations)

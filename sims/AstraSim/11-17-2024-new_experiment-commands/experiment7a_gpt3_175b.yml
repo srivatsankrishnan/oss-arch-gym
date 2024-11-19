@@ -1,7 +1,0 @@
-ALGORITHM: rw
-KNOBS: astrasim_220_example/knobs_7.py
-NETWORK: astrasim_220_example/network_input_7.yml
-REWARD: both
-STEPS: 50000
-SYSTEM: astrasim_220_example/system_input_7.json
-WORKLOAD: astrasim_220_example/workload_cfg_7_gpt3_175b.json
