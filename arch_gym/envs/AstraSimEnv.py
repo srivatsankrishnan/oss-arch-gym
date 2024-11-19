@@ -155,7 +155,7 @@ class AstraSimEnv(gym.Env):
         elif self.reward_formulation == "both":
             self.obs_len = 2
         elif self.reward_formulation == "runtime*cost":
-            self.obs_len = 2
+            self.obs_len = 1
 
 
         # TODO: define observation shape based on reward flag
@@ -684,9 +684,9 @@ class AstraSimEnv(gym.Env):
             if self.rl_form == "sa1":
                 observations = [float(max_cycles), float(max_peak_mem)]
         elif self.reward_formulation == "runtime*cost":
-            observations = [np.format_float_scientific(max_cycles*network_cost), np.format_float_scientific(max_peak_mem)]
+            observations = [np.format_float_scientific(max_cycles*network_cost)]
             if self.rl_form == "sa1":
-                observations = [float(max_cycles*network_cost), float(max_peak_mem)]
+                observations = [float(max_cycles*network_cost)]
 
         observations = np.reshape(observations, self.observation_space.shape)
         reward = self.calculate_reward(observations)

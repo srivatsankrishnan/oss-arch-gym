@@ -1,25 +1,24 @@
-name: arch-gym-test-right-versions
+name: arch-gym
 channels:
   - conda-forge
   - pyviz
 dependencies:
   - python=3.9
-  - gym=0.26.1
+  - gym >= 0.17.2
   - numpy=1.22.4
-  - pandas=1.5.3
-  - seaborn=0.12.2
-  - requests=2.31.0
-  - tqdm=4.64.1
-  - keras=2.8.0
-  - psutil=5.9.5
-  - beautifulsoup4=4.12.2
-  - lxml=4.9.2
-  - pytz=2023.3
-  - pygraphviz=1.11
-  - nodejs=18.15.0
+  - pandas
+  - seaborn
+  - requests
+  - tqdm >= 4.37.0
+  - keras
+  - psutil
+  - beautifulsoup4
+  - lxml
+  - pytz
+  - pygraphviz
+  - nodejs
   - category_encoders
   - tensorboardX
   - pip
   - pip:
     - -r requirements.txt
-

@@ -34,19 +34,9 @@ RUN echo "conda activate arch-gym" >> ~/.bashrc
 SHELL ["/bin/bash", "--login", "-c"]
 
 RUN cd oss-arch-gym/acme && pip install .[orbax-checkpoint,orbax-export]
-# RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install envlogger[tfds] scons && apt-get update && apt-get -y install libgmp-dev && pip install scikit-optimize sympy plotly && conda install --channel conda-forge pygraphviz && conda install -c anaconda python-graphviz && conda install -c anaconda pydot
-# RUN cd oss-arch-gym/acme && pip install .[orbax-checkpoint==0.9.1,orbax-export==0.1.0]
-
-# Install 'jax', 'tf', 'testing', and 'envs' extras for 'acme' with specified versions
-RUN cd oss-arch-gym/acme && pip install '.[testing,envs]' \
-    && pip install 'jax==0.3.6' 'tensorflow==2.8.0' \
-    && pip install 'envlogger[tfds]==1.0.8' 'scons==4.5.2' \
-    && sudo apt-get update && sudo apt-get -y install libgmp-dev \
-    && pip install 'scikit-optimize==0.9.0' 'sympy==1.12' 'plotly==5.18.0' \
-    && conda install --channel conda-forge 'pygraphviz==1.11' \
-    && conda install -c anaconda 'python-graphviz==0.20.1' \
-    && conda install -c anaconda 'pydot==1.4.2'
-
+RUN cd oss-arch-gym/acme && pip install .[jax,tf,testing,envs] && pip install envlogger[tfds] scons && apt-get update && apt-get -y install libgmp-dev && pip install scikit-optimize sympy plotly && conda install --channel conda-forge pygraphviz
+RUN conda install -c anaconda python-graphviz
+RUN conda install -c anaconda pydot
 
 RUN chown -R 1000:root /workdir && chmod -R 775 /workdir
 WORKDIR /workdir/oss-arch-gym/sims/AstraSim
