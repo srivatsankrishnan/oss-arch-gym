@@ -1,7 +1,7 @@
 {
 "dp": 2,
-"pp": 2,
-"sp": 8,
+"pp": 1,
+"sp": 512,
 "weight_sharded": 1,
 "num_npus": 1024,
 "din": 12288,

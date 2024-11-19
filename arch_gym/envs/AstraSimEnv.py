@@ -154,6 +154,8 @@ class AstraSimEnv(gym.Env):
             self.obs_len = 1
         elif self.reward_formulation == "both":
             self.obs_len = 2
+        elif self.reward_formulation == "runtime*cost":
+            self.obs_len = 2
 
 
         # TODO: define observation shape based on reward flag
@@ -265,6 +267,7 @@ class AstraSimEnv(gym.Env):
 
         max_cycles_arr = []
         max_peak_mem_arr = []
+        network_cost_arr = []
 
         # stop if maximum steps reached
         if (self.counter == self.max_steps):
@@ -287,10 +290,7 @@ class AstraSimEnv(gym.Env):
             print(f"ENV - step {self.counter} {i}th workload: {new_workload_file}")
             print("ENV - PARSE ACTION_DICT before: ", action_dict['workload'])
             if self.generate_workload == "TRUE":
-                if self.counter == 0 and self.rl_form != 'ga' and self.rl_form != 'aco' and self.rl_form != 'bo':
-                    action_dict['workload'] = self.helpers.parse_workload_astrasim(cur_workload_file, action_dict, VERSION, {})
-                else:
-                    action_dict['workload'] = self.helpers.parse_workload_astrasim(cur_workload_file, action_dict, VERSION, self.workload_knobs)
+                action_dict['workload'] = self.helpers.parse_workload_astrasim(cur_workload_file, action_dict, VERSION, self.workload_knobs)
             else:
                 action_dict['workload'] = {"path": cur_workload_file}
             print("ENV - PARSE ACTION_DICT after: ", action_dict['workload'])
@@ -452,7 +452,7 @@ class AstraSimEnv(gym.Env):
                         file.write(f'"{key}": {value},\n')
                     file.seek(file.tell() - 2, os.SEEK_SET)
                     file.write('\n')
-                    file.write('}') 
+                    file.write('}')
 
 
             operators = {"<=", ">=", "==", "<", ">"}
@@ -570,6 +570,17 @@ class AstraSimEnv(gym.Env):
                     return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
                     # return [], reward, self.done, {"useful_counter": self.useful_counter}, self.state
             
+            # TODO: Will's cost model new constraint, first topology cannot be switch else segfault
+            if action_dict["network"]["topology"][0].lower() == "switch":
+                print("ENV - SWITCH topology[0] constraint violated")
+                if self.rl_form == 'bo':
+                    reward = np.format_float_scientific(-1000000000000000.0)
+                else:
+                    reward = float("-inf")
+                observations = [float("inf")] * self.obs_len
+                observations = np.reshape(observations, self.observation_space.shape)
+                return observations, reward, self.done, {"useful_counter": self.useful_counter}, self.state
+
             # TODO: this is where the workload is generated as et files
             if self.generate_workload == "TRUE":
                 print("GENERATING WORKLOAD...")
@@ -605,6 +616,7 @@ class AstraSimEnv(gym.Env):
 
             max_cycles = 0
             max_peak_mem = 0
+            network_cost = 0
             if VERSION == 2:
                 # parse to get the number of cycles
                 for line in outstream.splitlines():
@@ -614,9 +626,13 @@ class AstraSimEnv(gym.Env):
                         cycles = line[lb:rb].strip().replace(",", "")
                         cycles = int(cycles)
                         max_cycles = max(cycles, max_cycles)
+                    elif ("Network Cost:" in line):
+                        network_cost = line.split("Network Cost: ")[-1].strip()
+                        network_cost = float(network_cost)
             
             # call memory estimator . get total memory 
             max_peak_mem = MemoryEstimator.get_total_memory(work)
+            print("MAX_PEAK_MEM BEFORE MEMORY CAPACITY: ", max_peak_mem)
 
             # check with memory-capacity knob in system
             if "memory-capacity" in sys:
@@ -632,10 +648,13 @@ class AstraSimEnv(gym.Env):
 
             print("MAX_CYCLES: ", max_cycles)
             print("MAX_PEAK_MEM: ", max_peak_mem)
+            print("NETWORK_COST: ", network_cost)
             max_cycles_arr.append(max_cycles)
             max_peak_mem_arr.append(max_peak_mem)
+            network_cost_arr.append(network_cost)
             print("AVERAGE MAX_CYCLES ARRAY: ", max_cycles_arr)
             print("AVERAGE MAX_PEAK_MEM ARRAY: ", max_peak_mem_arr)
+            print("AVERAGE NETWORK_COST ARRAY: ", network_cost_arr)
             print("------------------------------------------------------------------")
         
         # These are average of the max_cycles across all workloads in the self.workload_files
@@ -662,6 +681,10 @@ class AstraSimEnv(gym.Env):
             observations = [np.format_float_scientific(max_cycles), np.format_float_scientific(max_peak_mem)]
             if self.rl_form == "sa1":
                 observations = [float(max_cycles), float(max_peak_mem)]
+        elif self.reward_formulation == "runtime*cost":
+            observations = [np.format_float_scientific(max_cycles*network_cost), np.format_float_scientific(max_peak_mem)]
+            if self.rl_form == "sa1":
+                observations = [float(max_cycles*network_cost), float(max_peak_mem)]
 
         observations = np.reshape(observations, self.observation_space.shape)
         reward = self.calculate_reward(observations)
