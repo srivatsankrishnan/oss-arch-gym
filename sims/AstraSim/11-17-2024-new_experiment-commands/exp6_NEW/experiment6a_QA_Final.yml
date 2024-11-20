@@ -7,4 +7,3 @@ SYSTEM: astrasim_220_example/system_input_6.json
 WORKLOAD:
 - astrasim_220_example/workload_cfg_6_gpt3_175b_QA_decoding.json
 - astrasim_220_example/workload_cfg_6_gpt3_175b_QA_prefilling.json
-
