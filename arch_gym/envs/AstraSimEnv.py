@@ -198,6 +198,7 @@ class AstraSimEnv(gym.Env):
 
         # TODO: delete workload files
         workload_dir = os.path.join(sim_path, "astrasim_220_example/workload-et")
+        workload_dir1 = os.path.join(sim_path, "astrasim_220_example/workload-et1")
         # if workload_dir exists, delete all files in it
         if os.path.exists(workload_dir):
             for root, dirs, files in os.walk(workload_dir):
@@ -205,6 +206,13 @@ class AstraSimEnv(gym.Env):
                     os.remove(os.path.join(root, file))
         if not os.path.exists(workload_dir):
             os.makedirs(workload_dir)
+
+        if os.path.exists(workload_dir1):
+            for root, dirs, files in os.walk(workload_dir1):
+                for file in files:
+                    os.remove(os.path.join(root, file))
+        if not os.path.exists(workload_dir1):
+            os.makedirs(workload_dir1)
 
 
         # TODO: 
@@ -283,9 +291,11 @@ class AstraSimEnv(gym.Env):
             new_workload_file = new_workload_path[-1]
             workload_cfg = new_workload_file
             workload_et = "workload-et/generated.%d.et"
+            print('CUR_WORKLOAD_FILE:', cur_workload_file)
+            if i == 1 and ("qa" in cur_workload_file.lower() or "chat" in cur_workload_file.lower()):
+                workload_et = "workload-et1/generated.%d.et"
             
             workload_command = []
-
 
             # TODO: parse the workload file from each workload json file
             # if not step 1, we need to skip over the variables that are in workload knobs
@@ -651,6 +661,15 @@ class AstraSimEnv(gym.Env):
             print("MAX_CYCLES: ", max_cycles)
             print("MAX_PEAK_MEM: ", max_peak_mem)
             print("NETWORK_COST: ", network_cost)
+            
+            # normalize QA AND CHAT WORKLOADS
+            # normalization: QA_latency = QA_prefilling+QA_decoding*200, 
+            # Chat_Latency = Chat_Prefilling+1000*Chat_Decoding
+            if "qa_decoding" in cur_workload_file.lower():
+                max_cycles = max_cycles*200
+            elif "chat_decoding" in cur_workload_file.lower():
+                max_cycles = max_cycles*1000
+
             max_cycles_arr.append(max_cycles)
             max_peak_mem_arr.append(max_peak_mem)
             network_cost_arr.append(network_cost)
@@ -659,9 +678,16 @@ class AstraSimEnv(gym.Env):
             print("AVERAGE NETWORK_COST ARRAY: ", network_cost_arr)
             print("------------------------------------------------------------------")
         
+        max_cycles = 0
+        max_peak_mem = 0
+        # if decoding and prefilling
+        if "decoding" or "prefilling" in self.workload_files[0]:
+            max_cycles = sum(max_cycles_arr)
+            max_peak_mem = max(max_peak_mem_arr)
         # These are average of the max_cycles across all workloads in the self.workload_files
-        max_cycles = round(sum(max_cycles_arr) / len(max_cycles_arr), 2)
-        max_peak_mem = round(sum(max_peak_mem_arr) / len(max_peak_mem_arr), 2)
+        else:
+            max_cycles = round(sum(max_cycles_arr) / len(max_cycles_arr), 2)
+            max_peak_mem = round(sum(max_peak_mem_arr) / len(max_peak_mem_arr), 2)
         print("AVERAGE MAX_CYCLES: ", max_cycles)
         print("AVERAGE MAX_PEAK_MEM: ", max_peak_mem)
         print("AVERAGE MAX_CYCLES ARRAY: ", max_cycles_arr)
