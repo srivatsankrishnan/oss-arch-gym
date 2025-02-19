@@ -1,5 +1,5 @@
 {
-    "num_npus": 1024,
+    "num_npus": 512,
     "dp": 64,
     "pp": 1,
     "sp": 4,
@@ -8,7 +8,7 @@
     "dout": 12288,
     "dff": 49152,
     "dmodel": 12288,
-    "batch": 2048,
+    "batch": 1024,
     "seq": 2048,
     "head": 96,
     "num_stacks": 4
