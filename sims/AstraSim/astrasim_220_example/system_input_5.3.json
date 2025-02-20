@@ -1,0 +1,16 @@
+{
+    "scheduling-policy": "FIFO",
+    "endpoint-delay": 10,
+    "active-chunks-per-dimension": 1,
+    "preferred-dataset-splits": 4,
+    "all-reduce-implementation": ["ring", "ring", "ring", "halvingDoubling"],
+    "all-gather-implementation": ["ring", "ring", "ring", "halvingDoubling"],
+    "reduce-scatter-implementation": ["ring", "ring", "ring", "halvingDoubling"],
+    "all-to-all-implementation": ["ring", "ring", "ring", "halvingDoubling"],
+    "collective-optimization": "localBWAware",
+    "boost-mode": 0,
+    "roofline-enabled": 1,
+    "peak-perf": 459,
+    "local-mem-bw": 2765,
+    "memory-capacity": 24000000000
+}
