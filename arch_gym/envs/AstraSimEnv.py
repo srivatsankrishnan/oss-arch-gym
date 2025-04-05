@@ -727,7 +727,7 @@ class AstraSimEnv(gym.Env):
             topology_links = {"Ring": 2, "FullyConnected": 7, "Switch": 1}
             for i in range(len(action_dict["network"]["bandwidth"])):
                 topo = action_dict["network"]["topology"][i]
-                total_bandwidth += topology_links[topo] * action_dict["network"]["bandwidth"]
+                total_bandwidth += topology_links[topo] * action_dict["network"]["bandwidth"][i]
             bandwidth_normalized = total_bandwidth / 2000
 
             print("RUNTIME*BW] NETWORK:", action_dict["network"])
