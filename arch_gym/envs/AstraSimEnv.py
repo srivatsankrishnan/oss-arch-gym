@@ -401,6 +401,13 @@ class AstraSimEnv(gym.Env):
                     nlinks = [2, 7, 2, 1]
                     for i in range(len(nlinks)):
                         action_dict["network"]["bandwidth"][i] /= nlinks[i]
+                
+                # 4/5/2025: exploring bandwidth
+                elif cur_knob == "network bandwidth divided":
+                    topology_links = {"Ring": 2, "FullyConnected": 7, "Switch": 1}
+                    for i in range(len(action_dict["network"]["bandwidth"])):
+                        topo = action_dict["network"]["topology"][i]
+                        action_dict["network"]["bandwidth"][i] /= topology_links[topo]
 
                     
             print("DERIVED action_dict: ", action_dict)
@@ -713,6 +720,21 @@ class AstraSimEnv(gym.Env):
             observations = [np.format_float_scientific(max_cycles*network_cost)]
             if self.rl_form == "sa1":
                 observations = [float(max_cycles*network_cost)]
+        elif self.reward_formulation == "runtime*bw":
+            # astra-sim only takes PER-LINK bandwidth, so we have to multiply by 
+            # topology link count in any context
+            total_bandwidth = 0
+            topology_links = {"Ring": 2, "FullyConnected": 7, "Switch": 1}
+            for i in range(len(action_dict["network"]["bandwidth"])):
+                topo = action_dict["network"]["topology"][i]
+                total_bandwidth += topology_links[topo] * action_dict["network"]["bandwidth"]
+            bandwidth_normalized = total_bandwidth / 2000
+
+            print("RUNTIME*BW] NETWORK:": action_dict["network"])
+            print("RUNTIME*BW] TOTAL_BANDWIDTH:", total_bandwidth)
+            print("BANDWIDTH NORMALIZED:", bandwidth_normalized)
+            
+            observations = [np.format_float_scientific(max_cycles*bandwidth_normalized)]
 
         observations = np.reshape(observations, self.observation_space.shape)
         reward = self.calculate_reward(observations)
