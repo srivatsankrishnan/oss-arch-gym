@@ -730,10 +730,10 @@ class AstraSimEnv(gym.Env):
                 total_bandwidth += topology_links[topo] * action_dict["network"]["bandwidth"]
             bandwidth_normalized = total_bandwidth / 2000
 
-            print("RUNTIME*BW] NETWORK:": action_dict["network"])
+            print("RUNTIME*BW] NETWORK:", action_dict["network"])
             print("RUNTIME*BW] TOTAL_BANDWIDTH:", total_bandwidth)
             print("BANDWIDTH NORMALIZED:", bandwidth_normalized)
-            
+
             observations = [np.format_float_scientific(max_cycles*bandwidth_normalized)]
 
         observations = np.reshape(observations, self.observation_space.shape)
