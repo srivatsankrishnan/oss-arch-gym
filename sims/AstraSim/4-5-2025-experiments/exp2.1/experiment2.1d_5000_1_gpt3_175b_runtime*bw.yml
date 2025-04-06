@@ -1,5 +1,5 @@
 ALGORITHM: bo
-KNOBS: astrasim_220_example/NEW_knobs_2.1.py
+KNOBS: astrasim_220_example/NEW_knobs_2.py
 NETWORK: astrasim_220_example/NEW_network_input_2.1.yml
 RAND_STATE_BO: 1
 REWARD: runtime*bw

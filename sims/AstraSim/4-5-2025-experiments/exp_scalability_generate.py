@@ -18,7 +18,7 @@ for workload in ["gpt3_175b", "llama7b", "vit_large"]:
                             "NUM_AGENTS": num_agents,
                             "PROB_MUT": prob,
                             "REWARD": reward_type,
-                            "KNOBS": f"astrasim_220_example/NEW_knobs_{exp_num}.py",
+                            "KNOBS": f"astrasim_220_example/NEW_knobs_{exp_num[0]}.py",
                             "NETWORK": f"astrasim_220_example/NEW_network_input_{exp_num}.yml",
                             "SYSTEM": f"astrasim_220_example/NEW_system_input_{exp_num}.json",
                             "WORKLOAD": f"astrasim_220_example/NEW_workload_cfg_{exp_num}_{workload}_{batch_size}.json"
@@ -47,7 +47,7 @@ for workload in ["gpt3_175b", "llama7b", "vit_large"]:
                         "STEPS": step,
                         "RAND_STATE_BO": rand,
                         "REWARD": reward_type,
-                        "KNOBS": f"astrasim_220_example/NEW_knobs_{exp_num}.py",
+                        "KNOBS": f"astrasim_220_example/NEW_knobs_{exp_num[0]}.py",
                         "NETWORK": f"astrasim_220_example/NEW_network_input_{exp_num}.yml",
                         "SYSTEM": f"astrasim_220_example/NEW_system_input_{exp_num}.json",
                         "WORKLOAD": f"astrasim_220_example/NEW_workload_cfg_{exp_num}_{workload}_{batch_size}.json"
