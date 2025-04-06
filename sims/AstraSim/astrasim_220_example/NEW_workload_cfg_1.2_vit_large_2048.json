@@ -1,0 +1,15 @@
+{
+    "num_npus": 2048, 
+    "dp": 8,
+    "pp": 8,
+    "sp": 8,
+    "weight_sharded": 1,
+    "din": 1024,
+    "dout": 1024,
+    "dff": 4096,
+    "dmodel": 1024,
+    "batch": 2048,
+    "seq": 256,
+    "head": 16,
+    "num_stacks": 4
+}
