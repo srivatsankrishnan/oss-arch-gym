@@ -1,0 +1,9 @@
+ALGORITHM: ga
+KNOBS: astrasim_220_example/NEW_knobs_4.2.py
+NETWORK: astrasim_220_example/NEW_network_input_4.2.yml
+NUM_AGENTS: 64
+PROB_MUT: 0.05
+REWARD: runtime*bw
+STEPS: 10000
+SYSTEM: astrasim_220_example/NEW_system_input_4.2.json
+WORKLOAD: astrasim_220_example/NEW_workload_cfg_4.2_llama7b_1024.json

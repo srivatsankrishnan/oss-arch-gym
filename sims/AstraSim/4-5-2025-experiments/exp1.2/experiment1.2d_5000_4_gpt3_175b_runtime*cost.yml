@@ -1,0 +1,8 @@
+ALGORITHM: bo
+KNOBS: astrasim_220_example/NEW_knobs_1.2.py
+NETWORK: astrasim_220_example/NEW_network_input_1.2.yml
+RAND_STATE_BO: 4
+REWARD: runtime*cost
+STEPS: 5000
+SYSTEM: astrasim_220_example/NEW_system_input_1.2.json
+WORKLOAD: astrasim_220_example/NEW_workload_cfg_1.2_gpt3_175b.json
