@@ -1,0 +1,9 @@
+# Analytical Network Input File
+
+topology: [ Ring, FullyConnected, Ring, Switch ]
+
+npus_count: [ 4, 8, 4, 8 ]  # number of NPUs
+
+bandwidth: [ 187.5, 25, 75, 100 ]  # GB/s
+
+latency: [ 20, 700, 700, 1700 ]  # ns
