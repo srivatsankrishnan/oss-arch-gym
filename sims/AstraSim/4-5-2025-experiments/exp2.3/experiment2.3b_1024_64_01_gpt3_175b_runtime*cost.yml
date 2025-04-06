@@ -1,5 +1,5 @@
 ALGORITHM: ga
-KNOBS: astrasim_220_example/NEW_knobs_2.3.py
+KNOBS: astrasim_220_example/NEW_knobs_2.py
 NETWORK: astrasim_220_example/NEW_network_input_2.3.yml
 NUM_AGENTS: 64
 PROB_MUT: 0.01
