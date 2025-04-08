@@ -26,7 +26,7 @@ for workload in ["gpt3_175b", "llama7b", "vit_large"]:
                         file_log = f"all_logs/experiment{exp_num}b_{step}_{num_agents}_{prob_str}_{workload}_{batch_size}_log"
                         file_name = f"exp{exp_num}_batchsize/experiment{exp_num}b_{step}_{num_agents}_{prob_str}_{workload}_{batch_size}.yml"
                         
-                        cmd += f" --experiment=./4-5-2025-experiments/{file_name}"
+                        cmd += f" --experiment=./experiments_files/{file_name}"
                         cmd += f" --summary_dir=./{file_log}"
                         cmd += f" --timeout=172800"
 
@@ -44,7 +44,7 @@ for workload in ["gpt3_175b", "llama7b", "vit_large"]:
                     file_log = f"all_logs/experiment{exp_num}d_{step}_{rand}_{workload}_{batch_size}_log"                 
                     file_name = f"exp{exp_num}_batchsize/experiment{exp_num}d_{step}_{rand}_{workload}_{batch_size}.yml"
                     
-                    cmd += f" --experiment=./4-5-2025-experiments/{file_name}"
+                    cmd += f" --experiment=./experiments_files/{file_name}"
                     cmd += f" --summary_dir=./{file_log}"
                     cmd += f" --timeout=172800"
 
