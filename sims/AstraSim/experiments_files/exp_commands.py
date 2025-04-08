@@ -1,8 +1,8 @@
 import yaml
 import csv
 
-# csv_file_path = "exp_commands.csv"
-csv_file_path = "exp_names.csv"
+csv_file_path = "exp_commands.csv"
+# csv_file_path = "exp_names.csv"
 command_list = []
 
 workload = "gpt3_175b"
@@ -25,11 +25,11 @@ for exp_num in ["1.1", "1.2", "1.3", "2.1", "2.2", "2.3", "3.1", "3.2", "3.3", "
                     file_log = f"all_logs/experiment{exp_num}b_{step}_{num_agents}_{prob_str}_{workload}_{reward_type[1]}_log"
                     file_name = f"exp{exp_num}/experiment{exp_num}b_{step}_{num_agents}_{prob_str}_{workload}_{reward_type[1]}.yml"
                     
-                    cmd += f" --experiment=./4-5-2025-experiments/{file_name}"
+                    cmd += f" --experiment=./experiments_files/{file_name}"
                     cmd += f" --summary_dir=./{file_log}"
                     cmd += f" --timeout=172800"
 
-                    cmd = f"experiment{exp_num}b_{step}_{num_agents}_{prob_str}_{workload}_{reward_type[1]},exp{exp_num}"
+                    # cmd = f"experiment{exp_num}b_{step}_{num_agents}_{prob_str}_{workload}_{reward_type[1]},exp{exp_num}"
 
                     command_list.append(cmd)
 
@@ -43,11 +43,11 @@ for exp_num in ["1.1", "1.2", "1.3", "2.1", "2.2", "2.3", "3.1", "3.2", "3.3", "
                 file_log = f"all_logs/experiment{exp_num}d_{step}_{rand}_{workload}_{reward_type[1]}_log"
                 file_name = f"exp{exp_num}/experiment{exp_num}d_{step}_{rand}_{workload}_{reward_type[1]}.yml"
                 
-                cmd += f" --experiment=./4-5-2025-experiments/{file_name}"
+                cmd += f" --experiment=./experiments_files/{file_name}"
                 cmd += f" --summary_dir=./{file_log}"
                 cmd += f" --timeout=172800"
 
-                cmd = f"experiment{exp_num}d_{step}_{rand}_{workload}_{reward_type[1]},exp{exp_num}"
+                # cmd = f"experiment{exp_num}d_{step}_{rand}_{workload}_{reward_type[1]},exp{exp_num}"
 
                 command_list.append(cmd)
 
