@@ -1,7 +1,7 @@
 {
     "num_npus": 2048, 
     "dp": 8,
-    "pp": 8,
+    "pp": 4,
     "sp": 8,
     "weight_sharded": 1,
     "din": 12288,

@@ -2,7 +2,7 @@ FROM continuumio/miniconda3
 RUN if ! id -u 1000; then useradd -m -u 1000 clouduser; fi
 RUN mkdir /workdir
 WORKDIR /workdir
-RUN echo "recloning arch-gym rep4fixedBO67589-1978954"
+RUN echo "recloning arch-gym rep4fixedBO67589-19789548"
 RUN git clone https://github.com/srivatsankrishnan/oss-arch-gym.git
 
 WORKDIR /workdir/oss-arch-gym
